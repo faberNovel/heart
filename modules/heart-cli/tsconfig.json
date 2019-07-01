@@ -1,16 +1,20 @@
 {
+  "$schema": "http://json.schemastore.org/tsconfig",
+
   "compilerOptions": {
-    "declaration": true,
-    "module": "commonjs",
     "outDir": "lib",
+
+    "declaration": true,
     "sourceMap": true,
+
+    "module": "commonjs",
     "target": "es6",
   },
   "include": [
-    "src/**/*.ts"
+    "**/*.ts"
   ],
   "exclude": [
     "node_modules",
-    ".history"
+    "lib"
   ]
 }
