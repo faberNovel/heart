@@ -1,15 +1,13 @@
 dependencies:
   '@rush-temp/heart-core': 'file:projects/heart-core.tgz'
+  '@rush-temp/heart-dareboost': 'file:projects/heart-dareboost.tgz'
   '@types/app-root-path': 1.2.4
   '@types/dotenv': 6.1.1
-  '@types/node': 11.13.15
   '@types/node-fetch': 2.3.7
   app-root-path: 2.2.1
   dotenv: 7.0.0
   node-fetch: 2.6.0
   sort-package-json: 1.22.1
-  tslint: 5.18.0
-  typescript: 3.5.2
 packages:
   /@babel/code-frame/7.0.0:
     dependencies:
@@ -41,6 +39,10 @@ packages:
     dev: false
     resolution:
       integrity: sha512-+bKtuxhj/TYSSP1r4CZhfmyA0vm/aDRQNo7vbAgf6/cZajn0SAniGGST07yvI4Q+q169WTa2/x9gEHfJrkcALw==
+  /@types/node/10.14.10:
+    dev: false
+    resolution:
+      integrity: sha512-V8wj+w2YMNvGuhgl/MA5fmTxgjmVHVoasfIaxMMZJV6Y8Kk+Ydpi1z2whoShDCJ2BuNVoqH/h1hrygnBxkrw/Q==
   /@types/node/11.13.15:
     dev: false
     resolution:
@@ -356,7 +358,7 @@ packages:
       dotenv: 7.0.0
       node-fetch: 2.6.0
       sort-package-json: 1.22.1
-      tslint: /tslint/5.18.0/typescript@3.5.2
+      tslint: 5.18.0
       typescript: 3.5.2
     dev: false
     name: '@rush-temp/heart-core'
@@ -364,18 +366,28 @@ packages:
       integrity: sha512-0XdZc2ugt/on6qRFkcVnyLzgrwGdVc2PQ5AOQIw9Y4OrqrTdEuYHCBYQgu8cW8wBKbQR7/HO0oimciSluoPRDw==
       tarball: 'file:projects/heart-core.tgz'
     version: 0.0.0
+  'file:projects/heart-dareboost.tgz':
+    dependencies:
+      '@types/node': 10.14.10
+      sort-package-json: 1.22.1
+      tslint: /tslint/5.18.0/typescript@3.5.2
+      typescript: 3.5.2
+    dev: false
+    name: '@rush-temp/heart-dareboost'
+    resolution:
+      integrity: sha512-KjaJlD99+mrkcidR/plibkcupTyrdbG+swNKMbzBSIPDDT/hlDhP3um7uCWMdEKCyx8Fv1x3uAHngifD26zQ3A==
+      tarball: 'file:projects/heart-dareboost.tgz'
+    version: 0.0.0
 registry: 'https://registry.npmjs.org/'
 shrinkwrapMinorVersion: 9
 shrinkwrapVersion: 3
 specifiers:
   '@rush-temp/heart-core': 'file:./projects/heart-core.tgz'
+  '@rush-temp/heart-dareboost': 'file:./projects/heart-dareboost.tgz'
   '@types/app-root-path': ^1.2.4
   '@types/dotenv': ^6.1.1
-  '@types/node': ^11.10.5
   '@types/node-fetch': ^2.3.2
   app-root-path: ^2.2.1
   dotenv: ^7.0.0
   node-fetch: ^2.3.0
   sort-package-json: ^1.22.1
-  tslint: ^5.16.0
-  typescript: ^3.4.3

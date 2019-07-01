@@ -347,6 +347,10 @@
     {
       "packageName": "@fabernovel/heart-core",
       "projectFolder": "library/heart-core"
+    },
+    {
+      "packageName": "@fabernovel/heart-dareboost",
+      "projectFolder": "modules/heart-dareboost"
     }
   ]
 }
