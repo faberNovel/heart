@@ -365,6 +365,10 @@
       "projectFolder": "modules/heart-dareboost"
     },
     {
+      "packageName": "@fabernovel/heart-lighthouse",
+      "projectFolder": "modules/heart-lighthouse"
+    },
+    {
       "packageName": "@fabernovel/heart-observatory",
       "projectFolder": "modules/heart-observatory"
     },
