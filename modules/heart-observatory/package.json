@@ -1,0 +1,50 @@
+{
+  "name": "@fabernovel/heart-observatory",
+  "version": "1.2.0",
+  "description": "Analyze an url using the Mozilla Observatory service",
+  "homepage": "https://gitlab.com/fabernovel/heart/heart-observatory",
+  "bugs": {
+    "url": "https://gitlab.com/fabernovel/heart/heart-observatory/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://gitlab.com/fabernovel/heart/heart-observatory.git"
+  },
+  "license": "MIT",
+  "contributors": [
+    "Bastien Gatellier <bastien.gatellier@fabernovel.com>"
+  ],
+  "files": [
+    "lib/**/*",
+    ".env.sample"
+  ],
+  "main": "lib/index.js",
+  "types": "lib/index.d.ts",
+  "directories": {
+    "lib": "lib"
+  },
+  "scripts": {
+    "build": "tsc",
+    "dev": "tsc -w",
+    "format": "sort-package-json",
+    "lint": "tslint -c tslint.json -p tsconfig.json",
+    "prepare": "npm run build",
+    "prepublishOnly": "npm run lint",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "preversion": "npm run lint",
+    "version": "npm run format && git add -A src",
+    "postversion": "git push && git push --tags"
+  },
+  "dependencies": {
+    "@fabernovel/heart-core": "^1.5.0"
+  },
+  "devDependencies": {
+    "@types/node": "^10.14.4",
+    "sort-package-json": "^1.22.1",
+    "tslint": "^5.17.0",
+    "typescript": "^3.5.2"
+  },
+  "engines": {
+    "node": ">=8.0.0"
+  }
+}

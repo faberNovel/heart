@@ -355,6 +355,10 @@
     {
       "packageName": "@fabernovel/heart-dareboost",
       "projectFolder": "modules/heart-dareboost"
+    },
+    {
+      "packageName": "@fabernovel/heart-observatory",
+      "projectFolder": "modules/heart-observatory"
     }
   ]
 }

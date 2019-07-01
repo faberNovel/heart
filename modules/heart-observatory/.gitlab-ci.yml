@@ -1,0 +1,22 @@
+image: node:8-alpine
+
+before_script:
+  - echo 'unsafe-perm = true' >> ~/.npmrc
+  - npm install
+
+cache:
+  paths:
+    - node_modules/
+
+Lint:
+  stage: build
+  script:
+    - npm run lint
+
+Publish to NPM:
+  stage: deploy
+  only:
+    - tags
+  script:
+    - echo '//registry.npmjs.org/:_authToken=${NPM_TOKEN}' >> ~/.npmrc
+    - npm publish --access public
