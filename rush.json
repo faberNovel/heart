@@ -359,6 +359,10 @@
     {
       "packageName": "@fabernovel/heart-observatory",
       "projectFolder": "modules/heart-observatory"
+    },
+    {
+      "packageName": "@fabernovel/heart-ssllabs-server",
+      "projectFolder": "modules/heart-ssllabs-server"
     }
   ]
 }

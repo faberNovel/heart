@@ -3,6 +3,7 @@ dependencies:
   '@rush-temp/heart-core': 'file:projects/heart-core.tgz'
   '@rush-temp/heart-dareboost': 'file:projects/heart-dareboost.tgz'
   '@rush-temp/heart-observatory': 'file:projects/heart-observatory.tgz'
+  '@rush-temp/heart-ssllabs-server': 'file:projects/heart-ssllabs-server.tgz'
   '@types/app-root-path': 1.2.4
   '@types/dotenv': 6.1.1
   '@types/node-fetch': 2.3.7
@@ -385,13 +386,25 @@ packages:
     dependencies:
       '@types/node': 10.14.10
       sort-package-json: 1.22.1
-      tslint: /tslint/5.18.0/typescript@3.5.2
+      tslint: 5.18.0
       typescript: 3.5.2
     dev: false
     name: '@rush-temp/heart-observatory'
     resolution:
       integrity: sha512-jKizcq6HIHS9Nol+a2V2AUwB82xBX+xekJWdfOYckNmpaQgfT+7a6ZKTG/xiWzvrUFeIsi9SFADheu+xgUDqYQ==
       tarball: 'file:projects/heart-observatory.tgz'
+    version: 0.0.0
+  'file:projects/heart-ssllabs-server.tgz':
+    dependencies:
+      '@types/node': 10.14.10
+      sort-package-json: 1.22.1
+      tslint: /tslint/5.18.0/typescript@3.5.2
+      typescript: 3.5.2
+    dev: false
+    name: '@rush-temp/heart-ssllabs-server'
+    resolution:
+      integrity: sha512-yp3T4dOMJf6VRieVTof84+Ho3+y69N7Hi7QLC9fkwmN3Eu/TzHkO4DGMh2xPzrZ/bW+Fd6lY6BAuOVmKyaDqpw==
+      tarball: 'file:projects/heart-ssllabs-server.tgz'
     version: 0.0.0
 registry: 'https://registry.npmjs.org/'
 shrinkwrapMinorVersion: 9
@@ -401,6 +414,7 @@ specifiers:
   '@rush-temp/heart-core': 'file:./projects/heart-core.tgz'
   '@rush-temp/heart-dareboost': 'file:./projects/heart-dareboost.tgz'
   '@rush-temp/heart-observatory': 'file:./projects/heart-observatory.tgz'
+  '@rush-temp/heart-ssllabs-server': 'file:./projects/heart-ssllabs-server.tgz'
   '@types/app-root-path': ^1.2.4
   '@types/dotenv': ^6.1.1
   '@types/node-fetch': ^2.3.2
