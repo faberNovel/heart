@@ -345,6 +345,10 @@
     //   "reviewCategory": "tools"
     // }
     {
+      "packageName": "@fabernovel/heart-api",
+      "projectFolder": "modules/heart-api"
+    },
+    {
       "packageName": "@fabernovel/heart-cli",
       "projectFolder": "modules/heart-cli"
     },
