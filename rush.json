@@ -369,6 +369,10 @@
       "projectFolder": "modules/heart-observatory"
     },
     {
+      "packageName": "@fabernovel/heart-slack",
+      "projectFolder": "modules/heart-slack"
+    },
+    {
       "packageName": "@fabernovel/heart-ssllabs-server",
       "projectFolder": "modules/heart-ssllabs-server"
     }
