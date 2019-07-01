@@ -1,0 +1,51 @@
+{
+  "name": "@fabernovel/heart-bigquery",
+  "version": "2.0.0",
+  "description": "Save webpage analysis using the Google Big Query service.",
+  "homepage": "https://gitlab.com/fabernovel/heart/heart-bigquery",
+  "bugs": {
+    "url": "https://gitlab.com/fabernovel/heart/heart-bigquery/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://gitlab.com/fabernovel/heart/heart-bigquery.git"
+  },
+  "license": "MIT",
+  "contributors": [
+    "Bastien Gatellier <bastien.gatellier@fabernovel.com>"
+  ],
+  "files": [
+    "lib/**/*",
+    ".env.sample"
+  ],
+  "main": "lib/index.js",
+  "types": "lib/index.d.ts",
+  "directories": {
+    "lib": "lib"
+  },
+  "scripts": {
+    "build": "tsc",
+    "format": "sort-package-json",
+    "lint": "tslint -c tslint.json -p tsconfig.json",
+    "prepare": "npm run build",
+    "prepublishOnly": "npm run lint",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "preversion": "npm run lint",
+    "version": "npm run format && git add -A src",
+    "postversion": "git push && git push --follow-tags"
+  },
+  "dependencies": {
+    "@fabernovel/heart-core": "^1.4.0",
+    "@google-cloud/bigquery": "^4.1.1"
+  },
+  "devDependencies": {
+    "@types/node": "^12.0.4",
+    "sort-package-json": "^1.22.1",
+    "tslint": "^5.17.0",
+    "typescript": "^3.5.1"
+  },
+  "engines": {
+    "node": ">=8.0.0",
+    "npm": ">=5.2.0"
+  }
+}

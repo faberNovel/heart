@@ -349,6 +349,10 @@
       "projectFolder": "modules/heart-api"
     },
     {
+      "packageName": "@fabernovel/heart-bigquery",
+      "projectFolder": "modules/heart-bigquery"
+    },
+    {
       "packageName": "@fabernovel/heart-cli",
       "projectFolder": "modules/heart-cli"
     },
