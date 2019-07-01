@@ -1,0 +1,55 @@
+{
+  "name": "@fabernovel/heart-cli",
+  "version": "1.2.0",
+  "description": "CLI part of the Heart ecosystem",
+  "homepage": "https://gitlab.com/fabernovel/heart/heart-cli",
+  "bugs": {
+    "url": "https://gitlab.com/fabernovel/heart/heart-cli/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://gitlab.com/fabernovel/heart/heart-cli.git"
+  },
+  "license": "MIT",
+  "contributors": [
+    "Bastien Gatellier <bastien.gatellier@fabernovel.com>"
+  ],
+  "files": [
+    "lib/**/*"
+  ],
+  "main": "lib/index.js",
+  "types": "lib/index.d.ts",
+  "bin": {
+    "heart": "lib/index.js"
+  },
+  "directories": {
+    "lib": "lib"
+  },
+  "scripts": {
+    "build": "tsc",
+    "format": "sort-package-json",
+    "lint": "tslint -c tslint.json -p tsconfig.json",
+    "prepare": "npm run build",
+    "prepublishOnly": "npm run lint",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "preversion": "npm run lint",
+    "version": "npm run format && git add -A src",
+    "postversion": "git push && git push --follow-tags"
+  },
+  "dependencies": {
+    "@fabernovel/heart-core": "^1.3.3",
+    "app-root-path": "^2.1.0",
+    "commander": "^2.20.0"
+  },
+  "devDependencies": {
+    "@types/app-root-path": "^1.2.4",
+    "@types/node": "^11.9.4",
+    "sort-package-json": "^1.22.1",
+    "tslint": "^5.16.0",
+    "typescript": "^3.4.4"
+  },
+  "engines": {
+    "node": ">=8.0.0",
+    "npm": ">=5.2.0"
+  }
+}

@@ -1,10 +1,11 @@
 dependencies:
+  '@rush-temp/heart-cli': 'file:projects/heart-cli.tgz'
   '@rush-temp/heart-core': 'file:projects/heart-core.tgz'
   '@rush-temp/heart-dareboost': 'file:projects/heart-dareboost.tgz'
   '@types/app-root-path': 1.2.4
   '@types/dotenv': 6.1.1
   '@types/node-fetch': 2.3.7
-  app-root-path: 2.2.1
+  commander: 2.20.0
   dotenv: 7.0.0
   node-fetch: 2.6.0
   sort-package-json: 1.22.1
@@ -271,29 +272,6 @@ packages:
     dev: false
     resolution:
       integrity: sha512-qOebF53frne81cf0S9B41ByenJ3/IuH8yJKngAX35CmiZySA0khhkovshKK+jGCaMnVomla7gVlIcc3EvKPbTQ==
-  /tslint/5.18.0:
-    dependencies:
-      '@babel/code-frame': 7.0.0
-      builtin-modules: 1.1.1
-      chalk: 2.4.2
-      commander: 2.20.0
-      diff: 3.5.0
-      glob: 7.1.4
-      js-yaml: 3.13.1
-      minimatch: 3.0.4
-      mkdirp: 0.5.1
-      resolve: 1.11.1
-      semver: 5.7.0
-      tslib: 1.10.0
-      tsutils: 2.29.0
-    dev: false
-    engines:
-      node: '>=4.8.0'
-    hasBin: true
-    peerDependencies:
-      typescript: '>=2.3.0-dev || >=2.4.0-dev || >=2.5.0-dev || >=2.6.0-dev || >=2.7.0-dev || >=2.8.0-dev || >=2.9.0-dev || >=3.0.0-dev || >= 3.1.0-dev || >= 3.2.0-dev'
-    resolution:
-      integrity: sha512-Q3kXkuDEijQ37nXZZLKErssQVnwCV/+23gFEMROi8IlbaBG6tXqLPQJ5Wjcyt/yHPKBC+hD5SzuGaMora+ZS6w==
   /tslint/5.18.0/typescript@3.5.2:
     dependencies:
       '@babel/code-frame': 7.0.0
@@ -319,14 +297,6 @@ packages:
       typescript: '>=2.3.0-dev || >=2.4.0-dev || >=2.5.0-dev || >=2.6.0-dev || >=2.7.0-dev || >=2.8.0-dev || >=2.9.0-dev || >=3.0.0-dev || >= 3.1.0-dev || >= 3.2.0-dev'
     resolution:
       integrity: sha512-Q3kXkuDEijQ37nXZZLKErssQVnwCV/+23gFEMROi8IlbaBG6tXqLPQJ5Wjcyt/yHPKBC+hD5SzuGaMora+ZS6w==
-  /tsutils/2.29.0:
-    dependencies:
-      tslib: 1.10.0
-    dev: false
-    peerDependencies:
-      typescript: '>=2.1.0 || >=2.1.0-dev || >=2.2.0-dev || >=2.3.0-dev || >=2.4.0-dev || >=2.5.0-dev || >=2.6.0-dev || >=2.7.0-dev || >=2.8.0-dev || >=2.9.0-dev || >= 3.0.0-dev || >= 3.1.0-dev'
-    resolution:
-      integrity: sha512-g5JVHCIJwzfISaXpXE1qvNalca5Jwob6FjI4AoPlqMusJ6ftFE7IkkFoMhVLRgK+4Kx3gkzb8UZK5t5yTTvEmA==
   /tsutils/2.29.0/typescript@3.5.2:
     dependencies:
       tslib: 1.10.0
@@ -348,6 +318,21 @@ packages:
     dev: false
     resolution:
       integrity: sha1-tSQ9jz7BqjXxNkYFvA0QNuMKtp8=
+  'file:projects/heart-cli.tgz':
+    dependencies:
+      '@types/app-root-path': 1.2.4
+      '@types/node': 11.13.15
+      app-root-path: 2.2.1
+      commander: 2.20.0
+      sort-package-json: 1.22.1
+      tslint: /tslint/5.18.0/typescript@3.5.2
+      typescript: 3.5.2
+    dev: false
+    name: '@rush-temp/heart-cli'
+    resolution:
+      integrity: sha512-U/ksuFefSep6bQ/XoLfB1G0ar9b9rM6DVBvtn9CIhp2fkfnfYFsUNCgsmRC5QkN3Vxnl0z66hlW9zXFwXm/fLA==
+      tarball: 'file:projects/heart-cli.tgz'
+    version: 0.0.0
   'file:projects/heart-core.tgz':
     dependencies:
       '@types/app-root-path': 1.2.4
@@ -358,7 +343,7 @@ packages:
       dotenv: 7.0.0
       node-fetch: 2.6.0
       sort-package-json: 1.22.1
-      tslint: 5.18.0
+      tslint: /tslint/5.18.0/typescript@3.5.2
       typescript: 3.5.2
     dev: false
     name: '@rush-temp/heart-core'
@@ -382,12 +367,13 @@ registry: 'https://registry.npmjs.org/'
 shrinkwrapMinorVersion: 9
 shrinkwrapVersion: 3
 specifiers:
+  '@rush-temp/heart-cli': 'file:./projects/heart-cli.tgz'
   '@rush-temp/heart-core': 'file:./projects/heart-core.tgz'
   '@rush-temp/heart-dareboost': 'file:./projects/heart-dareboost.tgz'
   '@types/app-root-path': ^1.2.4
   '@types/dotenv': ^6.1.1
   '@types/node-fetch': ^2.3.2
-  app-root-path: ^2.2.1
+  commander: ^2.20.0
   dotenv: ^7.0.0
   node-fetch: ^2.3.0
   sort-package-json: ^1.22.1
