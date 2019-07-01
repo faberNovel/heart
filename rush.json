@@ -344,5 +344,9 @@
     //   "projectFolder": "tools/my-toolchain",
     //   "reviewCategory": "tools"
     // }
+    {
+      "packageName": "@fabernovel/heart-core",
+      "projectFolder": "library/heart-core"
+    }
   ]
 }
