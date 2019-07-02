@@ -5,7 +5,7 @@ import * as program from 'commander';
 
 import App from './App';
 
-const moduleLoader = new ModuleLoader(false);
+const moduleLoader = new ModuleLoader(true);
 
 moduleLoader.load()
   .then((modules: any[]) => {

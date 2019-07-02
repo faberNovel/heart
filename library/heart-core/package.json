@@ -37,12 +37,10 @@
     "node": ">=10.13.0"
   },
   "dependencies": {
-    "app-root-path": "^2.2.1",
     "dotenv": "^7.0.0",
     "node-fetch": "^2.3.0"
   },
   "devDependencies": {
-    "@types/app-root-path": "^1.2.4",
     "@types/dotenv": "^6.1.1",
     "@types/node": "^10.14.10",
     "@types/node-fetch": "^2.3.2",

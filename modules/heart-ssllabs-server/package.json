@@ -39,7 +39,6 @@
     "node": ">=10.13.0"
   },
   "dependencies": {
-    "@fabernovel/heart-cli": "^1.2.0",
     "@fabernovel/heart-core": "^1.5.0"
   },
   "devDependencies": {
