@@ -4,7 +4,7 @@ _Heart CLI_ is a _runner_ module of _Heart_, which starts an analysis by using a
 
 Note that you must have installed an _analysis_ module too.
 
-Read more about the purpose, design and general installation of _Heart_ on [the dedicated wiki](https://gitlab.com/fabernovel/heart/heart-dev/wikis/What-is-Heart).
+Read more about the purpose, design and general installation of _Heart_ on [the dedicated wiki](https://gitlab.com/fabernovel/heart/wikis/What-is-Heart).
 
 # Installation
 

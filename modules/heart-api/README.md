@@ -4,7 +4,7 @@ _Heart API_ is a _runner_ module of _Heart_, which exposes an API that starts an
 
 Note that you must have installed an _analysis_ module too.
 
-Read more about the purpose, design and general installation of _Heart_ on [the dedicated wiki](https://gitlab.com/fabernovel/heart/heart-dev/wikis/What-is-Heart).
+Read more about the purpose, design and general installation of _Heart_ on [the dedicated wiki](https://gitlab.com/fabernovel/heart/wikis/What-is-Heart).
 
 # Installation
 

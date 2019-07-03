@@ -4,7 +4,7 @@ _Heart BigQuery_ is a _storage_ module of _Heart_, which stores the results of t
 
 Note that you must have installed a _runner_ module and an _analysis_ one too.
 
-Read more about the purpose, design and general installation of _Heart_ on [the dedicated wiki](https://gitlab.com/fabernovel/heart/heart-dev/wikis/What-is-Heart).
+Read more about the purpose, design and general installation of _Heart_ on [the dedicated wiki](https://gitlab.com/fabernovel/heart/wikis/What-is-Heart).
 
 # Installation
 
