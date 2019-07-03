@@ -1,14 +1,14 @@
 {
   "name": "@fabernovel/heart-ssllabs-server",
   "version": "1.0.1",
-  "description": "Analyze an url using the Qualys SSL Labs service",
-  "homepage": "https://gitlab.com/fabernovel/heart/heart-ssllabs-server",
+  "description": "Analysis module of Heart, which analyses URLs by using the Qualys SSL Labs server service",
+  "homepage": "https://gitlab.com/fabernovel/heart",
   "bugs": {
-    "url": "https://gitlab.com/fabernovel/heart/heart-ssllabs-server/issues"
+    "url": "https://gitlab.com/fabernovel/heart/issues"
   },
   "repository": {
     "type": "git",
-    "url": "https://gitlab.com/fabernovel/heart/heart-ssllabs-server.git"
+    "url": "https://gitlab.com/fabernovel/heart.git"
   },
   "license": "MIT",
   "contributors": [

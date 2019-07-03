@@ -1,14 +1,14 @@
 {
   "name": "@fabernovel/heart-lighthouse",
   "version": "1.0.0-alpha.1",
-  "description": "Analyze an url using the Google Lighthouse service",
-  "homepage": "https://gitlab.com/fabernovel/heart/heart-lighthouse",
+  "description": "Analysis module of Heart, which analyses URLs by using the Google Lighthouse service",
+  "homepage": "https://gitlab.com/fabernovel/heart",
   "bugs": {
-    "url": "https://gitlab.com/fabernovel/heart/heart-lighthouse/issues"
+    "url": "https://gitlab.com/fabernovel/heart/issues"
   },
   "repository": {
     "type": "git",
-    "url": "https://gitlab.com/fabernovel/heart/heart-lighthouse.git"
+    "url": "https://gitlab.com/fabernovel/heart.git"
   },
   "license": "MIT",
   "contributors": [
