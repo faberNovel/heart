@@ -4,7 +4,7 @@ _Heart SSL Labs Server_ is an _analysis_ module of _Heart_, which analyses URLs 
 
 Note that you must have installed a _runner_ module too.
 
-Read more about the purpose, design and general installation of _Heart_ on [the dedicated wiki](https://gitlab.com/fabernovel/heart/heart-dev/wikis/What-is-Heart).
+Read more about the purpose, design and general installation of _Heart_ on [the dedicated wiki](https://gitlab.com/fabernovel/heart/wikis/What-is-Heart).
 
 # Installation
 
