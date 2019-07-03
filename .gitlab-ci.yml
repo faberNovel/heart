@@ -4,9 +4,9 @@ before_script:
   #- echo 'unsafe-perm = true' >> ~/.npmrc
   - node common/scripts/install-run-rush.js install
 
-# cache:
-#   paths:
-#     - node_modules/
+cache:
+  paths:
+    - common/temp/node_modules/
 
 Lint:
   stage: build
