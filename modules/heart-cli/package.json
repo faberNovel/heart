@@ -1,14 +1,14 @@
 {
   "name": "@fabernovel/heart-cli",
   "version": "1.2.0",
-  "description": "CLI part of the Heart ecosystem",
-  "homepage": "https://gitlab.com/fabernovel/heart/heart-cli",
+  "description": "Runner module of Heart, which starts an analysis by using a CLI",
+  "homepage": "https://gitlab.com/fabernovel/heart",
   "bugs": {
-    "url": "https://gitlab.com/fabernovel/heart/heart-cli/issues"
+    "url": "https://gitlab.com/fabernovel/heart/issues"
   },
   "repository": {
     "type": "git",
-    "url": "https://gitlab.com/fabernovel/heart/heart-cli.git"
+    "url": "https://gitlab.com/fabernovel/heart.git"
   },
   "license": "MIT",
   "contributors": [

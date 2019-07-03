@@ -1,14 +1,14 @@
 {
   "name": "@fabernovel/heart-dareboost",
   "version": "1.1.1",
-  "description": "Analyze an url using the Dareboost service",
-  "homepage": "https://gitlab.com/fabernovel/heart/heart-dareboost",
+  "description": "Analysis module of Heart, which analyses URLs by using the Dareboost service",
+  "homepage": "https://gitlab.com/fabernovel/heart",
   "bugs": {
-    "url": "https://gitlab.com/fabernovel/heart/heart-dareboost/issues"
+    "url": "https://gitlab.com/fabernovel/heart/issues"
   },
   "repository": {
     "type": "git",
-    "url": "https://gitlab.com/fabernovel/heart/heart-dareboost.git"
+    "url": "https://gitlab.com/fabernovel/heart.git"
   },
   "license": "MIT",
   "contributors": [

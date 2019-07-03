@@ -1,14 +1,14 @@
 {
   "name": "@fabernovel/heart-observatory",
   "version": "1.2.0",
-  "description": "Analyze an url using the Mozilla Observatory service",
-  "homepage": "https://gitlab.com/fabernovel/heart/heart-observatory",
+  "description": "Analysis module of Heart, which analyses URLs by using the Mozilla Observatory service",
+  "homepage": "https://gitlab.com/fabernovel/heart",
   "bugs": {
-    "url": "https://gitlab.com/fabernovel/heart/heart-observatory/issues"
+    "url": "https://gitlab.com/fabernovel/heart/issues"
   },
   "repository": {
     "type": "git",
-    "url": "https://gitlab.com/fabernovel/heart/heart-observatory.git"
+    "url": "https://gitlab.com/fabernovel/heart.git"
   },
   "license": "MIT",
   "contributors": [

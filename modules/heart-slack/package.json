@@ -1,14 +1,14 @@
 {
   "name": "@fabernovel/heart-slack",
   "version": "1.0.4",
-  "description": "Displays website analysis reports to your favorite Slack channel",
-  "homepage": "https://gitlab.com/fabernovel/heart/heart-slack",
+  "description": "Notification module of Heart, which sends the results of an analysis to a Slack channel",
+  "homepage": "https://gitlab.com/fabernovel/heart",
   "bugs": {
-    "url": "https://gitlab.com/fabernovel/heart/heart-slack/issues"
+    "url": "https://gitlab.com/fabernovel/heart/issues"
   },
   "repository": {
     "type": "git",
-    "url": "https://gitlab.com/fabernovel/heart/heart-slack.git"
+    "url": "https://gitlab.com/fabernovel/heart.git"
   },
   "license": "MIT",
   "contributors": [
