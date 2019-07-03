@@ -1,12 +1,12 @@
-image: node:8-alpine
+image: node:10-alpine
 
 before_script:
   #- echo 'unsafe-perm = true' >> ~/.npmrc
   - node common/scripts/install-run-rush.js install
 
-cache:
-  paths:
-    - node_modules/
+# cache:
+#   paths:
+#     - node_modules/
 
 Lint:
   stage: build

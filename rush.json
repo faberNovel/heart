@@ -46,7 +46,7 @@
      * The default value is false to avoid legacy compatibility issues.
      * It is strongly recommended to set strictPeerDependencies=true.
      */
-    // "strictPeerDependencies": true,
+    "strictPeerDependencies": true,
 
 
     /**
@@ -107,8 +107,8 @@
    * To remove these restrictions, you could set projectFolderMinDepth=1
    * and set projectFolderMaxDepth to a large number.
    */
-  // "projectFolderMinDepth": 2,
-  // "projectFolderMaxDepth": 2,
+  "projectFolderMinDepth": 2,
+  "projectFolderMaxDepth": 2,
 
   /**
    * This feature helps you to review and approve new packages before they are introduced
@@ -200,7 +200,7 @@
      * your PR branch, and in this situation "rush change" will also automatically invoke "git fetch"
      * to retrieve the latest activity for the remote master branch.
      */
-    // "url": "https://github.com/Microsoft/rush-example"
+    "url": "https://gitlab.com/fabernovel/heart-monorepo/"
   },
 
   /**
