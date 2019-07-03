@@ -1,0 +1,22 @@
+image: node:8-alpine
+
+before_script:
+  #- echo 'unsafe-perm = true' >> ~/.npmrc
+  - node common/scripts/install-run-rush.js install
+
+cache:
+  paths:
+    - node_modules/
+
+Lint:
+  stage: build
+  script:
+    - node common/scripts/install-run-rush.js lint
+
+# Publish to NPM:
+#   stage: deploy
+#   only:
+#     - tags
+#   script:
+#     - echo '//registry.npmjs.org/:_authToken=${NPM_TOKEN}' >> ~/.npmrc
+#     - npm publish --access public
