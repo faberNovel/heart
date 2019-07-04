@@ -11,7 +11,7 @@ import {
   Report,
   StorageInterface
 } from '@fabernovel/heart-core';
-import { EventEmitter } from 'events';
+import * as EventEmitter from 'events';
 
 export default class App {
   private eventEmitter: EventEmitter;
@@ -36,7 +36,7 @@ export default class App {
   /**
    * Start an analysis for the matching Analysis modules
    */
-  public start(moduleNameSuffix: string, conf: JSON): void {
+  public start(moduleNameSuffix: string, conf: object): void {
     let analysis: AnalysisInterface;
 
     // look for the loaded analysis modules that match the given moduleNameSuffix
@@ -64,8 +64,8 @@ export default class App {
         // /!\ do not exit the node process at this point,
         //     because it could stop the execution of the event handlers
       })
-      .catch((e: Error) => {
-        console.error(e.message);
+      .catch(e => {
+        console.error(e);
         process.exit(1);
       });
   }
