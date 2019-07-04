@@ -7,7 +7,7 @@ import {
   Report,
 } from '@fabernovel/heart-core';
 import * as bodyParser from 'body-parser';
-import { EventEmitter } from 'events';
+import * as EventEmitter from 'events';
 import * as express from 'express';
 
 /**
