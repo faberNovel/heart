@@ -78,4 +78,8 @@
   //    */
   //   "lockedMajor": 3
   // }
+  {
+    "definitionName": "individualVersion",
+    "policyName": "individual"
+  }
 ]
