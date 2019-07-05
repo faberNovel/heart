@@ -200,7 +200,7 @@
      * your PR branch, and in this situation "rush change" will also automatically invoke "git fetch"
      * to retrieve the latest activity for the remote master branch.
      */
-    "url": "https://gitlab.com/fabernovel/heart-monorepo/"
+    "url": "git@gitlab.com:fabernovel/heart-monorepo.git"
   },
 
   /**
@@ -346,39 +346,48 @@
     // }
     {
       "packageName": "@fabernovel/heart-api",
-      "projectFolder": "modules/heart-api"
+      "projectFolder": "modules/heart-api",
+      "versionPolicyName": "individual"
     },
     {
       "packageName": "@fabernovel/heart-bigquery",
-      "projectFolder": "modules/heart-bigquery"
+      "projectFolder": "modules/heart-bigquery",
+      "versionPolicyName": "individual"
     },
     {
       "packageName": "@fabernovel/heart-cli",
-      "projectFolder": "modules/heart-cli"
+      "projectFolder": "modules/heart-cli",
+      "versionPolicyName": "individual"
     },
     {
       "packageName": "@fabernovel/heart-core",
-      "projectFolder": "library/heart-core"
+      "projectFolder": "library/heart-core",
+      "versionPolicyName": "individual"
     },
     {
       "packageName": "@fabernovel/heart-dareboost",
-      "projectFolder": "modules/heart-dareboost"
+      "projectFolder": "modules/heart-dareboost",
+      "versionPolicyName": "individual"
     },
     {
       "packageName": "@fabernovel/heart-lighthouse",
-      "projectFolder": "modules/heart-lighthouse"
+      "projectFolder": "modules/heart-lighthouse",
+      "shouldPublish": false
     },
     {
       "packageName": "@fabernovel/heart-observatory",
-      "projectFolder": "modules/heart-observatory"
+      "projectFolder": "modules/heart-observatory",
+      "versionPolicyName": "individual"
     },
     {
       "packageName": "@fabernovel/heart-slack",
-      "projectFolder": "modules/heart-slack"
+      "projectFolder": "modules/heart-slack",
+      "versionPolicyName": "individual"
     },
     {
       "packageName": "@fabernovel/heart-ssllabs-server",
-      "projectFolder": "modules/heart-ssllabs-server"
+      "projectFolder": "modules/heart-ssllabs-server",
+      "versionPolicyName": "individual"
     }
   ]
 }
