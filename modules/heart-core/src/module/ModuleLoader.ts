@@ -7,12 +7,13 @@ import isModuleNotification from '../module/notification/ModuleNotificationGuard
 import isModuleStorage from '../module/storage/ModuleStorageGuard';
 
 export default class ModuleLoader {
+  // assume that the root path is the one from where the script has been called
+  // /!\ this approach does not follow symlink
+  private readonly ROOT_PATH = process.cwd();
   private debug: boolean;
-  private rootPath: string;
 
   constructor(debug = false) {
     this.debug = debug;
-    this.rootPath = process.cwd();
   }
 
   /**
@@ -23,7 +24,7 @@ export default class ModuleLoader {
       // retrieve the paths of @fabernovel/heart-* modules, except heart-core and heart-server.
       // (heart-server must not be installed as an npm package, but who knows ¯\_(ツ)_/¯)
       // paths are guessed according to the content of the package.json
-      const modulesPaths = await this.getPaths(/^@fabernovel\/heart-(?!cli|core|server)/, `${this.rootPath}/package.json`);
+      const modulesPaths = await this.getPaths(/^@fabernovel\/heart-(?!cli|core|server)/, `${this.ROOT_PATH}/package.json`);
 
       if (modulesPaths.length > 0) {
         if (this.debug) {
@@ -81,7 +82,7 @@ export default class ModuleLoader {
       const packageJson = await import(packageJsonPath);
 
       if (this.debug) {
-        console.log(`package.json found in ${this.rootPath}`);
+        console.log(`package.json found in ${this.ROOT_PATH}`);
       }
 
       // list the modules according to the given pattern
@@ -90,7 +91,7 @@ export default class ModuleLoader {
       });
 
       paths = modulesNames.map((moduleName: string) => {
-        return `${this.rootPath}/node_modules/${moduleName}/`;
+        return `${this.ROOT_PATH}/node_modules/${moduleName}/`;
       });
 
       if (this.debug) {
@@ -100,7 +101,7 @@ export default class ModuleLoader {
       return Promise.resolve(paths);
     } catch (e) {
       if (this.debug) {
-        console.log(`package.json not found in ${this.rootPath}`);
+        console.log(`package.json not found in ${this.ROOT_PATH}`);
       }
 
       return Promise.reject(paths);

@@ -19,7 +19,7 @@ dependencies:
   app-root-path: 2.2.1
   body-parser: 1.19.0
   commander: 2.20.0
-  dotenv: 7.0.0
+  dotenv: 8.0.0
   express: 4.17.1
   node-fetch: 2.6.0
   sort-package-json: 1.22.1
@@ -480,12 +480,12 @@ packages:
       node: '>=0.3.1'
     resolution:
       integrity: sha512-A46qtFgd+g7pDZinpnwiRJtxbC1hpgf0uzP3iG89scHk0AUC7A1TGxf5OiiOUv/JMZR8GOt8hL900hV0bOy5xA==
-  /dotenv/7.0.0:
+  /dotenv/8.0.0:
     dev: false
     engines:
-      node: '>=6'
+      node: '>=8'
     resolution:
-      integrity: sha512-M3NhsLbV1i6HuGzBUH8vXrtxOk+tWmzWKDMbAVSUp3Zsjm7ywFeuwrUXhmhQyRK1q5B5GGy7hcXPbj3bnfZg2g==
+      integrity: sha512-30xVGqjLjiUOArT4+M5q9sYdvuR4riM6yK9wMcas9Vbp6zZa+ocC9dp6QoftuhTPhFAiLK/0C5Ni2nou/Bk8lg==
   /duplexify/3.7.1:
     dependencies:
       end-of-stream: 1.4.1
@@ -1358,7 +1358,7 @@ packages:
     dev: false
     name: '@rush-temp/heart-api'
     resolution:
-      integrity: sha512-ggud1M3sTAEkKgH/B20zcA40nlrExx7ObyBrMJOzNxN5wa0wUE8MDaO2GxZdFkZkvw1WlO09qfhKO4WDYEgFQA==
+      integrity: sha512-JoLV50flWlk+TM/bnJugUPiAWQJrsxaMY7gtGIpC1sjsFJOxvQUlp3LxjupaY68a89t1j8m18QZZvwJl8nSgng==
       tarball: 'file:projects/heart-api.tgz'
     version: 0.0.0
   'file:projects/heart-bigquery.tgz':
@@ -1396,7 +1396,7 @@ packages:
       '@types/node': 10.14.10
       '@types/node-fetch': 2.3.7
       app-root-path: 2.2.1
-      dotenv: 7.0.0
+      dotenv: 8.0.0
       node-fetch: 2.6.0
       sort-package-json: 1.22.1
       tslint: /tslint/5.18.0/typescript@3.5.2
@@ -1404,7 +1404,7 @@ packages:
     dev: false
     name: '@rush-temp/heart-core'
     resolution:
-      integrity: sha512-aiZeHZTbrwQ5duHf2P2arcc9Uj4yJyzUk7qTmo7ZzEyzVjRs4IlfKYh5J6rQLQLbngPoBAax6DhgjR8QvQboRg==
+      integrity: sha512-jOB6W6u4q2d8sCnGGkiQy+o3Ej763v2XXBy1kzd0fzV2gflafPy7V3UwbC9fEm+83Wmv/S5mcIw2RNjBJ8Pv9g==
       tarball: 'file:projects/heart-core.tgz'
     version: 0.0.0
   'file:projects/heart-dareboost.tgz':
@@ -1489,9 +1489,9 @@ specifiers:
   '@types/node': ^10.14.10
   '@types/node-fetch': ^2.3.2
   app-root-path: ^2.2.1
-  body-parser: ~1.19.0
+  body-parser: ^1.19.0
   commander: ^2.20.0
-  dotenv: ^7.0.0
+  dotenv: ^8.0.0
   express: ^4.16.4
   node-fetch: ^2.3.0
   sort-package-json: ^1.22.1

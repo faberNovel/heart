@@ -25,5 +25,5 @@ Regardless the _runner_ module with which you wish to start the analysis, the JS
 Using _[Heart CLI](https://www.npmjs.com/package/@fabernovel/heart-cli)_, starting a _Qualys SSL Labs server_ analysis of about.gitlab.com could look like that:
 
 ```shell
-npx heart /ssllabs-server '{"host":"about.gitlab.com","fromCache":"on"}'
+npx heart analysis --server /ssllabs-server --inline '{"host":"about.gitlab.com","fromCache":"on"}'
 ```

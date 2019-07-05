@@ -14,9 +14,9 @@ Read more about the purpose, design and general installation of _Heart_ on [the 
     npm install @fabernovel/heart-slack
     ```
 
-2. Add the Slack API token and channel identifier to the environment variables:
+2. In the project root folder, create a `.env` file with the Slack API token and channel identifier:
 
-    ```shell
+    ```dotenv
     SLACK_API_TOKEN=My_Slack_Api_Token
     SLACK_CHANNEL_ID=#heart
     ```

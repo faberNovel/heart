@@ -10,15 +10,15 @@ Read more about the purpose, design and general installation of _Heart_ on [the 
 
 1. Add the package to your project:
 
-```shell
-npm install @fabernovel/heart-dareboost
-```
+    ```shell
+    npm install @fabernovel/heart-dareboost
+    ```
 
-2. Add the _Dareboost_ API token as environment variable:
+2. In the project root folder, create a `.env` file with the _Dareboost_ API token:
 
-```shell
-DAREBOOST_API_TOKEN=My_Dareboost_Api_Token
-```
+    ```dotenv
+    DAREBOOST_API_TOKEN=My_Dareboost_Api_Token
+    ```
 
 # Usage
 
@@ -31,5 +31,5 @@ Regardless the _runner_ module with which you wish to start the analysis, the JS
 Using _[Heart CLI](https://www.npmjs.com/package/@fabernovel/heart-cli)_, starting a _Dareboost_ analysis of https://about.gilab.com could look like that:
 
 ```shell
-npx heart /dareboost '{"url":"https://about.gilab.com","location":"Paris"}'
+npx heart analysis --service /dareboost --inline '{"url":"https://about.gilab.com","location":"Paris"}'
 ```

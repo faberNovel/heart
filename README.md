@@ -24,7 +24,7 @@ Consequently, the minimum setup you need to run _Heart_, is to have a single _ru
 ## Modules list
 
 | Type | Name | Purpose | NPM registry URL |
-| ------ | ------ | ------ | ------ | ------ |
+| ------ | ------ | ------ | ------ |
 | Runner | Heart API | Exposes an API that starts an analysis when it is requested | https://www.npmjs.com/package/@fabernovel/heart-api |
 | Runner | Heart CLI | Starts an analysis by using a CLI | https://www.npmjs.com/package/@fabernovel/heart-cli
 | Analysis | Heart Dareboost | Analyses URLs by using the [Dareboost](https://www.dareboost.com/en) service | https://www.npmjs.com/package/@fabernovel/heart-dareboost |

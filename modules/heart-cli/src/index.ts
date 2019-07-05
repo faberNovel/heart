@@ -8,6 +8,11 @@ import { isAbsolute } from 'path';
 import App from './App';
 import InputAnalysisValidation from './Validation/InputAnalysisValidation';
 
+// set environment variables from a.env file
+// assume that the root path if the one from where the script has been called
+// /!\ this approach does not follow symlink
+require('dotenv').config({path: `${process.cwd()}/.env`});
+
 const moduleLoader = new ModuleLoader(false);
 
 moduleLoader.load()

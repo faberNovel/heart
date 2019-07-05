@@ -14,9 +14,9 @@ Read more about the purpose, design and general installation of _Heart_ on [the 
 npm install @fabernovel/heart-lighthouse
 ```
 
-2. Add the following environment variable:
+2. In the project root folder, create a `.env` file with the following environment variable:
 
-```shell
+```dotenv
 LIGHTHOUSE_API_TOKEN=My_Lighthouse_Api_Token
 ```
 

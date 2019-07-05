@@ -14,9 +14,9 @@ Read more about the purpose, design and general installation of _Heart_ on [the 
     npm install @fabernovel/heart-observatory
     ```
 
-2. Add the API and results URLs as environment variables:
+2. In the project root folder, create a `.env` file with the API and results URLs:
 
-    ```shell
+    ```dotenv
     OBSERVATORY_API_URL=https://http-observatory.security.mozilla.org/api/v1/
     OBSERVATORY_ANALYZE_URL=https://observatory.mozilla.org/analyze/
     ```
