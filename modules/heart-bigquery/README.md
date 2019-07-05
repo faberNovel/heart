@@ -14,10 +14,10 @@ Read more about the purpose, design and general installation of _Heart_ on [the 
     npm install @fabernovel/heart-bigquery
     ```
 
-2. Add the [_Google Service accounts_](https://cloud.google.com/docs/authentication/getting-started#creating_a_service_account) credentials as environment variable (you can use [Code Beautify](https://codebeautify.org/remove-extra-spaces) to remove whitespaces):
+2. In the project root folder, create a `.env` file with the [_Google Service accounts_](https://cloud.google.com/docs/authentication/getting-started#creating_a_service_account) credentials (you can use [Code Beautify](https://codebeautify.org/remove-extra-spaces) to remove whitespaces):
 
-    ```shell
-    GOOGLE_APPLICATION_CREDENTIALS='{"type":"service_account","project_id":"","private_key_id":"","private_key":"","client_email":"","client_id":"","auth_uri":"","token_uri":"","auth_provider_x509_cert_url":"","client_x509_cert_url":""}'
+    ```dotenv
+    GOOGLE_APPLICATION_CREDENTIALS={"type": "service_account","project_id": "","private_key_id": "","private_key": "","client_email": "","client_id": "","auth_uri": "","token_uri": "","auth_provider_x509_cert_url": "","client_x509_cert_url": ""}
     ```
 
 # Usage

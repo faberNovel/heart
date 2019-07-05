@@ -21,11 +21,18 @@ _Heart CLI_ allows you to start the analysis of a single URL with a single servi
 ## General
 
 ```shell
-npx heart /<analysisModuleName> <data>
+npx heart analysis --service /<analysisModuleName> --file <file>
+```
+
+or
+
+```shell
+npx heart analysis --service /<analysisModuleName> --inline <data>
 ```
 
 Explanations:
-* `<analysisModuleName>` is the lowercase version of the _analyse_ module name, without the _Heart_ prefix.
+* `<analysisModuleName>` is the lowercase version of the _analysis_ module name, without the _Heart_ prefix.
+* `<file>` is the file path (relative or absolute) to the JSON configuration file. Its content depends of the _analysis_ module you want to use.
 * `<data>` is a stringified JSON that contains information about the analysis you want to do. Its content depends of the _analysis_ module you want to use.
 
 ## Example
@@ -33,5 +40,18 @@ Explanations:
 If you have the _analysis_ module [_Heart Observatory_](https://www.npmjs.com/package/@fabernovel/heart-observatory) installed, the command will be:
 
 ```shell
-npx heart /observatory '{"project_url": "about.gitlab.com"}'
+npx heart analysis --server /observatory --inline '{"host": "about.gitlab.com"}'
+```
+
+Or:
+
+```shell
+npx heart analysis --server /observatory --file observatory.json
+```
+With `observatory.json`:
+
+```json
+{
+  "host": "about.gitlab.com"
+}
 ```

@@ -1,0 +1,11 @@
+{
+  "changes": [
+    {
+      "packageName": "@fabernovel/heart-cli",
+      "comment": "Add the environment variables creation from a .env file if present",
+      "type": "minor"
+    }
+  ],
+  "packageName": "@fabernovel/heart-cli",
+  "email": "bastien.gatellier@fabernovel.com"
+}

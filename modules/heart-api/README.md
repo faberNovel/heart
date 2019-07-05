@@ -8,15 +8,17 @@ Read more about the purpose, design and general installation of _Heart_ on [the 
 
 # Installation
 
-1. Add the package to your project:
+The package manager used in the examples below is NPM, but you can use the one you prefer: Yarn, pnpm...
+
+1. Add the package to your project
 
     ```shell
     npm install @fabernovel/heart-api
     ```
 
-2. Add the server port and the _Node.js_ environment as environment variables:
+2. In the project root folder, create a `.env` file with the server port and the _Node.js_ environment: 
 
-    ```shell
+    ```dotenv
     PORT=3000
     NODE_ENV=production
     ```

@@ -361,8 +361,7 @@
     },
     {
       "packageName": "@fabernovel/heart-core",
-      "projectFolder": "library/heart-core",
-      "versionPolicyName": "individual"
+      "projectFolder": "modules/heart-core"
     },
     {
       "packageName": "@fabernovel/heart-dareboost",
