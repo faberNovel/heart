@@ -3,7 +3,7 @@
     {
       "packageName": "@fabernovel/heart-dareboost",
       "comment": "Update README to reflect the changes from the runner modules",
-      "type": "patch"
+      "type": "major"
     }
   ],
   "packageName": "@fabernovel/heart-dareboost",

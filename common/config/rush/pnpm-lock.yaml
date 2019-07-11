@@ -1,5 +1,5 @@
 dependencies:
-  '@google-cloud/bigquery': 4.1.3
+  '@google-cloud/bigquery': 4.1.4
   '@rush-temp/heart-api': 'file:projects/heart-api.tgz'
   '@rush-temp/heart-bigquery': 'file:projects/heart-bigquery.tgz'
   '@rush-temp/heart-cli': 'file:projects/heart-cli.tgz'
@@ -10,37 +10,36 @@ dependencies:
   '@rush-temp/heart-slack': 'file:projects/heart-slack.tgz'
   '@rush-temp/heart-ssllabs-server': 'file:projects/heart-ssllabs-server.tgz'
   '@slack/web-api': 5.0.1
-  '@types/app-root-path': 1.2.4
   '@types/body-parser': 1.17.0
   '@types/dotenv': 6.1.1
   '@types/express': 4.17.0
-  '@types/node': 10.14.10
+  '@types/node': 10.14.12
   '@types/node-fetch': 2.3.7
-  app-root-path: 2.2.1
   body-parser: 1.19.0
   commander: 2.20.0
   dotenv: 8.0.0
   express: 4.17.1
   node-fetch: 2.6.0
   sort-package-json: 1.22.1
-  tslint: 5.18.0
-  typescript: 3.5.2
+  tslint: 5.18.0_typescript@3.5.3
+  typescript: 3.5.3
+lockfileVersion: 5.1
 packages:
   /@babel/code-frame/7.0.0:
     dependencies:
-      '@babel/highlight': 7.0.0
+      '@babel/highlight': 7.5.0
     dev: false
     resolution:
       integrity: sha512-OfC2uemaknXr87bdLUkWog7nYuliM9Ij5HUcajsVcMCpQrcLmtxRbVFTIqmcSkSeYRBFBRxs2FiUqFJDLdiebA==
-  /@babel/highlight/7.0.0:
+  /@babel/highlight/7.5.0:
     dependencies:
       chalk: 2.4.2
       esutils: 2.0.2
       js-tokens: 4.0.0
     dev: false
     resolution:
-      integrity: sha512-UFMC4ZeFC48Tpvj7C8UgLvtkaUuovQX+5xNWrsIoMG8o2z+XFKjKaN9iVmS84dPwVN00W4wPmqvYoZF3EGAsfw==
-  /@google-cloud/bigquery/4.1.3:
+      integrity: sha512-7dV4eu9gBxoM0dAnj/BCFDW9LFU0zvTrkq0ugM7pnHEgguOEeOz1so2ZghEdzviYzQEED0r4EAgpsBChKy1TRQ==
+  /@google-cloud/bigquery/4.1.4:
     dependencies:
       '@google-cloud/common': 2.0.3
       '@google-cloud/paginator': 1.0.2
@@ -57,7 +56,7 @@ packages:
     engines:
       node: '>=8.10.0'
     resolution:
-      integrity: sha512-xpLBnwod1FznAiufIHm4pSHki8veveUw6wUBBOrRFvc0LIOocdbT0undPWtPmifjrYjG1Nml9yZ6wLuUTz3HEQ==
+      integrity: sha512-sapekMbbNbdNNC8FI4xOCA5oMXwJr1WTF6l5AVHXpJrAgSshE8GqgVMYw54zLi/QsbNWtYomjo8g3K4indDbsA==
   /@google-cloud/common/2.0.3:
     dependencies:
       '@google-cloud/projectify': 1.0.1
@@ -100,7 +99,7 @@ packages:
       integrity: sha512-7WfV4R/3YV5T30WRZW0lqmvZy9hE2/p9MvpI34WuKa2Wz62mLu5XplGTFEMK6uTbJCLWUxTcZ4J4IyClKucE5g==
   /@slack/logger/1.0.0:
     dependencies:
-      '@types/node': 12.0.10
+      '@types/node': 10.14.12
     dev: false
     engines:
       node: '>= 8.9.0'
@@ -120,11 +119,11 @@ packages:
       '@slack/types': 1.0.0
       '@types/form-data': 2.2.1
       '@types/is-stream': 1.1.0
-      '@types/node': 12.0.10
+      '@types/node': 10.14.12
       '@types/p-queue': 2.3.2
       axios: 0.18.1
       eventemitter3: 3.1.2
-      form-data: 2.4.0
+      form-data: 2.5.0
       is-stream: 1.1.0
       p-queue: 2.4.2
       p-retry: 4.1.0
@@ -134,14 +133,10 @@ packages:
       npm: '>= 5.5.1'
     resolution:
       integrity: sha512-L2Nc8P+NjXH1yqnsNhqxsrbpW3Qv+//9X5PQqcM3bctDmvmwTuhuM1X208RVD2avhnC89aghY5PssyaayWj5sA==
-  /@types/app-root-path/1.2.4:
-    dev: false
-    resolution:
-      integrity: sha1-p4twMoKzKsVN52j1US7MNWmRncc=
   /@types/body-parser/1.17.0:
     dependencies:
       '@types/connect': 3.4.32
-      '@types/node': 12.0.10
+      '@types/node': 10.14.12
     dev: false
     resolution:
       integrity: sha512-a2+YeUjPkztKJu5aIF2yArYFQQp8d51wZ7DavSHjFuY1mqVgidGyzEQ41JIVNy82fXj8yPgy2vJmfIywgESW6w==
@@ -151,19 +146,19 @@ packages:
       integrity: sha512-6ckxMjBBD8URvjB6J3NcnuAn5Pkl7t3TizAg+xdlzzQGSPSmBcXf8KoIH0ua/i+tio+ZRUHEXp0HEmvaR4kt0w==
   /@types/connect/3.4.32:
     dependencies:
-      '@types/node': 12.0.10
+      '@types/node': 10.14.12
     dev: false
     resolution:
       integrity: sha512-4r8qa0quOvh7lGD0pre62CAb1oni1OO6ecJLGCezTmhQ8Fz50Arx9RUszryR8KlgK6avuSXvviL6yWyViQABOg==
   /@types/dotenv/6.1.1:
     dependencies:
-      '@types/node': 11.13.15
+      '@types/node': 10.14.12
     dev: false
     resolution:
       integrity: sha512-ftQl3DtBvqHl9L16tpqqzA4YzCSXZfi7g8cQceTz5rOlYtk/IZbFjAv3mLOQlNIgOaylCQWQoBdDQHPgEBJPHg==
   /@types/express-serve-static-core/4.16.7:
     dependencies:
-      '@types/node': 12.0.10
+      '@types/node': 10.14.12
       '@types/range-parser': 1.2.3
     dev: false
     resolution:
@@ -178,13 +173,13 @@ packages:
       integrity: sha512-CjaMu57cjgjuZbh9DpkloeGxV45CnMGlVd+XpG7Gm9QgVrd7KFq+X4HY0vM+2v0bczS48Wg7bvnMY5TN+Xmcfw==
   /@types/form-data/2.2.1:
     dependencies:
-      '@types/node': 12.0.10
+      '@types/node': 10.14.12
     dev: false
     resolution:
       integrity: sha512-JAMFhOaHIciYVh8fb5/83nmuO/AHwmto+Hq7a9y8FzLDcC1KCU344XDOMEmahnrTFlHjgh4L0WJFczNIX2GxnQ==
   /@types/is-stream/1.1.0:
     dependencies:
-      '@types/node': 12.0.10
+      '@types/node': 10.14.12
     dev: false
     resolution:
       integrity: sha512-jkZatu4QVbR60mpIzjINmtS1ZF4a/FqdTUTBeQDVOQ2PYyidtwFKr0B5G6ERukKwliq+7mIXvxyppwzG5EgRYg==
@@ -194,22 +189,14 @@ packages:
       integrity: sha512-FwI9gX75FgVBJ7ywgnq/P7tw+/o1GUbtP0KzbtusLigAOgIgNISRK0ZPl4qertvXSIE8YbsVJueQ90cDt9YYyw==
   /@types/node-fetch/2.3.7:
     dependencies:
-      '@types/node': 11.13.15
+      '@types/node': 10.14.12
     dev: false
     resolution:
       integrity: sha512-+bKtuxhj/TYSSP1r4CZhfmyA0vm/aDRQNo7vbAgf6/cZajn0SAniGGST07yvI4Q+q169WTa2/x9gEHfJrkcALw==
-  /@types/node/10.14.10:
+  /@types/node/10.14.12:
     dev: false
     resolution:
-      integrity: sha512-V8wj+w2YMNvGuhgl/MA5fmTxgjmVHVoasfIaxMMZJV6Y8Kk+Ydpi1z2whoShDCJ2BuNVoqH/h1hrygnBxkrw/Q==
-  /@types/node/11.13.15:
-    dev: false
-    resolution:
-      integrity: sha512-x6ypl5Uzly+j23hbxmMzf12Eb4lOhIEqQz0HuczpTUa1KIx1GpbN/o4E3aAED20UoEsdK0wvyY8QcffuWSLDkw==
-  /@types/node/12.0.10:
-    dev: false
-    resolution:
-      integrity: sha512-LcsGbPomWsad6wmMNv7nBLw7YYYyfdYcz6xryKYQhx89c3XXan+8Q6AJ43G5XDIaklaVkK3mE4fCb0SBvMiPSQ==
+      integrity: sha512-QcAKpaO6nhHLlxWBvpc4WeLrTvPqlHOvaj0s5GriKkA1zq+bsFBPpfYCvQhLqLgYlIko8A9YrPdaMHCo5mBcpg==
   /@types/p-queue/2.3.2:
     dev: false
     resolution:
@@ -222,7 +209,7 @@ packages:
     dependencies:
       '@types/caseless': 0.12.2
       '@types/form-data': 2.2.1
-      '@types/node': 12.0.10
+      '@types/node': 10.14.12
       '@types/tough-cookie': 2.3.5
     dev: false
     resolution:
@@ -275,12 +262,6 @@ packages:
       node: '>=4'
     resolution:
       integrity: sha512-VT0ZI6kZRdTh8YyJw3SMbYm/u+NqfsAxEpWO0Pf9sq8/e94WxxOpPKx9FR1FlyCtOVDNOQ+8ntlqFxiRc+r5qA==
-  /app-root-path/2.2.1:
-    dev: false
-    engines:
-      node: '>= 6.0.0'
-    resolution:
-      integrity: sha512-91IFKeKk7FjfmezPKkwtaRvSpnUc4gDwPAjA1YZ9Gn0q0PPeW+vbeUsZuyDwjI7+QTHhcLen2v25fi/AmhvbJA==
   /argparse/1.0.10:
     dependencies:
       sprintf-js: 1.0.3
@@ -506,7 +487,7 @@ packages:
       integrity: sha512-DY3xVEmVHTv1wSzKNbwoU6nVjzI369Y6sPoqfYr0/xlx3IdX2n94xIszTcjPO8W8ZIv0Wb0PXNcjuZyT4wiICA==
   /ecdsa-sig-formatter/1.0.11:
     dependencies:
-      safe-buffer: 5.1.2
+      safe-buffer: 5.2.0
     dev: false
     resolution:
       integrity: sha512-nagl3RYrbNv6kQkeJIpt6NJZy8twLB/2vtz6yN9Z4vRKHN4/QZJIEbqohALSgwKdnksuY3k5Addp5lg8sVoVcQ==
@@ -646,7 +627,7 @@ packages:
       node: '>=4.0'
     resolution:
       integrity: sha512-0V5l4Cizzvqt5D44aTXbFZz+FtyXV1vrDN6qrelxtfYQKW0KO0W2T/hkE8xvGa/540LkZlkaUjO4ailYTFtHVQ==
-  /form-data/2.4.0:
+  /form-data/2.5.0:
     dependencies:
       asynckit: 0.4.0
       combined-stream: 1.0.8
@@ -655,7 +636,7 @@ packages:
     engines:
       node: '>= 0.12'
     resolution:
-      integrity: sha512-4FinE8RfqYnNim20xDwZZE0V2kOs/AuElIjFUbPuegQSaoZM+vUT5FnwSl10KPugH4voTg1bEQlcbCG9ka75TA==
+      integrity: sha512-WXieX3G/8side6VIqx44ablyULoGruSde5PNTxoUyo5CeyAMX6nVWUd0rgist/EuX655cjhUhTo1Fo3tRYqbcA==
   /forwarded/0.1.2:
     dev: false
     engines:
@@ -676,7 +657,7 @@ packages:
     dependencies:
       abort-controller: 3.0.0
       extend: 3.0.2
-      https-proxy-agent: 2.2.1
+      https-proxy-agent: 2.2.2
       node-fetch: 2.6.0
     dev: false
     engines:
@@ -768,7 +749,7 @@ packages:
       node: '>= 0.6'
     resolution:
       integrity: sha512-ZTTX0MWrsQ2ZAhA1cejAwDLycFsd7I7nVtnkT3Ol0aqodaKW+0CTZDQ1uBv5whptCnc8e8HeRRJxRs0kmm/Qfw==
-  /https-proxy-agent/2.2.1:
+  /https-proxy-agent/2.2.2:
     dependencies:
       agent-base: 4.3.0
       debug: 3.2.6
@@ -776,7 +757,7 @@ packages:
     engines:
       node: '>= 4.5.0'
     resolution:
-      integrity: sha512-HPCTS1LW51bcyMYbxUIOO4HEOlQ1/1qRaFWcyxvwaqUS9TY88aoEuHUY33kuAh1YhVVaDQhLZsnPd+XNARWZlQ==
+      integrity: sha512-c8Ndjc9Bkpfx/vCJueCPy0jlP4ccCCSNDp8xwCZzPjKJUm+B+u9WX2x98Qx4n1PiMNTWo3D7KK5ifNV/yJyRzg==
   /iconv-lite/0.4.24:
     dependencies:
       safer-buffer: 2.1.2
@@ -852,14 +833,14 @@ packages:
     dependencies:
       buffer-equal-constant-time: 1.0.1
       ecdsa-sig-formatter: 1.0.11
-      safe-buffer: 5.1.2
+      safe-buffer: 5.2.0
     dev: false
     resolution:
       integrity: sha512-qiLX/xhEEFKUAJ6FiBMbes3w9ATzyk5W7Hvzpa/SLYdxNtng+gcurvrI7TbACjIXlsJyr05/S1oUhZrc63evQA==
   /jws/3.2.2:
     dependencies:
       jwa: 1.4.1
-      safe-buffer: 5.1.2
+      safe-buffer: 5.2.0
     dev: false
     resolution:
       integrity: sha512-YHlZCB6lMTllWDtSPHz/ZXTsi8S00usEV6v1tjq8tOUZzw7DpSDWVXjXDre6ed1w/pd495ODpHZYSdkRTsa0HA==
@@ -1092,6 +1073,10 @@ packages:
     dev: false
     resolution:
       integrity: sha512-Gd2UZBJDkXlY7GbJxfsE8/nvKkUEU1G38c1siN6QP6a9PT9MmHB8GnpscSmMJSoF8LOIrt8ud/wPtojys4G6+g==
+  /safe-buffer/5.2.0:
+    dev: false
+    resolution:
+      integrity: sha512-fZEwUGbVl7kouZs1jCdMLdt95hdIv0ZeHg6L7qPeciMZhZ+/gdesW4wgTARkrFWEpspjEATAzUGPG8N2jJiwbg==
   /safer-buffer/2.1.2:
     dev: false
     resolution:
@@ -1204,7 +1189,7 @@ packages:
       integrity: sha512-QjVjwdXIt408MIiAqCX4oUKsgU2EqAGzs2Ppkm4aQYbjm+ZEWEcW4SfFNTr4uMNZma0ey4f5lgLrkB0aX0QMow==
   /teeny-request/4.0.0:
     dependencies:
-      https-proxy-agent: 2.2.1
+      https-proxy-agent: 2.2.2
       node-fetch: 2.6.0
       uuid: 3.3.2
     dev: false
@@ -1226,7 +1211,7 @@ packages:
     dev: false
     resolution:
       integrity: sha512-qOebF53frne81cf0S9B41ByenJ3/IuH8yJKngAX35CmiZySA0khhkovshKK+jGCaMnVomla7gVlIcc3EvKPbTQ==
-  /tslint/5.18.0:
+  /tslint/5.18.0_typescript@3.5.3:
     dependencies:
       '@babel/code-frame': 7.0.0
       builtin-modules: 1.1.1
@@ -1240,7 +1225,8 @@ packages:
       resolve: 1.11.1
       semver: 5.7.0
       tslib: 1.10.0
-      tsutils: 2.29.0
+      tsutils: 2.29.0_typescript@3.5.3
+      typescript: 3.5.3
     dev: false
     engines:
       node: '>=4.8.0'
@@ -1249,45 +1235,11 @@ packages:
       typescript: '>=2.3.0-dev || >=2.4.0-dev || >=2.5.0-dev || >=2.6.0-dev || >=2.7.0-dev || >=2.8.0-dev || >=2.9.0-dev || >=3.0.0-dev || >= 3.1.0-dev || >= 3.2.0-dev'
     resolution:
       integrity: sha512-Q3kXkuDEijQ37nXZZLKErssQVnwCV/+23gFEMROi8IlbaBG6tXqLPQJ5Wjcyt/yHPKBC+hD5SzuGaMora+ZS6w==
-  /tslint/5.18.0/typescript@3.5.2:
-    dependencies:
-      '@babel/code-frame': 7.0.0
-      builtin-modules: 1.1.1
-      chalk: 2.4.2
-      commander: 2.20.0
-      diff: 3.5.0
-      glob: 7.1.4
-      js-yaml: 3.13.1
-      minimatch: 3.0.4
-      mkdirp: 0.5.1
-      resolve: 1.11.1
-      semver: 5.7.0
-      tslib: 1.10.0
-      tsutils: /tsutils/2.29.0/typescript@3.5.2
-      typescript: 3.5.2
-    dev: false
-    engines:
-      node: '>=4.8.0'
-    hasBin: true
-    id: registry.npmjs.org/tslint/5.18.0
-    peerDependencies:
-      typescript: '>=2.3.0-dev || >=2.4.0-dev || >=2.5.0-dev || >=2.6.0-dev || >=2.7.0-dev || >=2.8.0-dev || >=2.9.0-dev || >=3.0.0-dev || >= 3.1.0-dev || >= 3.2.0-dev'
-    resolution:
-      integrity: sha512-Q3kXkuDEijQ37nXZZLKErssQVnwCV/+23gFEMROi8IlbaBG6tXqLPQJ5Wjcyt/yHPKBC+hD5SzuGaMora+ZS6w==
-  /tsutils/2.29.0:
+  /tsutils/2.29.0_typescript@3.5.3:
     dependencies:
       tslib: 1.10.0
+      typescript: 3.5.3
     dev: false
-    peerDependencies:
-      typescript: '>=2.1.0 || >=2.1.0-dev || >=2.2.0-dev || >=2.3.0-dev || >=2.4.0-dev || >=2.5.0-dev || >=2.6.0-dev || >=2.7.0-dev || >=2.8.0-dev || >=2.9.0-dev || >= 3.0.0-dev || >= 3.1.0-dev'
-    resolution:
-      integrity: sha512-g5JVHCIJwzfISaXpXE1qvNalca5Jwob6FjI4AoPlqMusJ6ftFE7IkkFoMhVLRgK+4Kx3gkzb8UZK5t5yTTvEmA==
-  /tsutils/2.29.0/typescript@3.5.2:
-    dependencies:
-      tslib: 1.10.0
-      typescript: 3.5.2
-    dev: false
-    id: registry.npmjs.org/tsutils/2.29.0
     peerDependencies:
       typescript: '>=2.1.0 || >=2.1.0-dev || >=2.2.0-dev || >=2.3.0-dev || >=2.4.0-dev || >=2.5.0-dev || >=2.6.0-dev || >=2.7.0-dev || >=2.8.0-dev || >=2.9.0-dev || >= 3.0.0-dev || >= 3.1.0-dev'
     resolution:
@@ -1301,13 +1253,13 @@ packages:
       node: '>= 0.6'
     resolution:
       integrity: sha512-TkRKr9sUTxEH8MdfuCSP7VizJyzRNMjj2J2do2Jr3Kym598JVdEksuzPQCnlFPW4ky9Q+iA+ma9BGm06XQBy8g==
-  /typescript/3.5.2:
+  /typescript/3.5.3:
     dev: false
     engines:
       node: '>=4.2.0'
     hasBin: true
     resolution:
-      integrity: sha512-7KxJovlYhTX5RaRbUdkAXN1KUZ8PwWlTzQdHV6xNqvuFOs7+WBo10TQUqT19Q/Jz2hk5v9TQDIhyLhhJY4p5AA==
+      integrity: sha512-ACzBtm/PhXBDId6a6sDJfroT2pOWt/oOnk4/dElG5G33ZL776N3Y6/6bKZJBFpd+b05F3Ct9qDjMeJmRWtE2/g==
   /unpipe/1.0.0:
     dev: false
     engines:
@@ -1345,29 +1297,29 @@ packages:
       integrity: sha512-S+Zk8DEWE6oKpV+vI3qWkaK+jSbIK86pCwe2IF/xwIpQ8jEuxpw9NyaGjmp9+BoJv5FV2piqCDcoCtStppiq2A==
   'file:projects/heart-api.tgz':
     dependencies:
-      '@types/app-root-path': 1.2.4
       '@types/body-parser': 1.17.0
+      '@types/dotenv': 6.1.1
       '@types/express': 4.17.0
-      '@types/node': 10.14.10
-      app-root-path: 2.2.1
+      '@types/node': 10.14.12
       body-parser: 1.19.0
+      dotenv: 8.0.0
       express: 4.17.1
       sort-package-json: 1.22.1
-      tslint: /tslint/5.18.0/typescript@3.5.2
-      typescript: 3.5.2
+      tslint: 5.18.0_typescript@3.5.3
+      typescript: 3.5.3
     dev: false
     name: '@rush-temp/heart-api'
     resolution:
-      integrity: sha512-JoLV50flWlk+TM/bnJugUPiAWQJrsxaMY7gtGIpC1sjsFJOxvQUlp3LxjupaY68a89t1j8m18QZZvwJl8nSgng==
+      integrity: sha512-bOBtTaMgaRI8vGJbPyOT7L/P43I9V1yTYAOCQgAqJLebTupb8M8J+8nbl9k+v6lC3+X6z1zcMQZAWAX+P9oytg==
       tarball: 'file:projects/heart-api.tgz'
     version: 0.0.0
   'file:projects/heart-bigquery.tgz':
     dependencies:
-      '@google-cloud/bigquery': 4.1.3
-      '@types/node': 10.14.10
+      '@google-cloud/bigquery': 4.1.4
+      '@types/node': 10.14.12
       sort-package-json: 1.22.1
-      tslint: /tslint/5.18.0/typescript@3.5.2
-      typescript: 3.5.2
+      tslint: 5.18.0_typescript@3.5.3
+      typescript: 3.5.3
     dev: false
     name: '@rush-temp/heart-bigquery'
     resolution:
@@ -1376,31 +1328,29 @@ packages:
     version: 0.0.0
   'file:projects/heart-cli.tgz':
     dependencies:
-      '@types/app-root-path': 1.2.4
-      '@types/node': 10.14.10
-      app-root-path: 2.2.1
+      '@types/dotenv': 6.1.1
+      '@types/node': 10.14.12
       commander: 2.20.0
+      dotenv: 8.0.0
       sort-package-json: 1.22.1
-      tslint: /tslint/5.18.0/typescript@3.5.2
-      typescript: 3.5.2
+      tslint: 5.18.0_typescript@3.5.3
+      typescript: 3.5.3
     dev: false
     name: '@rush-temp/heart-cli'
     resolution:
-      integrity: sha512-kxV/5SRDG2NfyGGzajTCb+PbhkfWjnyfQgIvwrnJ0Svul2OHWcnvOFk/xuShy4TtfTW5yCRDaGzJjjXNOqVzhw==
+      integrity: sha512-+fXRvg/KNv5wj+gFDIICWxAs3MO4d9xkqJo12R9a1buymmLf9l7IJ1IKP3FSKLpjioDC0PLoB/cqMP2IyBOtNA==
       tarball: 'file:projects/heart-cli.tgz'
     version: 0.0.0
   'file:projects/heart-core.tgz':
     dependencies:
-      '@types/app-root-path': 1.2.4
       '@types/dotenv': 6.1.1
-      '@types/node': 10.14.10
+      '@types/node': 10.14.12
       '@types/node-fetch': 2.3.7
-      app-root-path: 2.2.1
       dotenv: 8.0.0
       node-fetch: 2.6.0
       sort-package-json: 1.22.1
-      tslint: /tslint/5.18.0/typescript@3.5.2
-      typescript: 3.5.2
+      tslint: 5.18.0_typescript@3.5.3
+      typescript: 3.5.3
     dev: false
     name: '@rush-temp/heart-core'
     resolution:
@@ -1409,10 +1359,10 @@ packages:
     version: 0.0.0
   'file:projects/heart-dareboost.tgz':
     dependencies:
-      '@types/node': 10.14.10
+      '@types/node': 10.14.12
       sort-package-json: 1.22.1
-      tslint: /tslint/5.18.0/typescript@3.5.2
-      typescript: 3.5.2
+      tslint: 5.18.0_typescript@3.5.3
+      typescript: 3.5.3
     dev: false
     name: '@rush-temp/heart-dareboost'
     resolution:
@@ -1421,10 +1371,10 @@ packages:
     version: 0.0.0
   'file:projects/heart-lighthouse.tgz':
     dependencies:
-      '@types/node': 10.14.10
+      '@types/node': 10.14.12
       sort-package-json: 1.22.1
-      tslint: /tslint/5.18.0/typescript@3.5.2
-      typescript: 3.5.2
+      tslint: 5.18.0_typescript@3.5.3
+      typescript: 3.5.3
     dev: false
     name: '@rush-temp/heart-lighthouse'
     resolution:
@@ -1433,10 +1383,10 @@ packages:
     version: 0.0.0
   'file:projects/heart-observatory.tgz':
     dependencies:
-      '@types/node': 10.14.10
+      '@types/node': 10.14.12
       sort-package-json: 1.22.1
-      tslint: /tslint/5.18.0/typescript@3.5.2
-      typescript: 3.5.2
+      tslint: 5.18.0_typescript@3.5.3
+      typescript: 3.5.3
     dev: false
     name: '@rush-temp/heart-observatory'
     resolution:
@@ -1447,8 +1397,8 @@ packages:
     dependencies:
       '@slack/web-api': 5.0.1
       sort-package-json: 1.22.1
-      tslint: /tslint/5.18.0/typescript@3.5.2
-      typescript: 3.5.2
+      tslint: 5.18.0_typescript@3.5.3
+      typescript: 3.5.3
     dev: false
     name: '@rush-temp/heart-slack'
     resolution:
@@ -1457,19 +1407,16 @@ packages:
     version: 0.0.0
   'file:projects/heart-ssllabs-server.tgz':
     dependencies:
-      '@types/node': 10.14.10
+      '@types/node': 10.14.12
       sort-package-json: 1.22.1
-      tslint: /tslint/5.18.0/typescript@3.5.2
-      typescript: 3.5.2
+      tslint: 5.18.0_typescript@3.5.3
+      typescript: 3.5.3
     dev: false
     name: '@rush-temp/heart-ssllabs-server'
     resolution:
       integrity: sha512-Ez/Fpf2D989f5zs1jDiZJ1lNVW/ea2AS7mYAoPmjx41qFV2vrIqWuv12ozDKBM7mtp18BvHSZTOxiowyeIbk/Q==
       tarball: 'file:projects/heart-ssllabs-server.tgz'
     version: 0.0.0
-registry: 'https://registry.npmjs.org/'
-shrinkwrapMinorVersion: 9
-shrinkwrapVersion: 3
 specifiers:
   '@google-cloud/bigquery': ^4.1.1
   '@rush-temp/heart-api': 'file:./projects/heart-api.tgz'
@@ -1482,13 +1429,11 @@ specifiers:
   '@rush-temp/heart-slack': 'file:./projects/heart-slack.tgz'
   '@rush-temp/heart-ssllabs-server': 'file:./projects/heart-ssllabs-server.tgz'
   '@slack/web-api': ^5.0.1
-  '@types/app-root-path': ^1.2.4
   '@types/body-parser': ^1.17.0
   '@types/dotenv': ^6.1.1
   '@types/express': ^4.16.1
   '@types/node': ^10.14.10
   '@types/node-fetch': ^2.3.2
-  app-root-path: ^2.2.1
   body-parser: ^1.19.0
   commander: ^2.20.0
   dotenv: ^8.0.0
