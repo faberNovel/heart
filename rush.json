@@ -26,7 +26,7 @@
    * Specify one of: "pnpmVersion", "npmVersion", or "yarnVersion".  See the Rush documentation
    * for details about these alternatives.
    */
-  "pnpmVersion": "2.15.1",
+  "pnpmVersion": "3.5.3",
 
   // "npmVersion": "4.5.0",
   // "yarnVersion": "1.9.4",
@@ -347,17 +347,17 @@
     {
       "packageName": "@fabernovel/heart-api",
       "projectFolder": "modules/heart-api",
-      "versionPolicyName": "individual"
+      "versionPolicyName": "lockedMajor"
     },
     {
       "packageName": "@fabernovel/heart-bigquery",
       "projectFolder": "modules/heart-bigquery",
-      "versionPolicyName": "individual"
+      "versionPolicyName": "lockedMajor"
     },
     {
       "packageName": "@fabernovel/heart-cli",
       "projectFolder": "modules/heart-cli",
-      "versionPolicyName": "individual"
+      "versionPolicyName": "lockedMajor"
     },
     {
       "packageName": "@fabernovel/heart-core",
@@ -366,7 +366,7 @@
     {
       "packageName": "@fabernovel/heart-dareboost",
       "projectFolder": "modules/heart-dareboost",
-      "versionPolicyName": "individual"
+      "versionPolicyName": "lockedMajor"
     },
     {
       "packageName": "@fabernovel/heart-lighthouse",
@@ -376,17 +376,17 @@
     {
       "packageName": "@fabernovel/heart-observatory",
       "projectFolder": "modules/heart-observatory",
-      "versionPolicyName": "individual"
+      "versionPolicyName": "lockedMajor"
     },
     {
       "packageName": "@fabernovel/heart-slack",
       "projectFolder": "modules/heart-slack",
-      "versionPolicyName": "individual"
+      "versionPolicyName": "lockedMajor"
     },
     {
       "packageName": "@fabernovel/heart-ssllabs-server",
       "projectFolder": "modules/heart-ssllabs-server",
-      "versionPolicyName": "individual"
+      "versionPolicyName": "lockedMajor"
     }
   ]
 }

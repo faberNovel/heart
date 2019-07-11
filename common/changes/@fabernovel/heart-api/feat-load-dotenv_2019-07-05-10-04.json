@@ -3,7 +3,7 @@
     {
       "packageName": "@fabernovel/heart-api",
       "comment": "Add the environment variables creation from a .env file if present",
-      "type": "minor"
+      "type": "major"
     }
   ],
   "packageName": "@fabernovel/heart-api",
