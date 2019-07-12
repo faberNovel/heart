@@ -20,21 +20,18 @@
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
   "bin": {
-    "heart": "lib/index.js"
+    "heart": "bin/heart"
   },
   "directories": {
     "lib": "lib"
   },
   "scripts": {
     "build": "tsc",
-    "format": "sort-package-json",
+    "build-watch": "tsc -w",
     "lint": "tslint -c tslint.json -p tsconfig.json",
     "prepare": "npm run build",
     "prepublishOnly": "npm run lint",
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "preversion": "npm run lint",
-    "version": "npm run format && git add -A src",
-    "postversion": "git push && git push --follow-tags"
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "engines": {
     "node": ">=10.13.0"
@@ -42,12 +39,13 @@
   "dependencies": {
     "@fabernovel/heart-core": "^1.5.0",
     "commander": "^2.20.0",
-    "dotenv": "^8.0.0"
+    "dotenv": "^8.0.0",
+    "node-fetch": "^2.6.0"
   },
   "devDependencies": {
     "@types/dotenv": "^6.1.1",
     "@types/node": "^10.14.10",
-    "sort-package-json": "^1.22.1",
+    "@types/node-fetch": "^2.3.7",
     "tslint": "^5.18.0",
     "typescript": "^3.5.2"
   }

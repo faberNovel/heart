@@ -1,7 +1,7 @@
 {
   "name": "@fabernovel/heart-observatory",
   "version": "1.2.0",
-  "description": "Analysis module of Heart, which analyses URLs by using the Mozilla Observatory service",
+  "description": "Analysis module of Heart, which analyses URLs with Mozilla Observatory",
   "homepage": "https://gitlab.com/fabernovel/heart",
   "bugs": {
     "url": "https://gitlab.com/fabernovel/heart/issues"
@@ -25,15 +25,11 @@
   },
   "scripts": {
     "build": "tsc",
-    "dev": "tsc -w",
-    "format": "sort-package-json",
+    "build-watch": "tsc -w",
     "lint": "tslint -c tslint.json -p tsconfig.json",
     "prepare": "npm run build",
     "prepublishOnly": "npm run lint",
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "preversion": "npm run lint",
-    "version": "npm run format && git add -A src",
-    "postversion": "git push && git push --tags"
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "engines": {
     "node": ">=10.13.0"
@@ -43,8 +39,10 @@
   },
   "devDependencies": {
     "@types/node": "^10.14.10",
-    "sort-package-json": "^1.22.1",
     "tslint": "^5.18.0",
     "typescript": "^3.5.2"
+  },
+  "peerDependencies": {
+    "@fabernovel/heart-cli": "^1.2.0"
   }
 }

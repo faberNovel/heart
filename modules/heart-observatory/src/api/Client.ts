@@ -12,19 +12,15 @@ export default class Client {
     this.apiUrl = process.env.OBSERVATORY_API_URL;
   }
 
-  public async launchAnalysis(conf: any): Promise<Scan> {
-    /** @deprecated conf['project_url'] use conf['host'] */
-    this.host = conf['host'] || conf['project_url'];
+  public async launchAnalysis(conf: object): Promise<Scan> {
+    this.host = conf['host'];
+
     if (undefined === this.host) {
       return Promise.reject({
         error: 'mandatory-parameter',
         message: '"host" is a mandatory parameter'
       });
     }
-
-    // Remove unused properties for POST parameters
-    delete conf.host;
-    delete conf.project_url;
 
     return Request.post(this.generateApiUrl('analyze'), conf, {
       [Request.HEADER_CONTENT_TYPE]: Request.HEADER_CONTENT_TYPE_X_WWW_FORM_URLENCODED

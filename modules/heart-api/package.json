@@ -24,31 +24,28 @@
   },
   "scripts": {
     "build": "tsc",
-    "format": "sort-package-json",
+    "build-watch": "tsc -w",
     "lint": "tslint -c tslint.json -p tsconfig.json",
     "prepare": "npm run build",
     "prepublishOnly": "npm run lint",
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "preversion": "npm run lint",
-    "version": "npm run format && git add -A src",
-    "postversion": "git push --follow-tags"
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "engines": {
     "node": ">=10.13.0"
   },
   "dependencies": {
     "@fabernovel/heart-core": "^1.5.0",
-    "body-parser": "^1.19.0",
     "dotenv": "^8.0.0",
     "express": "^4.16.4"
   },
   "devDependencies": {
-    "@types/body-parser": "^1.17.0",
     "@types/dotenv": "^6.1.1",
     "@types/express": "^4.16.1",
     "@types/node": "^10.14.10",
-    "sort-package-json": "^1.22.1",
     "tslint": "^5.18.0",
     "typescript": "^3.5.2"
+  },
+  "peerDependencies": {
+    "@fabernovel/heart-cli": "^1.2.0"
   }
 }

@@ -1,0 +1,11 @@
+{
+  "changes": [
+    {
+      "packageName": "@fabernovel/heart-bigquery",
+      "comment": "Improve documentation: readme and contributing guide",
+      "type": "patch"
+    }
+  ],
+  "packageName": "@fabernovel/heart-bigquery",
+  "email": "bastien.gatellier@fabernovel.com"
+}
