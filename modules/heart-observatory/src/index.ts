@@ -1,3 +1,8 @@
-import Analysis from './Analysis.js';
+import ObservatoryModule from './ObservatoryModule.js';
 
-export { Analysis };
+export default new ObservatoryModule({
+  name: 'Heart Observatory',
+  service: {
+    name: 'Mozilla Observatory',
+  },
+});

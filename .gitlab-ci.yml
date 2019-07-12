@@ -6,6 +6,8 @@ cache:
 
 Lint:
   stage: build
+  only:
+    - merge_requests
   script:
     - echo 'Installing...'
     - node common/scripts/install-run-rush.js install
@@ -15,12 +17,15 @@ Lint:
 
 Changes:
   stage: build
+  only:
+    # required to access the $CI_MERGE_REQUEST_TARGET_BRANCH_NAME environment variable
+    - merge_requests
   script:
     - echo 'Checking for missing change logs...'
-    # allows the rush change command to work, by updating the rush.json repository url with the one used by the CI
+    # update the rush.json repository url with the one used by the CI, to make the 'rush change' command works
     - sed -i -e "s/git@gitlab.com:/https:\/\/gitlab-ci-token:${CI_JOB_TOKEN}@gitlab.com\//g" rush.json
-    - git fetch origin master:refs/remotes/origin/master -a
-    - node common/scripts/install-run-rush.js change --verify
+    - git fetch origin $CI_MERGE_REQUEST_TARGET_BRANCH_NAME -a
+    - node common/scripts/install-run-rush.js change --verify --target-branch origin/$CI_MERGE_REQUEST_TARGET_BRANCH_NAME
 
 # Publish to NPM:
 #   stage: deploy

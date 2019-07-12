@@ -1,3 +1,8 @@
-import Storage from './Storage';
+import BigQueryModule from './BigQueryModule';
 
-export { Storage };
+export default new BigQueryModule({
+  name: 'Heart BigQuery',
+  service: {
+    name: 'Google BigQuery',
+  },
+});

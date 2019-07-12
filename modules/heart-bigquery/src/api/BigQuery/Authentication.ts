@@ -24,8 +24,8 @@ export default class Authentication {
       writeFileSync(Authentication.FILENAME, process.env[Authentication.ENVIRONMENT_VARIABLE_NAME]);
 
       process.env[Authentication.ENVIRONMENT_VARIABLE_NAME] = `${process.cwd()}/${Authentication.FILENAME}`;
-    } catch (e) {
-      console.error(e);
+    } catch (error) {
+      console.error(error);
       process.exit(1);
     }
   }

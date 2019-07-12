@@ -1,17 +1,17 @@
 import { Request } from '@fabernovel/heart-core';
 
-import AnalysisResponseInterface from './model/AnalysisResponseInterface.js';
-import ReportResponseInterface from './model/ReportResponseInterface.js';
+import AnalysisResponseInterface from './model/AnalysisResponseInterface';
+import ReportResponseInterface from './model/ReportResponseInterface';
 
 export default class Client {
   private readonly API_URL = 'https://www.dareboost.com/api/0.5/';
-  private conf: any;
+  private conf: object;
 
   constructor() {
     this.conf = { token: process.env.DAREBOOST_API_TOKEN };
   }
 
-  public async launchAnalysis(conf: any): Promise<AnalysisResponseInterface> {
+  public async launchAnalysis(conf: object): Promise<AnalysisResponseInterface> {
     const options = {...conf, headers: [{name: 'User-Agent', value: 'Dareboost'}]};
 
     return Request.post(`${this.API_URL}analysis/launch`, { ...this.conf, ...options });

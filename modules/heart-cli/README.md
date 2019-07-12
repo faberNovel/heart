@@ -1,57 +1,57 @@
 # Description
 
-_Heart CLI_ is a _runner_ module of _Heart_, which starts an analysis by using a CLI.
+_Heart CLI_ is the control module of _Heart_. It allows every other module to work together, and is able to control the _Heart API_ and the _analysis_ modules. All of that by exposing a small CLI.
 
-Note that you must have installed an _analysis_ module too.
+Note that you must install an _analysis_ module too, to have a minimum viable installation of _Heart_.
 
 Read more about the purpose, design and general installation of _Heart_ on [the dedicated wiki](https://gitlab.com/fabernovel/heart/wikis/What-is-Heart).
 
+# Package manager
+
+In the following sections, every examples are using NPM as package manager, but you can use any other you prefer: Yarn, pnpm...
+
 # Installation
 
-Add the package to your project:
+1. Add the package to your project:
 
-```shell
-npm install @fabernovel/heart-cli
-```
+  ```shell
+  npm install @fabernovel/heart-cli
+  ```
+
+  2. Add an _analysis_ module
 
 # Usage
-
-_Heart CLI_ allows you to start the analysis of a single URL with a single service at a time.
 
 ## General
 
 ```shell
-npx heart analysis --service /<analysisModuleName> --file <file>
+npx heart --help
 ```
 
-or
+This command displays the list of commands you can use, regarding your installed modules.
 
-```shell
-npx heart analysis --service /<analysisModuleName> --inline <data>
-```
-
-Explanations:
-* `<analysisModuleName>` is the lowercase version of the _analysis_ module name, without the _Heart_ prefix.
-* `<file>` is the file path (relative or absolute) to the JSON configuration file. Its content depends of the _analysis_ module you want to use.
-* `<data>` is a stringified JSON that contains information about the analysis you want to do. Its content depends of the _analysis_ module you want to use.
+If you install _Heart API_ or each time you install an _analysis_ module, a new command will be available.
 
 ## Example
 
-If you have the _analysis_ module [_Heart Observatory_](https://www.npmjs.com/package/@fabernovel/heart-observatory) installed, the command will be:
+We assume that the _analysis_ module [_Heart Observatory_](https://www.npmjs.com/package/@fabernovel/heart-observatory) is installed.
 
-```shell
-npx heart analysis --server /observatory --inline '{"host": "about.gitlab.com"}'
-```
+If you want to start an analysis, you can use one of the following options:
 
-Or:
+  * ```shell
+    npx heart observatory --inline '{"host": "about.gitlab.com"}'
+    ```
 
-```shell
-npx heart analysis --server /observatory --file observatory.json
-```
-With `observatory.json`:
+    Or:
 
-```json
-{
-  "host": "about.gitlab.com"
-}
-```
+  * ```shell
+    npx heart observatory --file observatory.json
+    ```
+
+    With the following content for the `observatory.json` file:
+
+    ```json
+    {
+      "host": "about.gitlab.com"
+    }
+    ```

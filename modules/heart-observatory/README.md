@@ -1,10 +1,12 @@
 # Description
 
-_Heart Observatory_ is an _analysis_ module of _Heart_, which analyses URLs by using the _[Mozilla Observatory](https://observatory.mozilla.org/)_ service.
-
-Note that you must have installed a _runner_ module too.
+_Heart Observatory_ is an _analysis_ module of _Heart_, which analyses URLs with _[Mozilla Observatory](https://observatory.mozilla.org/)_.
 
 Read more about the purpose, design and general installation of _Heart_ on [the dedicated wiki](https://gitlab.com/fabernovel/heart/wikis/What-is-Heart).
+
+# Package manager
+
+In the following sections, every examples are using NPM as package manager, but you can use any other you prefer: Yarn, pnpm...
 
 # Installation
 
@@ -14,7 +16,13 @@ Read more about the purpose, design and general installation of _Heart_ on [the 
     npm install @fabernovel/heart-observatory
     ```
 
-2. In the project root folder, create a `.env` file with the API and results URLs:
+2. Add _[Heart CLI](https://www.npmjs.com/package/@fabernovel/heart-cli)_ if you have not already installed it
+
+    ```shell
+    npm install @fabernovel/heart-cli
+    ```
+
+3. In the project root folder, create a `.env` file with the API and results URLs:
 
     ```dotenv
     OBSERVATORY_API_URL=https://http-observatory.security.mozilla.org/api/v1/
@@ -45,7 +53,7 @@ See [HTTP Observatory API Documentation](https://github.com/mozilla/http-observa
 
 Starting with this situation:
 
-> The _[Heart API](https://www.npmjs.com/package/@fabernovel/heart-dareboost)_ _runner_ module is installed
+> The _[Heart API](https://www.npmjs.com/package/@fabernovel/heart-api)_ _runner_ module is installed
 >
 > The server is listening on port 3000
 >

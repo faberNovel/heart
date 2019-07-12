@@ -1,39 +1,28 @@
-import NotificationEvents from './enum/NotificationEvents';
 import AnalysisEvents from './event/AnalysisEvents';
 import Request from './http/Request';
-import AnalysisInterface, { AnalysisConstructor } from './model/AnalysisInterface';
-import NotificationInterface, { NotificationConstructor } from './model/NotificationInterface';
-import Report from './model/Report';
-import StorageInterface from './model/StorageInterface';
-import isModuleAnalysis from './module/analysis/ModuleAnalysisGuard';
-import ModuleAnalysisInterface from './module/analysis/ModuleAnalysisInterface';
-import isModuleNotification from './module/notification/ModuleNotificationGuard';
-import ModuleNotificationInterface from './module/notification/ModuleNotificationInterface';
-import isModuleStorage from './module/storage/ModuleStorageGuard';
-import ModuleStorageInterface from './module/storage/ModuleStorageInterface';
-import ModuleLoader from './module/ModuleLoader';
-import { wait } from './time/wait';
+import Module from './model/module/Module';
+import ModuleAnalysisInterface, { isModuleAnalysis } from './model/module/ModuleAnalysisInterface';
+import ModuleInterface from './model/module/ModuleInterface';
+import ModuleListenerInterface, { isModuleListener } from './model/module/ModuleListenerInterface';
+import ModuleServerInterface, { isModuleServer } from './model/module/ModuleServerInterface';
+import Report from './model/report/Report';
+import { timeout } from './time/timeout';
 
 const Helper = {
-  wait,
+  timeout,
 };
 
 export {
-  AnalysisConstructor,
   AnalysisEvents,
-  AnalysisInterface,
   Helper,
   isModuleAnalysis,
-  isModuleNotification,
-  isModuleStorage,
+  isModuleListener,
+  isModuleServer,
+  Module,
   ModuleAnalysisInterface,
-  ModuleLoader,
-  ModuleStorageInterface,
-  ModuleNotificationInterface,
-  NotificationConstructor,
-  NotificationEvents,
-  NotificationInterface,
+  ModuleInterface,
+  ModuleListenerInterface,
+  ModuleServerInterface,
   Report,
   Request,
-  StorageInterface,
 };

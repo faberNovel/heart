@@ -361,7 +361,8 @@
     },
     {
       "packageName": "@fabernovel/heart-core",
-      "projectFolder": "modules/heart-core"
+      "projectFolder": "modules/heart-core",
+      "versionPolicyName": "lockedMajor"
     },
     {
       "packageName": "@fabernovel/heart-dareboost",

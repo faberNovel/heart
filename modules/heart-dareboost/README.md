@@ -1,10 +1,12 @@
 # Description
 
-_Heart Dareboost_ is an _analysis_ module of _Heart_, which analyses URLs by using the _[Dareboost](https://www.dareboost.com/)_ service.
-
-Note that you must have installed a _runner_ module too.
+_Heart Dareboost_ is an _analysis_ module of _Heart_, which analyses URLs with _[Dareboost](https://www.dareboost.com/)_.
 
 Read more about the purpose, design and general installation of _Heart_ on [the dedicated wiki](https://gitlab.com/fabernovel/heart/wikis/What-is-Heart).
+
+# Package manager
+
+In the following sections, every examples are using NPM as package manager, but you can use any other you prefer: Yarn, pnpm...
 
 # Installation
 
@@ -14,7 +16,13 @@ Read more about the purpose, design and general installation of _Heart_ on [the 
     npm install @fabernovel/heart-dareboost
     ```
 
-2. In the project root folder, create a `.env` file with the _Dareboost_ API token:
+2. Add _[Heart CLI](https://www.npmjs.com/package/@fabernovel/heart-cli)_ if you have not already installed it
+
+    ```shell
+    npm install @fabernovel/heart-cli
+    ```
+
+3. In the project root folder, create a `.env` file with the _Dareboost_ API token:
 
     ```dotenv
     DAREBOOST_API_TOKEN=My_Dareboost_Api_Token
@@ -31,5 +39,5 @@ Regardless the _runner_ module with which you wish to start the analysis, the JS
 Using _[Heart CLI](https://www.npmjs.com/package/@fabernovel/heart-cli)_, starting a _Dareboost_ analysis of https://about.gilab.com could look like that:
 
 ```shell
-npx heart analysis --service /dareboost --inline '{"url":"https://about.gilab.com","location":"Paris"}'
+npx heart dareboost --inline '{"url":"https://about.gilab.com","location":"Paris"}'
 ```
