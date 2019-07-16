@@ -31,43 +31,62 @@ The _Merge Request_ is created with the _WIP:_ prefix, which indicates that the 
 
 ### Setup your local environment
 
+#### Install the requirements
+
 _Heart_ handle every modules in a single repository that is managed with [Rush](https://rushjs.io/) and [pnpm](https://pnpm.js.org/).
 
 So make sure you have them both installed on your computer before you begin.
 
-You can now clone the repository:
+#### Clone the repository
 
 ```shell
 git clone git@gitlab.com:fabernovel/heart.git
 ```
 
-Once you cloned the repository, you have to install every module. Do that by using the following command from the root folder
+#### Install the dependencies
 
 ```shell
 rush install
 ```
 
-### Code your enhancements
+#### Build the modules
 
-Get back to your local environment.
+As the code is written using TypeScript, it has to be compiled into plain JavaScript.
+
+To do so, a `build` task is defined in the `package.json` of each module.
+
+Rush makes it easy to build only the modules that need to be built. Run the following command from the root directory:
+
+```shell
+rush build
+```
+
+### Code your enhancements
 
 1. Checkout the newly created branch
 2. Code your enhancements
 
 ### Test your enhancements
 
-1. Build the modules that have changed, by using
+#### End-user testing
 
-    ```shell
-    rush build
-    ```
-2. Test the new features like a real user: go to the `tests/` directory, and install the dependencies:
+You can test a close-to-end-user installation in the `tests` directory.
+
+To do so, you have to:
+
+1. Create a `.env` file in this directory, and populate it with the environment variables needed by all the modules.
+
+2. Install the packages:
 
     ```shell
     pnpm install
-    ```
+    ````
 
-    You can now test the CLI by using the `pnpx heart` command
+3. Use the CLI and check your changes with:
+
+    ```shell
+    pnpx heart
+    ```
 
 ### Provide a changelog
 
@@ -99,11 +118,10 @@ You will be asked to provide, for each package that has changed:
 
 Now that your enhancements work perfectly and that you provide a changelog, it is time to submit for review:
 
-1. Check 
-
-    If so, your need to provide
-2. Push your local changes to the remote
-3. Using the Gitlab interface, check that every pipeline is green on the _Merge Request_
-4. If so, you can remove the _WIP:_ prefix from the title. If not, you have to open the pipeline and see what is failing, update your code and get back to step 2.
+1. Push your local changes to the remote
+2. Using the Gitlab interface, check that every pipeline is green on the _Merge Request_
+3. If so, you can remove the _WIP:_ prefix from the title.
+    
+    If not, you have to open the pipeline and see what is failing, update your code and start the submitting process again.
 
 The merging operation will then be done by a core team member.
