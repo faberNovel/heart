@@ -1,0 +1,11 @@
+{
+  "changes": [
+    {
+      "packageName": "@fabernovel/heart-api",
+      "comment": "Remove the contributing guide and the license: they are now available in the Heart repository",
+      "type": "patch"
+    }
+  ],
+  "packageName": "@fabernovel/heart-api",
+  "email": "bastien.gatellier@fabernovel.com"
+}
