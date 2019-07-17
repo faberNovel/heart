@@ -34,11 +34,9 @@
     "node": ">=10.13.0"
   },
   "dependencies": {
-    "dotenv": "^8.0.0",
     "node-fetch": "^2.6.0"
   },
   "devDependencies": {
-    "@types/dotenv": "^6.1.1",
     "@types/node": "^10.14.10",
     "@types/node-fetch": "^2.3.7",
     "tslint": "^5.18.0",
