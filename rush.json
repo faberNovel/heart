@@ -347,27 +347,27 @@
     {
       "packageName": "@fabernovel/heart-api",
       "projectFolder": "modules/heart-api",
-      "versionPolicyName": "lockedMajor"
+      "versionPolicyName": "nextMajor"
     },
     {
       "packageName": "@fabernovel/heart-bigquery",
       "projectFolder": "modules/heart-bigquery",
-      "versionPolicyName": "lockedMajor"
+      "versionPolicyName": "nextMajor"
     },
     {
       "packageName": "@fabernovel/heart-cli",
       "projectFolder": "modules/heart-cli",
-      "versionPolicyName": "lockedMajor"
+      "versionPolicyName": "nextMajor"
     },
     {
       "packageName": "@fabernovel/heart-core",
       "projectFolder": "modules/heart-core",
-      "versionPolicyName": "lockedMajor"
+      "versionPolicyName": "nextMajor"
     },
     {
       "packageName": "@fabernovel/heart-dareboost",
       "projectFolder": "modules/heart-dareboost",
-      "versionPolicyName": "lockedMajor"
+      "versionPolicyName": "nextMajor"
     },
     {
       "packageName": "@fabernovel/heart-lighthouse",
@@ -377,17 +377,17 @@
     {
       "packageName": "@fabernovel/heart-observatory",
       "projectFolder": "modules/heart-observatory",
-      "versionPolicyName": "lockedMajor"
+      "versionPolicyName": "nextMajor"
     },
     {
       "packageName": "@fabernovel/heart-slack",
       "projectFolder": "modules/heart-slack",
-      "versionPolicyName": "lockedMajor"
+      "versionPolicyName": "nextMajor"
     },
     {
       "packageName": "@fabernovel/heart-ssllabs-server",
       "projectFolder": "modules/heart-ssllabs-server",
-      "versionPolicyName": "lockedMajor"
+      "versionPolicyName": "nextMajor"
     }
   ]
 }

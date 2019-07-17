@@ -1,39 +1,64 @@
-image: node:10
+default:
+  # The version must match the minimum version declared in rush.json
+  image: node:10.13.0
 
-cache:
-  paths:
-    - common/temp/node_modules/
+  cache:
+    paths:
+      - common/temp/node_modules/
 
-Lint:
-  stage: build
+# Only triggered on merge requests creation and update.
+.test-mr:
+  stage: test
   only:
+    # Allows to access the $CI_MERGE_REQUEST_TARGET_BRANCH_NAME environment variable
     - merge_requests
-  script:
+
+# Checks code linting.
+lint:
+  extends: .test-mr
+  before_script:
     - echo 'Installing...'
     - node common/scripts/install-run-rush.js install
-
+  script:
     - echo 'Linting...'
     - node common/scripts/install-run-rush.js lint
 
-Changes:
-  stage: build
-  only:
-    # required to access the $CI_MERGE_REQUEST_TARGET_BRANCH_NAME environment variable
-    - merge_requests
+# Checks that a changelog has been provided.
+missing_changelog:
+  extends: .test-mr
+  before_script:
+    # Update the rush.json repository url with the one used by the CI, to make the 'rush change' command works
+    - sed -i -e "s/git@gitlab.com:/https:\/\/gitlab-ci-token:${CI_JOB_TOKEN}@gitlab.com\//g" rush.json
   script:
     - echo 'Checking for missing change logs...'
-    # update the rush.json repository url with the one used by the CI, to make the 'rush change' command works
-    - sed -i -e "s/git@gitlab.com:/https:\/\/gitlab-ci-token:${CI_JOB_TOKEN}@gitlab.com\//g" rush.json
     - git fetch origin $CI_MERGE_REQUEST_TARGET_BRANCH_NAME -a
+    # Checks that a changelog has been provided, regarding the target branch
     - node common/scripts/install-run-rush.js change --verify --target-branch origin/$CI_MERGE_REQUEST_TARGET_BRANCH_NAME
 
-# Publish to NPM:
-#   stage: deploy
-#   only:
-#     - tags
-#   script:
-#     - echo 'Installing...'
-#     - node common/scripts/install-run-rush.js install
-
-#     - echo 'Publishing ...'
-#     - node common/scripts/install-run-rush.js publish --apply --set-access-level public --npm-auth-token ${NPM_TOKEN}
+# Publish to NPM.
+# By default, the dry-run mode is enabled and the policy version is set to individualVersion.
+# These two behaviors can be changed with the DRY_RUN and VERSION_POLICY variables.
+# This job is only triggered:
+# - if the pipeline as been created from the Gitlab web interface (only:web)
+# - if the branch name is `master` (only:branches and only:/^master$/)
+# - if the user clicks on the 'play' button and has enough rights to write on this branch (when:manual)
+publish_to_npm:
+  stage: deploy
+  only:
+    - web
+    - branches
+    - /^master$/
+  when: manual
+  variables:
+    DRY_RUN: 1
+    VERSION_POLICY: "individualVersion"
+  before_script:
+    # These values must be set to make Rush works
+    - git config --local user.name "FABERNOVEL"
+    - git config --local user.email "heart@fabernovel.com"
+    # Create the --apply option for rush publish command.
+    - if (( $DRY_RUN == 1 )); then DRY_RUN_OPTION="--apply"; else DRY_RUN_OPTION=""; fi
+  script:
+    - echo "Publishing to NPM the modules with the ${VERSION_POLICY} version policy..."
+    - node common/scripts/install-run-rush.js version --bump
+    - node common/scripts/install-run-rush.js publish $DRY_RUN_OPTION --include-all --npm-auth-token $NPM_TOKEN --set-access-level public --version-policy $VERSION_POLICY
