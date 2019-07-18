@@ -1,0 +1,11 @@
+{
+  "changes": [
+    {
+      "packageName": "@fabernovel/heart-cli",
+      "comment": "Improve CLI syntax for analysis modules: each of them now has a dedicated command with options",
+      "type": "major"
+    }
+  ],
+  "packageName": "@fabernovel/heart-cli",
+  "email": "bastien.gatellier@fabernovel.com"
+}

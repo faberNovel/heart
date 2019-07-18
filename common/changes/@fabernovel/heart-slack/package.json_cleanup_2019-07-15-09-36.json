@@ -1,0 +1,11 @@
+{
+  "changes": [
+    {
+      "packageName": "@fabernovel/heart-slack",
+      "comment": "Remove unnecessary dependencies and scripts from package.json",
+      "type": "patch"
+    }
+  ],
+  "packageName": "@fabernovel/heart-slack",
+  "email": "bastien.gatellier@fabernovel.com"
+}
