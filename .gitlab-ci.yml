@@ -50,15 +50,15 @@ publish_to_npm:
     - /^master$/
   when: manual
   variables:
-    DRY_RUN: 1
+    PUBLISH: 0
     VERSION_POLICY: "individualVersion"
   before_script:
     # These values must be set to make Rush works
     - git config --local user.name "FABERNOVEL"
     - git config --local user.email "heart@fabernovel.com"
-    # Create the --apply option for rush publish command.
-    - if (( $DRY_RUN == 1 )); then DRY_RUN_OPTION="--apply"; else DRY_RUN_OPTION=""; fi
+    # Create the --publish option for rush publish command.
+    - if (( $PUBLISH == 1 )); then PUBLISH_OPTION="--publish"; else PUBLISH_OPTION=""; fi
   script:
     - echo "Publishing to NPM the modules with the ${VERSION_POLICY} version policy..."
     - node common/scripts/install-run-rush.js version --bump
-    - node common/scripts/install-run-rush.js publish $DRY_RUN_OPTION --include-all --npm-auth-token $NPM_TOKEN --set-access-level public --version-policy $VERSION_POLICY
+    - node common/scripts/install-run-rush.js publish --include-all --npm-auth-token $NPM_TOKEN $PUBLISH_OPTION --set-access-level public --version-policy $VERSION_POLICY
