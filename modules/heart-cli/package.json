@@ -15,6 +15,7 @@
     "Bastien Gatellier <bastien.gatellier@fabernovel.com>"
   ],
   "files": [
+    "bin/*",
     "lib/**/*"
   ],
   "main": "lib/index.js",
