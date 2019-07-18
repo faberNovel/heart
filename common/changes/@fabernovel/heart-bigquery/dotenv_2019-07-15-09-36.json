@@ -1,0 +1,11 @@
+{
+  "changes": [
+    {
+      "packageName": "@fabernovel/heart-bigquery",
+      "comment": "Add environment variable creation from a .env file",
+      "type": "minor"
+    }
+  ],
+  "packageName": "@fabernovel/heart-bigquery",
+  "email": "bastien.gatellier@fabernovel.com"
+}

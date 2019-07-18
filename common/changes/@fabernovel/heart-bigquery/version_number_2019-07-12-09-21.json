@@ -1,0 +1,11 @@
+{
+  "changes": [
+    {
+      "packageName": "@fabernovel/heart-bigquery",
+      "comment": "Improve compatibility: starting from this version, every Heart module shares the same major version number",
+      "type": "major"
+    }
+  ],
+  "packageName": "@fabernovel/heart-bigquery",
+  "email": "bastien.gatellier@fabernovel.com"
+}
