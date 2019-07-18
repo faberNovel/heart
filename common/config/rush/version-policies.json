@@ -86,6 +86,7 @@
   },
   {
     "definitionName": "individualVersion",
-    "policyName": "individualVersion"
+    "policyName": "individualVersion",
+    "lockedMajor": 3
   }
 ]
