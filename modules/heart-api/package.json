@@ -1,6 +1,6 @@
 {
   "name": "@fabernovel/heart-api",
-  "version": "1.0.0",
+  "version": "3.0.0",
   "description": "Runner module of Heart, which exposes an API that starts an analysis when it is requested",
   "homepage": "https://gitlab.com/fabernovel/heart",
   "bugs": {
@@ -33,7 +33,7 @@
     "node": ">=10.13.0"
   },
   "dependencies": {
-    "@fabernovel/heart-core": "^1.5.0",
+    "@fabernovel/heart-core": "^3.0.0",
     "dotenv": "^8.0.0",
     "express": "^4.16.4"
   },
@@ -45,6 +45,6 @@
     "typescript": "^3.5.2"
   },
   "peerDependencies": {
-    "@fabernovel/heart-cli": "^1.2.0"
+    "@fabernovel/heart-cli": "^3.0.0"
   }
 }

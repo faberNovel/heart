@@ -1,0 +1,42 @@
+{
+  "name": "@fabernovel/heart-dareboost",
+  "entries": [
+    {
+      "version": "3.0.0",
+      "tag": "@fabernovel/heart-dareboost_v3.0.0",
+      "date": "Fri, 19 Jul 2019 08:17:11 GMT",
+      "comments": {
+        "patch": [
+          {
+            "comment": "Remove the contributing guide and the license: they are now available in the Heart repository"
+          },
+          {
+            "comment": "Remove unnecessary dependencies and scripts from package.json"
+          },
+          {
+            "comment": "Update the readme to reflect the changes introduced by this major release"
+          }
+        ],
+        "minor": [
+          {
+            "comment": "Improve the module installation: it can now be installed as a devDependency"
+          },
+          {
+            "comment": "Add environment variable creation from a .env file"
+          }
+        ],
+        "major": [
+          {
+            "comment": "Add Heart CLI as a peer dependency: it must be installed to make this module usable"
+          },
+          {
+            "comment": "Upgrade the minimum required version of Node.js to the active LTS: from >=8.0.0 to >=10.13.0"
+          },
+          {
+            "comment": "Improve compatibility: starting from this version, every Heart module shares the same major version number"
+          }
+        ]
+      }
+    }
+  ]
+}

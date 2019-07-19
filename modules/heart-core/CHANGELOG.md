@@ -1,52 +1,23 @@
-## [1.5.0] - 2019-06-13
-### Added
-- Added support for POST request with 'Content-Type: application/x-www-form-urlencoded'
+# Change Log - @fabernovel/heart-core
 
-## [1.4.0] - 2019-06-13
-### Added
-- Added NormalizedNote property to the Report object to uniformize different kind of note scales
+This log was last generated on Fri, 19 Jul 2019 08:17:11 GMT and should not be manually modified.
 
-## [1.3.2] - 2019-06-05
-### Added
-- Missing StorageInterface
+## 3.0.0
+Fri, 19 Jul 2019 08:17:11 GMT
 
-### Removed
-- TypeScript module resolution, as it was causing errors in build files
+### Breaking changes
 
-## [1.3.1] - 2019-06-05
-### Fixed
-- Changelog was not up-to-date with NPM version
+- Remove module loading, as it is now handled by Heart CLI
+- Upgrade the minimum required version of Node.js to the active LTS: from >=8.0.0 to >=10.13.0
+- Improve compatibility: starting from this version, every Heart module shares the same major version number
 
-## [1.3.0] - 2019-06-05
-### Added
-- Introduced the new type of module by his interface: Storage, which will store analysis data
+### Minor changes
 
-### Changed
-- Imports now use TypeScript namespaces
+- Initial release of environment variables creation from a .env file located under the root folder of the Heart installation
+- Improve the module installation: it can now be installed as a devDependency
 
-### Deprecated
-- NotificationEvents is now deprecated, and will be removed in 2.0
+### Patches
 
-## [1.2.2] - 2019-04-17
-### Fixed
-- Gitlab CD is now able to deploy to NPM after the use of the `npm version` command
+- Remove the contributing guide and the license: they are now available in the Heart repository
+- Remove unnecessary dependencies and scripts from package.json
 
-## [1.2.1] - 2019-04-17
-### Fixed
-- The `lib` directory is now properly ignored from Git
-
-## [1.2.0] - 2019-04-17
-### Added
-- Module guards and interfaces for notification and analysis modules
-- Module loading methods
-
-### Changed
-- Reorganized directories structure
-
-## [1.1.0] - 2019-04-17
-### Added
-- Modules loader, guards and interfaces for notification and analysis modules
-
-## [1.0.0] - 2019-04-10
-### Added
-- First release of the core part of the modules-oriented architecture of the _Heart_ project
