@@ -1,9 +1,9 @@
 {
   "changes": [
     {
-      "comment": "Fix an issue where the binary was not packaged when published to NPM",
+      "comment": "",
       "packageName": "@fabernovel/heart-bigquery",
-      "type": "patch"
+      "type": "none"
     }
   ],
   "packageName": "@fabernovel/heart-bigquery",

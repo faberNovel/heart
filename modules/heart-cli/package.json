@@ -1,6 +1,6 @@
 {
   "name": "@fabernovel/heart-cli",
-  "version": "3.0.1",
+  "version": "3.0.2",
   "description": "Runner module of Heart, which starts an analysis by using a CLI",
   "homepage": "https://gitlab.com/fabernovel/heart",
   "bugs": {
@@ -37,7 +37,7 @@
     "node": ">=10.13.0"
   },
   "dependencies": {
-    "@fabernovel/heart-core": "^3.0.0",
+    "@fabernovel/heart-core": "^3.0.1",
     "commander": "^2.20.0",
     "dotenv": "^8.0.0",
     "node-fetch": "^2.6.0"

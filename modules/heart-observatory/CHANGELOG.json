@@ -2,6 +2,18 @@
   "name": "@fabernovel/heart-observatory",
   "entries": [
     {
+      "version": "3.0.1",
+      "tag": "@fabernovel/heart-observatory_v3.0.1",
+      "date": "Fri, 19 Jul 2019 09:43:15 GMT",
+      "comments": {
+        "patch": [
+          {
+            "comment": "Fix an issue where the binary was not packaged when published to NPM"
+          }
+        ]
+      }
+    },
+    {
       "version": "3.0.0",
       "tag": "@fabernovel/heart-observatory_v3.0.0",
       "date": "Fri, 19 Jul 2019 08:17:11 GMT",

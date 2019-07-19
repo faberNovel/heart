@@ -1,6 +1,13 @@
 # Change Log - @fabernovel/heart-core
 
-This log was last generated on Fri, 19 Jul 2019 08:17:11 GMT and should not be manually modified.
+This log was last generated on Fri, 19 Jul 2019 09:36:21 GMT and should not be manually modified.
+
+## 3.0.1
+Fri, 19 Jul 2019 09:36:21 GMT
+
+### Patches
+
+- Fix an issue where the binary was not packaged when published to NPM
 
 ## 3.0.0
 Fri, 19 Jul 2019 08:17:11 GMT
