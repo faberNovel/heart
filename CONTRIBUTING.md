@@ -5,7 +5,7 @@
 Before coding, you first have to make sure that the changes you want to make are described in an issue.
 
 1. Make sure the issue does not already exists or has no merge request yet
-2. Create the issue it does not already exist
+2. Create the issue if it does not already exist
 
 ## Reporting Bugs
 
