@@ -74,7 +74,7 @@ You can test a close-to-end-user installation in the `tests` directory.
 
 To do so, you have to:
 
-1. Create a `.env` file in this directory, and populate it with the environment variables needed by all the modules.
+1. Create a `.env` file in this directory by copying it from `.env.template`, and populate it with the environment variables needed by all the modules.
 
 2. Install the packages:
 
