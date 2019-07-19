@@ -1,0 +1,11 @@
+{
+  "changes": [
+    {
+      "comment": "Fix an issue where the binary was not packaged when published to NPM",
+      "packageName": "@fabernovel/heart-ssllabs-server",
+      "type": "patch"
+    }
+  ],
+  "packageName": "@fabernovel/heart-ssllabs-server",
+  "email": "bastien.gatellier@fabernovel.com"
+}

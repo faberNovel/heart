@@ -1,37 +1,24 @@
-## [1.2.0] - 2019-06-28
-### Added
-- The module configuration has been extended to be closer to what the [Observatory API](https://github.com/mozilla/http-observatory/blob/master/httpobs/docs/api.md) offers
+# Change Log - @fabernovel/heart-observatory
 
-### Changed
-- Update README
+This log was last generated on Fri, 19 Jul 2019 08:17:11 GMT and should not be manually modified.
 
-## [1.1.0] - 2019-06-14
-### Added
-- Analysis report now provide the normalized note
+## 3.0.0
+Fri, 19 Jul 2019 08:17:11 GMT
 
-## [1.0.3] - 2019-06-05
-### Added
-- Analysis report now provide the analysis date
+### Breaking changes
 
-## [1.0.2] - 2019-06-03
-### Removed
-- config.json has been removed, because it could leads to some build errors
+- Add Heart CLI as a peer dependency: it must be installed to make this module usable
+- Upgrade the minimum required version of Node.js to the active LTS: from >=8.0.0 to >=10.13.0
+- Improve compatibility: starting from this version, every Heart module shares the same major version number
 
-## [1.0.1] - 2019-04-18
-### Added
-- NPM publish as GitLab CD
-- `@fabernovel/heart-server`is now a peerDependency
-- EditorConfig configuration file
+### Minor changes
 
-### Changed
-- Upgrade `@fabernovel/heart-core`to latest version (the one that embed module loading code)
-- Updated code according to the upgrade
-- Updated the readme and contributing guide
-- Improved the GitLab CI/CD
+- Improve the module installation: it can now be installed as a devDependency
+- Add environment variable creation from a .env file
 
-### Fixed
-- NPM permissions from the GitLab CI/CD
+### Patches
 
-## [1.0.0] - 2019-04-10
-### Added
-- First release (Yay!)
+- Remove the contributing guide and the license: they are now available in the Heart repository
+- Remove unnecessary dependencies and scripts from package.json
+- Update the readme to reflect the changes introduced by this major release
+

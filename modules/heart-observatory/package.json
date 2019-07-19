@@ -1,6 +1,6 @@
 {
   "name": "@fabernovel/heart-observatory",
-  "version": "1.2.0",
+  "version": "3.0.0",
   "description": "Analysis module of Heart, which analyses URLs with Mozilla Observatory",
   "homepage": "https://gitlab.com/fabernovel/heart",
   "bugs": {
@@ -34,7 +34,7 @@
     "node": ">=10.13.0"
   },
   "dependencies": {
-    "@fabernovel/heart-core": "^1.5.0"
+    "@fabernovel/heart-core": "^3.0.0"
   },
   "devDependencies": {
     "@types/node": "^10.14.10",
@@ -42,6 +42,6 @@
     "typescript": "^3.5.2"
   },
   "peerDependencies": {
-    "@fabernovel/heart-cli": "^1.2.0"
+    "@fabernovel/heart-cli": "^3.0.0"
   }
 }
