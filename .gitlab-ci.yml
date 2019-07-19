@@ -12,6 +12,8 @@ default:
     paths:
       - common/temp/
   before_script:
+    # Update the rush.json repository url with the one used by the CI, to make the rush commands works
+    - sed -i -e "s/git@gitlab.com:/https:\/\/gitlab-ci-token:${CI_JOB_TOKEN}@gitlab.com\//g" rush.json
     - echo 'Installing...'
     - node common/scripts/install-run-rush.js install
 
@@ -25,9 +27,6 @@ Lint:
 # Checks that a changelog has been provided
 Missing changelog:
   extends: .test-mr
-  before_script:
-    # Update the rush.json repository url with the one used by the CI, to make the 'rush change' command works
-    - sed -i -e "s/git@gitlab.com:/https:\/\/gitlab-ci-token:${CI_JOB_TOKEN}@gitlab.com\//g" rush.json
   script:
     - echo 'Checking for missing change logs...'
     - git fetch origin $CI_MERGE_REQUEST_TARGET_BRANCH_NAME -a
