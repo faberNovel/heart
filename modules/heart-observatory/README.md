@@ -65,6 +65,6 @@ You can do the following request on `127.0.0.1:3000`:
 POST /observatory
 Content-type: application/json
 {
-  "host":"about.gilab.com"
+  "host":"about.gitlab.com"
 }
 ```
