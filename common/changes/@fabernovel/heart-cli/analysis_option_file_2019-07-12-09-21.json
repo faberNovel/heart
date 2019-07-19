@@ -1,0 +1,11 @@
+{
+  "changes": [
+    {
+      "packageName": "@fabernovel/heart-cli",
+      "comment": "Add a command option to load analysis modules configuration from a JSON file",
+      "type": "major"
+    }
+  ],
+  "packageName": "@fabernovel/heart-cli",
+  "email": "bastien.gatellier@fabernovel.com"
+}

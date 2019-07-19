@@ -1,0 +1,11 @@
+{
+  "changes": [
+    {
+      "packageName": "@fabernovel/heart-slack",
+      "comment": "Add Heart CLI as a peer dependency: it must be installed to make this module usable",
+      "type": "major"
+    }
+  ],
+  "packageName": "@fabernovel/heart-slack",
+  "email": "bastien.gatellier@fabernovel.com"
+}
