@@ -1,0 +1,11 @@
+{
+  "changes": [
+    {
+      "packageName": "@fabernovel/heart-ssllabs-server",
+      "comment": "Improve the module installation: it can now be installed as a devDependency",
+      "type": "minor"
+    }
+  ],
+  "packageName": "@fabernovel/heart-ssllabs-server",
+  "email": "bastien.gatellier@fabernovel.com"
+}

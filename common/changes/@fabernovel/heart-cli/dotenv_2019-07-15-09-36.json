@@ -1,0 +1,11 @@
+{
+  "changes": [
+    {
+      "packageName": "@fabernovel/heart-core",
+      "comment": "Initial release of environment variables creation from a .env file located under the root folder of the Heart installation",
+      "type": "minor"
+    }
+  ],
+  "packageName": "@fabernovel/heart-core",
+  "email": "bastien.gatellier@fabernovel.com"
+}

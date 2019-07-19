@@ -1,0 +1,11 @@
+{
+  "changes": [
+    {
+      "packageName": "@fabernovel/heart-dareboost",
+      "comment": "Remove unnecessary dependencies and scripts from package.json",
+      "type": "patch"
+    }
+  ],
+  "packageName": "@fabernovel/heart-dareboost",
+  "email": "bastien.gatellier@fabernovel.com"
+}

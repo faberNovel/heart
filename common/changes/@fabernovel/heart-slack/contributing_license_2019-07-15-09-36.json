@@ -1,0 +1,11 @@
+{
+  "changes": [
+    {
+      "packageName": "@fabernovel/heart-slack",
+      "comment": "Remove the contributing guide and the license: they are now available in the Heart repository",
+      "type": "patch"
+    }
+  ],
+  "packageName": "@fabernovel/heart-slack",
+  "email": "bastien.gatellier@fabernovel.com"
+}

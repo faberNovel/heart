@@ -1,0 +1,11 @@
+{
+  "changes": [
+    {
+      "comment": "Remove unnecessary dependencies and scripts from package.json",
+      "packageName": "@fabernovel/heart-core",
+      "type": "patch"
+    }
+  ],
+  "packageName": "@fabernovel/heart-core",
+  "email": "bastien.gatellier@fabernovel.com"
+}
