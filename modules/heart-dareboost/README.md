@@ -36,8 +36,8 @@ Regardless the _runner_ module with which you wish to start the analysis, the JS
 
 ## Example
 
-Using _[Heart CLI](https://www.npmjs.com/package/@fabernovel/heart-cli)_, starting a _Dareboost_ analysis of https://about.gilab.com could look like that:
+Using _[Heart CLI](https://www.npmjs.com/package/@fabernovel/heart-cli)_, starting a _Dareboost_ analysis of https://about.gitlab.com could look like that:
 
 ```shell
-npx heart dareboost --inline '{"url":"https://about.gilab.com","location":"Paris"}'
+npx heart dareboost --inline '{"url":"https://about.gitlab.com","location":"Paris"}'
 ```

@@ -111,7 +111,7 @@ rush change
 
 You will be asked to provide, for each package that has changed:
 
-* a description of the changes
+* a description of the changes following the [Rush best practices](https://rushjs.io/pages/best_practices/change_logs/)
 * the type of version increment: `minor` or `patch`, as the `major` version number is locked amongst every package
 
 ### Submit your enhancements
