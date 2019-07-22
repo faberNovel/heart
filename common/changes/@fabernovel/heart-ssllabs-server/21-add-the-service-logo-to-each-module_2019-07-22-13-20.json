@@ -1,0 +1,11 @@
+{
+  "changes": [
+    {
+      "packageName": "@fabernovel/heart-ssllabs-server",
+      "comment": "Add service logo",
+      "type": "minor"
+    }
+  ],
+  "packageName": "@fabernovel/heart-ssllabs-server",
+  "email": "julien.liottier@fabernovel.com"
+}
