@@ -1,0 +1,11 @@
+{
+  "changes": [
+    {
+      "packageName": "@fabernovel/heart-slack",
+      "comment": "Add service logo",
+      "type": "minor"
+    }
+  ],
+  "packageName": "@fabernovel/heart-slack",
+  "email": "julien.liottier@fabernovel.com"
+}

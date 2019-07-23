@@ -1,0 +1,11 @@
+{
+  "changes": [
+    {
+      "packageName": "@fabernovel/heart-observatory",
+      "comment": "Add service logo",
+      "type": "minor"
+    }
+  ],
+  "packageName": "@fabernovel/heart-observatory",
+  "email": "julien.liottier@fabernovel.com"
+}
