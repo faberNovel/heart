@@ -15,7 +15,7 @@ export default class Client {
     this.client = new WebClient(process.env.SLACK_API_TOKEN);
   }
 
-  public async postMessage(text: string): Promise<any> {
-    return this.client.chat.postMessage({channel: this.channel, text});
+  public async postMessage(options: {text: string, icon_url: string}): Promise<any> {
+    return this.client.chat.postMessage({channel: this.channel, ...options, as_user: false});
   }
 }

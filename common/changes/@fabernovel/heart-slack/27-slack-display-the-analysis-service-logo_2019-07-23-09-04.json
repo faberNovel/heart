@@ -1,0 +1,11 @@
+{
+  "changes": [
+    {
+      "packageName": "@fabernovel/heart-slack",
+      "comment": "Add the service icon to the report notification",
+      "type": "minor"
+    }
+  ],
+  "packageName": "@fabernovel/heart-slack",
+  "email": "julien.liottier@fabernovel.com"
+}
