@@ -1,0 +1,11 @@
+{
+  "changes": [
+    {
+      "comment": "",
+      "packageName": "@fabernovel/heart-ssllabs-server",
+      "type": "none"
+    }
+  ],
+  "packageName": "@fabernovel/heart-ssllabs-server",
+  "email": "julien.liottier@fabernovel.com"
+}

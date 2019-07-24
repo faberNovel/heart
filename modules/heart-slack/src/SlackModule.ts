@@ -22,8 +22,11 @@ export default class SlackModule extends Module implements ModuleListenerInterfa
   }
 
   private sendReport(report: Report): void {
-    const reportName = report.service.name ? `[${report.service.name}] ` : '';
+    const reportName = report.service.name ? `[${report.service.name}]` : '';
 
-    this.slackClient.postMessage(`${reportName}${report.analyzedUrl}: ${report.note}. <${report.resultUrl}|view full report>`);
+    this.slackClient.postMessage({
+      text: `${reportName}${report.analyzedUrl}: ${report.note}. <${report.resultUrl}|view full report>`,
+      icon_url: report.service.logo,
+    });
   }
 }
