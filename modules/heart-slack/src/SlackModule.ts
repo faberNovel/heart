@@ -1,9 +1,16 @@
-import { AnalysisEvents, Module, ModuleInterface, ModuleListenerInterface, Report } from '@fabernovel/heart-core';
+import {
+  AnalysisEvents,
+  Module,
+  ModuleInterface,
+  ModuleListenerInterface,
+  Report
+} from '@fabernovel/heart-core';
 import { EventEmitter } from 'events';
 
 import SlackClient from './api/Client';
 
-export default class SlackModule extends Module implements ModuleListenerInterface {
+export default class SlackModule extends Module
+  implements ModuleListenerInterface {
   private slackClient: SlackClient;
 
   constructor(module: Partial<ModuleInterface>) {
@@ -22,11 +29,12 @@ export default class SlackModule extends Module implements ModuleListenerInterfa
   }
 
   private sendReport(report: Report): void {
-    const reportName = report.service.name ? `[${report.service.name}]` : '';
-
     this.slackClient.postMessage({
-      text: `${reportName}${report.analyzedUrl}: ${report.note}. <${report.resultUrl}|view full report>`,
-      icon_url: report.service.logo,
+      text: `${report.analyzedUrl}: ${report.note}. <${
+        report.resultUrl
+      }|view full report>`,
+      icon_url: report.service ? report.service.logo : undefined,
+      username: report.service ? report.service.name : undefined
     });
   }
 }
