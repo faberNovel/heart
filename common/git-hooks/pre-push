@@ -1,0 +1,19 @@
+#!/bin/sh
+# Called by "git push" with no arguments.  The hook should
+# exit with non-zero status after issuing an appropriate message if
+# it wants to stop the commit.
+
+COMMAND=/usr/local/bin/rush
+
+echo --------------------------------------------
+echo Starting Git hook: pre-push
+
+if [ -f $COMMAND ]; then
+  echo Invoking $COMMAND lint
+  $COMMAND lint
+else
+  echo Command not installed: $COMMAND lint
+fi
+
+echo Finished Git hook: pre-push
+echo --------------------------------------------
