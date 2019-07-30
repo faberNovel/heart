@@ -1,7 +1,15 @@
+# Install packages using Rush
+.install:
+  before_script:
+    # Update the rush.json repository url with the one used by the CI, to make the rush commands works
+    - sed -i -e "s/git@gitlab.com:/https:\/\/gitlab-ci-token:${CI_JOB_TOKEN}@gitlab.com\//g" rush.json
+    - node common/scripts/install-run-rush.js install
+
 # Only triggered on merge requests creation and update
 # Allows to access the $CI_MERGE_REQUEST_TARGET_BRANCH_NAME environment variable
 .test-mr:
   stage: test
+  extends: .install
   only:
     - merge_requests
 
@@ -11,13 +19,20 @@ default:
   cache:
     paths:
       - common/temp/
-  before_script:
-    # Update the rush.json repository url with the one used by the CI, to make the rush commands works
-    - sed -i -e "s/git@gitlab.com:/https:\/\/gitlab-ci-token:${CI_JOB_TOKEN}@gitlab.com\//g" rush.json
-    - echo 'Installing...'
-    - node common/scripts/install-run-rush.js install
 
-# Checks code linting.
+# Build every packages
+Build:
+  stage: build
+  extends: .install
+  artifacts:
+    paths:
+      - common/
+      - modules/
+      - rush.json
+  script:
+    - node common/scripts/install-run-rush.js build
+
+# Checks code linting
 Lint:
   extends: .test-mr
   script:
@@ -50,6 +65,8 @@ Publish to NPM:
   variables:
     PUBLISH: 0
     VERSION_POLICY: "individualVersion"
+  dependencies:
+    - Build
   script:
     # These values must be set to make Rush works
     - git config --local user.name "FABERNOVEL"
@@ -58,6 +75,6 @@ Publish to NPM:
     - if (( $PUBLISH == 1 )); then PUBLISH_OPTION="--publish"; else PUBLISH_OPTION=""; fi
     # Fix 'npm cannot run in wd' error
     - echo 'unsafe-perm = true' >> ~/.npmrc
-    - echo "Publishing to NPM the modules with the ${VERSION_POLICY} version policy..."
+    - echo "Publishing to NPM the packages with the ${VERSION_POLICY} version policy..."
     - node common/scripts/install-run-rush.js version --bump --version-policy $VERSION_POLICY
     - node common/scripts/install-run-rush.js publish --include-all --npm-auth-token $NPM_TOKEN $PUBLISH_OPTION --set-access-level public --version-policy $VERSION_POLICY
