@@ -35,7 +35,7 @@ Missing changelog:
 
 # Publish to NPM.
 # By default, the dry-run mode is enabled and the policy version is set to individualVersion.
-# These two behaviors can be changed with the DRY_RUN and VERSION_POLICY variables.
+# These two behaviors can be changed with the PUBLISH and VERSION_POLICY variables.
 # This job is only triggered:
 # - if the pipeline as been created from the Gitlab web interface (only:web)
 # - if the branch name is `master` (only:branches and only:/^master$/)
