@@ -1,4 +1,3 @@
-
 .install:
   before_script:
     # Update the rush.json repository url with the one used by the CI, to make the rush commands works
@@ -27,7 +26,6 @@
     - web
     - branches
     - /^master$/
-  when: manual
 
 default:
   # The version must match the minimum version declared in rush.json
@@ -85,6 +83,7 @@ Publish to NPM:
   extends:
     - .install
     - .npm-publication
+  when: manual
   variables:
     PUBLISH: 0
     VERSION_POLICY: "individualVersion"
