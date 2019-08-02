@@ -1,52 +1,77 @@
-# Install packages using Rush
+
 .install:
   before_script:
     # Update the rush.json repository url with the one used by the CI, to make the rush commands works
     - sed -i -e "s/git@gitlab.com:/https:\/\/gitlab-ci-token:${CI_JOB_TOKEN}@gitlab.com\//g" rush.json
     - node common/scripts/install-run-rush.js install
 
-# Only triggered on merge requests creation and update
-# Allows to access the $CI_MERGE_REQUEST_TARGET_BRANCH_NAME environment variable
-.test-mr:
-  stage: test
-  extends: .install
-  only:
-    - merge_requests
-
-default:
-  # The version must match the minimum version declared in rush.json
-  image: node:10.13.0
-  cache:
-    paths:
-      - common/temp/
-
-# Build every packages
-Build:
+# Install packages using Rush
+.build:
   stage: build
-  extends: .install
   artifacts:
     paths:
-      - common/
+      - common/temp/node_modules/
       - modules/
       - rush.json
   script:
     - node common/scripts/install-run-rush.js build
 
+# Only triggered on merge requests creation and update
+# Allows to access the $CI_MERGE_REQUEST_TARGET_BRANCH_NAME environment variable
+.mr:
+  only:
+    - merge_requests
+
+.npm-publication:
+  only:
+    - web
+    - branches
+    - /^master$/
+  when: manual
+
+default:
+  # The version must match the minimum version declared in rush.json
+  image: node:10.13.0
+
+# Build every packages for merge requests
+Build for MR:
+  extends:
+    - .install
+    - .build
+    - .mr
+
 # Checks code linting
 Lint:
-  extends: .test-mr
+  stage: test
+  extends:
+    - .install
+    - .mr
+  dependencies:
+    - Build for MR
   script:
     - echo 'Linting...'
     - node common/scripts/install-run-rush.js lint
 
 # Checks that a changelog has been provided
 Missing changelog:
-  extends: .test-mr
+  stage: test
+  extends:
+    - .install
+    - .mr
+  dependencies:
+    - Build for MR
   script:
     - echo 'Checking for missing change logs...'
     - git fetch origin $CI_MERGE_REQUEST_TARGET_BRANCH_NAME -a
     # Checks that a changelog has been provided, regarding the target branch
     - node common/scripts/install-run-rush.js change --verify --target-branch origin/$CI_MERGE_REQUEST_TARGET_BRANCH_NAME
+
+# Build every packages during NPM publication
+Build for NPM publication:
+  extends:
+    - .install
+    - .build
+    - .npm-publication
 
 # Publish to NPM.
 # By default, the dry-run mode is enabled and the policy version is set to individualVersion.
@@ -57,16 +82,14 @@ Missing changelog:
 # - if the user clicks on the 'play' button and has enough rights to write on this branch (when:manual)
 Publish to NPM:
   stage: deploy
-  only:
-    - web
-    - branches
-    - /^master$/
-  when: manual
+  extends:
+    - .install
+    - .npm-publication
   variables:
     PUBLISH: 0
     VERSION_POLICY: "individualVersion"
   dependencies:
-    - Build
+    - Build for NPM publication
   script:
     # These values must be set to make Rush works
     - git config --local user.name "FABERNOVEL"
