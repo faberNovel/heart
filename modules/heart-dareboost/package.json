@@ -1,6 +1,6 @@
 {
   "name": "@fabernovel/heart-dareboost",
-  "version": "3.0.1",
+  "version": "3.1.0",
   "description": "Analysis module of Heart, which analyses URLs with Dareboost",
   "homepage": "https://gitlab.com/fabernovel/heart",
   "bugs": {
