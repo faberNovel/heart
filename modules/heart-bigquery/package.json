@@ -1,6 +1,6 @@
 {
   "name": "@fabernovel/heart-bigquery",
-  "version": "3.0.1",
+  "version": "3.1.0",
   "description": "Listener module of Heart, which reacts to the end of an analysis by storing the results into a Google BigQuery table",
   "homepage": "https://gitlab.com/fabernovel/heart",
   "bugs": {

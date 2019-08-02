@@ -1,6 +1,6 @@
 {
   "name": "@fabernovel/heart-observatory",
-  "version": "3.0.1",
+  "version": "3.1.0",
   "description": "Analysis module of Heart, which analyses URLs with Mozilla Observatory",
   "homepage": "https://gitlab.com/fabernovel/heart",
   "bugs": {
