@@ -1,0 +1,9 @@
+http://humanstxt.org/
+
+/* TEAM */
+Coach: Charlotte Bouffard
+Designer: Etienne Achard
+Developer: Bastien Gatellier
+
+/* THANKS */
+Julien Liottier
