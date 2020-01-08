@@ -370,6 +370,11 @@
       "versionPolicyName": "individualVersion"
     },
     {
+      "packageName": "@fabernovel/heart-lighthouse",
+      "projectFolder": "modules/heart-lighthouse",
+      "versionPolicyName": "individualVersion"
+    },
+    {
       "packageName": "@fabernovel/heart-observatory",
       "projectFolder": "modules/heart-observatory",
       "versionPolicyName": "individualVersion"
