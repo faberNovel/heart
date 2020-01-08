@@ -1,0 +1,86 @@
+html,
+body {
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    font-size: 62.5%
+}
+
+body {
+    background-color: #fbfbfb;
+    box-sizing: border-box;
+    color: #262a6e;
+    font-family: "Gibson", Tahoma, sans-serif;
+    font-size: 1.6rem;
+}
+
+.btn {
+    background-color: #fff;
+    border-radius: .5rem;
+    color: #000;
+    display: inline-block;
+    padding: 1rem;
+}
+
+.header {
+    align-items: center;
+    background-color: #1d1344;
+    color: #fff;
+    display: flex;
+}
+
+    .navigation li {
+        display: inline-block;
+        text-transform: uppercase;
+    }
+
+    .navigation a {
+        color: #fff;
+        text-decoration: none;
+    }
+
+.main {
+    background-color: #f9f9f9;
+}
+
+.description--title {
+    font-weight: normal;
+    font-size: 4rem;
+}
+
+.description--subtitle {
+    font-weight: lighter;
+    font-size: 2.8rem;
+}
+
+.strength--title {
+    font-size: 3rem;
+    font-weight: normal;
+}
+
+.strength--description {
+    font-size: 1.8rem;
+    font-weight: lighter;
+}
+
+.modules {
+    background-color: #fff;
+}
+
+.open-source {
+    background-color: #c431a3;
+    color: #fff;
+}
+
+    .contribute {
+        background-color: #fff;
+        color: #000;
+        text-decoration: none;
+    }
+
+.footer {
+    background-color: #0e0f27;
+    color: #fff;
+}
