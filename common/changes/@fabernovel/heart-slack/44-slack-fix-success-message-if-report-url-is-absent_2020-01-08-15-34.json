@@ -1,0 +1,11 @@
+{
+  "changes": [
+    {
+      "packageName": "@fabernovel/heart-slack",
+      "comment": "Fix the notification message if there is no link to an online report",
+      "type": "patch"
+    }
+  ],
+  "packageName": "@fabernovel/heart-slack",
+  "email": "julien.liottier@fabernovel.com"
+}
