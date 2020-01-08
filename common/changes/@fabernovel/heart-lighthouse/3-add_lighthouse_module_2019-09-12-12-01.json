@@ -1,0 +1,11 @@
+{
+  "changes": [
+    {
+      "packageName": "@fabernovel/heart-lighthouse",
+      "comment": "Introduce the Google Lighthouse module",
+      "type": "major"
+    }
+  ],
+  "packageName": "@fabernovel/heart-lighthouse",
+  "email": "giovannini.thomas@gmail.com"
+}

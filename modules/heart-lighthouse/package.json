@@ -1,0 +1,50 @@
+{
+  "name": "@fabernovel/heart-lighthouse",
+  "version": "3.0.0-rc.2",
+  "description": "Analysis module of Heart, which analyses URLs with Google Lighthouse",
+  "homepage": "https://gitlab.com/fabernovel/heart",
+  "bugs": {
+    "url": "https://gitlab.com/fabernovel/heart/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://gitlab.com/fabernovel/heart.git"
+  },
+  "license": "MIT",
+  "contributors": [
+    "Thomas GIOVANNINI <thomas.giovannini@fabernovel.com>",
+    "Bastien Gatellier <bastien.gatellier@fabernovel.com>"
+  ],
+  "files": [
+    "lib/**/*",
+    ".env.sample"
+  ],
+  "main": "lib/index.js",
+  "types": "lib/index.d.ts",
+  "directories": {
+    "lib": "lib"
+  },
+  "scripts": {
+    "build": "tsc",
+    "build-watch": "tsc -w",
+    "lint": "tslint -c tslint.json -p tsconfig.json",
+    "prepare": "npm run build"
+  },
+  "engines": {
+    "node": ">=10.13.0"
+  },
+  "peerDependencies": {
+    "@fabernovel/heart-cli": "^3.0.2"
+  },
+  "dependencies": {
+    "@fabernovel/heart-core": "^3.0.1",
+    "chrome-launcher": "^0.12.0",
+    "lighthouse": "^5.6.0"
+  },
+  "devDependencies": {
+    "@types/node": "^10.14.10",
+    "devtools-protocol": "^0.0.726364",
+    "tslint": "^5.18.0",
+    "typescript": "^3.5.2"
+  }
+}
