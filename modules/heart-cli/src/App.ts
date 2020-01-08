@@ -28,7 +28,13 @@ export default class App {
       .then((report: Report) => {
         // print analyse result
         const reportName = report.service ? `[${report.service.name}] ` : '';
-        console.log(`${reportName}${report.analyzedUrl}: ${report.note}, view full report: ${report.resultUrl}`);
+        let message = `${reportName}${report.analyzedUrl}: ${report.note}`;
+
+        if (report.resultUrl) {
+          message += `, view full report: ${report.resultUrl}`;
+        }
+
+        console.log(message);
 
         this.eventEmitter.emit(AnalysisEvents.DONE, report);
 
