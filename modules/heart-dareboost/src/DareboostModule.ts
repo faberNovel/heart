@@ -14,8 +14,6 @@ export default class DareboostModule extends Module implements ModuleAnalysisInt
     super(module);
 
     this.apiClient = new ApiClient();
-
-    console.log('poiuiuh');
   }
 
   public async startAnalysis(conf: object): Promise<Report> {
