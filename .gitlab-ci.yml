@@ -100,3 +100,16 @@ Publish to NPM:
     - echo "Publishing to NPM the packages with the ${VERSION_POLICY} version policy..."
     - node common/scripts/install-run-rush.js version --bump --version-policy $VERSION_POLICY
     - node common/scripts/install-run-rush.js publish --include-all --npm-auth-token $NPM_TOKEN $PUBLISH_OPTION --set-access-level public --version-policy $VERSION_POLICY
+
+pages:
+  stage: deploy
+  script:
+    - mkdir .public
+    - cp -r website/* .public
+    - mv .public public
+  artifacts:
+    paths:
+    - public
+  only:
+    - branches
+    - /^master$/
