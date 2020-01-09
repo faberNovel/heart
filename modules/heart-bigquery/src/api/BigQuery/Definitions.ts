@@ -28,7 +28,7 @@ export default class Definitions {
               {
                 name: 'report',
                 type: 'STRING',
-                mode: 'REQUIRED',
+                mode: 'NULLABLE'
               },
             ]
           },
