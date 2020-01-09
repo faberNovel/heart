@@ -62,7 +62,9 @@ Missing changelog:
     - echo 'Checking for missing change logs...'
     - git fetch origin $CI_MERGE_REQUEST_TARGET_BRANCH_NAME -a
     # Checks that a changelog has been provided, regarding the target branch
-    - node common/scripts/install-run-rush.js change --verify --target-branch origin/$CI_MERGE_REQUEST_TARGET_BRANCH_NAME
+    - node common/scripts/install-run-rush.js change
+      --target-branch origin/$CI_MERGE_REQUEST_TARGET_BRANCH_NAME
+      --verify
 
 # Build every packages during NPM publication
 Build for NPM publication:
@@ -98,8 +100,17 @@ Publish to NPM:
     # Fix 'npm cannot run in wd' error
     - echo 'unsafe-perm = true' >> ~/.npmrc
     - echo "Publishing to NPM the packages with the ${VERSION_POLICY} version policy..."
-    - node common/scripts/install-run-rush.js version --bump --version-policy $VERSION_POLICY
-    - node common/scripts/install-run-rush.js publish --include-all --npm-auth-token $NPM_TOKEN $PUBLISH_OPTION --set-access-level public --version-policy $VERSION_POLICY
+    - node common/scripts/install-run-rush.js version
+      --bump
+      --version-policy $VERSION_POLICY
+    # $CI_COMMIT_REF_NAME is 'master', as long as this job is restricted to run on the 'master' branch
+    - node common/scripts/install-run-rush.js publish
+      --include-all
+      --npm-auth-token $NPM_TOKEN
+      $PUBLISH_OPTION
+      --set-access-level public
+      --target-branch $CI_COMMIT_REF_NAME
+      --version-policy $VERSION_POLICY
 
 pages:
   stage: deploy
