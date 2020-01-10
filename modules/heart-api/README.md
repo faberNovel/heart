@@ -1,10 +1,10 @@
 # Description
 
-_Heart API_ is a _runner_ module of _Heart_, which exposes an API that starts an analysis when it is requested.
+_Heart API_ is a _runner_ module of _Heart_, which exposes an HTTP API that starts an analysis when it is requested.
 
 Note that you must install an _analysis_ module too, to have a minimum viable installation of _Heart_.
 
-Read more about the purpose, design and general installation of _Heart_ on [the dedicated wiki](https://gitlab.com/fabernovel/heart/wikis/What-is-Heart).
+Read more about [the purpose, design and general installation of _Heart_](https://www.fabernovel.com/en/clients/cases/heart-a-tool-for-automating-web-quality-metrics).
 
 # Package manager
 
@@ -34,7 +34,7 @@ Start the Node.js server, and make it listen to `127.0.0.1:3000` (you can specif
 npx heart api
 ```
 
-From now on, the API is available and exposes the endpoints according to the following rules:
+From now on, the HTTP API is available and exposes the endpoints according to the following rules:
 * there are as many endpoints as there are _analysis_ modules installed
 * the endpoints names are the package name, without the prefix `@fabernovel/heart-`
 * the endpoints requests must be done using the `POST` HTTP verb
