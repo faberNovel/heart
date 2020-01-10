@@ -24,9 +24,10 @@ The minimum setup you need to run _Heart_, is to have the _Heart CLI_ _runner_ m
 
 | Type | Name | Required | Purpose | NPM registry URL |
 | ------ | ------ | ------ | ------ | ------ |
-| Runner | Heart API | No | Exposes an API that starts an analysis when it is requested | https://www.npmjs.com/package/@fabernovel/heart-api |
+| Runner | Heart API | No | Exposes an HTTP API that starts an analysis when it is requested | https://www.npmjs.com/package/@fabernovel/heart-api |
 | Runner | Heart CLI | Yes | Control the other modules by using a CLI | https://www.npmjs.com/package/@fabernovel/heart-cli
 | Analysis | Heart Dareboost | No, but at least one _analysis_ module | Analyses URLs with [Dareboost](https://www.dareboost.com/en) | https://www.npmjs.com/package/@fabernovel/heart-dareboost |
+| Analysis | Heart Lighthouse | No, but at least one _analysis_ module | Analyses URLs with [Google Lighthouse](https://developers.google.com/web/tools/lighthouse) | https://www.npmjs.com/package/@fabernovel/heart-lighthouse |
 | Analysis | Heart Observatory | No, but at least one _analysis_ module | Analyses URLs with [Mozilla Observatory](https://observatory.mozilla.org/) | https://www.npmjs.com/package/@fabernovel/heart-observatory |
 | Analysis | Heart SSL Labs Server | No, but at least one _analysis_ module | Analyses URLs with [Qualys SSL Labs Server](https://www.ssllabs.com/ssltest/) | https://www.npmjs.com/package/@fabernovel/heart-ssllabs-server |
 | Listener | Heart BigQuery | No | Stores the results of the analysis into a [Google BigQuery](https://cloud.google.com/bigquery) table | https://www.npmjs.com/package/@fabernovel/heart-bigquery |
