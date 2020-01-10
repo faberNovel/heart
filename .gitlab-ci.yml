@@ -1,7 +1,11 @@
+variables:
+  HOST_REPO_PIPELINE_URL: https:\/\/gitlab-ci-token:${CI_JOB_TOKEN}@gitlab.com\/
+  HOST_REPO_URL: 'git@gitlab.com:'
+
 .install:
   before_script:
     # Update the rush.json repository url with the one used by the CI, to make the rush commands works
-    - sed -i -e "s/git@gitlab.com:/https:\/\/gitlab-ci-token:${CI_JOB_TOKEN}@gitlab.com\//g" rush.json
+    - sed -i -e "s/$HOST_REPO_URL/$HOST_REPO_PIPELINE_URL/g" rush.json
     - node common/scripts/install-run-rush.js install
 
 # Install packages using Rush
@@ -100,8 +104,11 @@ Publish to NPM:
     # Fix 'npm cannot run in wd' error
     - echo 'unsafe-perm = true' >> ~/.npmrc
     - echo "Publishing to NPM the packages with the ${VERSION_POLICY} version policy..."
+    # Update the rush.json repository url with the one from the repo, to make the rush publish commands
+    - sed -i -e "s/$HOST_REPO_PIPELINE_URL/$HOST_REPO_URL/g" rush.json
     - node common/scripts/install-run-rush.js version
       --bump
+      --target-branch $CI_COMMIT_REF_NAME
       --version-policy $VERSION_POLICY
     # $CI_COMMIT_REF_NAME is 'master', as long as this job is restricted to run on the 'master' branch
     - node common/scripts/install-run-rush.js publish
