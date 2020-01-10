@@ -1,5 +1,5 @@
 variables:
-  HOST_REPO_PIPELINE_URL: https:\/\/gitlab-ci-token:${CI_JOB_TOKEN}@gitlab.com\/
+  HOST_REPO_PIPELINE_URL: 'https:\/\/gitlab-ci-token:${CI_JOB_TOKEN}@gitlab.com\/'
   HOST_REPO_URL: 'git@gitlab.com:'
 
 .install:
