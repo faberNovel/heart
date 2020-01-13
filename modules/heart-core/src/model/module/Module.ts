@@ -5,7 +5,7 @@ import ModuleInterface from './ModuleInterface';
 export default abstract class Module implements ModuleInterface {
   /**
    * Examples: dareboost, observatory...
-   * The id is automatically guessed from the package name, so do not set it explicitely
+   * The id is automatically guessed from the package name, so do not set it explicitly
    */
   id: string;
 
@@ -16,7 +16,7 @@ export default abstract class Module implements ModuleInterface {
 
   service: ServiceInterface;
 
-  constructor(module: Partial<ModuleInterface>) {
+  protected constructor(module: Partial<ModuleInterface>) {
     Object.assign(this, module);
   }
 }

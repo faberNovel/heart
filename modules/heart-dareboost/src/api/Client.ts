@@ -5,7 +5,7 @@ import ReportResponseInterface from './model/ReportResponseInterface';
 
 export default class Client {
   private readonly API_URL = 'https://www.dareboost.com/api/0.5/';
-  private conf: object;
+  private readonly conf: object;
 
   constructor() {
     this.conf = { token: process.env.DAREBOOST_API_TOKEN };

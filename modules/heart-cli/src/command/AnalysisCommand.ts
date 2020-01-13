@@ -5,7 +5,7 @@ import AnalysisOptionsValidation from '../validation/AnalysisOptionsValidation';
 
 export default class AnalysisCommand {
   /**
-   * Create an command dedicated to the given analysis module
+   * Create a command dedicated to the given analysis module
    */
   public static create(program: CommanderStatic, module: ModuleAnalysisInterface, callback: (config: object) => void): void {
     program

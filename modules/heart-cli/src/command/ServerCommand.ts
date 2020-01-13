@@ -5,7 +5,7 @@ export default class ServerCommand {
   private static readonly REGEX_PORT = /^(0|[1-9][0-9]{0,3}|[1-5][0-9]{4}|6[0-4][0-9]{3}|65[0-4][0-9]{2}|655[0-2][0-9]|6553[0-5])$/;
 
   /**
-   * Create an command dedicated to the given server module
+   * Create a command dedicated to the given server module
    */
   public static create(program: CommanderStatic, module: ModuleServerInterface, callback: (port: number) => void): void {
     program

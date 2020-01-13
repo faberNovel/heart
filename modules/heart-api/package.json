@@ -27,10 +27,13 @@
     "build-watch": "tsc -w",
     "lint": "tslint -c tslint.json -p tsconfig.json",
     "prepare": "npm run build",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "jest --passWithNoTests"
   },
   "engines": {
     "node": ">=10.13.0"
+  },
+  "peerDependencies": {
+    "@fabernovel/heart-cli": "^3.0.0"
   },
   "dependencies": {
     "@fabernovel/heart-core": "^3.0.1",
@@ -40,11 +43,11 @@
   "devDependencies": {
     "@types/dotenv": "^6.1.1",
     "@types/express": "^4.16.1",
+    "@types/jest": "^24.0.17",
     "@types/node": "^10.14.10",
+    "jest": "^24.9.0",
+    "ts-jest": "^24.0.2",
     "tslint": "^5.18.0",
     "typescript": "^3.5.2"
-  },
-  "peerDependencies": {
-    "@fabernovel/heart-cli": "^3.0.0"
   }
 }
