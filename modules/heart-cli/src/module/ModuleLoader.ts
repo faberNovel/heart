@@ -6,12 +6,12 @@ import MissingEnvironmentVariables from '../error/MissingEnvironmentVariables';
 
 export default class ModuleLoader {
   // file that contains the list of required environment variables
-  private readonly ENVIRONMNENT_VARIABLE_MODEL = '.env.sample';
+  private readonly ENVIRONMENT_VARIABLE_MODEL = '.env.sample';
   private readonly PACKAGE_PREFIX = '@fabernovel/heart-';
   // assume that the root path is the one from where the script has been called
   // /!\ this approach does not follow symlink
   private readonly ROOT_PATH = process.cwd();
-  private debug: boolean;
+  private readonly debug: boolean;
 
   constructor(debug = false) {
     this.debug = debug;
@@ -37,7 +37,7 @@ export default class ModuleLoader {
 
         // check if environment variables are missing,
         // according to the .env.sample of the loaded modules
-        const missingDotEnvVariables = this.getMissingEnvironmentVariables(modulesPaths, this.ENVIRONMNENT_VARIABLE_MODEL);
+        const missingDotEnvVariables = this.getMissingEnvironmentVariables(modulesPaths, this.ENVIRONMENT_VARIABLE_MODEL);
 
         if (missingDotEnvVariables.length > 0) {
           throw new MissingEnvironmentVariables(missingDotEnvVariables);

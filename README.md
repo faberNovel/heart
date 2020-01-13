@@ -1,5 +1,7 @@
 # Purpose
 
+[![Coverage Status](https://coveralls.io/repos/gitlab/fabernovel/heart/badge.svg?branch=master)](https://coveralls.io/gitlab/fabernovel/heart?branch=master)
+
 The main feature of _Heart_ is to analyse URLs using different third-party services, like _Mozilla Observatory_ or _Dareboost_.
 
 Moreover, it can also store the results of these analysis and notify you when they are over.

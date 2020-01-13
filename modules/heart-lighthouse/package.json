@@ -28,7 +28,8 @@
     "build": "tsc",
     "build-watch": "tsc -w",
     "lint": "tslint -c tslint.json -p tsconfig.json",
-    "prepare": "npm run build"
+    "prepare": "npm run build",
+    "test": "jest --passWithNoTests"
   },
   "engines": {
     "node": ">=10.13.0"
@@ -42,8 +43,11 @@
     "lighthouse": "^5.6.0"
   },
   "devDependencies": {
+    "@types/jest": "^24.0.17",
     "@types/node": "^10.14.10",
     "devtools-protocol": "^0.0.726364",
+    "jest": "^24.9.0",
+    "ts-jest": "^24.0.2",
     "tslint": "^5.18.0",
     "typescript": "^3.5.2"
   }
