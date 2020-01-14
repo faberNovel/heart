@@ -14,10 +14,10 @@
       "es2015",
       "es2016.array.include",
       "esnext.asynciterable"
-    ],
+    ]
   },
   "include": [
-    "**/*.ts"
+    "src/**/*.ts"
   ],
   "exclude": [
     "node_modules",
