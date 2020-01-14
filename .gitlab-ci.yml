@@ -17,7 +17,7 @@ variables:
       - modules/
       - rush.json
   script:
-    - node common/scripts/install-run-rush.js build
+    - node common/scripts/install-run-rush.js build --verbose
 
 # Only triggered on merge requests creation and update
 # Allows to access the $CI_MERGE_REQUEST_TARGET_BRANCH_NAME environment variable

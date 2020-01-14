@@ -18,7 +18,6 @@ dependencies:
   '@types/node-fetch': 2.3.7
   chrome-launcher: 0.12.0
   commander: 2.20.0
-  coveralls: 3.0.9
   devtools-protocol: 0.0.726364
   dotenv: 8.0.0
   eslint: 6.8.0
@@ -26,7 +25,7 @@ dependencies:
   jest: 24.9.0
   lighthouse: 5.6.0
   node-fetch: 2.6.0
-  ts-jest: 24.0.2_jest@24.9.0
+  ts-jest: 24.3.0_jest@24.9.0
   tslint: 5.18.0_typescript@3.5.3
   typescript: 3.5.3
 lockfileVersion: 5.1
@@ -3568,6 +3567,9 @@ packages:
       node: '>=6'
     peerDependencies:
       jest-resolve: '*'
+    peerDependenciesMeta:
+      jest-resolve:
+        optional: true
     resolution:
       integrity: sha512-pgFw2tm54fzgYvc/OHrnysABEObZCUNFnhjoRjaVOCN8NYc032/gVjPaHD4Aq6ApkSieWtfKAFQtmDKAmhupnQ==
   /jest-regex-util/24.9.0:
@@ -4106,6 +4108,10 @@ packages:
     dev: false
     resolution:
       integrity: sha1-QVxEePK8wwEgwizhDtMib30+GOA=
+  /lodash.memoize/4.1.2:
+    dev: false
+    resolution:
+      integrity: sha1-vMbEmkKihA7Zl/Mj6tpezRguC/4=
   /lodash.set/4.3.2:
     dev: false
     resolution:
@@ -6109,6 +6115,27 @@ packages:
       jest: '>=24 <25'
     resolution:
       integrity: sha512-h6ZCZiA1EQgjczxq+uGLXQlNgeg02WWJBbeT8j6nyIBRQdglqbvzDoHahTEIiS6Eor6x8mK6PfZ7brQ9Q6tzHw==
+  /ts-jest/24.3.0_jest@24.9.0:
+    dependencies:
+      bs-logger: 0.2.6
+      buffer-from: 1.1.1
+      fast-json-stable-stringify: 2.1.0
+      jest: 24.9.0
+      json5: 2.1.1
+      lodash.memoize: 4.1.2
+      make-error: 1.3.5
+      mkdirp: 0.5.1
+      resolve: 1.14.2
+      semver: 5.7.1
+      yargs-parser: 10.1.0
+    dev: false
+    engines:
+      node: '>= 6'
+    hasBin: true
+    peerDependencies:
+      jest: '>=24 <25'
+    resolution:
+      integrity: sha512-Hb94C/+QRIgjVZlJyiWwouYUF+siNJHJHknyspaOcZ+OQAIdFG/UrdQVXw/0B8Z3No34xkUXZJpOTy9alOWdVQ==
   /ts-node/8.3.0_typescript@3.6.3:
     dependencies:
       arg: 4.1.1
@@ -6727,7 +6754,7 @@ packages:
     dev: false
     name: '@rush-temp/heart-api'
     resolution:
-      integrity: sha512-mb5ar6oQop5kRuZi0FtwoWHigtC6yJ8Di687roRFaaq1NekRqdCSimDaRVBDcEO9mo5e6AGYyPPAAaMS4UhoNg==
+      integrity: sha512-ch5x0M0V0w1cWGVMsKVpIb0ko7l8lnUnTvP7XaVNVnJM072F08QWzk+uwF8+INR447lLvym0Zn1famKbW14U9A==
       tarball: 'file:projects/heart-api.tgz'
     version: 0.0.0
   'file:projects/heart-bigquery.tgz':
@@ -6744,7 +6771,7 @@ packages:
     dev: false
     name: '@rush-temp/heart-bigquery'
     resolution:
-      integrity: sha512-niqmp7AvBBuUliYzu5NSJlje8Kc5Hl3LcOhBAywqOd48VSdVIpQXKDkzY5UgngygDyHJRxi4MqbeDawEvGbnjA==
+      integrity: sha512-EJbTi1NLVpugY94OQXCamhCi3rTBBha32Oq0iDw101fTqOF/f5KBkAdMYUh9zk0eB6ZTR/QL836k3gHHwvWOEg==
       tarball: 'file:projects/heart-bigquery.tgz'
     version: 0.0.0
   'file:projects/heart-cli.tgz':
@@ -6765,7 +6792,7 @@ packages:
     dev: false
     name: '@rush-temp/heart-cli'
     resolution:
-      integrity: sha512-GA7WXXfAbWJ3mbZRGPS4wjv/kYeDNFnv/BCJ1coGd3gCw57Vn7Q0/wXcF/h6jT8kX77PSsQU8aHU7cKm8PWaLg==
+      integrity: sha512-blIZh7MxLW1jr2lIwAmD285NyC0BofU51SK/nOYSe23kfJTEal3KioTAQ8q37ZY/vsLNaB3ox5tbAJpQKEOEgg==
       tarball: 'file:projects/heart-cli.tgz'
     version: 0.0.0
   'file:projects/heart-core.tgz':
@@ -6785,7 +6812,7 @@ packages:
     dev: false
     name: '@rush-temp/heart-core'
     resolution:
-      integrity: sha512-D5r1KMnvgzrD4AWLYpCrwdjZm8i5RdVG15N00il78qzmFOq6lnnFt46OR+uvr9dQRYrjwP5RoRJHK/XLv69wYw==
+      integrity: sha512-0xO6ydpf55EbZjI4aYzFKc8wE73lrXp3AbH+lhiJ2c4LZLdHOAAzcSV8jtcdzQ0+B0cVX8KATVlhpvFsxYPr5g==
       tarball: 'file:projects/heart-core.tgz'
     version: 0.0.0
   'file:projects/heart-dareboost.tgz':
@@ -6801,13 +6828,14 @@ packages:
     dev: false
     name: '@rush-temp/heart-dareboost'
     resolution:
-      integrity: sha512-y7AiiZc4/5xqo7EsfxhBIgSE/fuasem4Odr+zrDmvP7JIXuv8SWV34wqzj3F9ow/7LbzSXysvVAD1A3FurZW+w==
+      integrity: sha512-3oZmlH2NfaPPVo92PIg+8MvaMZzZB+pZAdFt7Lcq+scB6xAmsyEdmoBYzNoJQxT6uJRbfLtRgzMTBzDBSbFRXQ==
       tarball: 'file:projects/heart-dareboost.tgz'
     version: 0.0.0
   'file:projects/heart-lighthouse.tgz':
     dependencies:
       '@lhci/cli': 0.3.7
       '@types/chai': 4.2.2
+      '@types/jest': 24.0.25
       '@types/mocha': 5.2.7
       '@types/node': 10.14.18
       chai: 4.2.0
@@ -6819,13 +6847,14 @@ packages:
       jest: 24.9.0
       lighthouse: 5.6.0
       mocha: 6.2.0
+      ts-jest: 24.3.0_jest@24.9.0
       ts-node: 8.3.0_typescript@3.6.3
       tslint: 5.20.0_typescript@3.6.3
       typescript: 3.6.3
     dev: false
     name: '@rush-temp/heart-lighthouse'
     resolution:
-      integrity: sha512-6kGhJozPpfylwIfZwjIf8Jw2hZHhldQoc6W3E5P3rPxLPI0bM3nDZq6tbQ3ESP88t5irr10jmYHCD6swTx/zzw==
+      integrity: sha512-gFbiKXlBl43EclkQrOv09NO8In+4QU0k12zAwLWavtbh40vGnuw5JTHzck8dQi8oK88L0+bkeGx+G72082Dkrw==
       tarball: 'file:projects/heart-lighthouse.tgz'
     version: 0.0.0
   'file:projects/heart-observatory.tgz':
@@ -6841,7 +6870,7 @@ packages:
     dev: false
     name: '@rush-temp/heart-observatory'
     resolution:
-      integrity: sha512-MiWJTm9yVqeMKBvu5ldld2a3GrXSTvZ974W2xRWi6Q2BZw94YThCUJkgEN5ZFxsPublAtr2AD7f0Rr6qPN8+xQ==
+      integrity: sha512-5vFvT4dc/s32gmF13i2miSUOQAW261iFoQW6/hhFXwHmeGn0iniu1RotBgSZn4VYqtr5mOLaDNDGRsdMxC/lmA==
       tarball: 'file:projects/heart-observatory.tgz'
     version: 0.0.0
   'file:projects/heart-slack.tgz':
@@ -6857,7 +6886,7 @@ packages:
     dev: false
     name: '@rush-temp/heart-slack'
     resolution:
-      integrity: sha512-5f3xGxadpfI1FwN4pKACH9eJm4ItUUzzIQxq1P04CGNe4cidWK5IvnXLuvNa0Axrc0FQKfrbxz15aoBEhJSrbA==
+      integrity: sha512-nCA5R40J65dr1qY55Zm0MtbnQmizEU7ld4/DqdLonO+MA1PF8972VOA51/VW7LdJWbA4sFfvhA5EmGhfKIbOMg==
       tarball: 'file:projects/heart-slack.tgz'
     version: 0.0.0
   'file:projects/heart-ssllabs-server.tgz':
@@ -6873,7 +6902,7 @@ packages:
     dev: false
     name: '@rush-temp/heart-ssllabs-server'
     resolution:
-      integrity: sha512-VAq5ecAcCeel47FvJw2YHnLK9HFh+Wy9NaYyeqm1b92dSYDi33TgylCKmbkG3qy+7yWzHI0GNMVEVSpg+LpIpw==
+      integrity: sha512-y2yN8+4ATIZtJ4XzLotsHmIcjHIGPHBiN4vc73Iv0nZxRkY/utfWNe5PY1gn30EkyOwNMFavDXcyXEly3wZ+KA==
       tarball: 'file:projects/heart-ssllabs-server.tgz'
     version: 0.0.0
   'file:projects/heart-test.tgz':
@@ -6902,12 +6931,11 @@ specifiers:
   '@slack/web-api': ^5.0.1
   '@types/dotenv': ^6.1.1
   '@types/express': ^4.16.1
-  '@types/jest': ~24.0.17
+  '@types/jest': ^24.0.17
   '@types/node': ^10.14.10
   '@types/node-fetch': ^2.3.7
   chrome-launcher: ^0.12.0
   commander: ^2.20.0
-  coveralls: ~3.0.6
   devtools-protocol: ^0.0.726364
   dotenv: ^8.0.0
   eslint: ^6.8.0
@@ -6915,6 +6943,6 @@ specifiers:
   jest: ^24.9.0
   lighthouse: ^5.6.0
   node-fetch: ^2.6.0
-  ts-jest: ~24.0.2
+  ts-jest: ^24.0.2
   tslint: ^5.18.0
   typescript: ^3.5.2

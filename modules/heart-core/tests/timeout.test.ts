@@ -1,6 +1,6 @@
 'use strict';
 
-import { timeout } from '../time/timeout';
+import { timeout } from '../src/time/timeout';
 
 jest.useFakeTimers();
 

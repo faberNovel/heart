@@ -1,0 +1,11 @@
+{
+  "changes": [
+    {
+      "packageName": "@fabernovel/heart-bigquery",
+      "comment": "Add test coverage",
+      "type": "minor"
+    }
+  ],
+  "packageName": "@fabernovel/heart-bigquery",
+  "email": "bastien.gatellier@fabernovel.com"
+}
