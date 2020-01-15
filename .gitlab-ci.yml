@@ -59,7 +59,7 @@ Lint:
     - echo 'Linting...'
     - node common/scripts/install-run-rush.js lint
 
-# Code coverage for each Heart module
+# Specific CI for each Heart module
 include:
   - local: 'modules/heart-api/.gitlab-ci.yml'
   - local: 'modules/heart-bigquery/.gitlab-ci.yml'

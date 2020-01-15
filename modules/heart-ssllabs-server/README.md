@@ -1,6 +1,6 @@
 # Heart SSL Labs Server
 
-![coverage](https://gitlab.com/fabernovel/heart/badges/master/coverage.svg?job=Coverage%3A+Heart+SSL+Labs+Server)
+![coverage](https://gitlab.com/fabernovel/heart/badges/master/coverage.svg?job=Coverage%3A%20Heart%20SSL%20Labs%20Server)
 
 _Heart SSL Labs Server_ is an _analysis_ module of _Heart_, which analyses URLs with _[Qualys SSL Labs server](https://www.ssllabs.com/ssltest/index.html)_.
 

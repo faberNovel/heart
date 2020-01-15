@@ -1,6 +1,6 @@
 # Heart Core
 
-![coverage](https://gitlab.com/fabernovel/heart/badges/master/coverage.svg?job=Coverage%3A+Heart+Core)
+![coverage](https://gitlab.com/fabernovel/heart/badges/master/coverage.svg?job=Coverage%3A%20Heart%20Core)
 
 _Heart Core_ centralize helpful code needed by every _Heart_ modules.
 
