@@ -1,6 +1,6 @@
 # Heart Lighthouse
 
-![coverage](https://gitlab.com/fabernovel/heart/badges/master/coverage.svg?job=Coverage%3A+Heart+Lighthouse)
+![coverage](https://gitlab.com/fabernovel/heart/badges/master/coverage.svg?job=Coverage%3A%20Heart%20Lighthouse)
 
 _Heart Lighthouse_ is an _analysis_ module of _Heart_, which analyses URLs with _[Google Lighthouse](https://developers.google.com/web/tools/lighthouse/)_.
 

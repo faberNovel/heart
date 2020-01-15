@@ -1,0 +1,11 @@
+{
+  "changes": [
+    {
+      "packageName": "@fabernovel/heart-core",
+      "comment": "Fix the test coverage badge URL",
+      "type": "patch"
+    }
+  ],
+  "packageName": "@fabernovel/heart-core",
+  "email": "bastien.gatellier@fabernovel.com"
+}
