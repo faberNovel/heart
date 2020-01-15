@@ -1,7 +1,5 @@
 # Heart API
 
-![coverage](https://gitlab.com/fabernovel/heart/badges/master/coverage.svg?job=Coverage%3A%20Heart%20API)
-
 _Heart API_ is a _runner_ module of _Heart_, which exposes an HTTP API that starts an analysis when it is requested.
 
 Note that you must install an _analysis_ module too, to have a minimum viable installation of _Heart_.
