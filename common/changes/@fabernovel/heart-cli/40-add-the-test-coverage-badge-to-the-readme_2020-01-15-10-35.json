@@ -1,0 +1,11 @@
+{
+  "changes": [
+    {
+      "packageName": "@fabernovel/heart-cli",
+      "comment": "Add a test coverage badge to the README.md",
+      "type": "minor"
+    }
+  ],
+  "packageName": "@fabernovel/heart-cli",
+  "email": "bastien.gatellier@fabernovel.com"
+}

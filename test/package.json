@@ -1,5 +1,6 @@
 {
   "name": "@fabernovel/heart-test",
+  "private": true,
   "scripts": {
     "build": "exit 0",
     "lint": "eslint",

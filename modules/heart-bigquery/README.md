@@ -1,4 +1,6 @@
-# Description
+# Heart BigQuery
+
+![coverage](https://gitlab.com/fabernovel/heart/badges/master/coverage.svg?job=Coverage%3A+Heart+BigQuery)
 
 _Heart BigQuery_ is a _listener_ module of _Heart_, which reacts to the end of an analysis by storing the results into a _[Google BigQuery](https://cloud.google.com/bigquery/)_ table.
 

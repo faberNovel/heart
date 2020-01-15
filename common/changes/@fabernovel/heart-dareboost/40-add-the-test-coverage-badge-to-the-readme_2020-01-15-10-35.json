@@ -1,0 +1,11 @@
+{
+  "changes": [
+    {
+      "packageName": "@fabernovel/heart-dareboost",
+      "comment": "Add a test coverage badge to the README.md",
+      "type": "minor"
+    }
+  ],
+  "packageName": "@fabernovel/heart-dareboost",
+  "email": "bastien.gatellier@fabernovel.com"
+}

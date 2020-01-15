@@ -1,4 +1,6 @@
-# Description
+# Heart Dareboost
+
+![coverage](https://gitlab.com/fabernovel/heart/badges/master/coverage.svg?job=Coverage%3A+Heart+Dareboost)
 
 _Heart Dareboost_ is an _analysis_ module of _Heart_, which analyses URLs with _[Dareboost](https://www.dareboost.com/)_.
 
