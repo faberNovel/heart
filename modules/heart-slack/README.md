@@ -1,7 +1,5 @@
 # Heart Slack
 
-![coverage](https://gitlab.com/fabernovel/heart/badges/master/coverage.svg?job=Coverage%3A%20Heart%20Slack)
-
 _Heart Slack_ is a _listener_ module of _Heart_, which reacts to the end of an analysis by sending the results to a _[Slack](https://slack.com)_ channel.
 
 Note that you must install an _analysis_ module too, to have a minimum viable installation of _Heart_.

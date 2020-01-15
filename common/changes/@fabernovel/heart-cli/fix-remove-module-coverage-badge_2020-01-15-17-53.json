@@ -1,9 +1,9 @@
 {
   "changes": [
     {
+      "comment": "",
       "packageName": "@fabernovel/heart-cli",
-      "comment": "Add a test coverage badge to the README.md",
-      "type": "minor"
+      "type": "none"
     }
   ],
   "packageName": "@fabernovel/heart-cli",
