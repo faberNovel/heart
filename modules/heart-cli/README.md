@@ -1,4 +1,6 @@
-# Description
+# Heart CLI
+
+![coverage](https://gitlab.com/fabernovel/heart/badges/master/coverage.svg?job=Coverage%3A+Heart+CLI)
 
 _Heart CLI_ is the control module of _Heart_. It allows every other module to work together, and is able to control the _Heart API_ and the _analysis_ modules. All of that by exposing a small CLI.
 

@@ -1,0 +1,11 @@
+{
+  "changes": [
+    {
+      "packageName": "@fabernovel/heart-lighthouse",
+      "comment": "Add a test coverage badge to the README.md",
+      "type": "minor"
+    }
+  ],
+  "packageName": "@fabernovel/heart-lighthouse",
+  "email": "bastien.gatellier@fabernovel.com"
+}

@@ -21,11 +21,11 @@ variables:
 
 # Only triggered on merge requests creation and update
 # Allows to access the $CI_MERGE_REQUEST_TARGET_BRANCH_NAME environment variable
-.mr:
+.only-mr:
   only:
     - merge_requests
 
-.npm-publication:
+.only-master:
   only:
     - web
     - branches
@@ -35,31 +35,48 @@ default:
   # The version must match the minimum version declared in rush.json
   image: node:10.13.0
 
-# Build every packages for merge requests
+Build for master:
+  extends:
+    - .install
+    - .build
+    - .only-master
+
 Build for MR:
   extends:
     - .install
     - .build
-    - .mr
+    - .only-mr
 
 # Checks code linting
 Lint:
   stage: test
   extends:
     - .install
-    - .mr
+    - .only-mr
   dependencies:
     - Build for MR
   script:
     - echo 'Linting...'
     - node common/scripts/install-run-rush.js lint
 
+# Code coverage for each Heart module
+include:
+  - local: 'modules/heart-api/.gitlab-ci.yml'
+  - local: 'modules/heart-bigquery/.gitlab-ci.yml'
+  - local: 'modules/heart-cli/.gitlab-ci.yml'
+  - local: 'modules/heart-core/.gitlab-ci.yml'
+  - local: 'modules/heart-dareboost/.gitlab-ci.yml'
+  - local: 'modules/heart-lighthouse/.gitlab-ci.yml'
+  - local: 'modules/heart-observatory/.gitlab-ci.yml'
+  - local: 'modules/heart-slack/.gitlab-ci.yml'
+  - local: 'modules/heart-ssllabs-server/.gitlab-ci.yml'
+
 # Checks that a changelog has been provided
 Missing changelog:
   stage: test
   extends:
     - .install
-    - .mr
+    - .only-mr
   dependencies:
     - Build for MR
   script:
@@ -69,13 +86,6 @@ Missing changelog:
     - node common/scripts/install-run-rush.js change
       --target-branch origin/$CI_MERGE_REQUEST_TARGET_BRANCH_NAME
       --verify
-
-# Build every packages during NPM publication
-Build for NPM publication:
-  extends:
-    - .install
-    - .build
-    - .npm-publication
 
 # Publish to NPM.
 # By default, the dry-run mode is enabled and the policy version is set to individualVersion.
@@ -88,13 +98,13 @@ Publish to NPM:
   stage: deploy
   extends:
     - .install
-    - .npm-publication
+    - .only-master
   when: manual
   variables:
     PUBLISH: 0
     VERSION_POLICY: "individualVersion"
   dependencies:
-    - Build for NPM publication
+    - Build for master
   script:
     # These values must be set to make Rush works
     - git config --local user.name "FABERNOVEL"
@@ -119,6 +129,7 @@ Publish to NPM:
       --target-branch $CI_COMMIT_REF_NAME
       --version-policy $VERSION_POLICY
 
+# Heart website
 pages:
   stage: deploy
   script:
