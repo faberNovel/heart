@@ -1,6 +1,6 @@
 {
   "name": "@fabernovel/heart-lighthouse",
-  "version": "3.0.0-rc.2",
+  "version": "3.0.0",
   "description": "Analysis module of Heart, which analyses URLs with Google Lighthouse",
   "homepage": "https://gitlab.com/fabernovel/heart",
   "bugs": {
@@ -35,10 +35,10 @@
     "node": ">=10.13.0"
   },
   "peerDependencies": {
-    "@fabernovel/heart-cli": "^3.0.2"
+    "@fabernovel/heart-cli": "^3.1.0"
   },
   "dependencies": {
-    "@fabernovel/heart-core": "^3.0.1",
+    "@fabernovel/heart-core": "^3.1.0",
     "chrome-launcher": "^0.12.0",
     "lighthouse": "^5.6.0"
   },

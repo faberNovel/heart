@@ -1,5 +1,6 @@
 {
   "name": "@fabernovel/heart-test",
+  "version": "3.0.0-rc.1",
   "private": true,
   "scripts": {
     "build": "exit 0",
@@ -7,16 +8,16 @@
     "test": "jest --passWithNoTests"
   },
   "dependencies": {
-    "@fabernovel/heart-api": "^3.0.1",
-    "@fabernovel/heart-bigquery": "^3.1.0",
-    "@fabernovel/heart-cli": "^3.0.2",
-    "@fabernovel/heart-dareboost": "^3.1.0",
-    "@fabernovel/heart-observatory": "^3.1.0",
-    "@fabernovel/heart-slack": "^3.1.0",
-    "@fabernovel/heart-ssllabs-server": "^3.1.0"
+    "@fabernovel/heart-api": "^3.1.0",
+    "@fabernovel/heart-bigquery": "^3.2.0",
+    "@fabernovel/heart-cli": "^3.1.0",
+    "@fabernovel/heart-dareboost": "^3.2.0",
+    "@fabernovel/heart-observatory": "^3.2.0",
+    "@fabernovel/heart-slack": "^3.2.0",
+    "@fabernovel/heart-ssllabs-server": "^3.2.0"
   },
   "devDependencies": {
-    "@fabernovel/heart-core": "^3.0.1",
+    "@fabernovel/heart-core": "^3.1.0",
     "eslint": "^6.8.0",
     "jest": "^24.9.0"
   }

@@ -1,6 +1,6 @@
 {
   "name": "@fabernovel/heart-slack",
-  "version": "3.1.0",
+  "version": "3.2.0",
   "description": "Listener module of Heart, which reacts to the end of an analysis by sending the results to a Slack channel",
   "homepage": "https://gitlab.com/fabernovel/heart",
   "bugs": {
@@ -34,10 +34,10 @@
     "node": ">=10.13.0"
   },
   "peerDependencies": {
-    "@fabernovel/heart-cli": "^3.0.0"
+    "@fabernovel/heart-cli": "^3.1.0"
   },
   "dependencies": {
-    "@fabernovel/heart-core": "^3.0.1",
+    "@fabernovel/heart-core": "^3.1.0",
     "@slack/web-api": "^5.0.1"
   },
   "devDependencies": {
