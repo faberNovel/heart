@@ -1,0 +1,30 @@
+{
+  "name": "@fabernovel/heart-lighthouse",
+  "entries": [
+    {
+      "version": "3.0.0",
+      "tag": "@fabernovel/heart-lighthouse_v3.0.0",
+      "date": "Thu, 16 Jan 2020 14:51:38 GMT",
+      "comments": {
+        "minor": [
+          {
+            "comment": "Initial release of automated tests"
+          }
+        ],
+        "major": [
+          {
+            "comment": "Introduce the Google Lighthouse module"
+          }
+        ],
+        "dependency": [
+          {
+            "comment": "Updating dependency \"@fabernovel/heart-core\" from `^3.0.1` to `^3.1.0`"
+          },
+          {
+            "comment": "Updating dependency \"@fabernovel/heart-cli\" from `^3.0.2` to `^3.1.0`"
+          }
+        ]
+      }
+    }
+  ]
+}

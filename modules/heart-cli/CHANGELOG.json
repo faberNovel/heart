@@ -2,6 +2,31 @@
   "name": "@fabernovel/heart-cli",
   "entries": [
     {
+      "version": "3.1.0",
+      "tag": "@fabernovel/heart-cli_v3.1.0",
+      "date": "Thu, 16 Jan 2020 14:51:38 GMT",
+      "comments": {
+        "minor": [
+          {
+            "comment": "Initial release of automated tests"
+          }
+        ],
+        "patch": [
+          {
+            "comment": "Fix the console message if there is no link to an online report"
+          },
+          {
+            "comment": "Update the link to the purpose of Heart in the README, to redirect to the fabernovel.com website instead of the wiki"
+          }
+        ],
+        "dependency": [
+          {
+            "comment": "Updating dependency \"@fabernovel/heart-core\" from `^3.0.1` to `^3.1.0`"
+          }
+        ]
+      }
+    },
+    {
       "version": "3.0.2",
       "tag": "@fabernovel/heart-cli_v3.0.2",
       "date": "Fri, 19 Jul 2019 09:41:14 GMT",

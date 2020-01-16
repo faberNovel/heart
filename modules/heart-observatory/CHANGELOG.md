@@ -1,6 +1,17 @@
 # Change Log - @fabernovel/heart-observatory
 
-This log was last generated on Fri, 02 Aug 2019 12:02:44 GMT and should not be manually modified.
+This log was last generated on Thu, 16 Jan 2020 14:51:38 GMT and should not be manually modified.
+
+## 3.2.0
+Thu, 16 Jan 2020 14:51:38 GMT
+
+### Minor changes
+
+- Initial release of automated tests
+
+### Patches
+
+- Update the link to the purpose of Heart in the README, to redirect to the fabernovel.com website instead of the wiki
 
 ## 3.1.0
 Fri, 02 Aug 2019 12:02:44 GMT
