@@ -1,20 +1,3 @@
-'Test: Heart CLI':
-  stage: test
-  extends:
-    - .install
-    - .only-mr
-  dependencies:
-    - Build for MR
-  script:
-    # As of latest version of Rush (5.18 at the moment),
-    # there is no way to run a custom command for a single package only.
-    # There is an open issue to provide such a feature: https://github.com/microsoft/rushstack/issues/1399.
-    # Once this feature will be live, the following lines will be replaceable by:
-    # - node common/scripts/install-run-rush.js test --verbose --project @fabernovel/heart-cli
-    - npm -g install pnpm@3.6.2
-    - cd modules/heart-cli
-    - pnpm run test
-
 'Coverage: Heart CLI':
   stage: test
   extends:
