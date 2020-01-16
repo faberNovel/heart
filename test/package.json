@@ -1,6 +1,6 @@
 {
   "name": "@fabernovel/heart-test",
-  "version": "3.0.0-rc.1",
+  "version": "3.0.0",
   "private": true,
   "scripts": {
     "build": "exit 0",
@@ -12,6 +12,7 @@
     "@fabernovel/heart-bigquery": "^3.2.0",
     "@fabernovel/heart-cli": "^3.1.0",
     "@fabernovel/heart-dareboost": "^3.2.0",
+    "@fabernovel/heart-lighthouse": "^3.0.0",
     "@fabernovel/heart-observatory": "^3.2.0",
     "@fabernovel/heart-slack": "^3.2.0",
     "@fabernovel/heart-ssllabs-server": "^3.2.0"
