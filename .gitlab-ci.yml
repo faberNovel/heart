@@ -87,6 +87,16 @@ Missing changelog:
       --target-branch origin/$CI_MERGE_REQUEST_TARGET_BRANCH_NAME
       --verify
 
+Test:
+  stage: test
+  extends:
+    - .install
+    - .only-mr
+  dependencies:
+    - Build for MR
+  script:
+    - node common/scripts/install-run-rush.js test --verbose
+
 # Publish to NPM.
 # By default, the dry-run mode is enabled and the policy version is set to individualVersion.
 # These two behaviors can be changed with the PUBLISH and VERSION_POLICY variables.
