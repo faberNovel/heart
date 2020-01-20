@@ -29,7 +29,7 @@
     "build-watch": "tsc -w",
     "lint": "tslint -c tslint.json -p tsconfig.json",
     "prepare": "npm run build",
-    "test": "jest --passWithNoTests"
+    "test": "jest --silent --passWithNoTests"
   },
   "engines": {
     "node": ">=10.13.0"

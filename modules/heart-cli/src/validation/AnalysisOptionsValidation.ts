@@ -11,9 +11,9 @@ export default class AnalysisOptionsValidation {
     const errors: string[] = [];
 
     if (undefined === configFile && undefined === configInline) {
-      errors.push(`You must provide a configuration`);
+      errors.push('You must provide a configuration');
     } else if (undefined !== configFile && undefined !== configInline) {
-      errors.push(`You must provide only one configuration`);
+      errors.push('You must provide only one configuration');
     }
 
     if (errors.length > 0) {
