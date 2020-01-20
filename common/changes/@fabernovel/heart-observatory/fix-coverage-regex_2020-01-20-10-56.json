@@ -1,0 +1,11 @@
+{
+  "changes": [
+    {
+      "comment": "",
+      "packageName": "@fabernovel/heart-observatory",
+      "type": "none"
+    }
+  ],
+  "packageName": "@fabernovel/heart-observatory",
+  "email": "bastien.gatellier@fabernovel.com"
+}
