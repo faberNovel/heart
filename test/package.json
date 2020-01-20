@@ -5,7 +5,7 @@
   "scripts": {
     "build": "exit 0",
     "lint": "eslint",
-    "test": "jest --passWithNoTests"
+    "test": "jest --silent --passWithNoTests"
   },
   "dependencies": {
     "@fabernovel/heart-api": "^3.1.0",

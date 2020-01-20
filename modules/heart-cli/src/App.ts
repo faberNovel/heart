@@ -5,7 +5,6 @@ import {
   ModuleInterface,
   ModuleListenerInterface,
   ModuleServerInterface,
-  Report,
 } from '@fabernovel/heart-core';
 import * as EventEmitter from 'events';
 
@@ -19,28 +18,28 @@ export default class App {
     this.registerEventsListeners();
   }
 
-  public startAnalysis(module: ModuleAnalysisInterface, conf: object): void {
-    module.startAnalysis(conf)
-      .catch (error => {
-        console.error(error);
-        process.exit(1);
-      })
-      .then((report: Report) => {
-        // print analyse result
-        const reportName = report.service ? `[${report.service.name}] ` : '';
-        let message = `${reportName}${report.analyzedUrl}: ${report.note}`;
+  public async startAnalysis(module: ModuleAnalysisInterface, conf: object): Promise<void> {
+    try {
+      const report = await module.startAnalysis(conf);
 
-        if (report.resultUrl) {
-          message += `, view full report: ${report.resultUrl}`;
-        }
+      // print analyse result
+      const reportName = report.service ? `[${report.service.name}] ` : '';
+      let message = `${reportName}${report.analyzedUrl}: ${report.note}`;
 
-        console.log(message);
+      if (report.resultUrl) {
+        message += `, view full report: ${report.resultUrl}`;
+      }
 
-        this.eventEmitter.emit(AnalysisEvents.DONE, report);
+      console.log(message);
 
-        // /!\ do not exit the node process at this point,
-        //     because it could stop the execution of the event handlers
-      });
+      this.eventEmitter.emit(AnalysisEvents.DONE, report);
+
+      // /!\ do not exit the node process at this point,
+      //     because it could stop the execution of the event handlers
+    } catch (error) {
+      console.error(error);
+      process.exit(1);
+    }
   }
 
   public startServer(module: ModuleServerInterface, modules: ModuleInterface[], port: number): void {
