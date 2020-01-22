@@ -5,6 +5,10 @@ module.exports = {
   // Automatically clear mock calls and instances between every test
   clearMocks: true,
 
+  collectCoverageFrom: [
+    "src/**/*",
+  ],
+
   // A list of reporter names that Jest uses when writing coverage reports
   coverageReporters: ["text-summary"],
 
