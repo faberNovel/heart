@@ -26,8 +26,8 @@ export default interface Scan {
     // timestamp for when the scan was first requested
     start_time: string;
 
-    // the current state of the scan
-    state: string;
+    // the current state of the scan (https://github.com/mozilla/http-observatory/blob/master/httpobs/docs/api.md#scanner-state)
+    state: 'ABORTED' | 'FAILED' | 'FINISHED' | 'PENDING' | 'STARTING' | 'RUNNING';
 
     // the number of subtests that were assigned a fail result
     tests_failed: number;
