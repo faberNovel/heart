@@ -13,17 +13,13 @@ const api_returned_data = {
 };
 
 test('The request GET method return API json content', async () => {
-  expect.assertions(1);
-
   const data = await Request.get(api_url);
 
-  return expect(data).toStrictEqual(api_returned_data);
+  expect(data).toStrictEqual(api_returned_data);
 });
 
 test('The request POST method return API json content', async () => {
-  expect.assertions(1);
-
   const data = await Request.post(api_url);
 
-  return expect(data).toStrictEqual({});
+  expect(data).toStrictEqual({});
 });
