@@ -2,7 +2,7 @@
 
 import Request from '../src/http/Request';
 
-jest.setTimeout(20000);
+jest.setTimeout(60000);
 
 const api_url = 'https://jsonplaceholder.typicode.com/todos/1';
 const api_returned_data = {

@@ -1,0 +1,11 @@
+{
+  "changes": [
+    {
+      "packageName": "@fabernovel/heart-slack",
+      "comment": "Fix an issue where the module could not work with the new Slack Apps",
+      "type": "patch"
+    }
+  ],
+  "packageName": "@fabernovel/heart-slack",
+  "email": "alexisotton@gmail.com"
+}
