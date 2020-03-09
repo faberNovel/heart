@@ -22,8 +22,7 @@ export default class Client {
   }): Promise<any> {
     return this.client.chat.postMessage({
       channel: this.channel,
-      ...options,
-      as_user: false
+      ...options
     });
   }
 }
