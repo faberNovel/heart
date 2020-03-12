@@ -24,14 +24,14 @@ In the following sections, every examples are using NPM as package manager, but 
 
 # Usage
 
-## General
+## Analysis setup
 
-Regardless the _runner_ module with which you wish to start the analysis, the JSON data must follow the [SSL Labs API v3 (_Invoke assessment and check progress_ section)](https://github.com/ssllabs/ssllabs-scan/blob/master/ssllabs-api-docs-v3.md#invoke-assessment-and-check-progress).
+The analysis setup must use the JSON format, and follow the [Invoke assessment and check progress API documentation](https://github.com/ssllabs/ssllabs-scan/blob/master/ssllabs-api-docs-v3.md#invoke-assessment-and-check-progress).
 
 ## Example
 
-Using _[Heart CLI](https://www.npmjs.com/package/@fabernovel/heart-cli)_, starting a _Qualys SSL Labs server_ analysis of `about.gitlab.com` could look like that:
+Using _[Heart CLI](https://www.npmjs.com/package/@fabernovel/heart-cli)_, starting a _Qualys SSL Labs server_ analysis of `heart.fabernovel.com` could look like that:
 
 ```shell
-npx heart ssllabs-server --inline '{"host":"about.gitlab.com","fromCache":"on"}'
+npx heart ssllabs-server --inline '{"host":"heart.fabernovel.com","fromCache":"on"}'
 ```

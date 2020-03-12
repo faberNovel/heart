@@ -1,17 +1,22 @@
 # Contributing to _Heart_
 
-## Make sure that an issue exists
+Hi 👋 and welcome to the contributing guide of _Heart_.
 
-Before coding, you first have to make sure that the changes you want to make are described in an issue.
+We are going to walk through the different steps that will lead you to contribute to the project, from reporting an issue to suggesting new features.
 
-1. Make sure the issue does not already exists or has no merge request yet
-2. Create the issue if it does not already exist
+To make the _Heart_ accessible to most users, everything is written in english, and you are invited to use this language if possible.
+
+## Make sure that your contribution does not already exist
+
+Before making a new contribution, please check [the issues](https://gitlab.com/fabernovel/heart/-/boards) and the [merge requests](https://gitlab.com/fabernovel/heart/-/merge_requests) as you might find out that you don't need to create one.
 
 ## Reporting Bugs
 
-Before creating bug reports, please check [this list](https://gitlab.com/fabernovel/heart/-/boards) as you might find out that you don't need to create one.
-
-When you are creating a bug report, please include as many details as possible.
+[Create a new issue](https://gitlab.com/fabernovel/heart/-/issues/new) and include as many details as possible, such as:
+* the version of Node.js
+* the list of _Heart_ modules installed
+* the differents steps that lead to the bug
+* ...
 
 ## Suggesting enhancements
 
@@ -33,9 +38,15 @@ The _Merge Request_ is created with the _WIP:_ prefix, which indicates that the 
 
 #### Install the requirements
 
+Make sure you're using Node.js version 10 (>= 10 and <11 exactly)
+
 _Heart_ handle every modules in a single repository that is managed with [Rush](https://rushjs.io/) and [pnpm](https://pnpm.js.org/).
 
-So make sure you have them both installed on your computer before you begin.
+So make sure you have them both installed on your computer before you begin:
+
+```shell
+npm install -g @microsoft/rush pnpm
+```
 
 #### Clone the repository
 
@@ -82,18 +93,24 @@ To do so, you have to:
     pnpm install
     ````
 
-3. Use the CLI and check your changes with:
+3. Starts an analysis using the CLI. You can list the available analysis by using:
 
     ```shell
-    pnpx heart
+    pnpx heart -h
+    ```
+
+    Example of a CLI command using the _Heart Dareboost_ module:
+
+    ```shell
+    pnpx heart dareboost -i '{"url": "https://heart.fabernovel.com/"}'
     ```
 
 ### Provide a changelog
 
 Your enhancements may require to provide a list of changes and an increase in the package version number.
 
-You can check if you need to provide these two with
-    
+You can check if you need to provide these two with:
+
 ```shell
 rush change --verify
 ```

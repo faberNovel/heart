@@ -20,12 +20,16 @@ Read more about [the purpose, design and general installation of _Heart_](https:
 
 # Usage
 
+## Analysis setup
+
+The analysis setup must use the JSON format with a `url` key.
+
 ## Simple
 
 Using _[Heart CLI](https://www.npmjs.com/package/@fabernovel/heart-cli)_, to start a _Google Lighthouse_ analysis of https://www.fabernovel.com looks like this:
 
 ```shell
-npx heart lighthouse --inline '{"url":"https://www.fabernovel.com"}'
+npx heart lighthouse --inline '{"url":"https://heart.fabernovel.com"}'
 ```
 
 ## Advanced
@@ -35,7 +39,7 @@ You can change the default _Google Lighthouse_ configuration with the `config` k
 `lighthouse.json`:
 ```json
 {
-  "url": "https://www.fabernovel.com",
+  "url": "https://heart.fabernovel.com",
   "config": {
     "extends": "lighthouse:default",
     "settings": {
