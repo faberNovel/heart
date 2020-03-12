@@ -39,7 +39,7 @@ We assume that the _analysis_ module [_Heart Observatory_](https://www.npmjs.com
 If you want to start an analysis, you can use one of the following options:
 
   * ```shell
-    npx heart observatory --inline '{"host": "about.gitlab.com"}'
+    npx heart observatory --inline '{"host": "heart.fabernovel.com"}'
     ```
 
     Or:
@@ -52,6 +52,6 @@ If you want to start an analysis, you can use one of the following options:
 
     ```json
     {
-      "host": "about.gitlab.com"
+      "host": "heart.fabernovel.com"
     }
     ```

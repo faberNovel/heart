@@ -48,7 +48,7 @@ Starting with this situation:
 >
 > The _[Heart Dareboost](https://www.npmjs.com/package/@fabernovel/heart-dareboost)_ _analysis_ module is installed (package name: `@fabernovel/heart-dareboost`)
 >
-> You want to analyse the https://about.gitlab.com URL
+> You want to analyse the https://heart.fabernovel.com URL
 
 You can do the following request on `127.0.0.1:3000`:
 
@@ -56,7 +56,7 @@ You can do the following request on `127.0.0.1:3000`:
 POST /dareboost
 Content-type: application/json
 {
-  "url": "https://about.gitlab.com",
+  "url": "https://heart.fabernovel.com",
   "lang": "en",
   "isPrivate": true,
   "visualMetrics": true

@@ -33,21 +33,18 @@ In the following sections, every examples are using NPM as package manager, but 
 
 # Usage
 
-## General
+## Analysis setup
 
-Regardless the _runner_ module with which you wish to start the analysis, the JSON data must follow the following format:
+The analysis setup must use the JSON format, and follow the [Invoke assessment API Documentation](https://github.com/mozilla/http-observatory/blob/master/httpobs/docs/api.md#invoke-assessment).
+
+Example:
 
 ```json
 {
-  "host": "my-host.com",
-  "rescan": true,
+  "host": "heart.fabernovel.com",
   "hidden": true
 }
 ```
-
-Only `host` parameter is mandatory.
-
-See [HTTP Observatory API Documentation](https://github.com/mozilla/http-observatory/blob/master/httpobs/docs/api.md) for details.
 
 ## Example
 
@@ -57,7 +54,7 @@ Starting with this situation:
 >
 > The server is listening on port 3000
 >
-> You want to analyse the about.gitlab.com host
+> You want to analyse the heart.fabernovel.com host
 
 You can do the following request on `127.0.0.1:3000`:
 
@@ -65,6 +62,6 @@ You can do the following request on `127.0.0.1:3000`:
 POST /observatory
 Content-type: application/json
 {
-  "host":"about.gitlab.com"
+  "host":"heart.fabernovel.com"
 }
 ```

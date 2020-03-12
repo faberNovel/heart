@@ -30,14 +30,14 @@ In the following sections, every examples are using NPM as package manager, but 
 
 # Usage
 
-## General
+## Analysis setup
 
-Regardless the _runner_ module with which you wish to start the analysis, the JSON data must follow the [Dareboost API (_Analyse a page_ section)](https://www.dareboost.com/en/documentation-api#analyse), except the `token` property, that you set up during the installation.
+The analysis setup must use the JSON format, and follow the [request format API documentation](https://www.dareboost.com/en/documentation-api#analyse), except the `token` property, that you set up during the installation.
 
 ## Example
 
-Using _[Heart CLI](https://www.npmjs.com/package/@fabernovel/heart-cli)_, starting a _Dareboost_ analysis of https://about.gitlab.com could look like that:
+Using _[Heart CLI](https://www.npmjs.com/package/@fabernovel/heart-cli)_, starting a _Dareboost_ analysis of https://heart.fabernovel.com could look like that:
 
 ```shell
-npx heart dareboost --inline '{"url":"https://about.gitlab.com","location":"Paris"}'
+npx heart dareboost --inline '{"url":"https://heart.fabernovel.com","location":"Paris"}'
 ```
