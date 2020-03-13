@@ -1,25 +1,33 @@
-'use strict';
+import { mocked } from 'ts-jest/utils';
 
 import Request from '../src/http/Request';
 
-jest.setTimeout(60000);
 
-const api_url = 'https://jsonplaceholder.typicode.com/todos/1';
-const api_returned_data = {
-  userId: 1,
-  id: 1,
-  title: 'delectus aut autem',
-  completed: false
-};
+jest.mock('node-fetch');
+const MockedRequest = mocked(Request, true);
 
-test('The request GET method return API json content', async () => {
-  const data = await Request.get(api_url);
+describe('The different Request methods must returns a JSON content', () => {
+  const API_URL = 'https://jsonplaceholder.typicode.com/todos/1';
+  const RESPONSE = {
+    userId: 1,
+    id: 1,
+    title: 'delectus aut autem',
+    completed: false
+  };
 
-  expect(data).toStrictEqual(api_returned_data);
-});
+  beforeEach(() => {
+    require('node-fetch').__setMockResponse(RESPONSE);
+  });
 
-test('The request POST method return API json content', async () => {
-  const data = await Request.post(api_url);
+  test('The GET method must returns a JSON content', async () => {
+    const data = await MockedRequest.get(API_URL);
 
-  expect(data).toStrictEqual({});
+    expect(data).toStrictEqual(RESPONSE);
+  });
+
+  test('The POST method must returns a JSON content', async () => {
+    const data = await MockedRequest.post(API_URL);
+
+    expect(data).toStrictEqual(RESPONSE);
+  });
 });
