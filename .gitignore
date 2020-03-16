@@ -58,10 +58,14 @@ jspm_packages/
 # Common toolchain intermediate files
 lib
 temp
+dist
 
 # Rush files
 common/temp/**
 package-deps.json
+
+# Parcel files
+.cache
 
 # DS_Store
 *.DS_Store
