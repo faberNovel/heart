@@ -2,13 +2,6 @@ variables:
   HOST_REPO_PIPELINE_URL: 'https:\/\/gitlab-ci-token:${CI_JOB_TOKEN}@gitlab.com\/'
   HOST_REPO_URL: 'git@gitlab.com:'
 
-.install:
-  before_script:
-    # Update the rush.json repository url with the one used by the CI, to make the rush commands works
-    - sed -i -e "s/$HOST_REPO_URL/$HOST_REPO_PIPELINE_URL/g" rush.json
-    - node common/scripts/install-run-rush.js install
-
-# Install packages using Rush
 .build:
   stage: build
   artifacts:
@@ -19,17 +12,30 @@ variables:
   script:
     - node common/scripts/install-run-rush.js build --verbose
 
+.coverage:
+  stage: test
+  extends:
+    - .install
+    - .only-master
+  dependencies:
+    - Build for master
+  coverage: /Branches\s+:\s\d+.?\d+/
+
+.install:
+  before_script:
+    # Update the rush.json repository url with the one used by the CI, to make the rush commands works
+    - sed -i -e "s/$HOST_REPO_URL/$HOST_REPO_PIPELINE_URL/g" rush.json
+    - node common/scripts/install-run-rush.js install
+
+.only-master:
+  only:
+    - master
+
 # Only triggered on merge requests creation and update
 # Allows to access the $CI_MERGE_REQUEST_TARGET_BRANCH_NAME environment variable
 .only-mr:
   only:
     - merge_requests
-
-.only-master:
-  only:
-    - web
-    - branches
-    - /^master$/
 
 default:
   # The version must match the minimum version declared in rush.json
@@ -109,7 +115,8 @@ Publish to NPM:
   extends:
     - .install
     - .only-master
-  when: manual
+  only:
+    - web
   variables:
     PUBLISH: 0
     VERSION_POLICY: "individualVersion"
@@ -142,13 +149,14 @@ Publish to NPM:
 # Heart website
 pages:
   stage: deploy
+  extends:
+    - .only-master
+  dependencies:
+    - Build for master
+  artifacts:
+    paths:
+      - public
   script:
     - mkdir .public
     - cp -r website/* .public
     - mv .public public
-  artifacts:
-    paths:
-    - public
-  only:
-    - branches
-    - /^master$/
