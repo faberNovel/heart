@@ -1,10 +1,6 @@
 'Coverage: Heart API':
-  stage: test
   extends:
-    - .install
-    - .only-master
-  dependencies:
-    - Build for master
+    - .coverage
   script:
     # As of latest version of Rush (5.18 at the moment),
     # there is no way to run a custom command for a single package only.
@@ -14,4 +10,3 @@
     - npm -g install pnpm@3.6.2
     - cd modules/heart-api
     - pnpm run test -- --coverage
-  coverage: /Branches\s+:\s\d+.?\d+/
