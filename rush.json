@@ -350,6 +350,11 @@
       "shouldPublish": false
     },
     {
+      "packageName": "@fabernovel/heart-website",
+      "projectFolder": "website",
+      "shouldPublish": false
+    },
+    {
       "packageName": "@fabernovel/heart-api",
       "projectFolder": "modules/heart-api",
       "versionPolicyName": "individualVersion"

@@ -158,5 +158,5 @@ pages:
       - public
   script:
     - mkdir .public
-    - cp -r website/* .public
+    - cp -r website/dist/* .public
     - mv .public public

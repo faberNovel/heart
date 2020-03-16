@@ -1,0 +1,18 @@
+@mixin font-face($name, $path, $weight: null, $style: null) {
+  $src: null;
+  $exts: woff2 woff;
+
+  @each $ext in $exts {
+    $src: append($src, url(quote($path + '.' + $ext)) format(quote($ext)), comma);
+  }
+
+  @font-face {
+    font-weight: $weight;
+    font-family: quote($name);
+    font-style: $style;
+    src: $src;
+  }
+}
+
+@include font-face(Gibson, '../assets/fonts/gibson/light', 300, normal);
+@include font-face(Gibson, '../assets/fonts/gibson/regular', 400, normal);

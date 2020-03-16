@@ -123,6 +123,13 @@
     //   "shellCommand": "node common/scripts/my-global-command.js"
     // }
     {
+      "commandKind": "global",
+      "name": "website-start",
+      "summary": "Starts website for development purposes",
+      "safeForSimultaneousRushProcesses": false,
+      "shellCommand": "pnpm --prefix website/ run start"
+    },
+    {
       "commandKind": "bulk",
       "name": "lint",
       "summary": "Run linters for every package",
