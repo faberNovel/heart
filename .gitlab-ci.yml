@@ -158,4 +158,4 @@ pages:
       - public
   script:
     - mkdir public
-    - rsync -av --delete --delete-after website/dist/ public/
+    - cp -R website/dist/ public/
