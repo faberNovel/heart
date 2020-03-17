@@ -8,6 +8,7 @@ variables:
     paths:
       - common/temp/node_modules/
       - modules/
+      - website/dist/
       - rush.json
   script:
     - node common/scripts/install-run-rush.js build --verbose
