@@ -157,6 +157,5 @@ pages:
     paths:
       - public
   script:
-    - mkdir .public
-    - cp -r website/dist/* .public
-    - mv .public public
+    - mkdir public
+    - rsync -av --delete --delete-after website/dist/ public/
