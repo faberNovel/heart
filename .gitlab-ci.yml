@@ -4,14 +4,14 @@ variables:
 
 .build:
   stage: build
+  script:
+    - node common/scripts/install-run-rush.js build --verbose
   artifacts:
     paths:
       - common/temp/node_modules/
       - modules/
       - website/dist/
       - rush.json
-  script:
-    - node common/scripts/install-run-rush.js build --verbose
 
 .coverage:
   stage: test
@@ -154,9 +154,9 @@ pages:
     - .only-master
   dependencies:
     - Build for master
+  script:
+    - mv website/dist/ public/
   artifacts:
+    expose_as: website
     paths:
       - public
-  script:
-    - mkdir public
-    - cp -R website/dist/ public/
