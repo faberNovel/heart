@@ -1,30 +1,13 @@
 /*
-* Override KNACSS variables
+* Override Bulma variables
 */
-$font-family-base: 'Gibson', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif; // system font stack
-$font-family-headings  : 'Gibson', sans-serif !default; // font for h1, h2.. h6
-$font-family-monospace : courier, consolas, monospace; // font for code and samples
+$family-sans-serif: 'Gibson', BlinkMacSystemFont, -apple-system, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", "Helvetica", "Arial", sans-serif; // system font stack
+$family-monospace : courier, monospace; // font for code and samples
 
 /*
-* Import KNACSS (reboot + core + grid)
-*
-* www.KNACSS.com @author: Alsacreations, Raphael Goetter
-* Licence WTFPL http://www.wtfpl.net/
+* Import Bulma with mini reset, utilities and grid
 */
-@import "~knacss/sass/_vendor/reboot"; // Bootstrap reboot (basic reset) (CSS file renamed and imported as if it was a partial because of libsass)
-
-// WARNING : you should comment the following @import (variables)
-// and move variables file from knacss folder to your own project folder!
-@import "~knacss/sass/_config/variables";
-
-@import "~knacss/sass/_config/mixins";
-
-// Core Libraries
-@import "~knacss/sass/_library/base";         // basic styles
-@import "~knacss/sass/_library/layout";       // alignment, modules, positionning
-@import "~knacss/sass/_library/utilities";    // width and spacer helpers
-@import "~knacss/sass/_library/responsive";   // Responsive Web Design helpers
-
-// New Grid System by default (Grid Layout). If you prefer old "Flexbox" Grid System, replace file with "~knacss/sass/_library/grillade-flex"
-// Note that none of these files are prefixed by an underscore, in order to compile them.
-@import "~knacss/sass/_library/grillade-grid"; // grid system with Grid Layout
+@import "bulma/sass/utilities/_all";
+@import "bulma/sass/base/_all";
+@import "bulma/sass/elements/container";
+@import "bulma/sass/grid/columns";
