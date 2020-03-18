@@ -1,0 +1,9 @@
+@function rem($pxValue) {
+  @return #{$pxValue / 16}rem;
+}
+
+.container {
+  &.-initialPosition {
+    position: initial !important; // stylelint-disable declaration-no-important
+  }
+}

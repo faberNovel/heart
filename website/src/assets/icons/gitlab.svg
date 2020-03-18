@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg version="1.1" viewBox="0 0 38 35" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+  <title>GitLab icon</title>
+  <desc>White icon of Git-repository manager</desc>
+  <g fill="none" fill-rule="evenodd" stroke-linecap="round" stroke-linejoin="round">
+    <g transform="translate(-1263 -50)" stroke="#fff" stroke-width="2">
+      <g transform="translate(1264 51)">
+        <g transform="translate(0 .5)">
+          <path d="m35.373 19.764-17.407 12.236-17.407-12.236c-0.4787-0.3405-0.67659-0.94022-0.49033-1.486l1.994-5.9755 3.988-11.872c0.038681-0.096736 0.10026-0.18336 0.17979-0.25293 0.26843-0.23715 0.67954-0.23715 0.94797 0 0.083982 0.078512 0.14586 0.17645 0.17979 0.28455l3.988 11.84h13.239l3.988-11.872c0.038681-0.096736 0.10026-0.18336 0.17979-0.25293 0.26843-0.23715 0.67954-0.23715 0.94797 0 0.083982 0.078512 0.14586 0.17645 0.17979 0.28455l3.988 11.872 2.0757 5.9439c0.16957 0.56316-0.062974 1.1672-0.57205 1.486z"/>
+        </g>
+      </g>
+    </g>
+  </g>
+</svg>

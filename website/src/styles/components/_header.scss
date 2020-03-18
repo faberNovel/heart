@@ -1,0 +1,220 @@
+.header {
+  $root: &;
+  margin: rem(38) rem(10);
+
+  @media (min-width: 48em) {
+    margin: rem(35) rem(10);
+  }
+
+  // Branding
+  &__branding {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: auto;
+
+    @media (min-width: 48em) {
+      flex-direction: row;
+      margin: 0;
+    }
+
+    &Logo {
+      width: rem(43);
+      height: rem(37);
+      margin: 0 0 rem(14) 0;
+
+      @media (min-width: 48em) {
+        width: rem(71);
+        height: rem(61);
+        margin: 0 rem(22) 0 0;
+      }
+    }
+
+    &NameAuthor {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+
+      @media (min-width: 48em) {
+        flex-direction: row;
+      }
+    }
+
+    &Name {
+      width: rem(51);
+      height: rem(20);
+      margin: 0 0 rem(3) 0;
+
+      @media (min-width: 48em) {
+        width: rem(89);
+        height: rem(32);
+        margin: 0 rem(12) 0 0;
+      }
+    }
+
+    &Author {
+      color: $white;
+      font-weight: $weight-light;
+      font-size: rem(10);
+
+      @media (min-width: 48em) {
+        font-size: rem(16);
+      }
+    }
+  }
+
+  // Input checkbox to control sidebar on mobile
+  &__button {
+    display: none;
+
+    // When mobile navigation is opened
+    &:checked {
+      // Opened: Navigation
+      ~ #{$root}__navigation {
+        transform: translateX(0);
+        transition: transform .3s;
+      }
+
+      ~ #{$root}__icon #{$root}__iconLines {
+        background: transparent;
+
+        &:before,
+        &:after {
+          top: 0;
+        }
+
+        &:before {
+          transform: rotate(45deg);
+        }
+
+        &:after {
+          transform: rotate(-45deg);
+        }
+      }
+    }
+  }
+
+  // Hamburger icon
+  &__icon {
+    position: relative;
+    z-index: 900;
+    margin: 0;
+    padding: rem(8) 0;
+    color: $white;
+    cursor: pointer;
+    user-select: none;
+
+    @media (min-width: 48em) {
+      display: none;
+    }
+
+    &Lines {
+      position: relative;
+      width: rem(24);
+      height: rem(2);
+      transition: background-color .2s ease-out;
+
+      &:before,
+      &:after {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        transition: all .2s ease-out;
+        content: '';
+      }
+
+      &,
+      &:before,
+      &:after {
+        display: block;
+        background-color: $white;
+      }
+
+      &:before {
+        top: rem(-8);
+      }
+
+      &:after {
+        top: rem(8);
+      }
+    }
+  }
+
+  // Main container
+  &__container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: rem(60);
+  }
+
+  // Navigation
+  &__navigation {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    padding-top: rem(70);
+    background: rgba($black, .9);
+    transform: translateX(-100vw);
+
+    @media (min-width: 48em) {
+      position: inherit;
+      display: flex;
+      padding: initial;
+      background: initial;
+      transform: initial;
+    }
+
+    &Item {
+      margin: 0 0 rem(30) 0;
+
+      @media (min-width: 48em) {
+        margin: 0 rem(50) 0 0;
+      }
+
+      &:last-child {
+        margin: 0;
+      }
+    }
+
+    &Link{
+      color: $white;
+      font-weight: $weight-normal;
+      font-size: rem(16);
+      letter-spacing: rem(1.24);
+      text-transform: uppercase;
+      text-decoration: none;
+      transition: color .2s;
+
+      svg {
+        width: rem(36);
+        height: rem(33);
+        transition: opacity .2s;
+      }
+
+      &:hover {
+        color: rgba($white, .6);
+        text-decoration: none;
+
+        svg {
+          opacity: .6;
+        }
+      }
+    }
+
+    &List {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin: 0;
+      padding: 0;
+      list-style: none;
+
+      @media (min-width: 48em) {
+        flex-direction: row;
+      }
+    }
+  }
+}
