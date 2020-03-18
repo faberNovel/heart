@@ -17,7 +17,7 @@ export default class LighthouseModule extends Module implements ModuleAnalysisIn
 
       return this.handleResults(results.lhr)
     } catch (error) {
-      throw new Error(error.message)
+      throw new Error(error)
     }
   }
 

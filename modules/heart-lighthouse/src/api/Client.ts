@@ -9,14 +9,8 @@ export async function runAnalysis(conf: Config): Promise<LH.RunnerResult|undefin
 
     try {
       const results: LH.RunnerResult|undefined = await LH(conf.url, { port: chrome.port, output: 'json' }, conf.config)
-
-      try {
-        chrome.kill()
-        return results
-      } catch (error) {
-        console.warn(`[LIGHTHOUSE] WARN  -`, 'An error occured while killing Chrome: ', JSON.stringify(error))
-        return Promise.reject(error.message)
-      }
+      chrome.kill()
+      return results
     } catch (error) {
       console.warn(`[LIGHTHOUSE] WARN  -`, 'An error occured while killing Chrome: ', JSON.stringify(error))
       return Promise.reject(error.message)
