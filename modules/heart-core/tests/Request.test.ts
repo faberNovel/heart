@@ -1,10 +1,4 @@
-import { mocked } from 'ts-jest/utils';
-
 import Request from '../src/http/Request';
-
-
-jest.mock('node-fetch');
-const MockedRequest = mocked(Request, true);
 
 describe('The different Request methods must returns a JSON content', () => {
   const API_URL = 'https://jsonplaceholder.typicode.com/todos/1';
@@ -19,14 +13,14 @@ describe('The different Request methods must returns a JSON content', () => {
     require('node-fetch').__setMockResponse(RESPONSE);
   });
 
-  test('The GET method must returns a JSON content', async () => {
-    const data = await MockedRequest.get(API_URL);
+  it('should returns a JSON content if the GET method is used', async () => {
+    const data = await Request.get(API_URL);
 
     expect(data).toStrictEqual(RESPONSE);
   });
 
-  test('The POST method must returns a JSON content', async () => {
-    const data = await MockedRequest.post(API_URL);
+  it('should returns a JSON content if the POST method is used', async () => {
+    const data = await Request.post(API_URL);
 
     expect(data).toStrictEqual(RESPONSE);
   });
