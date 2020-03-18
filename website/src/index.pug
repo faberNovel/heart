@@ -1,3 +1,5 @@
+include views/mixins/svg.pug
+
 doctype html
 html(lang='en')
   head
@@ -6,7 +8,9 @@ html(lang='en')
 
     title Heart: a tool that automates the web quality measurements
 
-    link(rel="author", href="../humans.txt", type="text/plain")
+    meta(name='description', content='A tool that automates the web quality measurements')
+    link(rel="author", href="../static/humans.txt", type="text/plain")
+
     link(rel="stylesheet", href="styles/main.scss")
 
     // Favicons
@@ -18,6 +22,7 @@ html(lang='en')
     meta(name="msapplication-TileColor", content="#541d62")
     meta(name="theme-color", content="#541d62")
   body
+    include views/core/header.pug
     section.section
       .container
         h2 A tool that automates the web quality measurements

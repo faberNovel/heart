@@ -1,0 +1,39 @@
+header.header
+  .container.-initialPosition
+    .header__container
+
+      // Hamburger icon for mobile
+      input#header__button.header__button(type='checkbox')
+      label.header__icon(for='header__button')
+        span.header__iconLines
+
+      // Branding
+      .header__branding
+        // SEO
+        h1.is-sr-only Heart
+        // Logotype
+        .header__brandingLogo
+          +svg('branding-logo')
+        .header__brandingNameAuthor
+          .header__brandingName
+            +svg('branding-name')
+          .header__brandingAuthor by Fabernovel
+
+      // Navigation
+      -
+        var menu = [
+          { label: 'Heart', route: '#' },
+          { label: 'Functioning', route: '#' },
+          { label: 'Modules', route: '#' },
+          { icon: 'gitlab', route: 'https://gitlab.com/fabernovel/heart/' }
+        ]
+
+      nav.header__navigation(role='navigation', aria-label='navigation')
+        ul.header__navigationList
+          each item, index in menu
+            li.header__navigationItem
+              a.header__navigationLink(href=item.route)
+                if item.icon
+                  +svg(item.icon)
+                else
+                  span=item.label
