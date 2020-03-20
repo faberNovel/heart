@@ -10,6 +10,8 @@ variables:
     paths:
       - common/temp/node_modules/
       - modules/
+      - website/.firebaserc
+      - website/firebase.json
       - website/dist/
       - rush.json
 
@@ -104,14 +106,14 @@ Test:
   script:
     - node common/scripts/install-run-rush.js test --verbose
 
-# Publish to NPM.
+# Publish packages to NPM.
 # By default, the dry-run mode is enabled and the policy version is set to individualVersion.
 # These two behaviors can be changed with the PUBLISH and VERSION_POLICY variables.
 # This job is only triggered:
 # - if the pipeline as been created from the Gitlab web interface (only:web)
 # - if the branch name is `master` (only:branches and only:/^master$/)
 # - if the user clicks on the 'play' button and has enough rights to write on this branch (when:manual)
-Publish to NPM:
+Publish packages to NPM:
   stage: deploy
   extends:
     - .install
@@ -147,16 +149,18 @@ Publish to NPM:
       --target-branch $CI_COMMIT_REF_NAME
       --version-policy $VERSION_POLICY
 
-# Heart website
-pages:
+# This operation use artifacts created and stored during the "Build for master" job.
+# This speeds up this jobs by avoiding to execute additional operations on the repository (like Rush commands).
+Publish website to Firebase:
   stage: deploy
   extends:
     - .only-master
   dependencies:
     - Build for master
   script:
-    - mv website/dist/ public/
-  artifacts:
-    expose_as: website
-    paths:
-      - public
+    # Grab Firebase CLI
+    - curl -sL https://firebase.tools | bash
+    # https://firebase.google.com/docs/cli?authuser=0#cli-ci-systems
+    # Authentication is made through the FIREBASE_TOKEN environment variable
+    - cd website
+    - firebase deploy
