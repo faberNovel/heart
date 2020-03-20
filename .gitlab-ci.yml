@@ -150,16 +150,17 @@ Publish packages to NPM:
       --version-policy $VERSION_POLICY
 
 # This operation use artifacts created and stored during the "Build for master" job.
-# This speeds up this jobs by avoiding to execute additional operations on the repository (like Rush commands).
+# This speeds up this job by avoiding to execute additional operations on the repository (like Rush commands).
 Publish website to Firebase:
   stage: deploy
   extends:
     - .only-master
   dependencies:
     - Build for master
-  script:
+  before_script:
     # Grab Firebase CLI
-    - curl -sL https://firebase.tools | bash
+    - npm install -g firebase-tools
+  script:
     # https://firebase.google.com/docs/cli?authuser=0#cli-ci-systems
     # Authentication is made through the FIREBASE_TOKEN environment variable
     - cd website
