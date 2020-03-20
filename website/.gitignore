@@ -1,2 +1,5 @@
 # sprite
 src/assets/icons/sprite.svg
+
+# hosting / deployment
+.firebase
