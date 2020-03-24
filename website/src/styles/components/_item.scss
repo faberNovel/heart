@@ -1,0 +1,44 @@
+.item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  &__description {
+    font-weight: $weight-light;
+    font-size: rem(18);
+    line-height: rem(28);
+    text-align: center;
+  }
+
+  &__icon {
+    display: flex;
+    align-items: flex-end;
+    height: rem(62);
+    margin-bottom: rem(20);
+
+    &.-shape {
+      width: rem(66);
+    }
+
+    &.-social {
+      width: rem(47);
+    }
+
+    &.-puzzle {
+      width: rem(69);
+    }
+  }
+
+  &__title {
+    margin-bottom: rem(35);
+    color: $color-haiti;
+    font-size: rem(24);
+    line-height: rem(29);
+    text-align: center;
+
+    @include from($tablet) {
+      margin-bottom: rem(25);
+      font-size: rem(32);
+    }
+  }
+}
