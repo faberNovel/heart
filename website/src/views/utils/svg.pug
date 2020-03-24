@@ -1,0 +1,6 @@
+mixin svg(svg_id, inline=false)
+  if !inline
+    svg()&attributes(attributes)
+      use(href= 'assets/icons/sprite.svg#' + svg_id)
+  else
+    img(src= 'assets/icons/inline/' + svg_id + '.svg')

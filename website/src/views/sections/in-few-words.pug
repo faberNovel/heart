@@ -1,0 +1,59 @@
+section.section
+  .container
+    .card
+      +title('Heart in a few words')
+
+      -
+        var items = [
+          {
+            icon: 'shape',
+            title: 'Analysis automation',
+            description:
+              'In order to save valuable time and thus maximize \
+               added value employee actions, as we did with the deployment \
+               phase a few years ago.'
+          },
+          {
+            icon: 'social',
+            title: 'Open source',
+            description:
+              'We believe that the issues that we\'re facing, \
+               and that led us to develop Heart, most likely involve \
+               other industry players. The source code is available on \
+               <a href="https://gitlab.com/fabernovel/heart/" target="_blank" class="link">GitLab</a>.'
+          },
+          {
+            icon: 'puzzle',
+            title: 'Modular',
+            description:
+              'To meet the needs of each user. \
+               Thus, the majority of features are optional. \
+               The benefits of such an architecture are many.'
+          }
+        ]
+
+      // Large screen only (> 768px)
+      .columns.is-variable.is-hidden-mobile
+        each item, index in items
+          .column
+            +item(item)
+
+      // Mobile only with carousel (<= 768px)
+      .slider.is-hidden-tablet
+        - var prefixSlide = 'ifw-slide-'
+
+        // Carousel
+        .slider__track
+          each item, i in items
+            .slider__slide(
+              id=prefixSlide + i,
+              data-index=i
+            )
+              +item(item)
+
+        // Bullets
+        nav.slider__dots.is-hidden-tablet
+          ul.slider__dotsWrap
+            each _, i in Array(items.length)
+              li(data-index=i)
+                a.slider__dotsItem(href='#' + prefixSlide + i)

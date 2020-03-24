@@ -1,0 +1,10 @@
+.link {
+  color: $grey-darker;
+  text-decoration: none;
+  border-bottom: rem(2) solid $color-razzle-rose;
+  transition: color .3s;
+
+  &:hover {
+    color: $color-razzle-rose;
+  }
+}

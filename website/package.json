@@ -5,7 +5,7 @@
   "main": "dist/index.html",
   "scripts": {
     "build": "run-s build:svg && parcel build src/index.pug",
-    "build:svg": "svg-sprite --config sprite-config.json src/assets/icons/*.svg",
+    "build:svg": "svg-sprite --config sprite-config.json src/assets/icons/sprite/*.svg",
     "lint": "pug-lint **/*.pug && stylelint --syntax scss src/**/*.scss",
     "start": "run-s build:svg && parcel src/index.pug",
     "test": "jest --silent --passWithNoTests"
@@ -37,6 +37,7 @@
     "stylelint-order": "^4.0.0",
     "stylelint-scss": "^3.14.2",
     "svg-sprite": "^1.5.0",
+    "typescript": "^3.8.0",
     "npm-run-all": "^4.1.5"
   }
 }

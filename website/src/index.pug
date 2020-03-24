@@ -1,4 +1,5 @@
-include views/mixins/svg.pug
+include views/utils/svg.pug
+include views/components/all.pug
 
 doctype html
 html(lang='en')
@@ -23,6 +24,5 @@ html(lang='en')
     meta(name="theme-color", content="#541d62")
   body
     include views/core/header.pug
-    section.section
-      .container
-        h2 A tool that automates the web quality measurements
+    include views/sections/in-few-words.pug
+  script(src='/scripts/main.ts')

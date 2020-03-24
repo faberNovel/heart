@@ -1,0 +1,22 @@
+.card {
+  padding: rem(30);
+  background: $white;
+  border-radius: rem(10);
+  box-shadow: 0 rem(2) rem(4) 0 rgba(213, 213, 213, .5);
+
+  @include from($tablet) {
+    padding: rem(40) rem(75);
+  }
+
+  .columns {
+    --columnGap: 2rem;
+
+    @include from($fullhd) {
+      --columnGap: 3.5rem;
+    }
+  }
+
+  .title {
+    margin-bottom: rem(35);
+  }
+}
