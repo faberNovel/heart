@@ -21,18 +21,22 @@ header.header
 
       // Navigation
       -
-        var menu = [
+        const menu = [
           { label: 'Heart', route: '#' },
           { label: 'Functioning', route: '#' },
           { label: 'Modules', route: '#' },
-          { icon: 'gitlab', route: 'https://gitlab.com/fabernovel/heart/' }
+          { icon: 'gitlab', route: 'https://gitlab.com/fabernovel/heart/', blank: true }
         ]
 
       nav.header__navigation(role='navigation', aria-label='navigation')
         ul.header__navigationList
           each item, index in menu
             li.header__navigationItem
-              a.header__navigationLink(href=item.route)
+              - const linkAttributes = {}
+              if item.blank
+                - linkAttributes.target = '_blank'
+                - linkAttributes.rel = 'noreferrer'
+              a.header__navigationLink(href=item.route)&attributes(linkAttributes)
                 if item.icon
                   +svg(item.icon)
                 else
