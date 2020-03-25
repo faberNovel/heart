@@ -19,21 +19,18 @@
             "value": "default-src 'self'; base-uri 'self'; frame-ancestors 'none';"
           },
           {
+            "key": "Referrer-Policy",
+            "value": "default, strict-origin-when-cross-origin"
+          },
+          {
             "key": "X-Frame-Options",
             "value": "deny"
           },
           {
-            "key": "Referrer-Policy",
-            "value": "default, strict-origin-when-cross-origin"
+            "key": "X-XSS-Protection",
+            "value": "1; mode=block"
           }
         ]
-      },
-      {
-        "source": "**/*.@{html|js}",
-        "headers": [{
-          "key": "X-XSS-Protection",
-          "value": "1; mode=block"
-        }]
       },
       {
         "source": "**",
