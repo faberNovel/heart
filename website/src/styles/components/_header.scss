@@ -187,12 +187,20 @@
       letter-spacing: rem(1.24);
       text-transform: uppercase;
       text-decoration: none;
-      transition: color .2s;
+      border-color: transparent;
+      border-style: solid;
+      border-width: 0 0 rem(2) 0;
+      transition: color .3s, border-color .3s;
 
       svg {
         width: rem(36);
         height: rem(33);
-        transition: opacity .2s;
+        transition: opacity .3s;
+      }
+
+      &:focus {
+        border-color: $color-razzle-rose;
+        outline: 0;
       }
 
       &:hover {

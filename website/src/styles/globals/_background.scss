@@ -1,0 +1,10 @@
+// CAUTION: $sizes parameter must be sorted from largest to smallest
+@mixin background-responsive($path, $ext, $widths) {
+  background-image: url('#{$path}.#{$ext}');
+
+  @each $width in $widths {
+      @include until($width) {
+        background-image: url('#{$path}--#{$width}.#{$ext}');
+      }
+  }
+}

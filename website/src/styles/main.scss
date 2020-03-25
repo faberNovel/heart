@@ -1,3 +1,4 @@
+@import "globals/background";
 @import "globals/color";
 @import "globals/font";
 @import "globals/icon";
@@ -5,8 +6,33 @@
 @import "globals/vendor";
 
 @import "components/card";
+@import "components/cta";
 @import "components/header";
+@import "components/introduction";
 @import "components/item";
 @import "components/link";
 @import "components/slider";
 @import "components/title";
+
+html {
+  background-repeat:  no-repeat;
+  background-position: top center;
+  background-size: 100% rem(1210);
+  @include background-responsive(
+    '../assets/images/background-purple',
+    'jpg',
+    (1600, 1366, 1024, 768, 640, 375)
+  );
+
+  @include from($tablet) {
+    background-size: 100% rem(765);
+  }
+
+  @include tablet-only() {
+    font-size: 90%;
+  }
+}
+
+*:focus {
+  outline-color: $color-razzle-rose;
+}

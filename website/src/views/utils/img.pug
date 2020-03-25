@@ -1,0 +1,24 @@
+mixin img
+  -
+    const src = attributes.src || ''
+    const alt = attributes.alt || ''
+    const sizes = attributes.sizes || []
+    const chunks = src.split('.')
+    const ext = chunks.pop()
+    const pathName = chunks.join()
+
+  if (sizes.length === 0 && ext === 'svg')
+    img(src = src, class = attributes.class, alt = alt)
+  else
+    picture
+      if (sizes.length > 0)
+        each size in sizes
+          - const pathSize = pathName + '--' + size
+
+          // WebP must appear first before any extension
+          source(type= 'image/webp', srcset= pathSize + '.webp', media= '(max-width: ' + size + 'px)')
+          source(type= 'image/' + ext, srcset= pathSize + '.' + ext, media= '(max-width: ' + size + 'px)')
+
+      source(type= 'image/webp', srcset= pathName + '.webp')
+
+      img(src= src, alt= alt, class= attributes.class)

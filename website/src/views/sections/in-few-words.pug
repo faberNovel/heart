@@ -1,10 +1,10 @@
-section.section
+section.section#in-few-words
   .container
     .card
       +title('Heart in a few words')
 
       -
-        var items = [
+        const items = [
           {
             icon: 'shape',
             title: 'Analysis automation',
@@ -20,7 +20,7 @@ section.section
               'We believe that the issues that we\'re facing, \
                and that led us to develop Heart, most likely involve \
                other industry players. The source code is available on \
-               <a href="https://gitlab.com/fabernovel/heart/" target="_blank" class="link">GitLab</a>.'
+               <a href="https://gitlab.com/fabernovel/heart/" target="_blank" rel="noreferrer" class="link">GitLab</a>.'
           },
           {
             icon: 'puzzle',
@@ -40,7 +40,7 @@ section.section
 
       // Mobile only with carousel (<= 768px)
       .slider.is-hidden-tablet
-        - var prefixSlide = 'ifw-slide-'
+        - const prefixSlide = 'ifw-slide-'
 
         // Carousel
         .slider__track
