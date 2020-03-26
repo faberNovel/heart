@@ -1,0 +1,40 @@
+-
+  const footerCategories = [
+    {
+      title: 'Company',
+      links: [
+        { label: 'About', href: 'https://www.fabernovel.com/en/about' },
+        { label: 'Career', href: 'https://careers.fabernovel.com/', lang: 'fr' },
+        { label: 'Contact', href: 'https://www.fabernovel.com/en/contact' }
+      ]
+    },
+    {
+      title: 'Further information',
+      links: [
+        { label: 'Legal notice', href: 'https://www.fabernovel.com/en/legal-notices' }
+      ]
+    }
+  ]
+
+footer.footer
+  .container
+    .footer__container
+      .columns
+        .column
+          .footer__logo
+            +svg('fabernovel-logo')
+        each footerCategory in footerCategories
+          .column
+            .footer__column
+              h3.footer__title=footerCategory.title
+              ul
+                each link in footerCategory.links
+                  li
+                    - let linkFooterAttributes = {}
+                    - linkFooterAttributes.target = '_blank'
+                    - linkFooterAttributes.rel = 'noreferrer'
+                    if link.lang
+                      - linkFooterAttributes.lang = link.lang
+                    a.footer__link(href=link.href)&attributes(linkFooterAttributes)=link.label
+        .column
+          p Made with love in Paris

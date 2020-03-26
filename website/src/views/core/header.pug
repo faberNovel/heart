@@ -32,11 +32,11 @@ header.header
         ul.header__navigationList
           each item, index in menu
             li.header__navigationItem
-              - const linkAttributes = {}
+              - let linkHeaderAttributes = {}
               if item.blank
-                - linkAttributes.target = '_blank'
-                - linkAttributes.rel = 'noreferrer'
-              a.header__navigationLink(href=item.route)&attributes(linkAttributes)
+                - linkHeaderAttributes.target = '_blank'
+                - linkHeaderAttributes.rel = 'noreferrer'
+              a.header__navigationLink(href=item.route)&attributes(linkHeaderAttributes)
                 if item.icon
                   +svg(item.icon)
                 else
