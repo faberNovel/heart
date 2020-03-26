@@ -2,22 +2,30 @@
   display: block;
   width: 100%;
   max-width: rem(315);
+  min-height: rem(50);
   margin: 0 auto;
-  padding: rem(10) rem(46);
+  padding: rem(9) rem(46);
   color: $white;
   font-size: rem(26);
   line-height: rem(31);
   text-align: center;
   background-color: $color-honey-flower;
   border: 0;
-  border-radius: rem(24);
+  border-radius: rem(200); // High value to maintain circular corners regardless of height
   cursor: pointer;
   transition: background-color .3s, color .3s, box-shadow .3s;
 
   @include from($tablet) {
-    display: initial;
+    display: inline-block;
     width: auto;
+    max-width: initial;
     margin: initial;
+  }
+
+  @include mobile {
+    &.-mt {
+      margin-top: rem(50);
+    }
   }
 
   &:focus {
@@ -33,5 +41,9 @@
   &.-inverse:not(:hover) {
     color: $color-honey-flower;
     background-color: $white;
+  }
+
+  &.-small {
+    font-size: rem(22);
   }
 }

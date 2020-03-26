@@ -20,11 +20,6 @@
       transition: filter .3s, transform 1s;
     }
 
-    &:focus {
-      border-color: $color-razzle-rose;
-      outline: 0;
-    }
-
     &:hover img {
       transform: translateY(- rem(10));
       filter: grayscale(0);
