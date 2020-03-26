@@ -46,4 +46,14 @@
   &.-small {
     font-size: rem(22);
   }
+
+  &.-on-pink {
+    &:focus {
+      box-shadow: 0 0 rem(10) rem(2) $color-honey-flower;
+    }
+
+    &:hover {
+      background-color: $color-honey-flower;
+    }
+  }
 }
