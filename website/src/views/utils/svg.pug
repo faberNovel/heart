@@ -1,16 +1,22 @@
 -
   const infosInlineSvg = {
+    'dareboost': 'Dareboost',
+    'google-bigquery': 'Google BigQuery',
+    'google-lighthouse': 'Google Lighthouse',
+    'mozilla-observatory': 'Mozilla Observatory',
+    'qualys-ssl-labs': 'Qualys SSL Labs',
     'puzzle' : 'Modular system representation',
     'shape': 'Analysis automation representation',
+    'slack': 'Slack',
     'social': 'Open-source representation'
   }
 
-mixin svg(svg_id, inline=false)
+mixin svg(svg_id, inline=false, directory = '')
   if !inline
     svg()&attributes(attributes)
       use(href= 'assets/icons/sprite.svg#' + svg_id)
   else
     +img(
-      src= 'assets/icons/inline/' + svg_id + '.svg',
+      src= 'assets/icons/inline/' + directory + svg_id + '.svg',
       alt= infosInlineSvg[svg_id]
-    )
+    )&attributes(attributes)

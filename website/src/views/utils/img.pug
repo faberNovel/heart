@@ -8,7 +8,7 @@ mixin img
     const pathName = chunks.join()
 
   if (sizes.length === 0 && ext === 'svg')
-    img(src = src, class = attributes.class, alt = alt)
+    img(src = src, class = attributes.class, alt = alt)&attributes(attributes)
   else
     picture
       if (sizes.length > 0)
@@ -21,4 +21,4 @@ mixin img
 
       source(type= 'image/webp', srcset= pathName + '.webp')
 
-      img(src= src, alt= alt, class= attributes.class)
+      img(src= src, alt= alt, class= attributes.class)&attributes(attributes)

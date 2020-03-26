@@ -1,0 +1,42 @@
+section#compatible-services.section.has-background-white
+  .container
+    +title('Compatible services')
+
+    -
+      const services = [
+        { name: 'qualys-ssl-labs', width: 170 },
+        { name: 'dareboost', width: 235 },
+        { name: 'google-bigquery', width: 182 },
+        { name: 'mozilla-observatory', width: 202 },
+        { name: 'google-lighthouse', width: 80 },
+        { name: 'slack', width: 176 }
+      ]
+
+    .compatibleServices
+
+      // Large screen only (> 768px)
+      .columns.is-multiline.is-vcentered.is-hidden-mobile
+        each service, index in services
+          .column.is-4.has-text-centered
+            .compatibleServices__item
+              +svg(service.name, true, 'services/')(width= service.width + 'px')
+
+      // Mobile only with carousel (<= 768px)
+      .slider.is-hidden-tablet
+        - const prefixSlideSC = 'sc-slide-'
+
+        // Carousel
+        .slider__track
+          each service, i in services
+            .slider__slide(
+              id=prefixSlideSC + i,
+              data-index=i
+            )
+              +svg(service.name, true, 'services/')
+
+        // Bullets
+        nav.slider__dots.is-hidden-tablet
+          ul.slider__dotsWrap
+            each _, i in Array(services.length)
+              li(data-index=i)
+                a.slider__dotsItem(href='#' + prefixSlideSC + i)
