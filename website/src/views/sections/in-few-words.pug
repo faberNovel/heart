@@ -40,13 +40,13 @@ section.section#in-few-words
 
       // Mobile only with carousel (<= 768px)
       .slider.is-hidden-tablet
-        - const prefixSlide = 'ifw-slide-'
+        - const prefixSlideIFW = 'ifw-slide-'
 
         // Carousel
         .slider__track
           each item, i in items
             .slider__slide(
-              id=prefixSlide + i,
+              id=prefixSlideIFW + i,
               data-index=i
             )
               +item(item)
@@ -56,4 +56,4 @@ section.section#in-few-words
           ul.slider__dotsWrap
             each _, i in Array(items.length)
               li(data-index=i)
-                a.slider__dotsItem(href='#' + prefixSlide + i)
+                a.slider__dotsItem(href='#' + prefixSlideIFW + i)
