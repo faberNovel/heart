@@ -1,0 +1,42 @@
+section.section.has-background-white
+  .container
+    p.catchphrase
+      | Heart has been designed to minimize the dependencies required on the
+      | system on which it is installed.
+      br
+      | Thus, the only prerequisites for such a system are:
+
+    .columns.is-vcentered
+      .column
+        ul.list
+          -
+            const prerequisites = [
+              'The JavaScript runtime Node.js must be able to be installed and executed',
+              'The system must allow the use of environment variables',
+              'An internet connection in order to solicit third party services'
+            ]
+          each prerequisite in prerequisites
+            li.list__item
+              +svg('rectangle').list__itemIcon
+              .list__itemText=prerequisite
+
+      .column
+        pre.code
+          code
+            .code__title Installation example with the Qualys SSL Labs service
+            br
+            .code__step 1 - installation //
+            br
+            | npm install @fabernovel/heart-cli
+            | npm install @fabernovel/heart-ssllabs-server
+            br
+            .code__step 2 - analyse //
+            br
+            | npx heart ssllabs-server --inline
+            | '{"host":"heart.fabernovel.com"}'
+
+    a.cta.-small.-mt(
+      href='https://gitlab.com/fabernovel/heart/'
+      target='_blank'
+      rel='noreferrer'
+    ) Consult the technical documentation

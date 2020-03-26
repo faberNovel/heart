@@ -1,0 +1,32 @@
+.list {
+  margin: rem(25) 0;
+
+  &__item {
+    display: flex;
+    align-items: center;
+    margin-bottom: rem(40);
+
+    @include from($tablet) {
+      margin-bottom: rem(50);
+    }
+
+    &:last-child {
+      margin: 0;
+    }
+
+    &Icon {
+      $list-icon-width: rem(18);
+
+      flex: 0 0 $list-icon-width;
+      width: $list-icon-width;
+      height: $list-icon-width;
+      margin-right: rem(22);
+    }
+
+    &Text {
+      color: $grey;
+      font-weight: $weight-light;
+      font-size: rem(22);
+    }
+  }
+}

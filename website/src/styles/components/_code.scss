@@ -1,0 +1,16 @@
+.code {
+  padding: rem(60) rem(40);
+  color: $white;
+  background: $black-bis;
+  border-radius: rem(4);
+
+  &__step {
+    color: $color-supernova;
+    font-weight: bold;
+  }
+
+  &__title {
+    font-style: italic;
+    text-decoration: underline;
+  }
+}
