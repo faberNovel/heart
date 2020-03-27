@@ -16,4 +16,9 @@
       content: '';
     }
   }
+
+  &.-light {
+    color: $grey-dark;
+    font-weight: $weight-light;
+  }
 }
