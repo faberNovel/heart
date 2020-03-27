@@ -19,25 +19,8 @@ header.header
             +svg('branding-name')
           .header__brandingAuthor by Fabernovel
 
-      // Navigation
-      -
-        const menu = [
-          { label: 'Heart', route: '#' },
-          { label: 'Functioning', route: '#' },
-          { label: 'Modules', route: '#' },
-          { icon: 'gitlab', route: 'https://gitlab.com/fabernovel/heart/', blank: true }
-        ]
+      // Desktop navigation
+      +navigation().is-hidden-mobile
 
-      nav.header__navigation(role='navigation', aria-label='navigation')
-        ul.header__navigationList
-          each item, index in menu
-            li.header__navigationItem
-              - let linkHeaderAttributes = {}
-              if item.blank
-                - linkHeaderAttributes.target = '_blank'
-                - linkHeaderAttributes.rel = 'noreferrer'
-              a.header__navigationLink(href=item.route)&attributes(linkHeaderAttributes)
-                if item.icon
-                  +svg(item.icon)
-                else
-                  span=item.label
+      // Mobile sidebar
+      +navigation().-isSidebar.is-hidden-tablet

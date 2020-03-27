@@ -72,23 +72,26 @@
       // Opened: Navigation
       ~ #{$root}__navigation {
         transform: translateX(0);
-        transition: transform .3s;
       }
 
-      ~ #{$root}__icon #{$root}__iconLines {
-        background: transparent;
+      ~ #{$root}__icon {
+        position: fixed;
 
-        &:before,
-        &:after {
-          top: 0;
-        }
+        #{$root}__iconLines {
+          background: transparent;
 
-        &:before {
-          transform: rotate(45deg);
-        }
+          &:before,
+          &:after {
+            top: 0;
+          }
 
-        &:after {
-          transform: rotate(-45deg);
+          &:before {
+            transform: rotate(45deg);
+          }
+
+          &:after {
+            transform: rotate(-45deg);
+          }
         }
       }
     }
@@ -96,7 +99,9 @@
 
   // Hamburger icon
   &__icon {
-    position: relative;
+    position: absolute;
+    top: rem(30);
+    left: rem(30);
     z-index: 900;
     margin: 0;
     padding: rem(8) 0;
@@ -150,30 +155,12 @@
 
   // Navigation
   &__navigation {
-    position: absolute;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
-    z-index: 30;
-    padding-top: rem(70);
-    background: rgba($black, .9);
-    transform: translateX(-100vw);
+    $nav: &;
 
-    @include from($tablet) {
-      position: inherit;
-      display: flex;
-      padding: initial;
-      background: initial;
-      transform: initial;
-    }
+    display: flex;
 
     &Item {
-      margin: 0 0 rem(30) 0;
-
-      @include from($tablet) {
-        margin: 0 rem(50) 0 0;
-      }
+      margin: 0 rem(50) 0 0;
 
       &:last-child {
         margin: 0;
@@ -215,15 +202,49 @@
 
     &List {
       display: flex;
-      flex-direction: column;
       align-items: center;
       margin: 0;
       padding: 0;
       list-style: none;
+    }
 
-      @include from($tablet) {
-        flex-direction: row;
+    &.-isSidebar {
+      position: fixed;
+      top: 0;
+      bottom: 0;
+      left: 0;
+      z-index: 30;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-width: rem(260);
+      background: rgba($color-haiti, .9);
+      transform: translateX(-150vw);
+      transition: transform .3s;
+
+      #{$nav} {
+        &Item {
+          margin: 0 0 rem(50) 0;
+
+          &:last-child {
+            margin: 0;
+          }
+        }
+
+        &Link {
+          font-size: rem(20);
+
+          svg {
+            width: rem(45);
+            height: rem(42);
+          }
+        }
+
+        &List {
+          flex-direction: column;
+        }
       }
+
     }
   }
 }
