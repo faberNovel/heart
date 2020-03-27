@@ -5,3 +5,6 @@ $color-lochinvar: #257c86; // arrow schema "How the tool works"
 $color-madison: #083060; // texte schema + number schema "How the tool works"
 $color-razzle-rose: #ff32bb; // icon / puce + underline link hover
 $color-supernova: #ffc800; // code syntax color
+$color-vivid-violet: #8d3e9b; // use for gradient
+
+$gradient-alpha: linear-gradient(to bottom, $color-vivid-violet, $color-honey-flower);
