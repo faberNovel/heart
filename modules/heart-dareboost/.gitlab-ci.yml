@@ -1,4 +1,4 @@
-'Coverage: Heart Dareboost':
+'🚦 Coverage: Heart Dareboost':
   extends:
     - .coverage
   script:

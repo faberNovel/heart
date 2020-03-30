@@ -1,4 +1,4 @@
-'Coverage: Heart API':
+'🚦 Coverage: Heart API':
   extends:
     - .coverage
   script:

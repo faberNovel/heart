@@ -1,4 +1,4 @@
-'Coverage: Heart BigQuery':
+'🚦 Coverage: Heart BigQuery':
   extends:
     - .coverage
   script:
