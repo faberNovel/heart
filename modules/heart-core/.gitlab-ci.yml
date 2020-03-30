@@ -1,4 +1,4 @@
-'Coverage: Heart Core':
+'🚦 Coverage: Heart Core':
   extends:
     - .coverage
   script:

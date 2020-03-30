@@ -57,7 +57,7 @@ Build for MR:
     - .only-mr
 
 # Checks code linting
-Lint:
+💅 Lint:
   stage: test
   extends:
     - .install
@@ -68,20 +68,8 @@ Lint:
     - echo 'Linting...'
     - node common/scripts/install-run-rush.js lint
 
-# Specific CI for each Heart module
-include:
-  - local: 'modules/heart-api/.gitlab-ci.yml'
-  - local: 'modules/heart-bigquery/.gitlab-ci.yml'
-  - local: 'modules/heart-cli/.gitlab-ci.yml'
-  - local: 'modules/heart-core/.gitlab-ci.yml'
-  - local: 'modules/heart-dareboost/.gitlab-ci.yml'
-  - local: 'modules/heart-lighthouse/.gitlab-ci.yml'
-  - local: 'modules/heart-observatory/.gitlab-ci.yml'
-  - local: 'modules/heart-slack/.gitlab-ci.yml'
-  - local: 'modules/heart-ssllabs-server/.gitlab-ci.yml'
-
 # Checks that a changelog has been provided
-Missing changelog:
+📝 Missing changelog:
   stage: test
   extends:
     - .install
@@ -96,7 +84,7 @@ Missing changelog:
       --target-branch origin/$CI_MERGE_REQUEST_TARGET_BRANCH_NAME
       --verify
 
-Test:
+🐛 Test:
   stage: test
   extends:
     - .install
@@ -113,7 +101,7 @@ Test:
 # - if the pipeline as been created from the Gitlab web interface (only:web)
 # - if the branch name is `master` (only:branches and only:/^master$/)
 # - if the user clicks on the 'play' button and has enough rights to write on this branch (when:manual)
-Publish packages to NPM:
+🚀 Publish the packages to NPM:
   stage: deploy
   extends:
     - .install
@@ -149,19 +137,15 @@ Publish packages to NPM:
       --target-branch $CI_COMMIT_REF_NAME
       --version-policy $VERSION_POLICY
 
-# This operation use artifacts created and stored during the "Build for master" job.
-# This speeds up this job by avoiding to execute additional operations on the repository (like Rush commands).
-Publish website to Firebase:
-  stage: deploy
-  extends:
-    - .only-master
-  dependencies:
-    - Build for master
-  before_script:
-    # Grab Firebase CLI
-    - npm install -g firebase-tools
-  script:
-    # https://firebase.google.com/docs/cli?authuser=0#cli-ci-systems
-    # Authentication is made through the FIREBASE_TOKEN environment variable
-    - cd website
-    - firebase deploy
+# Specific CI for each Heart NPM module + website
+include:
+  - local: 'modules/heart-api/.gitlab-ci.yml'
+  - local: 'modules/heart-bigquery/.gitlab-ci.yml'
+  - local: 'modules/heart-cli/.gitlab-ci.yml'
+  - local: 'modules/heart-core/.gitlab-ci.yml'
+  - local: 'modules/heart-dareboost/.gitlab-ci.yml'
+  - local: 'modules/heart-lighthouse/.gitlab-ci.yml'
+  - local: 'modules/heart-observatory/.gitlab-ci.yml'
+  - local: 'modules/heart-slack/.gitlab-ci.yml'
+  - local: 'modules/heart-ssllabs-server/.gitlab-ci.yml'
+  - local: 'website/ci/.gitlab-ci.yml'

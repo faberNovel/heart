@@ -1,4 +1,4 @@
-'Coverage: Heart Slack':
+'🚦 Coverage: Heart Slack':
   extends:
     - .coverage
   script:
