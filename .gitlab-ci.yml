@@ -42,7 +42,7 @@ variables:
 
 default:
   # The version must match the minimum version declared in rush.json
-  image: node:10.13.0
+  image: node:10
 
 Build for master:
   extends:
