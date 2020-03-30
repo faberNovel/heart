@@ -14,5 +14,5 @@
   }
 }
 
-@include font-face(Gibson, '../assets/fonts/gibson/light', 300, normal);
-@include font-face(Gibson, '../assets/fonts/gibson/regular', 400, normal);
+@include font-face('Source Sans Pro', '../assets/fonts/source-sans-pro/light', 300, normal);
+@include font-face('Source Sans Pro', '../assets/fonts/source-sans-pro/regular', 400, normal);
