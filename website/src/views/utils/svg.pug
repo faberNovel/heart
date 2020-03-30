@@ -18,5 +18,5 @@ mixin svg(svg_id, inline=false, directory = '')
   else
     +img(
       src= 'assets/icons/inline/' + directory + svg_id + '.svg',
-      alt= infosInlineSvg[svg_id]
+      alt= infosInlineSvg[svg_id] || ''
     )&attributes(attributes)
