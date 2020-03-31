@@ -10,6 +10,8 @@
     - .on-schedule
   dependencies:
     - 🏗 Build for analysis
+  before_script:
+    - cd ci/conf
 
 🏗 Build for analysis:
   stage: build
