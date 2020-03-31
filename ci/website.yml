@@ -1,0 +1,71 @@
+.analyze:
+  stage: test
+  variables:
+    # Non-sensitive environment variables are put here.
+    # See the repository configuration for sensitive ones
+    OBSERVATORY_API_URL: https://http-observatory.security.mozilla.org/api/v1/
+    OBSERVATORY_ANALYZE_URL: https://observatory.mozilla.org/analyze/
+    SLACK_CHANNEL_ID: heart-test
+  extends:
+    - .on-schedule
+  dependencies:
+    - 🏗 Build for analysis
+
+🏗 Build for analysis:
+  stage: build
+  extends:
+    - .on-schedule
+  script:
+    - cd ci/conf
+    - npm init --yes
+    - npm install --save-dev
+      @fabernovel/heart-cli
+      @fabernovel/heart-dareboost
+      @fabernovel/heart-lighthouse
+      @fabernovel/heart-observatory
+      @fabernovel/heart-ssllabs-server
+      @fabernovel/heart-slack
+  artifacts:
+    paths:
+      - ci/conf
+
+🔬 Analyze the website with Dareboost:
+  extends:
+    - .analyze
+  script:
+    - npx heart dareboost --file dareboost.json
+
+🔬 Analyze the website with Google Lighthouse:
+  extends:
+    - .analyze
+  script:
+    - npx heart lighthouse --file lighthouse.json
+
+🔬 Analyze the website with Mozilla Observatory:
+  extends:
+    - .analyze
+  script:
+    - npx heart observatory --file observatory.json
+
+🔬 Analyze the website with SSL Labs Server:
+  extends:
+    - .analyze
+  script:
+    - npx heart ssllabs-server --file ssllabs-server.json
+
+# This operation use artifacts created and stored during the "Build for master" job.
+# This speeds up this job by avoiding to execute additional operations on the repository (like Rush commands).
+🚀 Publish the website to production:
+  stage: deploy
+  extends:
+    - .only-master
+  dependencies:
+    - 🏗 Build for master
+  before_script:
+    # Grab Firebase CLI
+    - npm install -g firebase-tools
+  script:
+    # https://firebase.google.com/docs/cli?authuser=0#cli-ci-systems
+    # Authentication is made through the FIREBASE_TOKEN environment variable
+    - cd website
+    - firebase deploy

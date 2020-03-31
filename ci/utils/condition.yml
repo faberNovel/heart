@@ -1,0 +1,27 @@
+# https://docs.gitlab.com/ee/ci/variables/predefined_variables.html
+
+# Lint, missing changelog and tests
+# Allows to access the $CI_MERGE_REQUEST_TARGET_BRANCH_NAME environment variable
+.on-mr:
+  rules:
+    - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
+
+# Analyze the website
+.on-schedule:
+  rules:
+    - if: '$CI_PIPELINE_SOURCE == "schedule"'
+
+# Deploy the website
+.on-web:
+  rules:
+    - if: '$CI_PIPELINE_SOURCE == "web"'
+
+
+.only-master:
+  only:
+    - master
+
+# Only triggered on merge requests creation and update
+.only-mr:
+  only:
+    - merge_requests

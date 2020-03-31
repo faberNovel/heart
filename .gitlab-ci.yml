@@ -2,55 +2,31 @@ variables:
   HOST_REPO_PIPELINE_URL: 'https:\/\/gitlab-ci-token:${CI_JOB_TOKEN}@gitlab.com\/'
   HOST_REPO_URL: 'git@gitlab.com:'
 
-.build:
-  stage: build
-  script:
-    - node common/scripts/install-run-rush.js build --verbose
-  artifacts:
-    paths:
-      - common/temp/node_modules/
-      - modules/
-      - website/.firebaserc
-      - website/firebase.json
-      - website/dist/
-      - rush.json
-
-.coverage:
-  stage: test
-  extends:
-    - .install
-    - .only-master
-  dependencies:
-    - Build for master
-  coverage: /Branches\s+:\s\d+.?\d+/
-
-.install:
-  before_script:
-    # Update the rush.json repository url with the one used by the CI, to make the rush commands works
-    - sed -i -e "s/$HOST_REPO_URL/$HOST_REPO_PIPELINE_URL/g" rush.json
-    - node common/scripts/install-run-rush.js install
-
-.only-master:
-  only:
-    - master
-
-# Only triggered on merge requests creation and update
-# Allows to access the $CI_MERGE_REQUEST_TARGET_BRANCH_NAME environment variable
-.only-mr:
-  only:
-    - merge_requests
-
 default:
   # The version must match the minimum version declared in rush.json
   image: node:10
 
-Build for master:
+include:
+  - local: 'ci/utils/base-job.yml'
+  - local: 'ci/utils/condition.yml'
+  - local: 'ci/modules/heart-api.yml'
+  - local: 'ci/modules/heart-bigquery.yml'
+  - local: 'ci/modules/heart-cli.yml'
+  - local: 'ci/modules/heart-core.yml'
+  - local: 'ci/modules/heart-dareboost.yml'
+  - local: 'ci/modules/heart-lighthouse.yml'
+  - local: 'ci/modules/heart-observatory.yml'
+  - local: 'ci/modules/heart-slack.yml'
+  - local: 'ci/modules/heart-ssllabs-server.yml'
+  - local: 'ci/website.yml'
+
+🏗 Build for master:
   extends:
     - .install
     - .build
     - .only-master
 
-Build for MR:
+🏗 Build for MR:
   extends:
     - .install
     - .build
@@ -63,7 +39,7 @@ Build for MR:
     - .install
     - .only-mr
   dependencies:
-    - Build for MR
+    - 🏗 Build for MR
   script:
     - echo 'Linting...'
     - node common/scripts/install-run-rush.js lint
@@ -75,7 +51,7 @@ Build for MR:
     - .install
     - .only-mr
   dependencies:
-    - Build for MR
+    - 🏗 Build for MR
   script:
     - echo 'Checking for missing change logs...'
     - git fetch origin $CI_MERGE_REQUEST_TARGET_BRANCH_NAME -a
@@ -90,7 +66,7 @@ Build for MR:
     - .install
     - .only-mr
   dependencies:
-    - Build for MR
+    - 🏗 Build for MR
   script:
     - node common/scripts/install-run-rush.js test --verbose
 
@@ -112,7 +88,7 @@ Build for MR:
     PUBLISH: 0
     VERSION_POLICY: "individualVersion"
   dependencies:
-    - Build for master
+    - 🏗 Build for master
   script:
     # These values must be set to make Rush works
     - git config --local user.name "FABERNOVEL"
@@ -136,16 +112,3 @@ Build for MR:
       --set-access-level public
       --target-branch $CI_COMMIT_REF_NAME
       --version-policy $VERSION_POLICY
-
-# Specific CI for each Heart NPM module + website
-include:
-  - local: 'modules/heart-api/.gitlab-ci.yml'
-  - local: 'modules/heart-bigquery/.gitlab-ci.yml'
-  - local: 'modules/heart-cli/.gitlab-ci.yml'
-  - local: 'modules/heart-core/.gitlab-ci.yml'
-  - local: 'modules/heart-dareboost/.gitlab-ci.yml'
-  - local: 'modules/heart-lighthouse/.gitlab-ci.yml'
-  - local: 'modules/heart-observatory/.gitlab-ci.yml'
-  - local: 'modules/heart-slack/.gitlab-ci.yml'
-  - local: 'modules/heart-ssllabs-server/.gitlab-ci.yml'
-  - local: 'website/ci/.gitlab-ci.yml'
