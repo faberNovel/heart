@@ -10,15 +10,15 @@
   "dependencies": {
     "@fabernovel/heart-api": "^3.1.0",
     "@fabernovel/heart-bigquery": "^3.2.0",
-    "@fabernovel/heart-cli": "^3.1.0",
-    "@fabernovel/heart-dareboost": "^3.2.0",
-    "@fabernovel/heart-lighthouse": "^3.0.0",
-    "@fabernovel/heart-observatory": "^3.2.0",
-    "@fabernovel/heart-slack": "^3.2.0",
-    "@fabernovel/heart-ssllabs-server": "^3.2.0"
+    "@fabernovel/heart-cli": "^3.1.1",
+    "@fabernovel/heart-dareboost": "^3.2.1",
+    "@fabernovel/heart-lighthouse": "^3.0.1",
+    "@fabernovel/heart-observatory": "^3.2.1",
+    "@fabernovel/heart-slack": "^3.2.1",
+    "@fabernovel/heart-ssllabs-server": "^3.2.1"
   },
   "devDependencies": {
-    "@fabernovel/heart-core": "^3.1.0",
+    "@fabernovel/heart-core": "^3.1.1",
     "eslint": "^6.8.0",
     "jest": "^24.9.0"
   }

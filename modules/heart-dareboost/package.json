@@ -1,6 +1,6 @@
 {
   "name": "@fabernovel/heart-dareboost",
-  "version": "3.2.0",
+  "version": "3.2.1",
   "description": "Analysis module of Heart, which analyses URLs with Dareboost",
   "homepage": "https://gitlab.com/fabernovel/heart",
   "bugs": {
@@ -34,10 +34,10 @@
     "node": ">=10.13.0"
   },
   "peerDependencies": {
-    "@fabernovel/heart-cli": "^3.1.0"
+    "@fabernovel/heart-cli": "^3.1.1"
   },
   "dependencies": {
-    "@fabernovel/heart-core": "^3.1.0"
+    "@fabernovel/heart-core": "^3.1.1"
   },
   "devDependencies": {
     "@types/jest": "^24.0.17",
