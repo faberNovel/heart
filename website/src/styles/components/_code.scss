@@ -1,10 +1,12 @@
 .code {
   padding: rem(60) rem(40);
   color: $white;
+  white-space: pre-line;
   background: $black-bis;
   border-radius: rem(4);
 
   &__step {
+    margin: rem(32) 0 rem(16);
     color: $color-supernova;
     font-weight: bold;
   }

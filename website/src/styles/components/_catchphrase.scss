@@ -6,7 +6,6 @@
 
   @include from($tablet) {
     margin: rem(32) 0 rem(15) 0;
-    text-align: left;
   }
 
   @include mobile {

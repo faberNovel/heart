@@ -3,19 +3,15 @@ section#how-it-works.section
     +title('How the tool works')
 
     p.catchphrase.-light.is-hidden-mobile
-      | The communication between the modules is illustrated in the diagram below:
-      | a data flow within a facility that includes a runner module, two analysis
-      | modules and two listener modules.
+      | The communication flow between the user, Heart and the third party services is illustrated in the diagram below.
 
     -
       const user = 'User'
       const steps = {
-        1: 'A user asks Heart to analyze a URL',
-        2: 'Heart, in turn, requests the third party service to run the analysis',
-        3: 'Upon analysis completed, the listener modules shall \
-            be notified and the results shall be transmitted to them.',
-        4: 'Upon analysis completed, the listener modules shall \
-            be notified and the results shall be transmitted to them.'
+        1: 'A user asks to analyze a URL',
+        2: 'The third party analysis service is requested',
+        3: 'Upon analysis completed, the results are aggregated',
+        4: 'The analysis results are transmit to third party services to be processed'
       }
       const analysisModules = [
         'dareboost',
