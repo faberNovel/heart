@@ -1,5 +1,4 @@
 import { Module, ModuleAnalysisInterface, ModuleInterface, Report } from '@fabernovel/heart-core'
-import LH from 'lighthouse'
 
 import { runAnalysis } from './api/Client'
 import { Config } from './config/Config'
@@ -21,7 +20,7 @@ export default class LighthouseModule extends Module implements ModuleAnalysisIn
     }
   }
 
-  private handleResults(lhr: LH.Result): Report {
+  private handleResults(lhr: any): Report {
     const score = compute(lhr.categories, 1)
 
     return new Report({

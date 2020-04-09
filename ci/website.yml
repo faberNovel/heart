@@ -5,7 +5,7 @@
     # See the repository configuration for sensitive ones
     OBSERVATORY_API_URL: https://http-observatory.security.mozilla.org/api/v1/
     OBSERVATORY_ANALYZE_URL: https://observatory.mozilla.org/analyze/
-    SLACK_CHANNEL_ID: heart-test
+    SLACK_CHANNEL_ID: '#heart-ci'
   extends:
     - .on-schedule
   dependencies:
@@ -13,6 +13,7 @@
   before_script:
     - cd ci/conf
 
+# Use NPM published packages instead of local ones to avoid possible bugs
 🏗 Build for analysis:
   stage: build
   extends:
@@ -37,9 +38,20 @@
   script:
     - npx heart dareboost --file dareboost.json
 
+# The before_script parameter is overridden to install Google Chrome
+# Note that installing Chromium does not work, as the Debian builds do not include every features provided by Chrome
+# See https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=922431
 🔬 Analyze the website with Google Lighthouse:
   extends:
     - .analyze
+  variables:
+    CHROME_PATH: /usr/bin/google-chrome-stable
+  before_script:
+    - wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key add -
+    - sh -c 'echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google.list'
+    - apt-get update
+    - apt-get install --yes google-chrome-stable
+    - cd ci/conf
   script:
     - npx heart lighthouse --file lighthouse.json
 
