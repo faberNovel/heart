@@ -13,7 +13,7 @@ section#technical-functioning.section.has-background-white
             const prerequisites = [
               'The JavaScript runtime Node.js must be able to be installed and executed',
               'The system must allow the use of environment variables',
-              'An internet connection in order to solicit third party services'
+              'An internet connection must be available in order to solicit third party services'
             ]
           each prerequisite in prerequisites
             li.list__item
@@ -23,17 +23,12 @@ section#technical-functioning.section.has-background-white
       .column
         pre.code
           code
-            .code__title Installation example with the Qualys SSL Labs service
-            br
-            .code__step 1 - installation //
-            br
+            .code__title Usage example with the Qualys SSL Labs service
+            .code__step // 1 - installation
             | npm install @fabernovel/heart-cli
             | npm install @fabernovel/heart-ssllabs-server
-            br
-            .code__step 2 - analyse //
-            br
-            | npx heart ssllabs-server --inline
-            | '{"host":"heart.fabernovel.com"}'
+            .code__step // 2 - analyze
+            | npx heart ssllabs-server --inline '{"host":"heart.fabernovel.com"}'
 
     a.cta.-small.-mt(
       href='https://gitlab.com/fabernovel/heart/'
