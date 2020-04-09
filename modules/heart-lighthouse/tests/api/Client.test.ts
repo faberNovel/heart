@@ -1,5 +1,5 @@
 import * as chromeLauncher from 'chrome-launcher'
-import LH from 'lighthouse'
+import lighthouse from 'lighthouse'
 import { mocked } from 'ts-jest/utils'
 
 import { runAnalysis } from '../../src/api/Client'
@@ -9,7 +9,7 @@ import { Config } from '../../src/config/Config'
 jest.mock('chrome-launcher')
 jest.mock('lighthouse')
 const mockedChromeLauncher = mocked(chromeLauncher, true)
-const mockedLH = mocked(LH, true)
+const mockedLighthouse = mocked(lighthouse, true)
 
 describe('Run an analysis', () => {
 
@@ -48,7 +48,7 @@ describe('Run an analysis', () => {
       process: null,
       kill: () => Promise.resolve({})
     })
-    mockedLH.mockResolvedValue(RESULTS)
+    mockedLighthouse.mockResolvedValue(RESULTS)
 
     const results = await runAnalysis(CONF)
     expect(results).toStrictEqual(RESULTS)

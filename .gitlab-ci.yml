@@ -41,7 +41,6 @@ include:
   dependencies:
     - 🏗 Build for MR
   script:
-    - echo 'Linting...'
     - node common/scripts/install-run-rush.js lint
 
 # Checks that a changelog has been provided
@@ -53,7 +52,6 @@ include:
   dependencies:
     - 🏗 Build for MR
   script:
-    - echo 'Checking for missing change logs...'
     - git fetch origin $CI_MERGE_REQUEST_TARGET_BRANCH_NAME -a
     # Checks that a changelog has been provided, regarding the target branch
     - node common/scripts/install-run-rush.js change

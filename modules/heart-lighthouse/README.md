@@ -6,13 +6,15 @@ Read more about [the purpose, design and general installation of _Heart_](https:
 
 # Installation
 
-1. Add the package to your project:
+1. Install _Google Chrome_, as _Google Lighthouse_ relies on it to analyze a web page
+
+2. Add the package to your project:
 
     ```shell
     npm install @fabernovel/heart-lighthouse
     ```
 
-2. Add _[Heart CLI](https://www.npmjs.com/package/@fabernovel/heart-cli)_ if you have not already installed it. It is a peer-dependency of `heart-lighthouse`
+3. Add _[Heart CLI](https://www.npmjs.com/package/@fabernovel/heart-cli)_ if you have not already installed it. It is a peer-dependency of `heart-lighthouse`
 
     ```shell
     npm install @fabernovel/heart-cli
