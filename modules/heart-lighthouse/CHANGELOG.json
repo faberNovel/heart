@@ -2,6 +2,34 @@
   "name": "@fabernovel/heart-lighthouse",
   "entries": [
     {
+      "version": "3.0.1",
+      "tag": "@fabernovel/heart-lighthouse_v3.0.1",
+      "date": "Thu, 09 Apr 2020 09:17:20 GMT",
+      "comments": {
+        "none": [
+          {
+            "comment": "Add unit tests"
+          }
+        ],
+        "patch": [
+          {
+            "comment": "Improve the description of the analysis configuration in the README"
+          },
+          {
+            "comment": "Fix an issue where some error messages did not appear when an analysis failed"
+          }
+        ],
+        "dependency": [
+          {
+            "comment": "Updating dependency \"@fabernovel/heart-core\" from `^3.1.0` to `^3.1.1`"
+          },
+          {
+            "comment": "Updating dependency \"@fabernovel/heart-cli\" from `^3.1.0` to `^3.1.1`"
+          }
+        ]
+      }
+    },
+    {
       "version": "3.0.0",
       "tag": "@fabernovel/heart-lighthouse_v3.0.0",
       "date": "Thu, 16 Jan 2020 14:51:38 GMT",

@@ -1,6 +1,13 @@
 # Change Log - @fabernovel/heart-slack
 
-This log was last generated on Thu, 16 Jan 2020 14:51:38 GMT and should not be manually modified.
+This log was last generated on Thu, 09 Apr 2020 09:17:20 GMT and should not be manually modified.
+
+## 3.2.1
+Thu, 09 Apr 2020 09:17:20 GMT
+
+### Patches
+
+- Fix an issue where the module could not work with the new Slack Apps
 
 ## 3.2.0
 Thu, 16 Jan 2020 14:51:38 GMT

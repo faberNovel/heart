@@ -1,6 +1,13 @@
 # Change Log - @fabernovel/heart-cli
 
-This log was last generated on Thu, 16 Jan 2020 14:51:38 GMT and should not be manually modified.
+This log was last generated on Thu, 09 Apr 2020 09:17:20 GMT and should not be manually modified.
+
+## 3.1.1
+Thu, 09 Apr 2020 09:17:20 GMT
+
+### Patches
+
+- Improve the code to allow the implementation of automated tests
 
 ## 3.1.0
 Thu, 16 Jan 2020 14:51:38 GMT

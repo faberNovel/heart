@@ -2,6 +2,26 @@
   "name": "@fabernovel/heart-dareboost",
   "entries": [
     {
+      "version": "3.2.1",
+      "tag": "@fabernovel/heart-dareboost_v3.2.1",
+      "date": "Thu, 09 Apr 2020 09:17:20 GMT",
+      "comments": {
+        "patch": [
+          {
+            "comment": "Improve the description of the analysis configuration in the README"
+          }
+        ],
+        "dependency": [
+          {
+            "comment": "Updating dependency \"@fabernovel/heart-core\" from `^3.1.0` to `^3.1.1`"
+          },
+          {
+            "comment": "Updating dependency \"@fabernovel/heart-cli\" from `^3.1.0` to `^3.1.1`"
+          }
+        ]
+      }
+    },
+    {
       "version": "3.2.0",
       "tag": "@fabernovel/heart-dareboost_v3.2.0",
       "date": "Thu, 16 Jan 2020 14:51:38 GMT",

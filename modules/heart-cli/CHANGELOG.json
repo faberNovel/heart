@@ -2,6 +2,23 @@
   "name": "@fabernovel/heart-cli",
   "entries": [
     {
+      "version": "3.1.1",
+      "tag": "@fabernovel/heart-cli_v3.1.1",
+      "date": "Thu, 09 Apr 2020 09:17:20 GMT",
+      "comments": {
+        "patch": [
+          {
+            "comment": "Improve the code to allow the implementation of automated tests"
+          }
+        ],
+        "dependency": [
+          {
+            "comment": "Updating dependency \"@fabernovel/heart-core\" from `^3.1.0` to `^3.1.1`"
+          }
+        ]
+      }
+    },
+    {
       "version": "3.1.0",
       "tag": "@fabernovel/heart-cli_v3.1.0",
       "date": "Thu, 16 Jan 2020 14:51:38 GMT",

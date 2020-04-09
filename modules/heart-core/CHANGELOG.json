@@ -2,6 +2,18 @@
   "name": "@fabernovel/heart-core",
   "entries": [
     {
+      "version": "3.1.1",
+      "tag": "@fabernovel/heart-core_v3.1.1",
+      "date": "Thu, 09 Apr 2020 09:17:20 GMT",
+      "comments": {
+        "patch": [
+          {
+            "comment": "Improve unit test by using mocks instead of real HTTP requests"
+          }
+        ]
+      }
+    },
+    {
       "version": "3.1.0",
       "tag": "@fabernovel/heart-core_v3.1.0",
       "date": "Thu, 16 Jan 2020 14:51:38 GMT",
