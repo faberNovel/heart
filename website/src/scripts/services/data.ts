@@ -1,4 +1,3 @@
-import { BreakpointService } from './breakpoint';
 import { Breakpoint } from '../models/breakpoint';
 import { Slider } from '../components/slider';
 
@@ -26,7 +25,7 @@ export class DataService {
     return this.#currentBreakpoint;
   }
 
-  set currentBreakpoint(breakpoint: Breakpoint): void {
+  set currentBreakpoint(breakpoint: Breakpoint) {
     this.#currentBreakpoint = breakpoint;
   }
 
@@ -34,7 +33,7 @@ export class DataService {
     return this.#sliders;
   }
 
-  set sliders(sliders: Slider[]): void {
+  set sliders(sliders: Slider[]) {
     this.#sliders = sliders;
   }
 }

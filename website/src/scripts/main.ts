@@ -1,5 +1,4 @@
 import { Slider } from './components/slider';
-import { Breakpoint } from './models/breakpoint';
 import { BreakpointService } from './services/breakpoint';
 import { DataService } from './services/data';
 

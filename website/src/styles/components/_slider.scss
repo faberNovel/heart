@@ -1,11 +1,12 @@
 .slider {
   $root: &;
 
-  &.-removeDots #{$root}__dots {
-    display: none;
+  &.-displayDots #{$root}__dots {
+    display: block;
   }
 
   &__dots {
+    display: none;
     margin-top: rem(60);
 
     &Wrap {
@@ -22,10 +23,15 @@
       width: rem(12);
       height: rem(12);
       margin: 0 rem(5);
+      padding: 0;
       text-decoration: none;
       background-color: #d8d8d8;
+      border: 0;
       border-radius: 50%;
-      transition: background-color .3s;
+      outline: 0;
+      cursor: pointer;
+      transition: background-color .3s, box-shadow .6s;
+      -webkit-appearance: none;
 
       &.-isActive {
         background-color: $color-astronaut;
