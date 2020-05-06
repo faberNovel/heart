@@ -23,20 +23,15 @@ section#compatible-services.section.has-background-white
 
       // Mobile only with carousel (<= 768px)
       .slider.is-hidden-tablet
-        - const prefixSlideSC = 'sc-slide-'
-
         // Carousel
         .slider__track
           each service, i in services
-            .slider__slide(
-              id=prefixSlideSC + i,
-              data-index=i
-            )
+            .slider__slide
               +svg(service.name, true, 'services/')
 
         // Bullets
         nav.slider__dots.is-hidden-tablet
           ul.slider__dotsWrap
             each _, i in Array(services.length)
-              li(data-index=i)
-                a.slider__dotsItem(href='#' + prefixSlideSC + i)
+              li
+                button.slider__dotsItem(data-index=i)

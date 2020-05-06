@@ -38,20 +38,15 @@ section.section#in-few-words
 
       // Mobile only with carousel (<= 768px)
       .slider.is-hidden-tablet
-        - const prefixSlideIFW = 'ifw-slide-'
-
         // Carousel
         .slider__track
           each item, i in items
-            .slider__slide(
-              id=prefixSlideIFW + i,
-              data-index=i
-            )
+            .slider__slide
               +item(item)
 
         // Bullets
         nav.slider__dots.is-hidden-tablet
           ul.slider__dotsWrap
             each _, i in Array(items.length)
-              li(data-index=i)
-                a.slider__dotsItem(href='#' + prefixSlideIFW + i)
+              li
+                button.slider__dotsItem(data-index=i)
