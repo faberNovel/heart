@@ -3,22 +3,44 @@ mixin img
     const src = attributes.src || ''
     const alt = attributes.alt || ''
     const sizes = attributes.sizes || []
+    const densities = attributes.densities || []
     const chunks = src.split('.')
     const ext = chunks.pop()
     const pathName = chunks.join()
 
   if (sizes.length === 0 && ext === 'svg')
-    img(src = src, class = attributes.class, alt = alt)&attributes(attributes)
+    img&attributes(attributes)
   else
     picture
+      -
+        const srcSetSeparator = ', '
+        // Full size 1x
+        let srcSetWebP = [`${pathName}.webp 1x`]
+        let srcSetDefault = [`${pathName}.${ext} 1x`]
+
       if (sizes.length > 0)
         each size in sizes
-          - const pathSize = pathName + '--' + size
+          -
+            const pathSize = `${pathName}--${size}`
+            // Specific size 1x
+            let srcSetSizeWebP = [`${pathSize}.webp 1x`]
+            let srcSetSizeDefault = [`${pathSize}.${ext} 1x`]
 
-          // WebP must appear first before any extension
-          source(type= 'image/webp', srcset= pathSize + '.webp', media= '(max-width: ' + size + 'px)')
-          source(type= 'image/' + ext, srcset= pathSize + '.' + ext, media= '(max-width: ' + size + 'px)')
+          each density in densities
+            -
+              // Full size with density
+              const densityPrefix = `${pathName}--${density}`
+              srcSetWebP.push(`${densityPrefix}.webp ${density}`)
+              srcSetDefault.push(`${densityPrefix}.${ext} ${density}`)
+              // Specific size with density
+              const densitySizePrefix = `${pathSize}--${density}`
+              srcSetSizeWebP.push(`${densitySizePrefix}.webp ${density}`)
+              srcSetSizeDefault.push(`${densitySizePrefix}.${ext} ${density}`)
 
-      source(type= 'image/webp', srcset= pathName + '.webp')
+          //- WebP must appear first before any extension
+          source(type= 'image/webp', srcset= srcSetSizeWebP.join(srcSetSeparator), media= '(max-width: ' + size + 'px)')
+          source(type= 'image/' + ext, srcset= srcSetSizeDefault.join(srcSetSeparator), media= '(max-width: ' + size + 'px)')
 
-      img(src= src, alt= alt, class= attributes.class)&attributes(attributes)
+      source(type= 'image/webp', srcset= srcSetWebP.join(srcSetSeparator))
+
+      img(srcset= srcSetDefault.join(srcSetSeparator))&attributes(attributes)
