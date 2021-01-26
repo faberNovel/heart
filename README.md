@@ -28,8 +28,8 @@ _Heart CLI_ is the only _Runner_ module required.
 
 | Name | Purpose | NPM registry URL | Code coverage |
 | ------ | ------ | ------ | ------ |
-| Heart API | Exposes an HTTP API that starts an analysis when it is requested | https://www.npmjs.com/package/@fabernovel/heart-api | ![coverage](https://gitlab.com/fabernovel/heart/badges/master/coverage.svg?job=Coverage%3A+Heart+API) |
-| Heart CLI | Control the other modules by using a CLI | https://www.npmjs.com/package/@fabernovel/heart-cli | ![coverage](https://gitlab.com/fabernovel/heart/badges/master/coverage.svg?job=Coverage%3A+Heart+CLI) |
+| Heart API | Exposes an HTTP API that starts an analysis when it is requested | https://www.npmjs.com/package/@fabernovel/heart-api | ![coverage](https://gitlab.com/fabernovel/heart/badges/master/coverage.svg?job=%F0%9F%9A%A6+Coverage%3A+Heart+API) |
+| Heart CLI | Control the other modules by using a CLI | https://www.npmjs.com/package/@fabernovel/heart-cli | ![coverage](https://gitlab.com/fabernovel/heart/badges/master/coverage.svg?job=%F0%9F%9A%A6+Coverage%3A+Heart+CLI) |
 
 ### Analysis
 
@@ -37,10 +37,10 @@ Only one _Analysis_ module is required, regardless of which one.
 
 | Name | Purpose | NPM registry URL | Code coverage |
 | ------ | ------ | ------ | ------ |
-| Heart Dareboost | Analyses URLs with [Dareboost](https://www.dareboost.com/en) | https://www.npmjs.com/package/@fabernovel/heart-dareboost | ![coverage](https://gitlab.com/fabernovel/heart/badges/master/coverage.svg?job=Coverage%3A+Heart+Dareboost) |
-| Heart Lighthouse | Analyses URLs with [Google Lighthouse](https://developers.google.com/web/tools/lighthouse) | https://www.npmjs.com/package/@fabernovel/heart-lighthouse | ![coverage](https://gitlab.com/fabernovel/heart/badges/master/coverage.svg?job=Coverage%3A+Heart+Lighthouse) |
-| Heart Observatory | Analyses URLs with [Mozilla Observatory](https://observatory.mozilla.org/) | https://www.npmjs.com/package/@fabernovel/heart-observatory | ![coverage](https://gitlab.com/fabernovel/heart/badges/master/coverage.svg?job=Coverage%3A+Heart+Observatory) |
-| Heart SSL Labs Server | Analyses URLs with [Qualys SSL Labs Server](https://www.ssllabs.com/ssltest/) | https://www.npmjs.com/package/@fabernovel/heart-ssllabs-server | ![coverage](https://gitlab.com/fabernovel/heart/badges/master/coverage.svg?job=Coverage%3A+Heart+SSL+Labs+Server) |
+| Heart Dareboost | Analyses URLs with [Dareboost](https://www.dareboost.com/en) | https://www.npmjs.com/package/@fabernovel/heart-dareboost | ![coverage](https://gitlab.com/fabernovel/heart/badges/master/coverage.svg?job=%F0%9F%9A%A6+Coverage%3A+Heart+Dareboost) |
+| Heart Lighthouse | Analyses URLs with [Google Lighthouse](https://developers.google.com/web/tools/lighthouse) | https://www.npmjs.com/package/@fabernovel/heart-lighthouse | ![coverage](https://gitlab.com/fabernovel/heart/badges/master/coverage.svg?job=%F0%9F%9A%A6+Coverage%3A+Heart+Lighthouse) |
+| Heart Observatory | Analyses URLs with [Mozilla Observatory](https://observatory.mozilla.org/) | https://www.npmjs.com/package/@fabernovel/heart-observatory | ![coverage](https://gitlab.com/fabernovel/heart/badges/master/coverage.svg?job=%F0%9F%9A%A6+Coverage%3A+Heart+Observatory) |
+| Heart SSL Labs Server | Analyses URLs with [Qualys SSL Labs Server](https://www.ssllabs.com/ssltest/) | https://www.npmjs.com/package/@fabernovel/heart-ssllabs-server | ![coverage](https://gitlab.com/fabernovel/heart/badges/master/coverage.svg?job=%F0%9F%9A%A6+Coverage%3A+Heart+SSL+Labs+Server) |
 
 ### Listener
 
@@ -48,8 +48,8 @@ All _Listener_ modules are optional.
 
 | Name | Purpose | NPM registry URL | Code coverage |
 | ------ | ------ | ------ | ------ |
-| Heart BigQuery | Stores the results of the analysis into a [Google BigQuery](https://cloud.google.com/bigquery) table | https://www.npmjs.com/package/@fabernovel/heart-bigquery | ![coverage](https://gitlab.com/fabernovel/heart/badges/master/coverage.svg?job=Coverage%3A+Heart+BigQuery) |
-| Heart Slack | Sends the results of the analysis to a [Slack](https://slack.com) channel | https://www.npmjs.com/package/@fabernovel/heart-slack | ![coverage](https://gitlab.com/fabernovel/heart/badges/master/coverage.svg?job=Coverage%3A+Heart+Slack) |
+| Heart BigQuery | Stores the results of the analysis into a [Google BigQuery](https://cloud.google.com/bigquery) table | https://www.npmjs.com/package/@fabernovel/heart-bigquery | ![coverage](https://gitlab.com/fabernovel/heart/badges/master/coverage.svg?job=%F0%9F%9A%A6+Coverage%3A+Heart+BigQuery) |
+| Heart Slack | Sends the results of the analysis to a [Slack](https://slack.com) channel | https://www.npmjs.com/package/@fabernovel/heart-slack | ![coverage](https://gitlab.com/fabernovel/heart/badges/master/coverage.svg?job=%F0%9F%9A%A6+Coverage%3A+Heart+Slack) |
 
 ## Configuration
 
