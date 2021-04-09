@@ -7,7 +7,7 @@ mixin navigation()
       { icon: 'gitlab', route: 'https://gitlab.com/fabernovel/heart/', blank: true }
     ]
 
-  nav.header__navigation(role='navigation', aria-label='navigation')&attributes(attributes)
+  nav.header__navigation(aria-label='navigation')&attributes(attributes)
     ul.header__navigationList
       each item, index in menu
         li.header__navigationItem

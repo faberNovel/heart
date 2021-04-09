@@ -19,7 +19,7 @@ section#compatible-services.section.has-background-white
         each service, index in services
           .column.is-4.has-text-centered
             .compatibleServices__item
-              +svg(service.name, true, 'services/')(width= service.width + 'px')
+              +svg(service.name, true, 'services/')(width= service.width)
 
       // Mobile only with carousel (<= 768px)
       .slider.is-hidden-tablet

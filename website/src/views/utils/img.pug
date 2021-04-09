@@ -43,4 +43,7 @@ mixin img
 
       source(type= 'image/webp', srcset= srcSetWebP.join(srcSetSeparator))
 
+      //- Set the <img> tag fallback. First remove the unwanted attributes to use the simple &attributes(attributes) syntax.
+      - attributes.sizes = undefined
+      - attributes.densities = undefined
       img(srcset= srcSetDefault.join(srcSetSeparator))&attributes(attributes)
