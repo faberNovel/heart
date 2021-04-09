@@ -6,12 +6,14 @@
   border-radius: rem(4);
 
   &__step {
+    display: block;
     margin: rem(32) 0 rem(16);
     color: $color-supernova;
     font-weight: bold;
   }
 
   &__title {
+    display: block;
     font-style: italic;
     text-decoration: underline;
   }
