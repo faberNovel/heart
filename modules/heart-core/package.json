@@ -30,7 +30,7 @@
     "test": "jest --silent"
   },
   "engines": {
-    "node": ">=10.13.0"
+    "node": ">=14.17.0"
   },
   "dependencies": {
     "node-fetch": "^2.6.0"

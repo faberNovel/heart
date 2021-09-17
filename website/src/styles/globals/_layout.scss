@@ -1,5 +1,7 @@
+@use "sass:math";
+
 @function rem($pxValue) {
-  @return #{$pxValue / 16}rem;
+  @return #{math.div($pxValue, 16)}rem;
 }
 
 .container {

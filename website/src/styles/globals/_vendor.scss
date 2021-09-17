@@ -12,9 +12,9 @@ $family-monospace : courier, monospace; // font for code and samples
 $scheme-main: $grey-lightest;
 
 /*
-* Import Bulma with mini reset, utilities and grid
+* Import Bulma with mini reset, helpers and grid
 */
-@import "bulma/sass/utilities/_all";
+@import "bulma/sass/helpers/visibility";
 @import "bulma/sass/base/_all";
 @import "bulma/sass/elements/container";
 @import "bulma/sass/grid/columns";

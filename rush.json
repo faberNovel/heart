@@ -16,7 +16,7 @@
    * path segment in the "$schema" field for all your Rush config files.  This will ensure
    * correct error-underlining and tab-completion for editors such as VS Code.
    */
-  "rushVersion": "5.19.4",
+  "rushVersion": "5.53.0",
 
   /**
    * The next field selects which package manager should be installed and determines its version.
@@ -26,10 +26,7 @@
    * Specify one of: "pnpmVersion", "npmVersion", or "yarnVersion".  See the Rush documentation
    * for details about these alternatives.
    */
-  "pnpmVersion": "4.9.3",
-
-  // "npmVersion": "4.5.0",
-  // "yarnVersion": "1.9.4",
+  "pnpmVersion": "6.15.0",
 
   /**
    * Options that are only used when the PNPM package manager is selected
@@ -69,7 +66,7 @@
    * Specify a SemVer range to ensure developers use a NodeJS version that is appropriate
    * for your repo.
    */
-  "nodeSupportedVersionRange": ">=10.13.0 <11.0.0",
+  "nodeSupportedVersionRange": ">=14.17.0",
 
   /**
    * If you would like the version specifiers for your dependencies to be consistent, then

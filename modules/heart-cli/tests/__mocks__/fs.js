@@ -18,7 +18,7 @@ function __setMockFiles(newMockFiles) {
 // A custom version of `readdirSync` that reads from the special mocked out
 // file list set via __setMockFiles
 function readFileSync(fileName) {
-  filesFound = Object.keys(mockFiles).filter((file) => {
+  const filesFound = Object.keys(mockFiles).filter((file) => {
     return (new RegExp(`${file}$`)).test(fileName);
   });
 

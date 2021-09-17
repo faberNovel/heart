@@ -2,11 +2,4 @@
   extends:
     - .coverage
   script:
-    # As of latest version of Rush (5.18 at the moment),
-    # there is no way to run a custom command for a single package only.
-    # There is an open issue to provide such a feature: https://github.com/microsoft/rushstack/issues/1399.
-    # Once this feature will be live, the following lines will be replaceable by:
-    # - node common/scripts/install-run-rush.js test --coverage --verbose --project @fabernovel/heart-core
-    - npm -g install pnpm@3.6.2
-    - cd modules/heart-core
-    - pnpm run test -- --coverage
+    - node common/scripts/install-run-rush.js test --coverage --verbose --to @fabernovel/heart-core

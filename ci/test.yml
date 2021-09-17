@@ -7,6 +7,6 @@
     # There is an open issue to provide such a feature: https://github.com/microsoft/rushstack/issues/1399.
     # Once this feature will be live, the following lines will be replaceable by:
     # - node common/scripts/install-run-rush.js test --coverage --verbose --project @fabernovel/heart-test
-    - npm -g install pnpm@3.6.2
+    - npm -g install pnpm@6.15.0
     - cd test
     - pnpm run test -- --coverage

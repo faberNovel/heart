@@ -1,0 +1,10 @@
+{
+  "changes": [
+    {
+      "packageName": "@fabernovel/heart-api",
+      "comment": "Increase the minimum Node.js version to the latest LTS (14.17.0)",
+      "type": "patch"
+    }
+  ],
+  "packageName": "@fabernovel/heart-api"
+}

@@ -127,7 +127,7 @@
       "name": "website-start",
       "summary": "Starts website for development purposes",
       "safeForSimultaneousRushProcesses": false,
-      "shellCommand": "pnpm --prefix website/ run start"
+      "shellCommand": "./common/temp/pnpm-local/node_modules/.bin/pnpm --prefix website/ run start"
     },
     {
       "commandKind": "bulk",
