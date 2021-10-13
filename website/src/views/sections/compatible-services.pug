@@ -14,22 +14,22 @@ section#compatible-services.section.has-background-white
 
     .compatibleServices
 
-      // Large screen only (> 768px)
+      //- Large screen only (> 768px)
       .columns.is-multiline.is-vcentered.is-hidden-mobile
         each service, index in services
           .column.is-4.has-text-centered
             .compatibleServices__item
               +svg(service.name, true, 'services/')(width= service.width)
 
-      // Mobile only with carousel (<= 768px)
+      //- Mobile only with carousel (<= 768px)
       .slider.is-hidden-tablet
-        // Carousel
+        //- Carousel
         .slider__track
           each service, i in services
             .slider__slide
               +svg(service.name, true, 'services/')
 
-        // Bullets
+        //- Bullets
         nav.slider__dots.is-hidden-tablet
           ul.slider__dotsWrap
             each _, i in Array(services.length)
