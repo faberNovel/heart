@@ -14,7 +14,7 @@ mixin img
     picture
       -
         const srcSetSeparator = ', '
-        // Full size 1x
+        //- Full size 1x
         let srcSetWebP = [`${pathName}.webp 1x`]
         let srcSetDefault = [`${pathName}.${ext} 1x`]
 
@@ -22,17 +22,17 @@ mixin img
         each size in sizes
           -
             const pathSize = `${pathName}--${size}`
-            // Specific size 1x
+            //- Specific size 1x
             let srcSetSizeWebP = [`${pathSize}.webp 1x`]
             let srcSetSizeDefault = [`${pathSize}.${ext} 1x`]
 
           each density in densities
             -
-              // Full size with density
+              //- Full size with density
               const densityPrefix = `${pathName}--${density}`
               srcSetWebP.push(`${densityPrefix}.webp ${density}`)
               srcSetDefault.push(`${densityPrefix}.${ext} ${density}`)
-              // Specific size with density
+              //- Specific size with density
               const densitySizePrefix = `${pathSize}--${density}`
               srcSetSizeWebP.push(`${densitySizePrefix}.webp ${density}`)
               srcSetSizeDefault.push(`${densitySizePrefix}.${ext} ${density}`)

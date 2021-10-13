@@ -24,14 +24,14 @@ section#how-it-works.section
         'slack'
       ]
 
-    // Desktop
+    //- Desktop
     .schema.is-hidden-touch
       .schema__columns
-        // User
+        //- User
         .schema__column
           .schema__square.-big=user
 
-        // Steps 1 and 4 + listener modules
+        //- Steps 1 and 4 + listener modules
         .schema__column.-isStep
           p.schema__info=steps[1]
           .schema__arrow
@@ -46,13 +46,13 @@ section#how-it-works.section
               .schema__square
                 +svg('icon-' + listenerModule, true, 'services/')
 
-        // Heart
+        //- Heart
         .schema__column
           .schema__square.-tool
             +svg('branding-logo')
             +svg('branding-name')
 
-        // Steps 2 and 3
+        //- Steps 2 and 3
         .schema__column.-isStep
           p.schema__info=steps[2]
           .schema__arrow
@@ -63,39 +63,39 @@ section#how-it-works.section
             +svg('arrow-horizontal-3', true, 'arrows/')
           p.schema__info=steps[3]
 
-        // Analysis modules
+        //- Analysis modules
         .schema__column
           each analysisModule in analysisModules
             .schema__square
               +svg('icon-' + analysisModule, true, 'services/')
-    // Mobile
+    //- Mobile
     .schema.is-hidden-desktop
       .schema__columns
-        // User
+        //- User
         .schema__column
           .schema__square.-big=user
 
-        // Step 1
+        //- Step 1
         .schema__column.-isStep.-isStep1
           .schema__arrow
             .schema__arrowNumber 1
             +svg('arrow-vertical-1', true, 'arrows/')
           p.schema__info=steps[1]
 
-        // Heart
+        //- Heart
         .schema__column
           .schema__square.-tool
             +svg('branding-logo')
             +svg('branding-name')
 
-        // Step 2
+        //- Step 2
         .schema__column.-isStep.-isStep2
           .schema__arrow
             .schema__arrowNumber 2
             +svg('arrow-vertical-2-3', true, 'arrows/')
           p.schema__info=steps[2]
 
-        // Analysis modules
+        //- Analysis modules
         .schema__column
           .schema__analysisContainer
             each analysisModule in analysisModules.slice(0, 2)
@@ -106,20 +106,20 @@ section#how-it-works.section
               .schema__square
                 +svg('icon-' + analysisModule, true, 'services/')
 
-        // Step 3
+        //- Step 3
         .schema__column.-isStep.-isStep3
           .schema__arrow
             .schema__arrowNumber 3
             +svg('arrow-vertical-2-3', true, 'arrows/')
           p.schema__info=steps[3]
 
-        // Heart
+        //- Heart
         .schema__column
           .schema__square.-tool
             +svg('branding-logo')
             +svg('branding-name')
 
-        // Step 4
+        //- Step 4
         .schema__column.-isStep.-isStep4
           .schema__arrow
             .schema__arrowNumber 4
@@ -130,6 +130,6 @@ section#how-it-works.section
               .schema__square
                 +svg('icon-' + listenerModule, true, 'services/')
 
-        // User
+        //- User
         .schema__column
           .schema__square.-big=user

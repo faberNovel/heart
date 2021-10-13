@@ -2,16 +2,16 @@ header.header
   .container.-initialPosition
     .header__container
 
-      // Hamburger icon for mobile
+      //- Hamburger icon for mobile
       input#header__button.header__button(type='checkbox')
       label.header__icon(for='header__button')
         span.header__iconLines
 
-      // Branding
+      //- Branding
       .header__branding
-        // SEO
+        //- SEO
         h1.is-sr-only Heart
-        // Logotype
+        //- Logotype
         .header__brandingLogo
           +svg('branding-logo')
         .header__brandingNameAuthor
@@ -19,8 +19,8 @@ header.header
             +svg('branding-name')
           .header__brandingAuthor by Fabernovel
 
-      // Desktop navigation
+      //- Desktop navigation
       +navigation().is-hidden-mobile
 
-      // Mobile sidebar
+      //- Mobile sidebar
       +navigation().-isSidebar.is-hidden-tablet
