@@ -137,6 +137,12 @@
     },
     {
       "commandKind": "bulk",
+      "name": "outdated",
+      "summary": "Checks outdated dependencies",
+      "enableParallelism": true
+    },
+    {
+      "commandKind": "bulk",
       "name": "test",
       "summary": "Run test for every package",
       "enableParallelism": true,

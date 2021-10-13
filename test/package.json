@@ -5,6 +5,7 @@
   "scripts": {
     "build": "exit 0",
     "lint": "eslint",
+    "outdated": "npm outdated",
     "test": "jest --silent --passWithNoTests"
   },
   "dependencies": {
