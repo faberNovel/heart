@@ -81,28 +81,34 @@ rush build
 
 #### End-user testing
 
-You can test a close-to-end-user installation in the `tests` directory.
+You can test a close-to-end-user installation in the `test` directory.
 
 To do so, you have to:
 
-1. Create a `.env` file in this directory by copying it from `.env.template`, and populate it with the environment variables needed by all the modules.
-
-2. Install the packages:
+1. Go to the directory and create a `.env` file in this directory by copying it from `.env.template`:
 
     ```shell
-    pnpm install
+    cd test && cp .env.template .env
     ````
 
-3. Starts an analysis using the CLI. You can list the available analysis by using:
+2. Populate the `.env` file with the environment variables needed by all the modules.
+
+3. Install the packages:
 
     ```shell
-    pnpx heart -h
+    ../common/temp/pnpm-local/node_modules/.bin/pnpm install
+    ````
+
+4. Starts an analysis using the CLI. You can list the available analysis by using:
+
+    ```shell
+    ../common/temp/pnpm-local/node_modules/.bin/pnpm exec heart -h
     ```
 
     Example of a CLI command using the _Heart Dareboost_ module:
 
     ```shell
-    pnpx heart dareboost -i '{"url": "https://heart.fabernovel.com/"}'
+    ../common/temp/pnpm-local/node_modules/.bin/pnpm exec heart dareboost -i '{"url": "https://heart.fabernovel.com/"}'
     ```
 
 ### Provide a changelog
