@@ -10,6 +10,7 @@
       - website/firebase.json
       - website/dist/
       - rush.json
+    expire_in: 1 hour
 
 .coverage:
   stage: test
