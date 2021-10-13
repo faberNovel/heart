@@ -26,6 +26,7 @@
     "build": "tsc",
     "build-watch": "tsc -w",
     "lint": "tslint -c tslint.json -p tsconfig.json",
+    "outdated": "npm outdated",
     "prepare": "npm run build",
     "test": "jest --silent"
   },

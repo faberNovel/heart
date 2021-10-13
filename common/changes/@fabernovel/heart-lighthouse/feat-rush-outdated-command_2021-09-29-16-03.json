@@ -1,0 +1,11 @@
+{
+  "changes": [
+    {
+      "comment": "",
+      "type": "none",
+      "packageName": "@fabernovel/heart-lighthouse"
+    }
+  ],
+  "packageName": "@fabernovel/heart-lighthouse",
+  "email": "bastien.gatellier@fabernovel.com"
+}
