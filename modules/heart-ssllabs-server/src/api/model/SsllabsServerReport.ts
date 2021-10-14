@@ -1,7 +1,15 @@
-import { Report, ReportInterface } from '@fabernovel/heart-core';
+import { ReportInterface, ServiceInterface } from '@fabernovel/heart-core';
 
-export default class SsllabsServerReport extends Report implements ReportInterface {
-  prettyString() {
-    return undefined;
+export type SsllabsServerReportType = unknown; // TODO: real report type
+
+export default class SsllabsServerReport implements ReportInterface<SsllabsServerReportType> {
+  analyzedUrl: string;
+  date: Date;
+  resultUrl?: string;
+  service: ServiceInterface;
+  value: SsllabsServerReportType;
+
+  constructor(report: ReportInterface<SsllabsServerReportType>) {
+    Object.assign(this, report);
   }
 }

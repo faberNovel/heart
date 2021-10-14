@@ -18,24 +18,27 @@ export default class App {
     this.registerEventsListeners();
   }
 
-  public async startAnalysis(module: ModuleAnalysisInterface, conf: object): Promise<void> {
+  public async startAnalysis<A>(module: ModuleAnalysisInterface<A>, conf: object): Promise<void> {
     try {
       const report = await module.startAnalysis(conf);
 
       // print analyse result
-      const reportName = report.service ? `[${report.service.name}] ` : '';
-      let message = `${reportName}${report.analyzedUrl}: ${report.note}`;
+      // const reportName = report.service ? `[${report.service.name}] ` : '';
+      // let message = `${reportName}${report.analyzedUrl}: ${report.note}`;
 
-      if (report.resultUrl) {
-        message += `, view full report: ${report.resultUrl}`;
-      }
+      // if (report.resultUrl) {
+      //   message += `, view full report: ${report.resultUrl}`;
+      // }
 
-      console.log(message);
+      // console.log(message);
 
-      const pretty = report.prettyString();
-      if (pretty !== undefined) {
-        console.log(pretty);
-      }
+      // const pretty = report.prettyString();
+      // if (pretty !== undefined) {
+      //   console.log(pretty);
+      // }
+      console.log(report);
+
+      //
 
       this.eventEmitter.emit(AnalysisEvents.DONE, report);
 

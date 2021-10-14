@@ -31,7 +31,7 @@ export default class ExpressApp {
   /**
    *
    */
-  private createRouteHandler(module: ModuleAnalysisInterface): express.RequestHandler {
+  private createRouteHandler<A>(module: ModuleAnalysisInterface<A>): express.RequestHandler {
     return (req: express.Request, res: express.Response) => {
       module.startAnalysis(req.body)
         .catch ((error) => {
@@ -39,8 +39,20 @@ export default class ExpressApp {
             .status(500)
             .send(error);
         })
-        .then((report: ReportInterface) => {
+        .then((report: ReportInterface<A>) => {
           this.eventEmitter.emit(AnalysisEvents.DONE, report);
+
+          const className = (() => {
+            try {
+              const name = Object.getPrototypeOf(report).constructor.name as unknown;
+              if (typeof name === 'string') {
+                return name;
+              }
+              return undefined;
+            } catch (e) {
+              return undefined;
+            }
+          })();
 
           res.status(200).send({
             analyzedUrl: report.analyzedUrl,
@@ -48,9 +60,9 @@ export default class ExpressApp {
             service: {
               name: report.service.name
             },
-            note: report.note,
-            normalizedNote: report.normalizedNote,
             resultUrl: report.resultUrl,
+            value: report.value,
+            ...className === undefined ? {} : { className }
           });
         });
     };

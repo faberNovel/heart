@@ -1,10 +1,10 @@
-import { Helper, Module, ModuleAnalysisInterface, ModuleInterface, ReportInterface } from '@fabernovel/heart-core';
+import { Helper, Module, ModuleAnalysisInterface, ModuleInterface } from '@fabernovel/heart-core';
 
-import ObservatoryReport from './api/model/ObservatoryReport';
+import ObservatoryReport, { ObservatoryReportType } from './api/model/ObservatoryReport';
 import Scan from './api/model/Scan';
 import ApiClient from './api/Client';
 
-export default class ObservatoryModule extends Module implements ModuleAnalysisInterface {
+export default class ObservatoryModule extends Module implements ModuleAnalysisInterface<ObservatoryReportType> {
   private readonly TIME_BETWEEN_TRIES = 10000;
   private apiClient: ApiClient;
 
@@ -14,7 +14,7 @@ export default class ObservatoryModule extends Module implements ModuleAnalysisI
     this.apiClient = new ApiClient();
   }
 
-  public async startAnalysis(conf: object): Promise<ReportInterface> {
+  public async startAnalysis(conf: object): Promise<ObservatoryReport> {
     let scan: Scan;
 
     try {
@@ -41,7 +41,7 @@ export default class ObservatoryModule extends Module implements ModuleAnalysisI
     return this.requestScan();
   }
 
-  private async requestScan(): Promise<ReportInterface> {
+  private async requestScan(): Promise<ObservatoryReport> {
     let scan: Scan;
 
     try {
@@ -56,7 +56,7 @@ export default class ObservatoryModule extends Module implements ModuleAnalysisI
     return this.handleRequestScan(scan);
   }
 
-  private async handleRequestScan(scan: Scan): Promise<ReportInterface> {
+  private async handleRequestScan(scan: Scan): Promise<ObservatoryReport> {
     switch (scan.state) {
       case 'FAILED':
         throw new Error(scan.state);
@@ -65,11 +65,10 @@ export default class ObservatoryModule extends Module implements ModuleAnalysisI
       case 'FINISHED':
         return new ObservatoryReport({
           analyzedUrl: this.apiClient.getProjectHost(),
-          note: scan.grade,
           resultUrl: this.apiClient.getAnalyzeUrl(),
           service: this.service,
           date: new Date(scan.end_time),
-          normalizedNote: scan.score > 100 ? 100 : scan.score
+          value: scan
         });
         break;
 

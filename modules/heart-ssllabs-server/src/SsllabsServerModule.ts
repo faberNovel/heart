@@ -1,11 +1,11 @@
-import { Helper, Module, ModuleAnalysisInterface, ModuleInterface, ReportInterface } from '@fabernovel/heart-core';
+import { Helper, Module, ModuleAnalysisInterface, ModuleInterface } from '@fabernovel/heart-core';
 
 import { Status } from './api/enum/Status';
 import Host from './api/model/Host';
-import SsllabsServerReport from './api/model/SsllabsServerReport';
+import SsllabsServerReport, { SsllabsServerReportType } from './api/model/SsllabsServerReport';
 import ApiClient from './api/Client';
 
-export default class SsllabsServerModule extends Module implements ModuleAnalysisInterface {
+export default class SsllabsServerModule extends Module implements ModuleAnalysisInterface<SsllabsServerReportType> {
   private static readonly MAX_TRIES = 100;
   private static readonly TIME_BETWEEN_TRIES = 10000; // 10 seconds
   private apiClient: ApiClient;
@@ -16,7 +16,7 @@ export default class SsllabsServerModule extends Module implements ModuleAnalysi
     this.apiClient = new ApiClient();
   }
 
-  public async startAnalysis(conf: object): Promise<ReportInterface> {
+  public async startAnalysis(conf: object): Promise<SsllabsServerReport> {
     let host: Host;
 
     try {
@@ -42,7 +42,7 @@ export default class SsllabsServerModule extends Module implements ModuleAnalysi
     return this.requestReport();
   }
 
-  private async requestReport(triesQty: number = 1): Promise<ReportInterface> {
+  private async requestReport(triesQty: number = 1): Promise<SsllabsServerReport> {
     if (triesQty > SsllabsServerModule.MAX_TRIES) {
       throw new Error(`The maximum number of tries (${SsllabsServerModule.MAX_TRIES}) to retrieve the report has been reached.`);
     }
@@ -59,7 +59,7 @@ export default class SsllabsServerModule extends Module implements ModuleAnalysi
     }
   }
 
-  private async handleRequestScan(host: Host, triesQty: number): Promise<ReportInterface> {
+  private async handleRequestScan(host: Host, triesQty: number): Promise<SsllabsServerReport> {
     switch (host.status) {
       case Status.ERROR:
         throw new Error(`${host.status}: ${host.statusMessage}`);
@@ -74,11 +74,10 @@ export default class SsllabsServerModule extends Module implements ModuleAnalysi
 
         return new SsllabsServerReport({
           analyzedUrl: this.apiClient.getProjectUrl(),
-          note: averageRating.toString(),
-          normalizedNote: averageRating,
           resultUrl: this.apiClient.getAnalyzeUrl(),
           date: new Date(host.startTime),
           service: this.service,
+          value: averageRating
         });
 
       default:

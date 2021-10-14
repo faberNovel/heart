@@ -1,10 +1,10 @@
-import { Helper, Module, ModuleAnalysisInterface, ModuleInterface, ReportInterface } from '@fabernovel/heart-core';
+import { Helper, Module, ModuleAnalysisInterface, ModuleInterface } from '@fabernovel/heart-core';
 
-import DareboostReport from './api/model/DareboostReport';
+import DareboostReport, { DareboostReportType } from './api/model/DareboostReport';
 import ReportResponseInterface from './api/model/ReportResponseInterface';
 import ApiClient from './api/Client';
 
-export default class DareboostModule extends Module implements ModuleAnalysisInterface {
+export default class DareboostModule extends Module implements ModuleAnalysisInterface<DareboostReportType> {
   private readonly MAX_TRIES = 500;
   private readonly TIME_BETWEEN_TRIES = 5000;
 
@@ -17,7 +17,7 @@ export default class DareboostModule extends Module implements ModuleAnalysisInt
     this.apiClient = new ApiClient();
   }
 
-  public async startAnalysis(conf: object): Promise<ReportInterface> {
+  public async startAnalysis(conf: object): Promise<DareboostReport> {
     this.conf = conf;
 
     try {
@@ -29,7 +29,7 @@ export default class DareboostModule extends Module implements ModuleAnalysisInt
     }
   }
 
-  private async requestReport(reportId: string, triesQty: number = 1): Promise<ReportInterface> {
+  private async requestReport(reportId: string, triesQty: number = 1): Promise<DareboostReport> {
     if (triesQty > this.MAX_TRIES) {
       throw new Error(`The maximum number of tries (${this.MAX_TRIES}) to retrieve the report has been reached.`);
     }
@@ -47,7 +47,7 @@ export default class DareboostModule extends Module implements ModuleAnalysisInt
     reportResponse: ReportResponseInterface,
     reportId: string,
     triesQty: number
-  ): Promise<ReportInterface> {
+  ): Promise<DareboostReport> {
     switch (reportResponse.status) {
       case 202:
         await Helper.timeout(this.TIME_BETWEEN_TRIES);
@@ -59,7 +59,7 @@ export default class DareboostModule extends Module implements ModuleAnalysisInt
           date: new Date(reportResponse.report.date),
           service: this.service,
           resultUrl: reportResponse.report.publicReportUrl,
-          note: reportResponse.report.summary.score.toString(),
+          value: reportResponse
         });
 
       default:

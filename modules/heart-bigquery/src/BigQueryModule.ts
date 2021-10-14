@@ -22,7 +22,7 @@ export default class BigQueryModule extends Module implements ModuleListenerInte
     eventEmitter.on(AnalysisEvents.DONE, this.storeReport.bind(this));
   }
 
-  private async storeReport(report: ReportInterface) {
+  private async storeReport<A>(report: ReportInterface<A>) {
     try {
       const table = await this.bigqueryClient.table;
 

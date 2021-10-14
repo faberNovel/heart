@@ -1,17 +1,17 @@
-import { Module, ModuleAnalysisInterface, ModuleInterface, ReportInterface } from '@fabernovel/heart-core'
+import { Module, ModuleAnalysisInterface, ModuleInterface } from '@fabernovel/heart-core'
 
-import LighthouseReport from './api/model/LighthouseReport'
+import LighthouseReport, { LighthouseReportType } from './api/model/LighthouseReport'
 import { runAnalysis } from './api/Client'
 import { Config } from './config/Config'
 import compute from './scoring/compute'
 
 
-export default class LighthouseModule extends Module implements ModuleAnalysisInterface {
+export default class LighthouseModule extends Module implements ModuleAnalysisInterface<LighthouseReportType> {
   constructor(module: Partial<ModuleInterface>) {
     super(module)
   }
 
-  public async startAnalysis(conf: Config): Promise<ReportInterface> {
+  public async startAnalysis(conf: Config): Promise<LighthouseReport> {
     try {
       const results = await runAnalysis(conf)
 
@@ -21,14 +21,14 @@ export default class LighthouseModule extends Module implements ModuleAnalysisIn
     }
   }
 
-  private handleResults(lhr: any): ReportInterface {
+  private handleResults(lhr: any): LighthouseReport {
     const score = compute(lhr.categories, 1)
 
     return new LighthouseReport({
       analyzedUrl: lhr.requestedUrl,
       date: new Date(lhr.fetchTime),
       service: this.service,
-      note: score.toString()
+      value: score
     })
   }
 }

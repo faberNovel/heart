@@ -1,7 +1,15 @@
-import { Report, ReportInterface } from '@fabernovel/heart-core'
+import { ReportInterface, ServiceInterface } from '@fabernovel/heart-core';
 
-export default class LighthouseReport extends Report implements ReportInterface {
-  prettyString() {
-    return undefined
+export type LighthouseReportType = unknown; // TODO: real report type
+
+export default class LighthouseReport implements ReportInterface<LighthouseReportType> {
+  analyzedUrl: string;
+  date: Date;
+  resultUrl?: string;
+  service: ServiceInterface;
+  value: LighthouseReportType;
+
+  constructor(report: ReportInterface<LighthouseReportType>) {
+    Object.assign(this, report);
   }
 }

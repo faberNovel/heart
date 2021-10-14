@@ -5,8 +5,8 @@ import ModuleAnalysisInterface, { isModuleAnalysis } from './model/module/Module
 import ModuleInterface from './model/module/ModuleInterface';
 import ModuleListenerInterface, { isModuleListener } from './model/module/ModuleListenerInterface';
 import ModuleServerInterface, { isModuleServer } from './model/module/ModuleServerInterface';
-import Report, { ReportArguments } from './model/report/Report';
 import ReportInterface from './model/report/ReportInterface';
+import ServiceInterface from './model/service/ServiceInterface';
 import { timeout } from './time/timeout';
 
 const Helper = {
@@ -24,8 +24,7 @@ export {
   ModuleInterface,
   ModuleListenerInterface,
   ModuleServerInterface,
-  Report,
-  ReportArguments,
   ReportInterface,
   Request,
+  ServiceInterface,
 };
