@@ -34,10 +34,14 @@ export default class Request {
         break;
     }
 
+    const method = Request.POST
     return await fetch(url, {
-      method: Request.POST,
+      method,
       body: bodyString,
       headers
-    }).then((res: Response) => res.json());
+    }).then((res: Response) => {
+      console.debug(method, url, res.status)
+      return res.json()
+    });
   }
 }

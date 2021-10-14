@@ -53,6 +53,8 @@ export default class ObservatoryModule extends Module implements ModuleAnalysisI
       });
     }
 
+    console.log('getAnalysisReport =', scan)
+
     return this.handleRequestScan(scan);
   }
 
