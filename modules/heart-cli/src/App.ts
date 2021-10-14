@@ -33,7 +33,9 @@ export default class App {
       console.log(message);
 
       const pretty = report.prettyString();
-      if (pretty !== undefined) console.log(pretty);
+      if (pretty !== undefined) {
+        console.log(pretty);
+      }
 
       this.eventEmitter.emit(AnalysisEvents.DONE, report);
 

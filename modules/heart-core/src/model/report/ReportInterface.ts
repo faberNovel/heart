@@ -33,5 +33,5 @@ export default interface ReportInterface {
    */
   service: ServiceInterface;
 
-  prettyString: () => string | undefined
+  prettyString: () => string | undefined;
 }

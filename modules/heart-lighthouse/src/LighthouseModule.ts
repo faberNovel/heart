@@ -1,7 +1,7 @@
 import { Module, ModuleAnalysisInterface, ModuleInterface, ReportInterface } from '@fabernovel/heart-core'
 
-import { runAnalysis } from './api/Client'
 import LighthouseReport from './api/model/LighthouseReport'
+import { runAnalysis } from './api/Client'
 import { Config } from './config/Config'
 import compute from './scoring/compute'
 

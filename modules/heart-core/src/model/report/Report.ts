@@ -2,8 +2,8 @@ import ServiceInterface from '../service/ServiceInterface';
 
 import ReportInterface from './ReportInterface';
 
-type ReportInterfaceWithoutMethods = Omit<ReportInterface, 'prettyString'>
-export type ReportArguments = Partial<ReportInterfaceWithoutMethods>
+type ReportInterfaceWithoutMethods = Omit<ReportInterface, 'prettyString'>;
+export type ReportArguments = Partial<ReportInterfaceWithoutMethods>;
 
 /**
  * Define an analysis report that is shared between every Heart module.

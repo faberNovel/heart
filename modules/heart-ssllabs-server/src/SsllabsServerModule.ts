@@ -2,8 +2,8 @@ import { Helper, Module, ModuleAnalysisInterface, ModuleInterface, ReportInterfa
 
 import { Status } from './api/enum/Status';
 import Host from './api/model/Host';
-import ApiClient from './api/Client';
 import SsllabsServerReport from './api/model/SsllabsServerReport';
+import ApiClient from './api/Client';
 
 export default class SsllabsServerModule extends Module implements ModuleAnalysisInterface {
   private static readonly MAX_TRIES = 100;

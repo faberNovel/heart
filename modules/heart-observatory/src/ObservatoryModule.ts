@@ -1,7 +1,7 @@
 import { Helper, Module, ModuleAnalysisInterface, ModuleInterface, ReportInterface } from '@fabernovel/heart-core';
 
-import Scan from './api/model/Scan';
 import ObservatoryReport from './api/model/ObservatoryReport';
+import Scan from './api/model/Scan';
 import ApiClient from './api/Client';
 
 export default class ObservatoryModule extends Module implements ModuleAnalysisInterface {

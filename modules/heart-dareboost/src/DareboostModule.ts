@@ -1,8 +1,8 @@
 import { Helper, Module, ModuleAnalysisInterface, ModuleInterface, ReportInterface } from '@fabernovel/heart-core';
 
+import DareboostReport from './api/model/DareboostReport';
 import ReportResponseInterface from './api/model/ReportResponseInterface';
 import ApiClient from './api/Client';
-import DareboostReport from './api/model/DareboostReport';
 
 export default class DareboostModule extends Module implements ModuleAnalysisInterface {
   private readonly MAX_TRIES = 500;
@@ -43,7 +43,11 @@ export default class DareboostModule extends Module implements ModuleAnalysisInt
     }
   }
 
-  private async handleResponseStatus (reportResponse: ReportResponseInterface, reportId: string, triesQty: number): Promise<ReportInterface> {
+  private async handleResponseStatus(
+    reportResponse: ReportResponseInterface,
+    reportId: string,
+    triesQty: number
+  ): Promise<ReportInterface> {
     switch (reportResponse.status) {
       case 202:
         await Helper.timeout(this.TIME_BETWEEN_TRIES);
