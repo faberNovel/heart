@@ -40,6 +40,12 @@ The _Merge Request_ is created with the _WIP:_ prefix, which indicates that the 
 
 Make sure you're using Node.js version >= 14.17.0
 
+If you have [nvm](https://github.com/nvm-sh/nvm) installed:
+
+```
+nvm use
+```
+
 _Heart_ handle every modules in a single repository that is managed with [Rush](https://rushjs.io/) and [pnpm](https://pnpm.js.org/).
 
 So make sure you have them both installed on your computer before you begin:
