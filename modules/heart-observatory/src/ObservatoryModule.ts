@@ -1,6 +1,7 @@
-import { Helper, Module, ModuleAnalysisInterface, ModuleInterface, Report } from '@fabernovel/heart-core';
+import { Helper, Module, ModuleAnalysisInterface, ModuleInterface, ReportInterface } from '@fabernovel/heart-core';
 
 import Scan from './api/model/Scan';
+import ObservatoryReport from './api/model/ObservatoryReport';
 import ApiClient from './api/Client';
 
 export default class ObservatoryModule extends Module implements ModuleAnalysisInterface {
@@ -13,7 +14,7 @@ export default class ObservatoryModule extends Module implements ModuleAnalysisI
     this.apiClient = new ApiClient();
   }
 
-  public async startAnalysis(conf: object): Promise<Report> {
+  public async startAnalysis(conf: object): Promise<ReportInterface> {
     let scan: Scan;
 
     try {
@@ -40,7 +41,7 @@ export default class ObservatoryModule extends Module implements ModuleAnalysisI
     return this.requestScan();
   }
 
-  private async requestScan(): Promise<Report> {
+  private async requestScan(): Promise<ReportInterface> {
     let scan: Scan;
 
     try {
@@ -55,14 +56,14 @@ export default class ObservatoryModule extends Module implements ModuleAnalysisI
     return this.handleRequestScan(scan);
   }
 
-  private async handleRequestScan(scan: Scan): Promise<Report> {
+  private async handleRequestScan(scan: Scan): Promise<ReportInterface> {
     switch (scan.state) {
       case 'FAILED':
         throw new Error(scan.state);
         break;
 
       case 'FINISHED':
-        return new Report({
+        return new ObservatoryReport({
           analyzedUrl: this.apiClient.getProjectHost(),
           note: scan.grade,
           resultUrl: this.apiClient.getAnalyzeUrl(),

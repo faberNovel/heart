@@ -4,7 +4,7 @@ import {
   AnalysisEvents,
   ModuleAnalysisInterface,
   ModuleInterface,
-  Report,
+  ReportInterface,
 } from '@fabernovel/heart-core';
 import * as EventEmitter from 'events';
 import * as express from 'express';
@@ -39,7 +39,7 @@ export default class ExpressApp {
             .status(500)
             .send(error);
         })
-        .then((report: Report) => {
+        .then((report: ReportInterface) => {
           this.eventEmitter.emit(AnalysisEvents.DONE, report);
 
           res.status(200).send({

@@ -1,8 +1,9 @@
-import { Helper, Module, ModuleAnalysisInterface, ModuleInterface, Report } from '@fabernovel/heart-core';
+import { Helper, Module, ModuleAnalysisInterface, ModuleInterface, ReportInterface } from '@fabernovel/heart-core';
 
 import { Status } from './api/enum/Status';
 import Host from './api/model/Host';
 import ApiClient from './api/Client';
+import SsllabsServerReport from './api/model/SsllabsServerReport';
 
 export default class SsllabsServerModule extends Module implements ModuleAnalysisInterface {
   private static readonly MAX_TRIES = 100;
@@ -15,7 +16,7 @@ export default class SsllabsServerModule extends Module implements ModuleAnalysi
     this.apiClient = new ApiClient();
   }
 
-  public async startAnalysis(conf: object): Promise<Report> {
+  public async startAnalysis(conf: object): Promise<ReportInterface> {
     let host: Host;
 
     try {
@@ -41,7 +42,7 @@ export default class SsllabsServerModule extends Module implements ModuleAnalysi
     return this.requestReport();
   }
 
-  private async requestReport(triesQty: number = 1): Promise<Report> {
+  private async requestReport(triesQty: number = 1): Promise<ReportInterface> {
     if (triesQty > SsllabsServerModule.MAX_TRIES) {
       throw new Error(`The maximum number of tries (${SsllabsServerModule.MAX_TRIES}) to retrieve the report has been reached.`);
     }
@@ -58,7 +59,7 @@ export default class SsllabsServerModule extends Module implements ModuleAnalysi
     }
   }
 
-  private async handleRequestScan(host: Host, triesQty: number): Promise<Report> {
+  private async handleRequestScan(host: Host, triesQty: number): Promise<ReportInterface> {
     switch (host.status) {
       case Status.ERROR:
         throw new Error(`${host.status}: ${host.statusMessage}`);
@@ -71,7 +72,7 @@ export default class SsllabsServerModule extends Module implements ModuleAnalysi
       case Status.READY:
         const averageRating = host.getAveragePercentage();
 
-        return new Report({
+        return new SsllabsServerReport({
           analyzedUrl: this.apiClient.getProjectUrl(),
           note: averageRating.toString(),
           normalizedNote: averageRating,

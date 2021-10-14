@@ -6,6 +6,7 @@ import ModuleInterface from './model/module/ModuleInterface';
 import ModuleListenerInterface, { isModuleListener } from './model/module/ModuleListenerInterface';
 import ModuleServerInterface, { isModuleServer } from './model/module/ModuleServerInterface';
 import Report from './model/report/Report';
+import ReportInterface from './model/report/ReportInterface';
 import { timeout } from './time/timeout';
 
 const Helper = {
@@ -24,5 +25,6 @@ export {
   ModuleListenerInterface,
   ModuleServerInterface,
   Report,
+  ReportInterface,
   Request,
 };

@@ -32,4 +32,6 @@ export default interface ReportInterface {
    * Optional because some Heart modules do not sollicitate a third-party service (Heart API for example)
    */
   service?: ServiceInterface;
+
+  prettyString: () => string | undefined
 }

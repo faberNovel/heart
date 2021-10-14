@@ -8,7 +8,7 @@ import ReportInterface from './ReportInterface';
  * /!\ WARNING /!\
  * Be very careful if you change the Report class structure, as it could have an impact on every Heart module.
  */
-export default class Report implements ReportInterface {
+export default class Report {
   analyzedUrl: string;
   date: Date;
   note: string;
@@ -16,9 +16,9 @@ export default class Report implements ReportInterface {
   resultUrl?: string;
   service: ServiceInterface;
 
-  constructor(report: Partial<ReportInterface>) {
+  constructor(report: Partial<Omit<ReportInterface, 'prettyString'>>) {
     Object.assign(this, report);
 
-    this.normalizedNote = this.normalizedNote || parseInt(report.note, 10) || 0;
+    this.normalizedNote = report.normalizedNote ?? parseInt(report.note, 10) ?? 0;
   }
 }

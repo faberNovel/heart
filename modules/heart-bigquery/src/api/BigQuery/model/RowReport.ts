@@ -1,4 +1,4 @@
-import { Report } from '@fabernovel/heart-core';
+import { ReportInterface } from '@fabernovel/heart-core';
 import { BigQueryDatetime } from '@google-cloud/bigquery';
 
 import RecordRanking from './RecordRanking';
@@ -14,7 +14,7 @@ export default class RowReport {
   public service: RecordService;
   public url: RecordUrl;
 
-  constructor(report: Report) {
+  constructor(report: ReportInterface) {
     this.date = new BigQueryDatetime(report.date.toISOString());
     this.ranking = new RecordRanking(report.note, report.normalizedNote);
     this.service = new RecordService(report.service.name);

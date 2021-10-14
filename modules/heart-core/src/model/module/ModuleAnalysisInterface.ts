@@ -1,4 +1,4 @@
-import Report from '../report/Report';
+import ReportInterface from '../report/ReportInterface';
 
 import ModuleInterface from './ModuleInterface';
 
@@ -6,7 +6,7 @@ import ModuleInterface from './ModuleInterface';
  * Define an Analysis module.
  */
 export default interface ModuleAnalysisInterface extends ModuleInterface {
-  startAnalysis: (conf: object) => Promise<Report>;
+  startAnalysis: (conf: object) => Promise<ReportInterface>;
 }
 
 /**

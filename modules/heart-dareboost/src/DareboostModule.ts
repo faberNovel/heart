@@ -1,7 +1,8 @@
-import { Helper, Module, ModuleAnalysisInterface, ModuleInterface, Report } from '@fabernovel/heart-core';
+import { Helper, Module, ModuleAnalysisInterface, ModuleInterface, ReportInterface } from '@fabernovel/heart-core';
 
 import ReportResponseInterface from './api/model/ReportResponseInterface';
 import ApiClient from './api/Client';
+import DareboostReport from './api/model/DareboostReport';
 
 export default class DareboostModule extends Module implements ModuleAnalysisInterface {
   private readonly MAX_TRIES = 500;
@@ -16,7 +17,7 @@ export default class DareboostModule extends Module implements ModuleAnalysisInt
     this.apiClient = new ApiClient();
   }
 
-  public async startAnalysis(conf: object): Promise<Report> {
+  public async startAnalysis(conf: object): Promise<ReportInterface> {
     this.conf = conf;
 
     try {
@@ -28,7 +29,7 @@ export default class DareboostModule extends Module implements ModuleAnalysisInt
     }
   }
 
-  private async requestReport(reportId: string, triesQty: number = 1): Promise<Report> {
+  private async requestReport(reportId: string, triesQty: number = 1): Promise<ReportInterface> {
     if (triesQty > this.MAX_TRIES) {
       throw new Error(`The maximum number of tries (${this.MAX_TRIES}) to retrieve the report has been reached.`);
     }
@@ -42,14 +43,14 @@ export default class DareboostModule extends Module implements ModuleAnalysisInt
     }
   }
 
-  private async handleResponseStatus (reportResponse: ReportResponseInterface, reportId: string, triesQty: number): Promise<Report> {
+  private async handleResponseStatus (reportResponse: ReportResponseInterface, reportId: string, triesQty: number): Promise<ReportInterface> {
     switch (reportResponse.status) {
       case 202:
         await Helper.timeout(this.TIME_BETWEEN_TRIES);
         return this.requestReport(reportId, ++triesQty);
 
       case 200:
-        return new Report({
+        return new DareboostReport({
           analyzedUrl: this.conf['url'],
           date: new Date(reportResponse.report.date),
           service: this.service,
