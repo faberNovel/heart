@@ -1,6 +1,5 @@
-import { Report } from '@fabernovel/heart-core';
-
 import DareboostModule from '../src/DareboostModule';
+import DareboostReport from '../src/api/model/DareboostReport';
 
 import { ApiAnalysisResponse } from './data/ApiAnalysisResponse';
 import { ApiReportResponse } from './data/ApiReportResponse';
@@ -31,7 +30,7 @@ describe('Starts an analysis', () => {
   });
 
   it('should starts an analysis with a valid configuration', async () => {
-    const REPORT = new Report({
+    const REPORT = new DareboostReport({
       analyzedUrl: Conf.url,
       date: new Date(ApiReportResponse.report.date),
       note: ApiReportResponse.report.summary.score.toString(),

@@ -1,7 +1,6 @@
-import { Report } from '@fabernovel/heart-core';
-
 import Scan from '../src/api/model/Scan';
 import ObservatoryModule from '../src/ObservatoryModule';
+import ObservatoryReport from '../src/api/model/ObservatoryReport';
 
 
 jest.mock('@fabernovel/heart-core');
@@ -38,7 +37,7 @@ describe('Starts an analysis', () => {
       },
     });
 
-    const REPORT = new Report({
+    const REPORT = new ObservatoryReport({
       analyzedUrl: 'www.website.test',
       date: new Date(),
       note: SCAN.grade,

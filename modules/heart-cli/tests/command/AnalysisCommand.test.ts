@@ -1,10 +1,16 @@
-import { ModuleAnalysisInterface, Report } from '@fabernovel/heart-core';
+import { ModuleAnalysisInterface, Report, ReportInterface } from '@fabernovel/heart-core';
 import * as program from 'commander';
 
 import AnalysisCommand from '../../src/command/AnalysisCommand';
 
+class TestReport extends Report implements ReportInterface {
+  prettyString() {
+    return undefined;
+  }
+}
+
 test('Create an analysis command', () => {
-  const report = new Report({
+  const report = new TestReport({
     note: '50',
     normalizedNote: 50,
   });

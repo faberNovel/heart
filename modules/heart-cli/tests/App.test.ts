@@ -1,8 +1,13 @@
 
-import { ModuleAnalysisInterface, ModuleListenerInterface, Report } from '@fabernovel/heart-core';
+import { ModuleAnalysisInterface, ModuleListenerInterface, Report, ReportInterface } from '@fabernovel/heart-core';
 
 import App from '../src/App';
 
+class TestReport extends Report implements ReportInterface {
+  prettyString() {
+    return undefined;
+  }
+}
 
 test('Register events from Listener modules', () => {
   const module: ModuleListenerInterface = {
@@ -25,7 +30,7 @@ test('Register events from Listener modules', () => {
 });
 
 test('Displays the results of an analysis', async () => {
-  const report = new Report({
+  const report = new TestReport({
     analyzedUrl: 'www.my-awesome-website',
     note: '50',
     normalizedNote: 50,
