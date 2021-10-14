@@ -1,21 +1,30 @@
-import { ModuleAnalysisInterface, Report, ReportInterface } from '@fabernovel/heart-core';
+import { ModuleAnalysisInterface, ReportInterface, ServiceInterface } from '@fabernovel/heart-core';
 import * as program from 'commander';
 
 import AnalysisCommand from '../../src/command/AnalysisCommand';
 
-class TestReport extends Report implements ReportInterface {
-  prettyString() {
-    return undefined;
+class TestReport implements ReportInterface<boolean> {
+  analyzedUrl: string;
+  date: Date;
+  resultUrl?: string;
+  service: ServiceInterface;
+  value: boolean;
+
+  constructor(report: ReportInterface<boolean>) {
+    Object.assign(this, report);
   }
 }
 
 test('Create an analysis command', () => {
   const report = new TestReport({
-    note: '50',
-    normalizedNote: 50,
+    analyzedUrl: 'https://blbl.ch',
+    date: new Date(),
+    resultUrl: undefined,
+    service: { name: 'Analysis' },
+    value: true,
   });
 
-  const module: ModuleAnalysisInterface = {
+  const module: ModuleAnalysisInterface<boolean> = {
     id: 'test-analysis-tool',
     name: 'Heart Test Analysis Tool',
     service: {

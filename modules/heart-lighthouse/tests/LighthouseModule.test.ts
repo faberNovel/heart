@@ -54,7 +54,6 @@ describe('Starts an analysis', () => {
 
     expect(report.analyzedUrl).toStrictEqual(CONF.url)
     expect(report).toHaveProperty('date')
-    expect(report).toHaveProperty('note')
-    expect(report).toHaveProperty('normalizedNote')
+    expect(report).toHaveProperty('value')
   })
 })

@@ -33,11 +33,11 @@ describe('Starts an analysis', () => {
     const REPORT = new DareboostReport({
       analyzedUrl: Conf.url,
       date: new Date(ApiReportResponse.report.date),
-      note: ApiReportResponse.report.summary.score.toString(),
       resultUrl: ApiReportResponse.report.publicReportUrl,
       service: {
         name: 'Dareboost Test'
       },
+      value: ApiReportResponse
     });
 
     const report = await module.startAnalysis(Conf);

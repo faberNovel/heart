@@ -9,7 +9,7 @@ describe('Starts an analysis', () => {
   const ANALYZE_URL = 'www.observatory.mozilla-test/results';
   const API_URL = 'www.observatory.mozilla-test/api';
   const SCAN: Scan = {
-    end_time: '',
+    end_time: '2021-10-14',
     grade: 'B',
     hidden: true,
     response_headers: {},
@@ -39,13 +39,12 @@ describe('Starts an analysis', () => {
 
     const REPORT = new ObservatoryReport({
       analyzedUrl: 'www.website.test',
-      date: new Date(),
-      note: SCAN.grade,
+      date: new Date('2021-10-14'),
       resultUrl: ANALYZE_URL + 'www.website.test',
       service: {
         name: 'Observatory Test'
       },
-      normalizedNote: SCAN.score > 100 ? 100 : SCAN.score
+      value: SCAN
     });
 
     const report = await module.startAnalysis({ host: 'www.website.test' });

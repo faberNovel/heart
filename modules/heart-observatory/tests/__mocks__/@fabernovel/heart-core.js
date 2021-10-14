@@ -22,8 +22,23 @@ function post(url, body, headers) {
   });
 }
 
+class Module {
+  constructor(module) {
+    Object.assign(this, module);
+  }
+}
+
+class Report {
+  constructor(report) {
+    Object.assign(this, report);
+    this.normalizedNote = this.normalizedNote || parseInt(report.note, 10) || 0;
+  }
+}
+
 core.__setMockScan = __setMockScan;
 core.Request.get = get;
 core.Request.post = post;
+core.Module = Module;
+core.Report = Report;
 
 module.exports = core;

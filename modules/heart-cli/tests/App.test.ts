@@ -1,11 +1,17 @@
 
-import { ModuleAnalysisInterface, ModuleListenerInterface, Report, ReportInterface } from '@fabernovel/heart-core';
+import { ModuleAnalysisInterface, ModuleListenerInterface, ReportInterface, ServiceInterface } from '@fabernovel/heart-core';
 
 import App from '../src/App';
 
-class TestReport extends Report implements ReportInterface {
-  prettyString() {
-    return undefined;
+class TestReport implements ReportInterface<number> {
+  analyzedUrl: string;
+  date: Date;
+  resultUrl?: string;
+  service: ServiceInterface;
+  value: number;
+
+  constructor(report: ReportInterface<number>) {
+    Object.assign(this, report);
   }
 }
 
@@ -31,12 +37,14 @@ test('Register events from Listener modules', () => {
 
 test('Displays the results of an analysis', async () => {
   const report = new TestReport({
-    analyzedUrl: 'www.my-awesome-website',
-    note: '50',
-    normalizedNote: 50,
+    analyzedUrl: 'https://blbl.ch',
+    date: new Date(),
+    resultUrl: undefined,
+    service: { name: 'Analysis' },
+    value: 12,
   });
 
-  const module: ModuleAnalysisInterface = {
+  const module: ModuleAnalysisInterface<number> = {
     id: 'test-analysis-tool',
     name: 'Heart Test Analysis Tool',
     service: {
