@@ -1,6 +1,6 @@
 import ServiceInterface from '../service/ServiceInterface';
 
-export default interface ReportInterface {
+export default interface ReportInterface<A> {
   /**
    * URL that is analyzed
    */
@@ -13,16 +13,6 @@ export default interface ReportInterface {
   date: Date;
 
   /**
-   * Ranking given by the service
-   */
-  note: string;
-
-  /**
-   * Normalized ranking: a number between 0 and 100
-   */
-  normalizedNote: number;
-
-  /**
    * URL where the analysis results are accessible
    */
   resultUrl?: string;
@@ -33,5 +23,8 @@ export default interface ReportInterface {
    */
   service: ServiceInterface;
 
-  prettyString: () => string | undefined;
+  /**
+   * Report value
+   */
+  value: A;
 }
