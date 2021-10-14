@@ -5,7 +5,7 @@ import ModuleAnalysisInterface, { isModuleAnalysis } from './model/module/Module
 import ModuleInterface from './model/module/ModuleInterface';
 import ModuleListenerInterface, { isModuleListener } from './model/module/ModuleListenerInterface';
 import ModuleServerInterface, { isModuleServer } from './model/module/ModuleServerInterface';
-import Report from './model/report/Report';
+import Report, { ReportArguments } from './model/report/Report';
 import ReportInterface from './model/report/ReportInterface';
 import { timeout } from './time/timeout';
 
@@ -25,6 +25,7 @@ export {
   ModuleListenerInterface,
   ModuleServerInterface,
   Report,
+  ReportArguments,
   ReportInterface,
   Request,
 };
