@@ -1,10 +1,10 @@
 import { Helper, Module, ModuleAnalysisInterface, ModuleInterface } from '@fabernovel/heart-core';
 
-import DareboostReport, { DareboostReportType } from './api/model/DareboostReport';
+import DareboostReport from './api/model/DareboostReport';
 import ReportResponseInterface from './api/model/ReportResponseInterface';
 import ApiClient from './api/Client';
 
-export default class DareboostModule extends Module implements ModuleAnalysisInterface<DareboostReportType> {
+export default class DareboostModule extends Module implements ModuleAnalysisInterface {
   private readonly MAX_TRIES = 500;
   private readonly TIME_BETWEEN_TRIES = 5000;
 

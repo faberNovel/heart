@@ -1,10 +1,10 @@
 import { Helper, Module, ModuleAnalysisInterface, ModuleInterface } from '@fabernovel/heart-core';
 
-import ObservatoryReport, { ObservatoryReportType } from './api/model/ObservatoryReport';
+import ObservatoryReport from './api/model/ObservatoryReport';
 import Scan from './api/model/Scan';
 import ApiClient from './api/Client';
 
-export default class ObservatoryModule extends Module implements ModuleAnalysisInterface<ObservatoryReportType> {
+export default class ObservatoryModule extends Module implements ModuleAnalysisInterface {
   private readonly TIME_BETWEEN_TRIES = 10000;
   private apiClient: ApiClient;
 

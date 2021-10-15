@@ -1,10 +1,10 @@
-import { ReportArguments, ReportInterface, ReportUtils, ServiceInterface } from '@fabernovel/heart-core'
+import { GenericReport, ReportArguments, ReportUtils, ServiceInterface } from '@fabernovel/heart-core'
 
 import compute, { Categories } from '../../scoring/compute'
 
-export type LighthouseReportType = Categories
+type LighthouseReportType = Categories
 
-export default class LighthouseReport implements ReportInterface<LighthouseReportType> {
+export default class LighthouseReport implements GenericReport<LighthouseReportType> {
   analyzedUrl: string
   date: Date
   resultUrl?: string

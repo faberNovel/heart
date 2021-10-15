@@ -1,10 +1,10 @@
-import { ReportArguments, ReportInterface, ReportUtils, ServiceInterface } from '@fabernovel/heart-core';
+import { GenericReport, ReportArguments, ReportUtils, ServiceInterface } from '@fabernovel/heart-core';
 
 import ReportResponseInterface from './ReportResponseInterface';
 
-export type DareboostReportType = ReportResponseInterface;
+type DareboostReportType = ReportResponseInterface;
 
-export default class DareboostReport implements ReportInterface<DareboostReportType> {
+export default class DareboostReport implements GenericReport<DareboostReportType> {
   analyzedUrl: string;
   date: Date;
   resultUrl?: string;

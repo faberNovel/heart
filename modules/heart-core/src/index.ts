@@ -5,7 +5,6 @@ import ModuleAnalysisInterface, { isModuleAnalysis } from './model/module/Module
 import ModuleInterface from './model/module/ModuleInterface';
 import ModuleListenerInterface, { isModuleListener } from './model/module/ModuleListenerInterface';
 import ModuleServerInterface, { isModuleServer } from './model/module/ModuleServerInterface';
-import ReportInterface, { ReportArguments } from './model/report/ReportInterface';
 import ReportUtils from './model/report/ReportUtils';
 import ServiceInterface from './model/service/ServiceInterface';
 import { timeout } from './time/timeout';
@@ -14,6 +13,7 @@ const Helper = {
   timeout,
 };
 
+export * from './model/report/Report';
 export {
   AnalysisEvents,
   Helper,
@@ -25,8 +25,6 @@ export {
   ModuleInterface,
   ModuleListenerInterface,
   ModuleServerInterface,
-  ReportArguments,
-  ReportInterface,
   ReportUtils,
   Request,
   ServiceInterface,

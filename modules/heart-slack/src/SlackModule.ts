@@ -3,7 +3,7 @@ import {
   Module,
   ModuleInterface,
   ModuleListenerInterface,
-  ReportInterface
+  Report,
 } from '@fabernovel/heart-core';
 import { EventEmitter } from 'events';
 
@@ -28,11 +28,12 @@ export default class SlackModule extends Module
     eventEmitter.on(AnalysisEvents.DONE, this.sendReport.bind(this));
   }
 
-  private sendReport<A>(report: ReportInterface<A>): void {
-    const note = -1; // TODO: compute note
-    const message = `${report.analyzedUrl}: ${note}${
-      report.resultUrl === undefined ? '' : `. <${report.resultUrl}|view full report>`
-    }`;
+  private sendReport(report: Report): void {
+    let message = `${report.analyzedUrl}: ${report.getNote()}`;
+    if (report.resultUrl) {
+      message += `. <${report.resultUrl}|view full report>`;
+    }
+
 
     this.slackClient.postMessage({
       text: message,

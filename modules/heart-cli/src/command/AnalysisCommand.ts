@@ -7,7 +7,7 @@ export default class AnalysisCommand {
   /**
    * Create a command dedicated to the given analysis module
    */
-  public static create<A>(program: CommanderStatic, module: ModuleAnalysisInterface<A>, callback: (config: object) => void): void {
+  public static create(program: CommanderStatic, module: ModuleAnalysisInterface, callback: (config: object) => void): void {
     program
       .command(module.id)
       .description(`Analyzes an url with ${module.service.name}`)

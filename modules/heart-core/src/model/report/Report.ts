@@ -1,6 +1,6 @@
 import ServiceInterface from '../service/ServiceInterface';
 
-export interface ReportArguments<A> {
+interface ReportBase {
   /**
    * URL that is analyzed
    */
@@ -23,13 +23,16 @@ export interface ReportArguments<A> {
   */
   service: ServiceInterface;
 
+}
+
+interface ValueHolder<A> {
   /**
   * Report value
   */
   value: A;
 }
 
-export default interface ReportInterface<A> extends ReportArguments<A> {
+export interface Report extends ReportBase {
   /**
    * Ranking given by the service
    */
@@ -39,4 +42,11 @@ export default interface ReportInterface<A> extends ReportArguments<A> {
   * Normalized ranking: a number between 0 and 100
   */
   getNormalizedNote(): number;
+}
+
+export interface ReportArguments<A> extends ReportBase, ValueHolder<A> {
+}
+
+
+export interface GenericReport<A> extends Report, ValueHolder<A> {
 }

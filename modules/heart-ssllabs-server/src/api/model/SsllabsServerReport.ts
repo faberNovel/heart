@@ -1,10 +1,10 @@
-import { ReportArguments, ReportInterface, ServiceInterface } from '@fabernovel/heart-core';
+import { GenericReport, ReportArguments, ServiceInterface } from '@fabernovel/heart-core';
 
 import Host from './Host';
 
-export type SsllabsServerReportType = Host;
+type SsllabsServerReportType = Host;
 
-export default class SsllabsServerReport implements ReportInterface<SsllabsServerReportType> {
+export default class SsllabsServerReport implements GenericReport<SsllabsServerReportType> {
   analyzedUrl: string;
   date: Date;
   resultUrl?: string;

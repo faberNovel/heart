@@ -1,6 +1,6 @@
 import { Module, ModuleAnalysisInterface, ModuleInterface } from '@fabernovel/heart-core'
 
-import LighthouseReport, { LighthouseReportType } from './api/model/LighthouseReport'
+import LighthouseReport from './api/model/LighthouseReport'
 import { runAnalysis } from './api/Client'
 import { Config } from './config/Config'
 import { Categories } from './scoring/compute'
@@ -11,7 +11,7 @@ interface Lhr {
   fetchTime: string
 }
 
-export default class LighthouseModule extends Module implements ModuleAnalysisInterface<LighthouseReportType> {
+export default class LighthouseModule extends Module implements ModuleAnalysisInterface {
   constructor(module: Partial<ModuleInterface>) {
     super(module)
   }

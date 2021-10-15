@@ -1,4 +1,4 @@
-import { AnalysisEvents, Module, ModuleInterface, ModuleListenerInterface, ReportInterface } from '@fabernovel/heart-core';
+import { AnalysisEvents, Module, ModuleInterface, ModuleListenerInterface, Report } from '@fabernovel/heart-core';
 import { EventEmitter } from 'events';
 
 import RowReport from './api/BigQuery/model/RowReport';
@@ -22,7 +22,7 @@ export default class BigQueryModule extends Module implements ModuleListenerInte
     eventEmitter.on(AnalysisEvents.DONE, this.storeReport.bind(this));
   }
 
-  private async storeReport<A>(report: ReportInterface<A>) {
+  private async storeReport(report: Report) {
     try {
       const table = await this.bigqueryClient.table;
 

@@ -1,10 +1,10 @@
-import { ReportArguments, ReportInterface, ServiceInterface } from '@fabernovel/heart-core';
+import { GenericReport, ReportArguments, ServiceInterface } from '@fabernovel/heart-core';
 
 import Scan from './Scan';
 
-export type ObservatoryReportType = Scan;
+type ObservatoryReportType = Scan;
 
-export default class ObservatoryReport implements ReportInterface<ObservatoryReportType> {
+export default class ObservatoryReport implements GenericReport<ObservatoryReportType> {
   analyzedUrl: string;
   date: Date;
   resultUrl?: string;

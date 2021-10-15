@@ -2,10 +2,10 @@ import { Helper, Module, ModuleAnalysisInterface, ModuleInterface } from '@faber
 
 import { Status } from './api/enum/Status';
 import Host from './api/model/Host';
-import SsllabsServerReport, { SsllabsServerReportType } from './api/model/SsllabsServerReport';
+import SsllabsServerReport from './api/model/SsllabsServerReport';
 import ApiClient from './api/Client';
 
-export default class SsllabsServerModule extends Module implements ModuleAnalysisInterface<SsllabsServerReportType> {
+export default class SsllabsServerModule extends Module implements ModuleAnalysisInterface {
   private static readonly MAX_TRIES = 100;
   private static readonly TIME_BETWEEN_TRIES = 10000; // 10 seconds
   private apiClient: ApiClient;
