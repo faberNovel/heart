@@ -48,8 +48,8 @@ export default class ExpressApp {
             service: {
               name: report.service.name
             },
-            note: report.note,
-            normalizedNote: report.normalizedNote,
+            note: report.getNote(),
+            normalizedNote: report.getNormalizedNote(),
             resultUrl: report.resultUrl,
           });
         });
