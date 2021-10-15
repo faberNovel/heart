@@ -1,6 +1,7 @@
 import { Request } from '@fabernovel/heart-core';
 
 import Scan from './model/Scan.js';
+import TestsResult from './model/TestsResult.js';
 
 export default class Client {
   private analyzeUrl: string;
@@ -12,7 +13,7 @@ export default class Client {
     this.apiUrl = process.env.OBSERVATORY_API_URL;
   }
 
-  public async launchAnalysis(conf: object): Promise<Scan> {
+  public launchAnalysis(conf: object): Promise<Scan> {
     this.host = conf['host'];
 
     if (undefined === this.host) {
@@ -22,9 +23,13 @@ export default class Client {
       });
     }
 
-    return Request.post(this.generateApiUrl('analyze'), conf, {
+    return Request.post(this.apiAnalyzeUrl(), conf, {
       [Request.HEADER_CONTENT_TYPE]: Request.HEADER_CONTENT_TYPE_X_WWW_FORM_URLENCODED
     });
+  }
+
+  public retrieveResults(finishedScan: Scan): Promise<TestsResult> {
+    return Request.get(this.apiGetScanResultsUrl(finishedScan.scan_id));
   }
 
   public getProjectHost(): string {
@@ -36,10 +41,14 @@ export default class Client {
   }
 
   public async getAnalysisReport(): Promise<Scan> {
-    return Request.get(this.generateApiUrl('analyze'));
+    return Request.get(this.apiAnalyzeUrl());
   }
 
-  private generateApiUrl(path: string): string {
-    return `${this.apiUrl}${path}?host=${this.getProjectHost()}`;
+  private apiAnalyzeUrl(): string {
+    return `${this.apiUrl}analyze?host=${this.getProjectHost()}`;
+  }
+
+  private apiGetScanResultsUrl(scanId: number): string {
+    return `${this.apiUrl}getScanResults?scan=${scanId}`;
   }
 }

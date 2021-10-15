@@ -53,8 +53,6 @@ export default class ObservatoryModule extends Module implements ModuleAnalysisI
       });
     }
 
-    console.log('getAnalysisReport =', scan)
-
     return this.handleRequestScan(scan);
   }
 
@@ -62,22 +60,29 @@ export default class ObservatoryModule extends Module implements ModuleAnalysisI
     switch (scan.state) {
       case 'FAILED':
         throw new Error(scan.state);
-        break;
 
       case 'FINISHED':
-        return new ObservatoryReport({
-          analyzedUrl: this.apiClient.getProjectHost(),
-          resultUrl: this.apiClient.getAnalyzeUrl(),
-          service: this.service,
-          date: new Date(scan.end_time),
-          value: scan
-        });
-        break;
+        return this.retrieveResults(scan);
 
       default:
         await Helper.timeout(this.TIME_BETWEEN_TRIES);
         return this.requestScan();
-        break;
     }
+  }
+
+  private retrieveResults(finishedScan: Scan): Promise<ObservatoryReport> {
+    return this.apiClient.retrieveResults(finishedScan)
+      .then((testsResult) =>
+        new ObservatoryReport({
+          analyzedUrl: this.apiClient.getProjectHost(),
+          resultUrl: this.apiClient.getAnalyzeUrl(),
+          service: this.service,
+          date: new Date(finishedScan.end_time),
+          value: {
+            scan: finishedScan,
+            testsResult
+          }
+        })
+      );
   }
 }
