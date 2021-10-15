@@ -418,6 +418,11 @@
       "versionPolicyName": "individualVersion"
     },
     {
+      "packageName": "@fabernovel/heart-moduletpl",
+      "projectFolder": "modules/heart-moduletpl",
+      "versionPolicyName": "individualVersion"
+    },
+    {
       "packageName": "@fabernovel/heart-slack",
       "projectFolder": "modules/heart-slack",
       "versionPolicyName": "individualVersion"

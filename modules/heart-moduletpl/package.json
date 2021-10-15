@@ -1,0 +1,51 @@
+{
+  "name": "@fabernovel/heart-moduletpl",
+  "version": "3.0.0-beta.1",
+  "description": "Analysis module of Heart, which analyses URLs with ModuleTpl",
+  "homepage": "https://gitlab.com/fabernovel/heart",
+  "bugs": {
+    "url": "https://gitlab.com/fabernovel/heart/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://gitlab.com/fabernovel/heart.git"
+  },
+  "license": "MIT",
+  "contributors": [
+
+  ],
+  "files": [
+    "lib/**/*",
+    ".env.sample"
+  ],
+  "main": "lib/index.js",
+  "types": "lib/index.d.ts",
+  "directories": {
+    "lib": "lib"
+  },
+  "scripts": {
+    "build": "tsc",
+    "build-watch": "tsc -w",
+    "lint": "tslint -c tslint.json -p tsconfig.json",
+    "outdated": "npm outdated",
+    "prepare": "npm run build",
+    "test": "jest --silent --passWithNoTests"
+  },
+  "engines": {
+    "node": ">=14.17.0"
+  },
+  "peerDependencies": {
+    "@fabernovel/heart-cli": "^3.1.1"
+  },
+  "dependencies": {
+    "@fabernovel/heart-core": "^3.1.1"
+  },
+  "devDependencies": {
+    "@types/jest": "^24.0.17",
+    "@types/node": "^10.14.10",
+    "jest": "^24.9.0",
+    "ts-jest": "^24.0.2",
+    "tslint": "^5.18.0",
+    "typescript": "^3.8.0"
+  }
+}
