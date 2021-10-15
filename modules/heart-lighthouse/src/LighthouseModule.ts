@@ -3,8 +3,13 @@ import { Module, ModuleAnalysisInterface, ModuleInterface } from '@fabernovel/he
 import LighthouseReport, { LighthouseReportType } from './api/model/LighthouseReport'
 import { runAnalysis } from './api/Client'
 import { Config } from './config/Config'
-import compute from './scoring/compute'
+import { Categories } from './scoring/compute'
 
+interface Lhr {
+  categories: Categories
+  requestedUrl: string
+  fetchTime: string
+}
 
 export default class LighthouseModule extends Module implements ModuleAnalysisInterface<LighthouseReportType> {
   constructor(module: Partial<ModuleInterface>) {
@@ -21,14 +26,12 @@ export default class LighthouseModule extends Module implements ModuleAnalysisIn
     }
   }
 
-  private handleResults(lhr: any): LighthouseReport {
-    const score = compute(lhr.categories, 1)
-
+  private handleResults(lhr: Lhr): LighthouseReport {
     return new LighthouseReport({
       analyzedUrl: lhr.requestedUrl,
       date: new Date(lhr.fetchTime),
       service: this.service,
-      value: score
+      value: lhr.categories,
     })
   }
 }

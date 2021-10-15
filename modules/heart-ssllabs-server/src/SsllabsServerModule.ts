@@ -70,14 +70,12 @@ export default class SsllabsServerModule extends Module implements ModuleAnalysi
         return this.requestReport(++triesQty);
 
       case Status.READY:
-        const averageRating = host.getAveragePercentage();
-
         return new SsllabsServerReport({
           analyzedUrl: this.apiClient.getProjectUrl(),
           resultUrl: this.apiClient.getAnalyzeUrl(),
           date: new Date(host.startTime),
           service: this.service,
-          value: averageRating
+          value: host
         });
 
       default:

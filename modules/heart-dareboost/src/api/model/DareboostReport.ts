@@ -1,6 +1,8 @@
-import { ReportInterface, ServiceInterface } from '@fabernovel/heart-core';
+import { ReportArguments, ReportInterface, ReportUtils, ServiceInterface } from '@fabernovel/heart-core';
 
-export type DareboostReportType = unknown; // TODO: real report type
+import ReportResponseInterface from './ReportResponseInterface';
+
+export type DareboostReportType = ReportResponseInterface;
 
 export default class DareboostReport implements ReportInterface<DareboostReportType> {
   analyzedUrl: string;
@@ -9,7 +11,15 @@ export default class DareboostReport implements ReportInterface<DareboostReportT
   service: ServiceInterface;
   value: DareboostReportType;
 
-  constructor(report: ReportInterface<DareboostReportType>) {
+  constructor(report: ReportArguments<DareboostReportType>) {
     Object.assign(this, report);
+  }
+
+  getNote() {
+    return this.value.report.summary.score.toString();
+  }
+
+  getNormalizedNote() {
+    return ReportUtils.getNormalizedNote({ note: this.getNote() });
   }
 }

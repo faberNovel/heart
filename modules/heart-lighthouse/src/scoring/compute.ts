@@ -1,6 +1,8 @@
 import LH from 'lighthouse'
 
-export default (categories: Record<string, LH.Result.Category>, fractionDigits?: number): number => {
+export type Categories = Record<string, LH.Result.Category>
+
+export default (categories: Categories, fractionDigits?: number): number => {
   const avgScore = compute(categories)
 
   return normalize(avgScore, fractionDigits)
