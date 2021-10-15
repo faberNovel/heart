@@ -1,0 +1,10 @@
+{
+  "changes": [
+    {
+      "packageName": "@fabernovel/heart-core",
+      "comment": "Refacto Report: add GenericReport to carry more information; Report is now an interface, for minimal usage (no additional information); no more concrete implementation of Report, every reporter module has to implement his own",
+      "type": "minor"
+    }
+  ],
+  "packageName": "@fabernovel/heart-core"
+}

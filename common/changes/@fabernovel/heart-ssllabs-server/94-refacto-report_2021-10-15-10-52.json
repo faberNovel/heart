@@ -1,0 +1,10 @@
+{
+  "changes": [
+    {
+      "packageName": "@fabernovel/heart-ssllabs-server",
+      "comment": "Add SsllabsServerReport",
+      "type": "minor"
+    }
+  ],
+  "packageName": "@fabernovel/heart-ssllabs-server"
+}

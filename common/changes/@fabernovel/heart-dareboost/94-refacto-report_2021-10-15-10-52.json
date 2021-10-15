@@ -1,0 +1,10 @@
+{
+  "changes": [
+    {
+      "packageName": "@fabernovel/heart-dareboost",
+      "comment": "Add DareboostReport",
+      "type": "minor"
+    }
+  ],
+  "packageName": "@fabernovel/heart-dareboost"
+}

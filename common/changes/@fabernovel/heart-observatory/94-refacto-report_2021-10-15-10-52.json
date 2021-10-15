@@ -1,0 +1,10 @@
+{
+  "changes": [
+    {
+      "packageName": "@fabernovel/heart-observatory",
+      "comment": "Add ObservatoryReport",
+      "type": "minor"
+    }
+  ],
+  "packageName": "@fabernovel/heart-observatory"
+}

@@ -1,0 +1,10 @@
+{
+  "changes": [
+    {
+      "packageName": "@fabernovel/heart-lighthouse",
+      "comment": "Add LighthouseReport",
+      "type": "minor"
+    }
+  ],
+  "packageName": "@fabernovel/heart-lighthouse"
+}
