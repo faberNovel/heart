@@ -1,0 +1,10 @@
+{
+  "changes": [
+    {
+      "packageName": "@fabernovel/heart-cli",
+      "comment": "Handle default env variables",
+      "type": "minor"
+    }
+  ],
+  "packageName": "@fabernovel/heart-cli"
+}

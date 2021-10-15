@@ -37,7 +37,7 @@ export default class ModuleLoader {
 
         // check if environment variables are missing,
         // according to the .env.sample of the loaded modules
-        const missingDotEnvVariables = this.getMissingEnvironmentVariables(modulesPaths, this.ENVIRONMENT_VARIABLE_MODEL);
+        const missingDotEnvVariables = this.handleMissingEnvironmentVariables(modulesPaths, this.ENVIRONMENT_VARIABLE_MODEL);
 
         if (missingDotEnvVariables.length > 0) {
           throw new MissingEnvironmentVariables(missingDotEnvVariables);
@@ -52,19 +52,32 @@ export default class ModuleLoader {
 
   /**
    * Checks variables set in the 'fileName' file from the given loaded modules,
-   * and returns the ones that are missing from the environment (process.env) variables.
+   * first, if a default can be set, set missing variables to their default value
+   * then, return the ones that are missing from the environment (process.env) variables.
    */
-  private getMissingEnvironmentVariables(modulesPaths: string[], fileName: string): string[] {
+  private handleMissingEnvironmentVariables(modulesPaths: string[], fileName: string): string[] {
     let missingDotEnvVariables = [];
 
     modulesPaths.forEach((modulePath: string) => {
       try {
+
         // load the .env.sample file from the module
-        const requiredModuleDotenvVariables = Object.keys(dotenv.parse(fs.readFileSync(modulePath + fileName, 'utf8')));
+        const requiredModuleDotenvVariables = Object.entries(
+          dotenv.parse(fs.readFileSync(modulePath + fileName, 'utf8'))
+        );
+
+        // set variables if
+        // not yet registered in process.env
+        // and having a default value in .env.sample file,
+        requiredModuleDotenvVariables.forEach(([variableName, defaultValue]) => {
+            if (!process.env.hasOwnProperty(variableName) && defaultValue.length !== 0) {
+              process.env[variableName] = defaultValue;
+            }
+        });
 
         // get the dotenv variables that are not yet registered in process.env
-        const missingModuleDotEnvVariables = requiredModuleDotenvVariables.filter((variable: string) => {
-          return !process.env.hasOwnProperty(variable);
+        const missingModuleDotEnvVariables = requiredModuleDotenvVariables.filter(([variableName]) => {
+          return !process.env.hasOwnProperty(variableName);
         });
 
         // add the missing module dotenv variables to the missing list
