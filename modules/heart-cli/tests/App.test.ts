@@ -1,17 +1,25 @@
 
-import { ModuleAnalysisInterface, ModuleListenerInterface, ReportInterface, ServiceInterface } from '@fabernovel/heart-core';
+import { GenericReport, ModuleAnalysisInterface, ModuleListenerInterface, ReportArguments, ServiceInterface } from '@fabernovel/heart-core';
 
 import App from '../src/App';
 
-class TestReport implements ReportInterface<number> {
+class TestReport implements GenericReport<number> {
   analyzedUrl: string;
   date: Date;
   resultUrl?: string;
   service: ServiceInterface;
   value: number;
 
-  constructor(report: ReportInterface<number>) {
+  constructor(report: ReportArguments<number>) {
     Object.assign(this, report);
+  }
+
+  getNote() {
+    return this.value.toString();
+  }
+
+  getNormalizedNote() {
+    return this.value;
   }
 }
 
@@ -44,7 +52,7 @@ test('Displays the results of an analysis', async () => {
     value: 12,
   });
 
-  const module: ModuleAnalysisInterface<number> = {
+  const module: ModuleAnalysisInterface = {
     id: 'test-analysis-tool',
     name: 'Heart Test Analysis Tool',
     service: {
