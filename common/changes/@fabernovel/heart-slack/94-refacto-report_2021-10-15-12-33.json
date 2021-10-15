@@ -1,0 +1,10 @@
+{
+  "changes": [
+    {
+      "packageName": "@fabernovel/heart-slack",
+      "comment": "Use new Report",
+      "type": "minor"
+    }
+  ],
+  "packageName": "@fabernovel/heart-slack"
+}
