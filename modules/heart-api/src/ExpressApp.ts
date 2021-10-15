@@ -28,6 +28,9 @@ export default class ExpressApp {
     return this._express;
   }
 
+  /**
+   *
+   */
   private createRouteHandler(module: ModuleAnalysisInterface): express.RequestHandler {
     return (req: express.Request, res: express.Response) => {
       module.startAnalysis(req.body)
@@ -45,8 +48,8 @@ export default class ExpressApp {
             service: {
               name: report.service.name
             },
-            note: report.getNote(),
-            normalizedNote: report.getNormalizedNote(),
+            note: report.note,
+            normalizedNote: report.normalizedNote,
             resultUrl: report.resultUrl,
           });
         });

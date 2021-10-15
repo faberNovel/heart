@@ -24,7 +24,7 @@ export default class App {
 
       // print analyse result
       const reportName = report.service ? `[${report.service.name}] ` : '';
-      let message = `${reportName}${report.analyzedUrl}: ${report.getNote()}`;
+      let message = `${reportName}${report.analyzedUrl}: ${report.note}`;
 
       if (report.resultUrl) {
         message += `, view full report: ${report.resultUrl}`;

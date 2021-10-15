@@ -14,6 +14,14 @@ class TestReport implements GenericReport<boolean> {
     Object.assign(this, report);
   }
 
+  get note() {
+    return this.getNote();
+  }
+
+  get normalizedNote() {
+    return this.getNormalizedNote();
+  }
+
   getNote() {
     return this.value.toString();
   }

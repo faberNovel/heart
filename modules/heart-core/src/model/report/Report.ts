@@ -35,12 +35,18 @@ interface ValueHolder<A> {
 export interface Report extends ReportBase {
   /**
    * Ranking given by the service
+   * @deprecated use getNote()
    */
-  getNote(): string;
+  note: string;
 
   /**
-  * Normalized ranking: a number between 0 and 100
-  */
+   * Normalized ranking: a number between 0 and 100
+   * @deprecated use getNormalizedNote()
+   */
+  normalizedNote: number;
+
+  getNote(): string;
+
   getNormalizedNote(): number;
 }
 

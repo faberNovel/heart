@@ -15,6 +15,14 @@ export default class DareboostReport implements GenericReport<DareboostReportTyp
     Object.assign(this, report);
   }
 
+  get note() {
+    return this.getNote();
+  }
+
+  get normalizedNote() {
+    return this.getNormalizedNote();
+  }
+
   getNote() {
     return this.value.report.summary.score.toString();
   }

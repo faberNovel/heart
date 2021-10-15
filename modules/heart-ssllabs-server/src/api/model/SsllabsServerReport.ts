@@ -15,6 +15,14 @@ export default class SsllabsServerReport implements GenericReport<SsllabsServerR
     Object.assign(this, report);
   }
 
+  get note() {
+    return this.getNote();
+  }
+
+  get normalizedNote() {
+    return this.getNormalizedNote();
+  }
+
   getNote() {
     return this.getNormalizedNote.toString();
   }

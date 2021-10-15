@@ -29,7 +29,7 @@ export default class SlackModule extends Module
   }
 
   private sendReport(report: Report): void {
-    let message = `${report.analyzedUrl}: ${report.getNote()}`;
+    let message = `${report.analyzedUrl}: ${report.note}`;
     if (report.resultUrl) {
       message += `. <${report.resultUrl}|view full report>`;
     }
