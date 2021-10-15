@@ -1,4 +1,4 @@
-import Report from '../../model/report/Report';
+import Report from '../report/Report';
 
 import ModuleInterface from './ModuleInterface';
 
