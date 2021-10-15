@@ -1,4 +1,4 @@
-import { Report } from '../../model/report/Report';
+import Report from '../../model/report/Report';
 
 import ModuleInterface from './ModuleInterface';
 
@@ -13,7 +13,7 @@ export default interface ModuleAnalysisInterface extends ModuleInterface {
  * Constructor interface signature
  * @see {@link https://www.typescriptlang.org/docs/handbook/interfaces.html#difference-between-the-static-and-instance-sides-of-classes}
  */
-export type ModuleAnalysis<A> = new () => ModuleAnalysisInterface;
+export type ModuleAnalysis = new () => ModuleAnalysisInterface;
 
 /**
  * Checks if a module is an Analysis one.

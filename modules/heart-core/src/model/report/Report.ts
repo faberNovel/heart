@@ -1,5 +1,11 @@
 import ServiceInterface from '../service/ServiceInterface';
 
+/**
+ * Define an analysis report that is shared between every Heart module.
+ *
+ * /!\ WARNING /!\
+ * Be very careful if you change the Report class structure, as it could have an impact on every Heart module.
+ */
 interface ReportBase {
   /**
    * URL that is analyzed
@@ -32,7 +38,7 @@ interface ValueHolder<A> {
   value: A;
 }
 
-export interface Report extends ReportBase {
+export default interface Report extends ReportBase {
   /**
    * Ranking given by the service
    * @deprecated use getNote()

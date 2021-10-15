@@ -3,7 +3,7 @@ import {
   Module,
   ModuleInterface,
   ModuleListenerInterface,
-  Report,
+  Report
 } from '@fabernovel/heart-core';
 import { EventEmitter } from 'events';
 
@@ -33,8 +33,6 @@ export default class SlackModule extends Module
     if (report.resultUrl) {
       message += `. <${report.resultUrl}|view full report>`;
     }
-
-
     this.slackClient.postMessage({
       text: message,
       icon_url: report.service ? report.service.logo : undefined,
