@@ -420,7 +420,7 @@
     {
       "packageName": "@fabernovel/heart-moduletpl",
       "projectFolder": "modules/heart-moduletpl",
-      "versionPolicyName": "individualVersion"
+      "shouldPublish": false
     },
     {
       "packageName": "@fabernovel/heart-slack",
