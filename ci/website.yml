@@ -31,6 +31,7 @@
   artifacts:
     paths:
       - ci/conf
+    expire_in: 1 hour
 
 🔬 Analyze the website with Dareboost:
   extends:
