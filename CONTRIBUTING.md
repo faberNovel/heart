@@ -35,7 +35,7 @@ Before making a new contribution, please check [the issues](https://github.com/f
 ### Code your enhancements
 
 1. Checkout the newly created branch
-2. Code your enhancements
+2. Code your enhancements. If your enhancement is about creating a new module, you will find some help with [the dedicated documentation](./docs/CREATE_NEW_MODULE.md).
 
 ### Test your enhancements
 
