@@ -1,9 +1,7 @@
-import { Module, ModuleAnalysisInterface, ModuleInterface, Report } from '@fabernovel/heart-core';
+import { Module, ModuleInterface } from '@fabernovel/heart-core';
 
-export default class ModuleTplModule extends Module implements ModuleAnalysisInterface {
-  constructor(module: Partial<ModuleInterface>) {
-    super(module);
+export class ModuleTplModule extends Module {
+  constructor(module: Omit<ModuleInterface, 'id'>) {
+    super(module)
   }
-
-  startAnalysis: (conf: object) => Promise<Report>;
 }

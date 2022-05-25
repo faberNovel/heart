@@ -1,4 +1,4 @@
-import ModuleTplModule from './ModuleTplModule';
+import { ModuleTplModule } from './ModuleTplModule';
 
 export default new ModuleTplModule({
   name: 'Heart ModuleTpl',
