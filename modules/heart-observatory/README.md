@@ -48,20 +48,8 @@ Example:
 
 ## Example
 
-Starting with this situation:
+Using _[Heart CLI](https://www.npmjs.com/package/@fabernovel/heart-cli)_, starting an _Observatory_ analysis of https://heart.fabernovel.com could look like that: 
 
-> The _[Heart API](https://www.npmjs.com/package/@fabernovel/heart-api)_ _runner_ module is installed
->
-> The server is listening on port 3000
->
-> You want to analyse the heart.fabernovel.com host
-
-You can do the following request on `127.0.0.1:3000`:
-
-```http
-POST /observatory
-Content-type: application/json
-{
-  "host":"heart.fabernovel.com"
-}
+```shell
+npx heart observatory --inline '{"host": "heart.fabernovel.com"}'
 ```
