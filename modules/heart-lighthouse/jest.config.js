@@ -1,6 +1,7 @@
 // For a detailed explanation regarding each configuration property, visit:
 // https://jestjs.io/docs/en/configuration.html
 
+/** @type {import('ts-jest').InitialOptionsTsJest} */
 module.exports = {
   // Automatically clear mock calls and instances between every test
   clearMocks: true,
@@ -15,13 +16,12 @@ module.exports = {
   // A set of global variables that need to be available in all test environments
   globals: {
     "ts-jest": {
-      packageJson: "package.json",
-      tsConfig: "tsconfig.test.json"
+      tsconfig: "tsconfig.test.json"
     }
   },
 
   // A preset that is used as a base for Jest's configuration
-  preset: "ts-jest",
+  preset: "ts-jest/presets/default",
 
   // The root directory that Jest should scan for tests and modules within
   rootDir: "./",
