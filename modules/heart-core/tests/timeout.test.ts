@@ -1,6 +1,7 @@
 import { timeout } from '../src/time/timeout';
 
 jest.useFakeTimers();
+jest.spyOn(global, 'setTimeout');
 
 it('should run a real timeout', () => {
   timeout(30);
