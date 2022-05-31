@@ -37,7 +37,7 @@ export default class ModuleLoader {
 
         // check if environment variables are missing,
         // according to the .env.sample of the loaded modules
-        const missingDotEnvVariables = this.handleMissingEnvironmentVariables(modulesPaths, this.ENVIRONMENT_VARIABLE_MODEL);
+        const missingDotEnvVariables = this.handleMissingEnvironmentVariables(modulesPaths);
 
         if (missingDotEnvVariables.length > 0) {
           throw new MissingEnvironmentVariables(missingDotEnvVariables);
@@ -55,33 +55,33 @@ export default class ModuleLoader {
    * first, if a default can be set, set missing variables to their default value
    * then, return the ones that are missing from the environment (process.env) variables.
    */
-  private handleMissingEnvironmentVariables(modulesPaths: string[], fileName: string): string[] {
+  private handleMissingEnvironmentVariables(modulesPaths: string[]): string[] {
     let missingDotEnvVariables = [];
 
     modulesPaths.forEach((modulePath: string) => {
       try {
-
         // load the .env.sample file from the module
         const requiredModuleDotenvVariables = Object.entries(
-          dotenv.parse(fs.readFileSync(modulePath + fileName, 'utf8'))
+          dotenv.parse(fs.readFileSync(modulePath + this.ENVIRONMENT_VARIABLE_MODEL, 'utf8'))
         );
-
+  
         // set variables if
         // not yet registered in process.env
         // and having a default value in .env.sample file,
         requiredModuleDotenvVariables.forEach(([variableName, defaultValue]) => {
-            if (!process.env.hasOwnProperty(variableName) && defaultValue.length !== 0) {
+            if (!process.env[variableName] && defaultValue.length !== 0) {
               process.env[variableName] = defaultValue;
             }
         });
-
+  
         // get the dotenv variables that are not yet registered in process.env
         const missingModuleDotEnvVariables = requiredModuleDotenvVariables.filter(([variableName]) => {
-          return !process.env.hasOwnProperty(variableName);
+          return !process.env[variableName];
         });
-
+  
         // add the missing module dotenv variables to the missing list
         missingDotEnvVariables = missingDotEnvVariables.concat(missingModuleDotEnvVariables);
+      // eslint-disable-next-line no-empty
       } catch (error) {}
     });
 
@@ -92,7 +92,7 @@ export default class ModuleLoader {
    * List the Heart modules root path, according to the modules defined in package.json that follows the given pattern.
    */
   private async getPaths(pattern: RegExp, packageJsonPath: string): Promise<string[]> {
-    let packageJson: any;
+    let packageJson: object;
 
     try {
       // read package.json from this module (Heart CLI)
@@ -110,7 +110,7 @@ export default class ModuleLoader {
     const modulesNames = [];
     ['dependencies', 'devDependencies']
       .forEach((key: string) => {
-        if (packageJson.hasOwnProperty(key)) { // the key exists
+        if (packageJson[key]) { // the key exists
           Object.keys(packageJson[key]).forEach((moduleName: string) => {
             // add the module name to the list if it is not already there and matches the pattern
             if (-1 === modulesNames.indexOf(moduleName) && pattern.test(moduleName)) {

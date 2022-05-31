@@ -11,14 +11,14 @@ export default class Request {
     [Request.HEADER_CONTENT_TYPE]: Request.HEADER_CONTENT_TYPE_JSON
   };
 
-  public static async get(url: string, headers: HeadersInit | { [index: string]: string } = {}): Promise<any> {
+  public static async get<T>(url: string, headers: HeadersInit | { [index: string]: string } = {}): Promise<T> {
     return await fetch(url, {
         method: Request.GET,
         headers: {...Request.BASE_HEADER, ...headers},
       }).then((res: Response) => res.json());
   }
 
-  public static async post(url: string, body = {}, headers: HeadersInit | { [index: string]: string } = {}): Promise<any> {
+  public static async post<T>(url: string, body: object = {}, headers: HeadersInit | { [index: string]: string } = {}): Promise<T> {
     let bodyString = '';
 
     headers = {...Request.BASE_HEADER, ...headers};

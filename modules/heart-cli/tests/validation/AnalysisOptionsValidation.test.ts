@@ -29,6 +29,7 @@ describe('Provide a file configuration', () => {
 
   beforeEach(() => {
     // Set up some mocked out file info before each test
+    // eslint-disable-next-line @typescript-eslint/no-var-requires
     require('fs').__setMockFiles(MOCK_FILE_INFO);
   });
 

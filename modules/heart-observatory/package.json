@@ -26,7 +26,7 @@
   "scripts": {
     "build": "tsc",
     "build-watch": "tsc -w",
-    "lint": "tslint -c tslint.json -p tsconfig.json",
+    "lint": "eslint .",
     "outdated": "npm outdated",
     "prepare": "npm run build",
     "test": "jest --silent"
@@ -45,7 +45,9 @@
     "@types/node": "^10.14.10",
     "jest": "^27.5.1",
     "ts-jest": "^27.1.3",
-    "tslint": "^5.18.0",
-    "typescript": "^3.8.0"
+    "typescript": "^3.8.0",
+    "eslint": "^8.16.0",
+    "@typescript-eslint/parser": "^5.26.0",
+    "@typescript-eslint/eslint-plugin": "^5.26.0"
   }
 }

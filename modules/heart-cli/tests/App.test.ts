@@ -11,12 +11,12 @@ test('Register events from Listener modules', () => {
     service: {
       name: 'Test Listener'
     },
+    // eslint-disable-next-line @typescript-eslint/no-empty-function
     registerEvents: () => {}
   };
 
   const registerEventsMock = jest.spyOn(module, 'registerEvents');
 
-  // tslint:disable-next-line: no-unused-expression
   new App([module]);
 
   expect(registerEventsMock).toHaveBeenCalled();

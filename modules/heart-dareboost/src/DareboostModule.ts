@@ -28,7 +28,7 @@ export default class DareboostModule extends Module implements ModuleAnalysisInt
     }
   }
 
-  private async requestReport(reportId: string, triesQty: number = 1): Promise<Report> {
+  private async requestReport(reportId: string, triesQty = 1): Promise<Report> {
     if (triesQty > this.MAX_TRIES) {
       throw new Error(`The maximum number of tries (${this.MAX_TRIES}) to retrieve the report has been reached.`);
     }

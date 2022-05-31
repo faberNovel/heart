@@ -14,28 +14,7 @@ export default class ObservatoryModule extends Module implements ModuleAnalysisI
   }
 
   public async startAnalysis(conf: object): Promise<Report> {
-    let scan: Scan;
-
-    try {
-       scan = await this.apiClient.launchAnalysis(conf);
-    } catch (error) {
-      return Promise.reject(error);
-    }
-
-    // Observatory API is unconventional, and does not take advantage of http verbs :/
-    if (scan.hasOwnProperty('error')) {
-      return Promise.reject({
-        error: scan['error'],
-        message: scan['text']
-      });
-    }
-
-    if ('FAILED' === scan.state || 'ABORTED' === scan.state) {
-      return Promise.reject({
-        error: 'error',
-        message: scan.state
-      });
-    }
+    await this.apiClient.launchAnalysis(conf);
 
     return this.requestScan();
   }

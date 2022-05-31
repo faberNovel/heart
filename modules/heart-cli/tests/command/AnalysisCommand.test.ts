@@ -18,6 +18,7 @@ test('Create an analysis command', () => {
     startAnalysis: () => new Promise((resolve) => resolve(report))
   };
 
+  // eslint-disable-next-line @typescript-eslint/no-empty-function
   AnalysisCommand.create(program, module, () => {});
 
   expect(program.commands[0]._name).toBe(module.id);

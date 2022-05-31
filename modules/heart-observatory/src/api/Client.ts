@@ -1,4 +1,5 @@
 import { Request } from '@fabernovel/heart-core';
+import { Error, isError } from './model/Error';
 
 import Scan from './model/Scan.js';
 
@@ -22,9 +23,26 @@ export default class Client {
       });
     }
 
-    return Request.post(this.generateApiUrl('analyze'), conf, {
+    const scan = await Request.post<Scan | Error>(this.generateApiUrl('analyze'), conf, {
       [Request.HEADER_CONTENT_TYPE]: Request.HEADER_CONTENT_TYPE_X_WWW_FORM_URLENCODED
     });
+
+    // Observatory API is unconventional, and does not take advantage of http verbs :/
+    if (isError(scan)) {
+      return Promise.reject({
+        error: scan['error'],
+        message: scan['text']
+      });
+    }
+
+    if ('FAILED' === scan.state || 'ABORTED' === scan.state) {
+      return Promise.reject({
+        error: 'error',
+        message: scan.state
+      });
+    }
+
+    return scan
   }
 
   public getProjectHost(): string {

@@ -27,6 +27,7 @@ describe('Starts an analysis', () => {
   beforeEach(() => {
     process.env.OBSERVATORY_ANALYZE_URL = ANALYZE_URL;
     process.env.OBSERVATORY_API_URL = API_URL;
+    // eslint-disable-next-line @typescript-eslint/no-var-requires
     require('@fabernovel/heart-core').__setMockScan(SCAN);
   });
 
