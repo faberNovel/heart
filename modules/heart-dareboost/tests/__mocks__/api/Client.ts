@@ -12,13 +12,11 @@ const __setMockReportResponse = (newResponse: ReportResponseInterface): void => 
 };
 
 class Client {
-  constructor() {}
-
-  public async launchAnalysis(conf: object): Promise<AnalysisResponseInterface> {
+  public async launchAnalysis(): Promise<AnalysisResponseInterface> {
     return Promise.resolve(analysisResponse);
   }
 
-  public async getAnalysisReport(reportId: string): Promise<ReportResponseInterface> {
+  public async getAnalysisReport(): Promise<ReportResponseInterface> {
     return Promise.resolve(reportResponse);
   }
 }

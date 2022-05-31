@@ -1,4 +1,4 @@
-import { WebClient } from '@slack/web-api';
+import { WebAPICallResult, WebClient } from '@slack/web-api';
 
 /**
  * Simple Slack client:
@@ -19,7 +19,7 @@ export default class Client {
     text: string;
     icon_url?: string;
     username?: string;
-  }): Promise<any> {
+  }): Promise<WebAPICallResult> {
     return this.client.chat.postMessage({
       channel: this.channel,
       ...options

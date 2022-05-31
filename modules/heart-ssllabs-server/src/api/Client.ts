@@ -3,6 +3,8 @@ import { stringify } from 'querystring';
 
 import AnalyzeParameters from './model/parameters/AnalyzeParameters';
 import Host from './model/Host';
+import { Error, isError } from './model/Error';
+import { Status } from './enum/Status';
 
 export default class Client {
   private readonly API_URL = 'https://api.ssllabs.com/api/v3';
@@ -37,7 +39,21 @@ export default class Client {
   }
 
   private async requestApi(): Promise<Host> {
-    const host = await Request.get(this.generateApiUrl('/analyze'));
+    const host = await Request.get<Host | Error>(this.generateApiUrl('/analyze'));
+
+    if (isError(host)) {
+      return Promise.reject({
+        error: host['error'],
+        message: host['text']
+      })
+    }
+
+    if (host.status === Status.ERROR) {
+      return Promise.reject({
+        error: 'error',
+        message: host.statusMessage
+      });
+    }
 
     return new Host(host);
   }

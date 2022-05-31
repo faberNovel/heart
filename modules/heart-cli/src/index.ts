@@ -11,6 +11,7 @@ import App from './App';
 // set environment variables from a.env file
 // assume that the root path if the one from where the script has been called
 // /!\ this approach does not follow symlink
+// eslint-disable-next-line @typescript-eslint/no-var-requires
 require('dotenv').config({path: `${process.cwd()}/.env`});
 
 const moduleLoader = new ModuleLoader(false);

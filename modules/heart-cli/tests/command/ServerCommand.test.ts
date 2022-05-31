@@ -14,6 +14,7 @@ test('Create a server command', () => {
     startServer: () => http.createServer()
   };
 
+  // eslint-disable-next-line @typescript-eslint/no-empty-function
   ServerCommand.create(program, module, () => {});
 
   expect(program.commands[0]._name).toBe(module.id);

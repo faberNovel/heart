@@ -23,5 +23,5 @@ export default interface Endpoint {
    * It's not present by default, but can be enabled by using the "all" parameter to the analyze API call.
    * @see [Documentation]{@link https://github.com/ssllabs/ssllabs-scan/blob/master/ssllabs-api-docs-v3.md#endpointdetails }
    */
-  details?: {};
+  details?: unknown;
 }

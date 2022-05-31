@@ -1,11 +1,11 @@
 class Response {
   private body: string;
 
-  constructor(body: any) {
+  constructor(body: object) {
     this.body = JSON.stringify(body);
   }
 
-  json(): Promise<any> {
+  json(): Promise<object> {
     try {
       const json = JSON.parse(this.body);
 
@@ -17,11 +17,11 @@ class Response {
 }
 
 let response = {};
-const __setMockResponse = (newResponse: any) => {
+const __setMockResponse = (newResponse: object) => {
   response = newResponse;
 };
 
-const fetch = async(url: string, opts = {}): Promise<Response> => new Response(response);
+const fetch = async(): Promise<Response> => new Response(response);
 
 export { __setMockResponse };
 export default fetch;

@@ -4,7 +4,7 @@
 export default interface ReportResponse {
   status: number;
   message: string;
-  missing: any[];
+  missing: unknown[];
   report: {
     publicReportUrl: string;
     harFileUrl: string;
@@ -44,8 +44,8 @@ export default interface ReportResponse {
           value: string;
         }
       ],
-      blacklist: any[];
-      whiteList: any[];
+      blacklist: unknown[];
+      whiteList: unknown[];
       dnsMapping: [
         {
           origin: string,

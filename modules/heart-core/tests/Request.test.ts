@@ -10,6 +10,7 @@ describe('The different Request methods must returns a JSON content', () => {
   };
 
   beforeEach(() => {
+    // eslint-disable-next-line @typescript-eslint/no-var-requires
     require('node-fetch').__setMockResponse(RESPONSE);
   });
 
