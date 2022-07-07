@@ -1,7 +1,7 @@
 {
-  "name": "@fabernovel/heart-api",
-  "version": "3.1.0",
-  "description": "Runner module of Heart, which exposes an API that starts an analysis when it is requested",
+  "name": "@fabernovel/heart-greenit",
+  "version": "3.0.0-rc.1",
+  "description": "Analysis module of Heart, which analyses URLs with GreenIT",
   "homepage": "https://gitlab.com/fabernovel/heart",
   "bugs": {
     "url": "https://gitlab.com/fabernovel/heart/issues"
@@ -10,8 +10,10 @@
     "type": "git",
     "url": "https://gitlab.com/fabernovel/heart.git"
   },
-  "license": "MIT",
+  "license": "AGPL-3.0-or-later",
   "contributors": [
+    "Mathias Gorenflot <mathias.gorenflot@fabernovel.com>",
+    "Florian Nguyen <florian.nguyen@fabernovel.com>",
     "Bastien Gatellier <bastien.gatellier@fabernovel.com>"
   ],
   "files": [
@@ -28,22 +30,17 @@
     "lint": "eslint .",
     "outdated": "npm outdated",
     "prepare": "npm run build",
-    "test": "jest --silent --passWithNoTests"
+    "test": "jest --silent"
   },
+  "keywords": [
+    "greenit",
+    "ecoindex",
+    "ecometer"
+  ],
   "engines": {
     "node": ">=14.17.0"
   },
-  "peerDependencies": {
-    "@fabernovel/heart-cli": "^3.1.1"
-  },
-  "dependencies": {
-    "@fabernovel/heart-core": "^3.1.1",
-    "dotenv": "^8.0.0",
-    "express": "^4.16.4"
-  },
   "devDependencies": {
-    "@types/dotenv": "^6.1.1",
-    "@types/express": "^4.16.1",
     "@types/jest": "^27.5.1",
     "@types/node": "^10.14.10",
     "jest": "^27.5.1",
@@ -52,5 +49,13 @@
     "eslint": "^8.16.0",
     "@typescript-eslint/parser": "^5.26.0",
     "@typescript-eslint/eslint-plugin": "^5.26.0"
+  },
+  "peerDependencies": {
+    "@fabernovel/heart-cli": "^3.1.1"
+  },
+  "dependencies": {
+    "@fabernovel/heart-core": "^3.1.1",
+    "greenit-cli": "github:cnumr/GreenIT-Analysis-cli#a4363a9bcf7630e4a5a4cd264a7da9ec6f34b571",
+    "puppeteer": "^10.4.0"
   }
 }

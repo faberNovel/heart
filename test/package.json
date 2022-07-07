@@ -16,7 +16,8 @@
     "@fabernovel/heart-lighthouse": "^3.0.1",
     "@fabernovel/heart-observatory": "^3.2.1",
     "@fabernovel/heart-slack": "^3.2.1",
-    "@fabernovel/heart-ssllabs-server": "^3.2.1"
+    "@fabernovel/heart-ssllabs-server": "^3.2.1",
+    "@fabernovel/heart-greenit": "^3.0.0-rc.1"
   },
   "devDependencies": {
     "@fabernovel/heart-core": "^3.1.1",
