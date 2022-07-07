@@ -28,6 +28,7 @@
       @fabernovel/heart-observatory
       @fabernovel/heart-ssllabs-server
       @fabernovel/heart-slack
+      @fabernovel/heart-greenit
   artifacts:
     paths:
       - ci/conf
@@ -67,6 +68,13 @@
     - .analyze
   script:
     - npx heart ssllabs-server --file ssllabs-server.json
+
+🔬 Analyze the website with GreenIT:
+  extends:
+    - .analyze
+  script:
+    - npx heart greenit --file greenit.json
+
 
 # This operation use artifacts created and stored during the "Build for master" job.
 # This speeds up this job by avoiding to execute additional operations on the repository (like Rush commands).

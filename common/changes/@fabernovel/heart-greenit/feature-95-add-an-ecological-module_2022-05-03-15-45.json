@@ -1,0 +1,10 @@
+{
+  "changes": [
+    {
+      "packageName": "@fabernovel/heart-greenit",
+      "comment": "Initial release of the GreenIT module",
+      "type": "major"
+    }
+  ],
+  "packageName": "@fabernovel/heart-greenit"
+}

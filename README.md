@@ -41,6 +41,7 @@ Only one _Analysis_ module is required, regardless of which one.
 | Heart Lighthouse | Analyses URLs with [Google Lighthouse](https://developers.google.com/web/tools/lighthouse) | https://www.npmjs.com/package/@fabernovel/heart-lighthouse | ![coverage](https://gitlab.com/fabernovel/heart/badges/master/coverage.svg?job=%F0%9F%9A%A6+Coverage%3A+Heart+Lighthouse) |
 | Heart Observatory | Analyses URLs with [Mozilla Observatory](https://observatory.mozilla.org/) | https://www.npmjs.com/package/@fabernovel/heart-observatory | ![coverage](https://gitlab.com/fabernovel/heart/badges/master/coverage.svg?job=%F0%9F%9A%A6+Coverage%3A+Heart+Observatory) |
 | Heart SSL Labs Server | Analyses URLs with [Qualys SSL Labs Server](https://www.ssllabs.com/ssltest/) | https://www.npmjs.com/package/@fabernovel/heart-ssllabs-server | ![coverage](https://gitlab.com/fabernovel/heart/badges/master/coverage.svg?job=%F0%9F%9A%A6+Coverage%3A+Heart+SSL+Labs+Server) |
+| Heart Green IT | Analyzes URLs with [GreenIT Analysis](https://chrome.google.com/webstore/detail/greenit-analysis/mofbfhffeklkbebfclfaiifefjflcpad?hl=en) | https://www.npmjs.com/package/@fabernovel/heart-greenit | ![coverage](https://gitlab.com/fabernovel/heart/badges/master/coverage.svg?job=%F0%9F%9A%A6+Coverage%3A+Heart+Green+IT) |
 
 ### Listener
 

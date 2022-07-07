@@ -395,6 +395,11 @@
       "packageName": "@fabernovel/heart-ssllabs-server",
       "projectFolder": "modules/heart-ssllabs-server",
       "versionPolicyName": "individualVersion"
+    },
+    {
+      "packageName": "@fabernovel/heart-greenit",
+      "projectFolder": "modules/heart-greenit",
+      "versionPolicyName": "individualVersion"
     }
   ]
 }
