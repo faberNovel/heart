@@ -2,8 +2,8 @@
   "changes": [
     {
       "packageName": "@fabernovel/heart-cli",
-      "comment": "Load default environment values if they are set",
-      "type": "minor"
+      "comment": "",
+      "type": "none"
     }
   ],
   "packageName": "@fabernovel/heart-cli"

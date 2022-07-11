@@ -22,14 +22,15 @@ In the following sections, every examples are using NPM as package manager, but 
     npm install @fabernovel/heart-cli
     ```
 
-3. In the project root folder, create a `.env` file with the API and results URLs:
+3. [Optional] Customize the _Mozilla Observatory_ scanner
 
+    By default, the scanner used is the public one, but you can use your own: [from a local codebase](https://github.com/mozilla/http-observatory#running-a-scan-from-the-local-codebase-without-db-for-continuous-integration) or [with Docker](https://github.com/mozilla/http-observatory#running-a-local-scanner-with-docker).
+
+    In this case, you must provide the following env values:
     ```dotenv
-    OBSERVATORY_API_URL=https://http-observatory.security.mozilla.org/api/v1/
-    OBSERVATORY_ANALYZE_URL=https://observatory.mozilla.org/analyze/
+    OBSERVATORY_API_URL=
+    OBSERVATORY_ANALYZE_URL=
     ```
-
-    Note that these URLs are customizable because you can run the _Mozilla Observatory_ scanner [from a local codebase](https://github.com/mozilla/http-observatory#running-a-scan-from-the-local-codebase-without-db-for-continuous-integration) or [with Docker](https://github.com/mozilla/http-observatory#running-a-local-scanner-with-docker).
 
 # Usage
 

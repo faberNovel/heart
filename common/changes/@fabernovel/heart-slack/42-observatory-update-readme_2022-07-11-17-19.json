@@ -1,0 +1,10 @@
+{
+  "changes": [
+    {
+      "packageName": "@fabernovel/heart-slack",
+      "comment": "The environment variable SLACK_CHANNEL_ID is now optional, and is set to #heart by default.",
+      "type": "minor"
+    }
+  ],
+  "packageName": "@fabernovel/heart-slack"
+}

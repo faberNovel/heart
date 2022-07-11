@@ -37,10 +37,10 @@ export default class ModuleLoader {
 
         // check if environment variables are missing,
         // according to the .env.sample of the loaded modules
-        const missingDotEnvVariables = this.handleMissingEnvironmentVariables(modulesPaths);
+        const missingEnvironmentVariables = this.loadEnvironmentVariables(modulesPaths);
 
-        if (missingDotEnvVariables.length > 0) {
-          throw new MissingEnvironmentVariables(missingDotEnvVariables);
+        if (missingEnvironmentVariables.length > 0) {
+          throw new MissingEnvironmentVariables(missingEnvironmentVariables);
         }
       }
 
@@ -51,12 +51,12 @@ export default class ModuleLoader {
   }
 
   /**
-   * Checks variables set in the 'fileName' file from the given loaded modules,
-   * first, if a default can be set, set missing variables to their default value
-   * then, return the ones that are missing from the environment (process.env) variables.
+   * Load environment variables for the given loaded modules.
+   * 
+   * @returns The environment variables names that are missing
    */
-  private handleMissingEnvironmentVariables(modulesPaths: string[]): string[] {
-    let missingDotEnvVariables = [];
+  private loadEnvironmentVariables(modulesPaths: string[]): string[] {
+    const missingEnvironmentVariables: string[] = [];
 
     modulesPaths.forEach((modulePath: string) => {
       try {
@@ -74,18 +74,16 @@ export default class ModuleLoader {
             }
         });
   
-        // get the dotenv variables that are not yet registered in process.env
-        const missingModuleDotEnvVariables = requiredModuleDotenvVariables.filter(([variableName]) => {
-          return !process.env[variableName];
-        });
+        // get the environment variables names that are not registered in process.env
+        const missingModuleEnvironmentVariables = requiredModuleDotenvVariables.filter(([variableName]) => !process.env[variableName]).map(([variableName]) => variableName);
   
         // add the missing module dotenv variables to the missing list
-        missingDotEnvVariables = missingDotEnvVariables.concat(missingModuleDotEnvVariables);
+        missingEnvironmentVariables.push(...missingModuleEnvironmentVariables);
       // eslint-disable-next-line no-empty
       } catch (error) {}
     });
 
-    return missingDotEnvVariables;
+    return missingEnvironmentVariables;
   }
 
   /**
