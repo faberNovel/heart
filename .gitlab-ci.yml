@@ -26,12 +26,14 @@ include:
     - .install
     - .build
     - .only-master
+  interruptible: true
 
 🏗 Build for MR:
   extends:
     - .install
     - .build
     - .only-mr
+  interruptible: true
 
 # Checks code linting
 💅 Lint:
@@ -43,6 +45,7 @@ include:
     - 🏗 Build for MR
   script:
     - node common/scripts/install-run-rush.js lint
+  interruptible: true
 
 # Checks that a changelog has been provided
 📝 Missing changelog:
@@ -58,6 +61,7 @@ include:
     - node common/scripts/install-run-rush.js change
       --target-branch origin/$CI_MERGE_REQUEST_TARGET_BRANCH_NAME
       --verify
+  interruptible: true
 
 🐛 Test:
   extends:
@@ -67,6 +71,7 @@ include:
     - 🏗 Build for MR
   script:
     - node common/scripts/install-run-rush.js test --verbose
+  interruptible: true
 
 # Publish packages to NPM.
 # By default, the dry-run mode is enabled and the policy version is set to individualVersion.
@@ -105,7 +110,6 @@ include:
     # $CI_COMMIT_REF_NAME is 'master', as long as this job is restricted to run on the 'master' branch
     - node common/scripts/install-run-rush.js publish
       --include-all
-      --npm-auth-token $NPM_TOKEN
       $PUBLISH_OPTION
       --set-access-level public
       --target-branch $CI_COMMIT_REF_NAME
