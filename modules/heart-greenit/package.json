@@ -29,7 +29,7 @@
     "build-watch": "tsc -w",
     "lint": "eslint .",
     "outdated": "npm outdated",
-    "prepare": "npm run build",
+    "prepublishOnly": "npm run build",
     "test": "jest --silent"
   },
   "keywords": [
@@ -54,8 +54,8 @@
     "@fabernovel/heart-cli": "^3.1.1"
   },
   "dependencies": {
-    "@fabernovel/heart-core": "^3.1.1",
+    "@fabernovel/heart-core": "workspace:^3.1.1",
     "greenit-cli": "github:cnumr/GreenIT-Analysis-cli#a4363a9bcf7630e4a5a4cd264a7da9ec6f34b571",
-    "puppeteer": "^10.4.0"
+    "puppeteer": "^5.5.0"
   }
 }

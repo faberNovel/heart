@@ -12,6 +12,7 @@
     - 🏗 Build for analysis
   before_script:
     - cd ci/conf
+  interruptible: true
 
 # Use NPM published packages instead of local ones to avoid possible bugs
 🏗 Build for analysis:
@@ -24,15 +25,16 @@
     - npm install --save-dev
       @fabernovel/heart-cli
       @fabernovel/heart-dareboost
+      @fabernovel/heart-greenit
       @fabernovel/heart-lighthouse
       @fabernovel/heart-observatory
-      @fabernovel/heart-ssllabs-server
       @fabernovel/heart-slack
-      @fabernovel/heart-greenit
+      @fabernovel/heart-ssllabs-server
   artifacts:
     paths:
       - ci/conf
     expire_in: 1 hour
+  interruptible: true
 
 🔬 Analyze the website with Dareboost:
   extends:
@@ -46,13 +48,11 @@
 🔬 Analyze the website with Google Lighthouse:
   extends:
     - .analyze
+    - .install-chrome
   variables:
     CHROME_PATH: /usr/bin/google-chrome-stable
   before_script:
-    - wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key add -
-    - sh -c 'echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google.list'
-    - apt-get update
-    - apt-get install --yes google-chrome-stable
+    - !reference [.install-chrome, before_script]
     - cd ci/conf
   script:
     - npx heart lighthouse --file lighthouse.json

@@ -102,19 +102,19 @@ To do so, you have to:
 3. Install the packages:
 
     ```shell
-    ../common/temp/pnpm-local/node_modules/.bin/pnpm install
+    rush-pnpm install
     ````
 
 4. Starts an analysis using the CLI. You can list the available analysis by using:
 
     ```shell
-    ../common/temp/pnpm-local/node_modules/.bin/pnpm exec heart -h
+    rush-pnpm exec heart -h
     ```
 
     Example of a CLI command using the _Heart Dareboost_ module:
 
     ```shell
-    ../common/temp/pnpm-local/node_modules/.bin/pnpm exec heart dareboost -i '{"url": "https://heart.fabernovel.com/"}'
+    rush-pnpm exec heart dareboost -i '{"url": "https://heart.fabernovel.com/"}'
     ```
 
 ### Provide a changelog
