@@ -1,6 +1,8 @@
 variables:
-  HOST_REPO_PIPELINE_URL: 'https:\/\/gitlab-ci-token:${CI_JOB_TOKEN}@gitlab.com\/'
-  HOST_REPO_URL: 'git@gitlab.com:'
+  # Use a The Personal Access Token to allow write operations on the repository from the CI,
+  # as the $CI_JOB_TOKEN only allows read operations.
+  # The Personal Access Token is the password, and the login is the Gitlab username to which the token is linked.
+  RUSHJSON_REPOSITORY_URL_CI: 'https://bgatellier:$GITLAB_CI_TOKEN@$CI_SERVER_HOST/$CI_PROJECT_PATH.git'
 
 default:
   # The version must match the minimum version declared in rush.json
@@ -93,20 +95,17 @@ include:
   dependencies:
     - 🏗 Build for master
   script:
-    # These values must be set to make Rush works
-    - git config --local user.name "FABERNOVEL"
+    - git remote set-url origin $RUSHJSON_REPOSITORY_URL_CI
+    # Set Git publisher values (required by Rush)
+    - git config --local user.name "Fabernovel"
     - git config --local user.email "heart@fabernovel.com"
-    # Create the --publish option for rush publish command.
-    - if (( $PUBLISH == 1 )); then PUBLISH_OPTION="--publish"; else PUBLISH_OPTION=""; fi
-    # Fix 'npm cannot run in wd' error
-    - echo 'unsafe-perm = true' >> ~/.npmrc
     - echo "Publishing to NPM the packages with the ${VERSION_POLICY} version policy..."
-    # Update the rush.json repository url with the one from the repo, to make the rush publish commands
-    - sed -i -e "s/$HOST_REPO_PIPELINE_URL/$HOST_REPO_URL/g" rush.json
     - node common/scripts/install-run-rush.js version
       --bump
       --target-branch $CI_COMMIT_REF_NAME
       --version-policy $VERSION_POLICY
+    # Create the --publish option for rush publish command.
+    - if (( $PUBLISH == 1 )); then PUBLISH_OPTION="--publish"; else PUBLISH_OPTION=""; fi
     # $CI_COMMIT_REF_NAME is 'master', as long as this job is restricted to run on the 'master' branch
     - node common/scripts/install-run-rush.js publish
       --include-all
