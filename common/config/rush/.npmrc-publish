@@ -15,6 +15,7 @@
 # other unrelated processes may be able to read the file.  Also, the file may persist indefinitely,
 # for example if the machine loses power.  A safer practice is to pass the token via an
 # environment variable, which can be referenced from .npmrc using ${} expansion.  For example:
-#
+
+# Fix 'npm cannot run in wd' error
+unsafe-perm = true
 //registry.npmjs.org/:_authToken=${NPM_TOKEN}
-#
