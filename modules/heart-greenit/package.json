@@ -1,6 +1,6 @@
 {
   "name": "@fabernovel/heart-greenit",
-  "version": "3.0.0-rc.1",
+  "version": "3.0.0",
   "description": "Analysis module of Heart, which analyses URLs with GreenIT",
   "homepage": "https://gitlab.com/fabernovel/heart",
   "bugs": {
@@ -51,10 +51,10 @@
     "@typescript-eslint/eslint-plugin": "^5.26.0"
   },
   "peerDependencies": {
-    "@fabernovel/heart-cli": "^3.1.1"
+    "@fabernovel/heart-cli": "^3.2.0"
   },
   "dependencies": {
-    "@fabernovel/heart-core": "workspace:^3.1.1",
+    "@fabernovel/heart-core": "workspace:^3.1.2",
     "greenit-cli": "github:cnumr/GreenIT-Analysis-cli#a4363a9bcf7630e4a5a4cd264a7da9ec6f34b571",
     "puppeteer": "^5.5.0"
   }

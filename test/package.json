@@ -9,18 +9,18 @@
     "test": "jest --silent --passWithNoTests"
   },
   "dependencies": {
-    "@fabernovel/heart-api": "workspace:^3.1.0",
-    "@fabernovel/heart-bigquery": "workspace:^3.2.0",
-    "@fabernovel/heart-cli": "workspace:^3.1.1",
-    "@fabernovel/heart-dareboost": "workspace:^3.2.1",
-    "@fabernovel/heart-lighthouse": "workspace:^3.0.1",
-    "@fabernovel/heart-observatory": "workspace:^3.2.1",
-    "@fabernovel/heart-slack": "workspace:^3.2.1",
-    "@fabernovel/heart-ssllabs-server": "workspace:^3.2.1",
-    "@fabernovel/heart-greenit": "workspace:^3.0.0-rc.1"
+    "@fabernovel/heart-api": "workspace:^3.1.1",
+    "@fabernovel/heart-bigquery": "workspace:^3.2.1",
+    "@fabernovel/heart-cli": "workspace:^3.2.0",
+    "@fabernovel/heart-dareboost": "workspace:^3.2.2",
+    "@fabernovel/heart-lighthouse": "workspace:^3.0.2",
+    "@fabernovel/heart-observatory": "workspace:^3.3.0",
+    "@fabernovel/heart-slack": "workspace:^3.3.0",
+    "@fabernovel/heart-ssllabs-server": "workspace:^3.2.2",
+    "@fabernovel/heart-greenit": "workspace:^3.0.0"
   },
   "devDependencies": {
-    "@fabernovel/heart-core": "workspace:^3.1.1",
+    "@fabernovel/heart-core": "workspace:^3.1.2",
     "jest": "^27.5.1"
   }
 }
