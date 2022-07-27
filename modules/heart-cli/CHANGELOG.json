@@ -2,6 +2,28 @@
   "name": "@fabernovel/heart-cli",
   "entries": [
     {
+      "version": "3.2.0",
+      "tag": "@fabernovel/heart-cli_v3.2.0",
+      "date": "Wed, 27 Jul 2022 13:43:15 GMT",
+      "comments": {
+        "minor": [
+          {
+            "comment": "Load default environment values if they are set"
+          }
+        ],
+        "patch": [
+          {
+            "comment": "Increase the minimum Node.js version to the latest LTS (14.17.0)"
+          }
+        ],
+        "dependency": [
+          {
+            "comment": "Updating dependency \"@fabernovel/heart-core\" from `^3.1.1` to `^3.1.2`"
+          }
+        ]
+      }
+    },
+    {
       "version": "3.1.1",
       "tag": "@fabernovel/heart-cli_v3.1.1",
       "date": "Thu, 09 Apr 2020 09:17:20 GMT",

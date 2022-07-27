@@ -2,6 +2,26 @@
   "name": "@fabernovel/heart-api",
   "entries": [
     {
+      "version": "3.1.1",
+      "tag": "@fabernovel/heart-api_v3.1.1",
+      "date": "Wed, 27 Jul 2022 13:43:15 GMT",
+      "comments": {
+        "patch": [
+          {
+            "comment": "Increase the minimum Node.js version to the latest LTS (14.17.0)"
+          }
+        ],
+        "dependency": [
+          {
+            "comment": "Updating dependency \"@fabernovel/heart-core\" from `^3.1.1` to `^3.1.2`"
+          },
+          {
+            "comment": "Updating dependency \"@fabernovel/heart-cli\" from `^3.1.1` to `^3.2.0`"
+          }
+        ]
+      }
+    },
+    {
       "version": "3.1.0",
       "tag": "@fabernovel/heart-api_v3.1.0",
       "date": "Thu, 16 Jan 2020 14:51:38 GMT",

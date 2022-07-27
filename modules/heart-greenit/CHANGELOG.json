@@ -1,0 +1,25 @@
+{
+  "name": "@fabernovel/heart-greenit",
+  "entries": [
+    {
+      "version": "3.0.0",
+      "tag": "@fabernovel/heart-greenit_v3.0.0",
+      "date": "Wed, 27 Jul 2022 13:43:15 GMT",
+      "comments": {
+        "major": [
+          {
+            "comment": "Initial release of the GreenIT module"
+          }
+        ],
+        "dependency": [
+          {
+            "comment": "Updating dependency \"@fabernovel/heart-core\" from `^3.1.1` to `^3.1.2`"
+          },
+          {
+            "comment": "Updating dependency \"@fabernovel/heart-cli\" from `^3.1.1` to `^3.2.0`"
+          }
+        ]
+      }
+    }
+  ]
+}

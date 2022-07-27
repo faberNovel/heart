@@ -1,6 +1,13 @@
 # Change Log - @fabernovel/heart-lighthouse
 
-This log was last generated on Thu, 09 Apr 2020 09:17:20 GMT and should not be manually modified.
+This log was last generated on Wed, 27 Jul 2022 13:43:15 GMT and should not be manually modified.
+
+## 3.0.2
+Wed, 27 Jul 2022 13:43:15 GMT
+
+### Patches
+
+- Increase the minimum Node.js version to the latest LTS (14.17.0)
 
 ## 3.0.1
 Thu, 09 Apr 2020 09:17:20 GMT

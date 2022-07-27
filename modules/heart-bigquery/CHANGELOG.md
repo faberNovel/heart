@@ -1,6 +1,13 @@
 # Change Log - @fabernovel/heart-bigquery
 
-This log was last generated on Thu, 16 Jan 2020 14:51:38 GMT and should not be manually modified.
+This log was last generated on Wed, 27 Jul 2022 13:43:15 GMT and should not be manually modified.
+
+## 3.2.1
+Wed, 27 Jul 2022 13:43:15 GMT
+
+### Patches
+
+- Increase the minimum Node.js version to the latest LTS (14.17.0)
 
 ## 3.2.0
 Thu, 16 Jan 2020 14:51:38 GMT

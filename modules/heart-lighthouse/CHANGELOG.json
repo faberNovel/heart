@@ -2,6 +2,26 @@
   "name": "@fabernovel/heart-lighthouse",
   "entries": [
     {
+      "version": "3.0.2",
+      "tag": "@fabernovel/heart-lighthouse_v3.0.2",
+      "date": "Wed, 27 Jul 2022 13:43:15 GMT",
+      "comments": {
+        "patch": [
+          {
+            "comment": "Increase the minimum Node.js version to the latest LTS (14.17.0)"
+          }
+        ],
+        "dependency": [
+          {
+            "comment": "Updating dependency \"@fabernovel/heart-core\" from `^3.1.1` to `^3.1.2`"
+          },
+          {
+            "comment": "Updating dependency \"@fabernovel/heart-cli\" from `^3.1.1` to `^3.2.0`"
+          }
+        ]
+      }
+    },
+    {
       "version": "3.0.1",
       "tag": "@fabernovel/heart-lighthouse_v3.0.1",
       "date": "Thu, 09 Apr 2020 09:17:20 GMT",

@@ -1,6 +1,17 @@
 # Change Log - @fabernovel/heart-slack
 
-This log was last generated on Thu, 09 Apr 2020 09:17:20 GMT and should not be manually modified.
+This log was last generated on Wed, 27 Jul 2022 13:43:15 GMT and should not be manually modified.
+
+## 3.3.0
+Wed, 27 Jul 2022 13:43:15 GMT
+
+### Minor changes
+
+- The environment variable SLACK_CHANNEL_ID is now optional, and is set to #heart by default.
+
+### Patches
+
+- Increase the minimum Node.js version to the latest LTS (14.17.0)
 
 ## 3.2.1
 Thu, 09 Apr 2020 09:17:20 GMT

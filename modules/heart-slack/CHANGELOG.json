@@ -2,6 +2,31 @@
   "name": "@fabernovel/heart-slack",
   "entries": [
     {
+      "version": "3.3.0",
+      "tag": "@fabernovel/heart-slack_v3.3.0",
+      "date": "Wed, 27 Jul 2022 13:43:15 GMT",
+      "comments": {
+        "minor": [
+          {
+            "comment": "The environment variable SLACK_CHANNEL_ID is now optional, and is set to #heart by default."
+          }
+        ],
+        "patch": [
+          {
+            "comment": "Increase the minimum Node.js version to the latest LTS (14.17.0)"
+          }
+        ],
+        "dependency": [
+          {
+            "comment": "Updating dependency \"@fabernovel/heart-core\" from `^3.1.1` to `^3.1.2`"
+          },
+          {
+            "comment": "Updating dependency \"@fabernovel/heart-cli\" from `^3.1.1` to `^3.2.0`"
+          }
+        ]
+      }
+    },
+    {
       "version": "3.2.1",
       "tag": "@fabernovel/heart-slack_v3.2.1",
       "date": "Thu, 09 Apr 2020 09:17:20 GMT",

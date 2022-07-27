@@ -2,6 +2,34 @@
   "name": "@fabernovel/heart-observatory",
   "entries": [
     {
+      "version": "3.3.0",
+      "tag": "@fabernovel/heart-observatory_v3.3.0",
+      "date": "Wed, 27 Jul 2022 13:43:15 GMT",
+      "comments": {
+        "patch": [
+          {
+            "comment": "update the example section of the README.md to match with the installation section"
+          },
+          {
+            "comment": "Increase the minimum Node.js version to the latest LTS (14.17.0)"
+          }
+        ],
+        "minor": [
+          {
+            "comment": "The environment variables OBSERVATORY_API_URL and OBSERVATORY_ANALYZE_URL are now optional, and are set by default to use the public Mozilla Observatory API."
+          }
+        ],
+        "dependency": [
+          {
+            "comment": "Updating dependency \"@fabernovel/heart-core\" from `^3.1.1` to `^3.1.2`"
+          },
+          {
+            "comment": "Updating dependency \"@fabernovel/heart-cli\" from `^3.1.1` to `^3.2.0`"
+          }
+        ]
+      }
+    },
+    {
       "version": "3.2.1",
       "tag": "@fabernovel/heart-observatory_v3.2.1",
       "date": "Thu, 09 Apr 2020 09:17:20 GMT",
