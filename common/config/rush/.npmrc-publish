@@ -16,6 +16,8 @@
 # for example if the machine loses power.  A safer practice is to pass the token via an
 # environment variable, which can be referenced from .npmrc using ${} expansion.  For example:
 
-# Fix 'npm cannot run in wd' error
-unsafe-perm = true
+# When publishing scoped packages, the access level defaults to restricted
+# Note: Using the --access flag on the npm publish command will only set the package access level on the initial publish of the package.
+# https://docs.npmjs.com/cli/v7/using-npm/config#access
+access=public
 //registry.npmjs.org/:_authToken=${NPM_TOKEN}

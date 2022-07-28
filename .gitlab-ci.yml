@@ -110,6 +110,5 @@ include:
     - node common/scripts/install-run-rush.js publish
       --include-all
       $PUBLISH_OPTION
-      --set-access-level public
       --target-branch $CI_COMMIT_REF_NAME
       --version-policy $VERSION_POLICY
