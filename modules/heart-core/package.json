@@ -2,7 +2,7 @@
   "name": "@fabernovel/heart-core",
   "version": "3.1.2",
   "description": "Centralize helpful code needed by every Heart modules",
-  "homepage": "https://gitlab.com/fabernovel/heart",
+  "homepage": "https://heart.fabernovel.com",
   "bugs": {
     "url": "https://gitlab.com/fabernovel/heart/issues"
   },

@@ -2,7 +2,7 @@
   "name": "@fabernovel/heart-api",
   "version": "3.1.1",
   "description": "Runner module of Heart, which exposes an API that starts an analysis when it is requested",
-  "homepage": "https://gitlab.com/fabernovel/heart",
+  "homepage": "https://heart.fabernovel.com",
   "bugs": {
     "url": "https://gitlab.com/fabernovel/heart/issues"
   },

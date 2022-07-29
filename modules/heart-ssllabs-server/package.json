@@ -2,7 +2,7 @@
   "name": "@fabernovel/heart-ssllabs-server",
   "version": "3.2.2",
   "description": "Analysis module of Heart, which analyses URLs with Qualys SSL Labs server",
-  "homepage": "https://gitlab.com/fabernovel/heart",
+  "homepage": "https://heart.fabernovel.com",
   "bugs": {
     "url": "https://gitlab.com/fabernovel/heart/issues"
   },

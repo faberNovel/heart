@@ -2,7 +2,7 @@
   "name": "@fabernovel/heart-slack",
   "version": "3.3.0",
   "description": "Listener module of Heart, which reacts to the end of an analysis by sending the results to a Slack channel",
-  "homepage": "https://gitlab.com/fabernovel/heart",
+  "homepage": "https://heart.fabernovel.com",
   "bugs": {
     "url": "https://gitlab.com/fabernovel/heart/issues"
   },
