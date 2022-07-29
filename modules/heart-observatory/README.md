@@ -2,7 +2,7 @@
 
 _Heart Observatory_ is an _analysis_ module of _Heart_, which analyses URLs with _[Mozilla Observatory](https://observatory.mozilla.org/)_.
 
-Read more about [the purpose, design and general installation of _Heart_](https://www.fabernovel.com/en/clients/cases/heart-a-tool-for-automating-web-quality-metrics).
+Read more about [the purpose, design and general installation of _Heart_](https://gitlab.com/fabernovel/heart/-/blob/master/README.md).
 
 # Package manager
 
@@ -49,7 +49,7 @@ Example:
 
 ## Example
 
-Using _[Heart CLI](https://www.npmjs.com/package/@fabernovel/heart-cli)_, starting an _Observatory_ analysis of https://heart.fabernovel.com could look like that: 
+Using _[Heart CLI](https://www.npmjs.com/package/@fabernovel/heart-cli)_, starting an _Observatory_ analysis of https://heart.fabernovel.com could look like that:
 
 ```shell
 npx heart observatory --inline '{"host": "heart.fabernovel.com"}'

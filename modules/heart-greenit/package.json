@@ -2,7 +2,7 @@
   "name": "@fabernovel/heart-greenit",
   "version": "3.0.0",
   "description": "Analysis module of Heart, which analyses URLs with GreenIT",
-  "homepage": "https://gitlab.com/fabernovel/heart",
+  "homepage": "https://heart.fabernovel.com",
   "bugs": {
     "url": "https://gitlab.com/fabernovel/heart/issues"
   },

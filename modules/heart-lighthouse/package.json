@@ -2,7 +2,7 @@
   "name": "@fabernovel/heart-lighthouse",
   "version": "3.0.2",
   "description": "Analysis module of Heart, which analyses URLs with Google Lighthouse",
-  "homepage": "https://gitlab.com/fabernovel/heart",
+  "homepage": "https://heart.fabernovel.com",
   "bugs": {
     "url": "https://gitlab.com/fabernovel/heart/issues"
   },
