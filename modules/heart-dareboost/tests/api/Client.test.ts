@@ -1,5 +1,5 @@
 import { Request } from '@fabernovel/heart-core';
-import { mocked } from 'ts-jest/utils';
+import { mocked } from 'jest-mock';
 
 import AnalysisResponseInterface from '../../src/api/model/AnalysisResponseInterface';
 import ReportResponseInterface from '../../src/api/model/ReportResponseInterface';

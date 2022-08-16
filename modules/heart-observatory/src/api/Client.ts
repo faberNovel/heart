@@ -1,7 +1,7 @@
 import { Request } from '@fabernovel/heart-core';
 import { Error, isError } from './model/Error';
 
-import Scan from './model/Scan.js';
+import Scan from './model/Scan';
 
 export default class Client {
   private analyzeUrl: string;

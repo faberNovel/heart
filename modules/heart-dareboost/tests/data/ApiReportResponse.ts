@@ -54,7 +54,7 @@ export const ApiReportResponse: ReportResponseInterface = {
     },
     summary: {
       loadTime: 0,
-      score: 0,
+      score: 95,
       requestsCount: 0,
       weight: 0,
     },

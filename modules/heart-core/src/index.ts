@@ -6,7 +6,9 @@ import ModuleInterface from './model/module/ModuleInterface';
 import ModuleListenerInterface, { isModuleListener } from './model/module/ModuleListenerInterface';
 import ModuleServerInterface, { isModuleServer } from './model/module/ModuleServerInterface';
 import Report from './model/report/Report';
+import { ThresholdInputObject } from './model/threshold/ReportThresholdObject';
 import { timeout } from './time/timeout';
+
 
 const Helper = {
   timeout,
@@ -25,4 +27,5 @@ export {
   ModuleServerInterface,
   Report,
   Request,
+  ThresholdInputObject,
 };

@@ -4,27 +4,25 @@ import AnalysisOptionsValidation from '../../src/validation/AnalysisOptionsValid
 jest.mock('fs');
 
 test('Provide no configurations', () => {
-  const [errors] = AnalysisOptionsValidation.validate(undefined, undefined);
-
-  expect(errors.length).toBe(1);
+  expect(() => {
+    AnalysisOptionsValidation.validate();
+  }).toThrow();
 });
 
 test('Provide two configurations', () => {
-  const [errors] = AnalysisOptionsValidation.validate('', '');
-
-  expect(errors.length).toBe(1);
+  expect(() => {
+    AnalysisOptionsValidation.validate('', '');
+  }).toThrow()
 });
 
 test('Provide an inline configuration', () => {
-  const [errors, config] = AnalysisOptionsValidation.validate(undefined, '{"inline": "configuration"}');
-
-  expect(errors.length).toBe(0);
-  expect(config).toBe('{"inline": "configuration"}');
+  const [config] = AnalysisOptionsValidation.validate(undefined, '{"inline": "configuration"}');
+  expect(config).toEqual({"inline": "configuration"});
 });
 
 describe('Provide a file configuration', () => {
   const MOCK_FILE_INFO = {
-    'existingConfig.json': '{"url": "www.my-test.website"}',
+    'existingConfig.json': JSON.stringify({"url": "www.my-test.website"}),
   };
 
   beforeEach(() => {
@@ -34,16 +32,14 @@ describe('Provide a file configuration', () => {
   });
 
   test('Provide missing file configuration', () => {
-    const [errors, config] = AnalysisOptionsValidation.validate('missingConfig.json', undefined);
-
-    expect(errors.length).toBe(1);
-    expect(config).toBe('');
+    expect(() => {
+      AnalysisOptionsValidation.validate('missingConfig.json');
+    }).toThrow()
   });
 
   test('Provide existing file configuration', () => {
-    const [errors, config] = AnalysisOptionsValidation.validate('existingConfig.json', undefined);
+    const [config] = AnalysisOptionsValidation.validate('existingConfig.json');
 
-    expect(errors.length).toBe(0);
-    expect(config).toBe(MOCK_FILE_INFO['existingConfig.json']);
+    expect(config).toEqual(JSON.parse(MOCK_FILE_INFO['existingConfig.json']));
   });
 });

@@ -1,4 +1,6 @@
 import ServiceInterface from '../service/ServiceInterface';
+import { validateAgainstThresholds } from '../threshold/validateAgainstThresholds';
+import { ThresholdInputObject, ThresholdOutputObject } from '../threshold/ReportThresholdObject';
 
 import ReportInterface from './ReportInterface';
 
@@ -16,9 +18,22 @@ export default class Report implements ReportInterface {
   resultUrl?: string;
   service: ServiceInterface;
 
+  thresholds?: ThresholdInputObject;
+  thresholdsResults?: ThresholdOutputObject;
+  areThresholdsReached?: boolean;
+
   constructor(report: Partial<ReportInterface>) {
     Object.assign(this, report);
 
-    this.normalizedNote = this.normalizedNote || parseInt(report.note, 10) || 0;
+    this.normalizedNote = this.normalizedNote || parseInt(this.note, 10) || 0;
+
+    if (this.thresholds && Object.keys(this.thresholds).length > 0) {
+      const { status, results } = validateAgainstThresholds(this);
+
+      this.areThresholdsReached = status;
+      this.thresholdsResults = results;
+    }
   }
+
 }
+

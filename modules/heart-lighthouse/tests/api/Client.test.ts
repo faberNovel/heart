@@ -1,6 +1,6 @@
 import * as chromeLauncher from 'chrome-launcher'
 import lighthouse from 'lighthouse'
-import { mocked } from 'ts-jest/utils'
+import { mocked } from 'jest-mock'
 
 import { runAnalysis } from '../../src/api/Client'
 import { Config } from '../../src/config/Config'

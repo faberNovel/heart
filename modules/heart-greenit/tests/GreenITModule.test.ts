@@ -1,7 +1,7 @@
 import { Report } from '@fabernovel/heart-core';
 import { createJsonReports } from 'greenit-cli/cli-core/analysis';
 import path from 'path';
-import { mocked } from 'ts-jest/utils';
+import { mocked } from 'jest-mock';
 
 import GreenITModule from '../src/GreenITModule';
 
