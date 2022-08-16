@@ -1,0 +1,10 @@
+{
+  "changes": [
+    {
+      "packageName": "@fabernovel/heart-bigquery",
+      "comment": "Updating dependency \\\"@fabernovel/heart-core\\\" from `^3.1.1` to `^3.2.0`",
+      "type": "none"
+    }
+  ],
+  "packageName": "@fabernovel/heart-bigquery"
+}

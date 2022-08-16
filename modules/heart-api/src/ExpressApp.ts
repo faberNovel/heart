@@ -33,7 +33,7 @@ export default class ExpressApp {
    */
   private createRouteHandler(module: ModuleAnalysisInterface): express.RequestHandler {
     return (req: express.Request, res: express.Response) => {
-      module.startAnalysis(req.body)
+      module.startAnalysis(req.body.conf, req.body.threshold)
         .catch ((error) => {
           res
             .status(500)

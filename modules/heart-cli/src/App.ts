@@ -5,6 +5,7 @@ import {
   ModuleInterface,
   ModuleListenerInterface,
   ModuleServerInterface,
+  ThresholdInputObject,
 } from '@fabernovel/heart-core';
 import * as EventEmitter from 'events';
 
@@ -18,19 +19,24 @@ export default class App {
     this.registerEventsListeners();
   }
 
-  public async startAnalysis(module: ModuleAnalysisInterface, conf: object): Promise<void> {
+  public async startAnalysis(module: ModuleAnalysisInterface, conf: object, threshold?: ThresholdInputObject): Promise<void> {
     try {
-      const report = await module.startAnalysis(conf);
+      const report = await module.startAnalysis(conf, threshold);
 
       // print analyse result
       const reportName = report.service ? `[${report.service.name}] ` : '';
-      let message = `${reportName}${report.analyzedUrl}: ${report.note}`;
+      const messageParts = [`${reportName}${report.analyzedUrl}: ${report.note}`];
 
       if (report.resultUrl) {
-        message += `, view full report: ${report.resultUrl}`;
+        messageParts.push(`View full report: ${report.resultUrl}`);
+      }
+      if (report.areThresholdsReached === true) {
+        messageParts.push("Your thresholds are reached");
+      } else if (report.areThresholdsReached === false) {
+        messageParts.push("Your thresholds are not reached");
       }
 
-      console.log(message);
+      console.log(messageParts.join('. ') + '.');
 
       this.eventEmitter.emit(AnalysisEvents.DONE, report);
 

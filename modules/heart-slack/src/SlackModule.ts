@@ -30,9 +30,18 @@ export default class SlackModule extends Module
 
   private sendReport(report: Report): void {
     let message = `${report.analyzedUrl}: ${report.note}`;
+
     if (report.resultUrl) {
       message += `. <${report.resultUrl}|view full report>`;
     }
+
+    if (report.areThresholdsReached === true) {
+      message += "\n:white_check_mark: Your thresholds are reached.";
+
+    } else if (report.areThresholdsReached === false) {
+      message += "\n:warning: Your thresholds are not reached.";
+    }
+
     this.slackClient.postMessage({
       text: message,
       icon_url: report.service ? report.service.logo : undefined,

@@ -1,6 +1,6 @@
 {
   "name": "@fabernovel/heart-core",
-  "version": "3.1.2",
+  "version": "3.2.0",
   "description": "Centralize helpful code needed by every Heart modules",
   "homepage": "https://heart.fabernovel.com",
   "bugs": {
@@ -34,15 +34,17 @@
     "node": ">=14.17.0"
   },
   "dependencies": {
-    "node-fetch": "^2.6.0"
+    "node-fetch": "^2.6.0",
+    "lodash": "^4.17.21"
   },
   "devDependencies": {
     "@types/jest": "^27.5.1",
+    "@types/lodash": "^4.14.182",
     "@types/node": "^10.14.10",
     "@types/node-fetch": "^2.3.7",
-    "jest": "^27.5.1",
-    "ts-jest": "^27.1.3",
-    "typescript": "^4.0.0",
+    "jest": "^28.1.0",
+    "ts-jest": "^28.0.2",
+    "typescript": "^4.6.4",
     "eslint": "^8.16.0",
     "@typescript-eslint/parser": "^5.26.0",
     "@typescript-eslint/eslint-plugin": "^5.26.0"
