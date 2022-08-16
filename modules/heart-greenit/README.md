@@ -30,7 +30,7 @@ The analysis setup must use the JSON format with the following keys:
 
 ```json
 {
-    "url": "https://www.heart.fabernovel.com/",
+    "url": "https://www.fabernovel.com/",
     // optional - default: 3000
     "timeout": 1000,
     // optional - default: 2
@@ -43,10 +43,10 @@ The analysis setup must use the JSON format with the following keys:
 
 ## Example
 
-Using _[Heart CLI](https://www.npmjs.com/package/@fabernovel/heart-cli)_, starting a _GreenIT_ analysis of https://heart.fabernovel.com could look like that:
+Using _[Heart CLI](https://www.npmjs.com/package/@fabernovel/heart-cli)_, starting a _GreenIT_ analysis of https://www.fabernovel.com could look like that:
 
 ```shell
-npx heart greenit --inline '{"url":"https://heart.fabernovel.com"}'
+npx heart greenit --inline '{"url":"https://www.fabernovel.com"}'
 ```
 
 # Disclaimer
