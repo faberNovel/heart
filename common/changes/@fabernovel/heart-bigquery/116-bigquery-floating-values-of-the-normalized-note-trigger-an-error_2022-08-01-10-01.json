@@ -1,0 +1,10 @@
+{
+  "changes": [
+    {
+      "packageName": "@fabernovel/heart-bigquery",
+      "comment": "Fix an error that caused the module to crash if the normalized value of the note of the report was a floating point number",
+      "type": "patch"
+    }
+  ],
+  "packageName": "@fabernovel/heart-bigquery"
+}
