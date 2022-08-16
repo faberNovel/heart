@@ -14,8 +14,10 @@ section#how-it-works.section
         4: 'The analysis results are transmit to third party services to be processed'
       }
       const analysisModules = [
+        // Keep this order of modules to have greenit in the center of the quincunx in mobile version
         'dareboost',
         'google-lighthouse',
+        'greenit',
         'qualys-ssl-labs',
         'mozilla-observatory'
       ]
@@ -102,7 +104,11 @@ section#how-it-works.section
               .schema__square
                 +svg('icon-' + analysisModule, true, 'services/')
           .schema__analysisContainer
-            each analysisModule in analysisModules.slice(2)
+            each analysisModule in analysisModules.slice(2, -2)
+              .schema__square
+                +svg('icon-' + analysisModule, true, 'services/')
+          .schema__analysisContainer
+            each analysisModule in analysisModules.slice(3)
               .schema__square
                 +svg('icon-' + analysisModule, true, 'services/')
 
