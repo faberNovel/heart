@@ -15,6 +15,8 @@ $scheme-main: $grey-lightest;
 * Import Bulma with mini reset, helpers and grid
 */
 @import "bulma/sass/helpers/visibility";
+@import "bulma/sass/helpers/typography";
+@import "bulma/sass/helpers/flexbox";
 @import "bulma/sass/base/_all";
 @import "bulma/sass/elements/container";
 @import "bulma/sass/grid/columns";

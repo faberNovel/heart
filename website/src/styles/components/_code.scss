@@ -17,4 +17,8 @@
     font-style: italic;
     text-decoration: underline;
   }
+
+  @include mobile {
+    padding: rem(60) rem(17);
+  }
 }
