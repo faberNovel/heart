@@ -24,7 +24,7 @@
     "lib": "lib"
   },
   "scripts": {
-    "build": "tsc",
+    "build": "tsc --project tsconfig.build.json",
     "build-watch": "tsc -w",
     "lint": "eslint .",
     "outdated": "npm outdated",

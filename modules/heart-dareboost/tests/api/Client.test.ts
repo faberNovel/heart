@@ -1,9 +1,9 @@
 import { Request } from '@fabernovel/heart-core';
 import { mocked } from 'jest-mock';
 
-import AnalysisResponseInterface from '../../src/api/model/AnalysisResponseInterface';
-import ReportResponseInterface from '../../src/api/model/ReportResponseInterface';
-import Client from '../../src/api/Client';
+import {AnalysisResponseInterface} from '../../src/api/model/AnalysisResponseInterface';
+import {ReportResponseInterface} from '../../src/api/model/ReportResponseInterface';
+import {Client} from '../../src/api/Client';
 
 
 jest.mock('@fabernovel/heart-core');

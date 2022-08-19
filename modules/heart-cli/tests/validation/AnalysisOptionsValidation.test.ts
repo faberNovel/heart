@@ -1,7 +1,36 @@
-import AnalysisOptionsValidation from '../../src/validation/AnalysisOptionsValidation';
+import * as fs from 'fs'
+import { PathLike } from 'fs'
+import * as path from 'path'
+import {AnalysisOptionsValidation} from '../../src/validation/AnalysisOptionsValidation';
 
+const MOCK_FILE_INFO: Record<string, string> = {
+  'existingConfig.json': '{"url": "https://www.heart.fabernovel.com"}',
+}
 
-jest.mock('fs');
+jest.mock('fs', () => {
+  const originalModule = jest.requireActual<typeof fs>('fs')
+
+  return {
+    ...originalModule,
+    readFileSync: (path: PathLike | number): string => {
+      if (typeof path !== 'string' || !Object.keys(MOCK_FILE_INFO).some((filename) => filename === path)) {
+        throw new Error()
+      }
+      
+      return MOCK_FILE_INFO[path]
+    },
+  }
+})
+
+jest.mock('path', () => {
+  const originalModule = jest.requireActual<typeof path>('path')
+
+  return {
+    ...originalModule,
+    isAbsolute: () => true,
+  }
+})
+
 
 test('Provide no configurations', () => {
   expect(() => {
@@ -21,16 +50,6 @@ test('Provide an inline configuration', () => {
 });
 
 describe('Provide a file configuration', () => {
-  const MOCK_FILE_INFO = {
-    'existingConfig.json': JSON.stringify({"url": "www.my-test.website"}),
-  };
-
-  beforeEach(() => {
-    // Set up some mocked out file info before each test
-    // eslint-disable-next-line @typescript-eslint/no-var-requires
-    require('fs').__setMockFiles(MOCK_FILE_INFO);
-  });
-
   test('Provide missing file configuration', () => {
     expect(() => {
       AnalysisOptionsValidation.validate('missingConfig.json');

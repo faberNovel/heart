@@ -1,13 +1,14 @@
-import Scan from '../../src/api/model/Scan';
-import Client from '../../src/api/Client';
-
+import {ScanInterface} from '../../src/api/model/Scan';
+import {Client} from '../../src/api/Client';
+import { Request } from '@fabernovel/heart-core'
 
 jest.mock('@fabernovel/heart-core');
+const mockedRequest = jest.mocked(Request);
 
 describe('Client', () => {
   const ANALYZE_URL = 'www.observatory.mozilla/results';
   const API_URL = 'www.observatory.mozilla/api';
-  const SCAN: Scan = {
+  const SCAN: ScanInterface = {
     end_time: '',
     grade: 'B',
     hidden: true,
@@ -25,8 +26,8 @@ describe('Client', () => {
   beforeEach(() => {
     process.env.OBSERVATORY_ANALYZE_URL = ANALYZE_URL;
     process.env.OBSERVATORY_API_URL = API_URL;
-    // eslint-disable-next-line @typescript-eslint/no-var-requires
-    require('@fabernovel/heart-core').__setMockScan(SCAN);
+    mockedRequest.get.mockResolvedValue(SCAN)
+    mockedRequest.post.mockResolvedValue(SCAN)
   });
 
   test('Analyze with valid configuration', async () => {

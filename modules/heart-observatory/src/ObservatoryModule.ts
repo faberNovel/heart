@@ -7,21 +7,21 @@ import {
   ThresholdInputObject,
 } from '@fabernovel/heart-core';
 
-import Scan from './api/model/Scan';
-import ApiClient from './api/Client';
+import {ScanInterface} from './api/model/Scan';
+import {Client} from './api/Client';
 
-export default class ObservatoryModule
+export class ObservatoryModule
   extends Module
   implements ModuleAnalysisInterface {
   private readonly TIME_BETWEEN_TRIES = 10000;
 
-  private apiClient: ApiClient;
+  private apiClient: Client;
   private thresholds: ThresholdInputObject;
 
   constructor(module: Partial<ModuleInterface>) {
     super(module);
 
-    this.apiClient = new ApiClient();
+    this.apiClient = new Client();
   }
 
   public async startAnalysis(
@@ -56,7 +56,7 @@ export default class ObservatoryModule
     }
   }
 
-  private async handleRequestScan(scan: Scan): Promise<Report> {
+  private async handleRequestScan(scan: ScanInterface): Promise<Report> {
     switch (scan.state) {
       case 'FAILED':
         throw new Error(scan.state);

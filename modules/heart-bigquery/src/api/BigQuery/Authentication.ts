@@ -11,7 +11,7 @@ import { writeFileSync } from 'fs';
  *
  * @see {@link https://cloud.google.com/docs/authentication/getting-started}
  */
-export default class Authentication {
+export class Authentication {
   private static readonly ENVIRONMENT_VARIABLE_NAME = 'GOOGLE_APPLICATION_CREDENTIALS';
   private static readonly FILENAME = `${Authentication.ENVIRONMENT_VARIABLE_NAME.toLocaleLowerCase()}.json`;
 

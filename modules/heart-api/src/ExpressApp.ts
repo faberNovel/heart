@@ -12,7 +12,7 @@ import * as express from 'express';
 /**
  * Creates and configures an ExpressJS application.
  */
-export default class ExpressApp {
+export class ExpressApp {
   // reference to the Express instance
   private _express: express.Application;
   private eventEmitter: EventEmitter;

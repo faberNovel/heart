@@ -1,26 +1,18 @@
 {
   "$schema": "http://json.schemastore.org/tsconfig",
 
+  "extends": "../tsconfig.json",
+
   "compilerOptions": {
-    "outDir": "lib",
-
-    "declaration": true,
-    "sourceMap": true,
-
-    "module": "commonjs",
-    "target": "es6",
     "lib": [
       "es5",
       "es2015",
-      "es2016.array.include",
       "esnext.asynciterable"
     ]
   },
+
   "include": [
-    "src/**/*.ts"
-  ],
-  "exclude": [
-    "node_modules",
-    "lib"
+    "src/**/*.ts",
+    "tests/**/*.ts"
   ]
 }

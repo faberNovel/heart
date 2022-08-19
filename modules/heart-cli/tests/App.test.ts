@@ -1,7 +1,7 @@
 
 import { ModuleAnalysisInterface, ModuleListenerInterface, Report } from '@fabernovel/heart-core';
 
-import App from '../src/App';
+import {App} from '../src/App';
 
 
 test('Register events from Listener modules', () => {

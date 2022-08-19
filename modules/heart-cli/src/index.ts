@@ -3,10 +3,10 @@
 import { isModuleAnalysis, isModuleServer, ModuleInterface, ThresholdInputObject } from '@fabernovel/heart-core';
 import * as program from 'commander';
 
-import AnalysisCommand from './command/AnalysisCommand';
-import ServerCommand from './command/ServerCommand';
-import ModuleLoader from './module/ModuleLoader';
-import App from './App';
+import {AnalysisCommand} from './command/AnalysisCommand';
+import {ServerCommand} from './command/ServerCommand';
+import {ModuleLoader} from './module/ModuleLoader';
+import {App} from './App';
 
 // set environment variables from a.env file
 // assume that the root path if the one from where the script has been called

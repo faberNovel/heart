@@ -1,7 +1,7 @@
 /**
  * @see {@link https://www.dareboost.com/fr/documentation-api#result}
  */
-export default interface ReportResponse {
+export interface ReportResponseInterface {
   status: number;
   message: string;
   missing: unknown[];

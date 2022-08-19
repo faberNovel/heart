@@ -1,10 +1,10 @@
 import { BigQuery, Dataset } from '@google-cloud/bigquery';
 import { Table } from '@google-cloud/bigquery/build/src/table';
 
-import Authentication from './Authentication';
-import Definitions from './Definitions';
+import {Authentication} from './Authentication';
+import {Definitions} from './Definitions';
 
-export default class BigQueryClient {
+export class BigQueryClient {
   private _table: Promise<Table>;
   private bigqueryClient: BigQuery;
 

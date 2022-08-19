@@ -1,6 +1,6 @@
 import { Report, ThresholdInputObject } from '@fabernovel/heart-core';
 
-import DareboostModule from '../src/DareboostModule';
+import {DareboostModule} from '../src/DareboostModule';
 
 import { ApiAnalysisResponse } from './data/ApiAnalysisResponse';
 import { ApiReportResponse } from './data/ApiReportResponse';
@@ -10,12 +10,14 @@ import { Conf } from './data/Conf';
 const mockLaunchAnalysis = jest.fn().mockResolvedValue(ApiAnalysisResponse);
 const mockGetAnalysisReport = jest.fn().mockResolvedValue(ApiReportResponse);
 jest.mock('../src/api/Client', () => {
-  return jest.fn().mockImplementation(() => {
-    return {
-      launchAnalysis: mockLaunchAnalysis,
-      getAnalysisReport: mockGetAnalysisReport,
-    };
-  });
+  return {
+    Client: jest.fn().mockImplementation(() => {
+      return {
+        launchAnalysis: mockLaunchAnalysis,
+        getAnalysisReport: mockGetAnalysisReport,
+      };
+    })
+  }
 });
 
 describe('Starts an analysis', () => {
@@ -41,7 +43,6 @@ describe('Starts an analysis', () => {
       }
     });
 
-
     const report = await module.startAnalysis(Conf);
 
     expect(report).toEqual(expectedReport);
@@ -56,7 +57,6 @@ describe('Starts an analysis', () => {
   });
 
   it('Should start an analysis with a multi-variable thresholds object', async () => {
-
     const thresholds: ThresholdInputObject = {
       normalizedNote: {
         gte: 90,
@@ -82,7 +82,6 @@ describe('Starts an analysis', () => {
   });
 
   it('Should start an analysis with an empty thresholds', async () => {
-
     const thresholds: ThresholdInputObject = {};
 
     const report = await module.startAnalysis(Conf, thresholds);
@@ -106,7 +105,6 @@ describe('Starts an analysis', () => {
   });
 
   it('Should return false status when results do not match thresholds objectives', async () => {
-
     const thresholds: ThresholdInputObject = {
       normalizedNote: {
         gte: 98,

@@ -1,10 +1,10 @@
 import { AnalysisEvents, Module, ModuleInterface, ModuleListenerInterface, Report } from '@fabernovel/heart-core';
 import { EventEmitter } from 'events';
 
-import RowReport from './api/BigQuery/model/RowReport';
-import BigQueryClient from './api/BigQuery/Client';
+import {RowReport} from './api/BigQuery/model/RowReport';
+import {BigQueryClient} from './api/BigQuery/Client';
 
-export default class BigQueryModule extends Module implements ModuleListenerInterface {
+export class BigQueryModule extends Module implements ModuleListenerInterface {
   private bigqueryClient: BigQueryClient;
 
   constructor(module: Partial<ModuleInterface>) {

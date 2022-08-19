@@ -1,12 +1,12 @@
-import Report from '../report/Report';
+import {Report} from '../report/Report';
 import { ThresholdInputObject } from '../threshold/ReportThresholdObject';
 
-import ModuleInterface from './ModuleInterface';
+import {ModuleInterface} from './ModuleInterface';
 
 /**
  * Define an Analysis module.
  */
-export default interface ModuleAnalysisInterface extends ModuleInterface {
+export interface ModuleAnalysisInterface extends ModuleInterface {
   startAnalysis: (conf: object, thresholds?: ThresholdInputObject) => Promise<Report>;
 }
 

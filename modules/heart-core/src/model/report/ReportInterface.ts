@@ -1,9 +1,7 @@
-import ServiceInterface from '../service/ServiceInterface';
+import {ServiceInterface} from '../service/ServiceInterface';
 import { ThresholdInputObject, ThresholdOutputObject } from '../threshold/ReportThresholdObject';
 
-import Report from './Report';
-
-export default interface ReportInterface {
+export interface ReportInterface {
   /**
    * URL that is analyzed
    */

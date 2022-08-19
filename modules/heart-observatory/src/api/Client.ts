@@ -1,9 +1,9 @@
 import { Request } from '@fabernovel/heart-core';
 import { Error, isError } from './model/Error';
 
-import Scan from './model/Scan';
+import {ScanInterface} from './model/Scan';
 
-export default class Client {
+export class Client {
   private analyzeUrl: string;
   private apiUrl: string;
   private host: string;
@@ -13,7 +13,7 @@ export default class Client {
     this.apiUrl = process.env.OBSERVATORY_API_URL;
   }
 
-  public async launchAnalysis(conf: object): Promise<Scan> {
+  public async launchAnalysis(conf: object): Promise<ScanInterface> {
     this.host = conf['host'];
 
     if (undefined === this.host) {
@@ -23,7 +23,7 @@ export default class Client {
       });
     }
 
-    const scan = await Request.post<Scan | Error>(this.generateApiUrl('analyze'), conf, {
+    const scan = await Request.post<ScanInterface | Error>(this.generateApiUrl('analyze'), conf, {
       [Request.HEADER_CONTENT_TYPE]: Request.HEADER_CONTENT_TYPE_X_WWW_FORM_URLENCODED
     });
 
@@ -53,7 +53,7 @@ export default class Client {
     return this.analyzeUrl + this.getProjectHost();
   }
 
-  public async getAnalysisReport(): Promise<Scan> {
+  public async getAnalysisReport(): Promise<ScanInterface> {
     return Request.get(this.generateApiUrl('analyze'));
   }
 

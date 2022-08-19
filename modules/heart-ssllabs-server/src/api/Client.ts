@@ -1,17 +1,17 @@
 import { Request } from '@fabernovel/heart-core';
 import { stringify } from 'querystring';
 
-import AnalyzeParameters from './model/parameters/AnalyzeParameters';
-import Host from './model/Host';
+import {AnalyzeParametersInterface} from './model/parameters/AnalyzeParameters';
+import {Host} from './model/Host';
 import { Error, isError } from './model/Error';
 import { Status } from './enum/Status';
 
-export default class Client {
+export class Client {
   private readonly API_URL = 'https://api.ssllabs.com/api/v3';
   private readonly SERVICE_URL = 'https://www.ssllabs.com/ssltest/analyze.html?d=';
-  private conf: AnalyzeParameters;
+  private conf: AnalyzeParametersInterface;
 
-  public async launchAnalysis(conf: AnalyzeParameters): Promise<Host> {
+  public async launchAnalysis(conf: AnalyzeParametersInterface): Promise<Host> {
     this.conf = conf;
 
     return this.requestApi();

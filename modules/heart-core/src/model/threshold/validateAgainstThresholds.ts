@@ -1,4 +1,4 @@
-import Report from '../report/Report';
+import {Report} from '../report/Report';
 
 import { compare } from './Operators';
 import { ThresholdOutputObject } from './ReportThresholdObject';

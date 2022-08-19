@@ -2,7 +2,7 @@ import { ModuleServerInterface } from '@fabernovel/heart-core';
 import * as program from 'commander';
 import * as http from 'http';
 
-import ServerCommand from '../../src/command/ServerCommand';
+import {ServerCommand} from '../../src/command/ServerCommand';
 
 test('Create a server command', () => {
   const module: ModuleServerInterface = {

@@ -1,9 +1,9 @@
 import { ModuleAnalysisInterface, ThresholdInputObject } from '@fabernovel/heart-core';
 import { Command, CommanderStatic } from 'commander';
 
-import AnalysisOptionsValidation from '../validation/AnalysisOptionsValidation';
+import {AnalysisOptionsValidation} from '../validation/AnalysisOptionsValidation';
 
-export default class AnalysisCommand {
+export class AnalysisCommand {
   /**
    * Create a command dedicated to the given analysis module
    */

@@ -9,7 +9,7 @@ import { runAnalysis } from './api/Client';
 import { Result } from './api/model/Result';
 import { Config } from './config/Config';
 
-export default class GreenITModule
+export class GreenITModule
   extends Module
   implements ModuleAnalysisInterface {
   constructor(module: Partial<ModuleInterface>) {

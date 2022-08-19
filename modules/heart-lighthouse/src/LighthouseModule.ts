@@ -2,10 +2,10 @@ import { Module, ModuleAnalysisInterface, ModuleInterface, Report } from '@faber
 
 import { runAnalysis } from './api/Client'
 import { Config } from './config/Config'
-import compute from './scoring/compute'
+import {compute} from './scoring/compute'
 
 
-export default class LighthouseModule extends Module implements ModuleAnalysisInterface {
+export class LighthouseModule extends Module implements ModuleAnalysisInterface {
   constructor(module: Partial<ModuleInterface>) {
     super(module)
   }

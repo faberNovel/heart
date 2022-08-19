@@ -4,7 +4,7 @@ import { Grade } from '../enum/Grade';
  * Transform a grade (A+, A, A-, B, C...) into a percentage (number between 0 and 100)
  * @see [Methodology]{@link https://github.com/ssllabs/research/wiki/SSL-Server-Rating-Guide#methodology-overview}
  */
-export default class GradeTransformer {
+export class GradeTransformer {
   private static readonly TRANSFORM_TABLE = {
     'A+': 95, // equal repartition of the A grades (A+, A, A-) between 80 and 100
     A: 90,

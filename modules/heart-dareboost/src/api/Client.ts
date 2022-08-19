@@ -1,9 +1,9 @@
 import { Request } from '@fabernovel/heart-core';
 
-import AnalysisResponseInterface from './model/AnalysisResponseInterface';
-import ReportResponseInterface from './model/ReportResponseInterface';
+import {AnalysisResponseInterface} from './model/AnalysisResponseInterface';
+import {ReportResponseInterface} from './model/ReportResponseInterface';
 
-export default class Client {
+export class Client {
   private readonly API_URL = 'https://www.dareboost.com/api/0.5/';
   private readonly conf: object;
 

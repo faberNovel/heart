@@ -1,7 +1,7 @@
 /**
  * Representation of an analysis service in BigQuery
  */
-export default class RecordRanking {
+export class RecordRanking {
   public original: string;
   public normalized: number;
 

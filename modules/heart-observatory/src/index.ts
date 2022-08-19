@@ -1,4 +1,4 @@
-import ObservatoryModule from './ObservatoryModule.js';
+import {ObservatoryModule} from './ObservatoryModule';
 
 export default new ObservatoryModule({
   name: 'Heart Observatory',

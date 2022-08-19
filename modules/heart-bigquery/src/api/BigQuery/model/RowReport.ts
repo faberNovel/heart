@@ -1,14 +1,14 @@
 import { Report } from '@fabernovel/heart-core';
 import { BigQueryDatetime } from '@google-cloud/bigquery';
 
-import RecordRanking from './RecordRanking';
-import RecordService from './RecordService';
-import RecordUrl from './RecordUrl';
+import {RecordRanking} from './RecordRanking';
+import {RecordService} from './RecordService';
+import {RecordUrl} from './RecordUrl';
 
 /**
  * Representation of a Report object in BigQuery
  */
-export default class RowReport {
+export class RowReport {
   public date: BigQueryDatetime;
   public ranking: RecordRanking;
   public service: RecordService;

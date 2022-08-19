@@ -2,7 +2,7 @@ import { mocked } from 'jest-mock'
 
 import { runAnalysis } from '../src/api/Client'
 import { Config } from '../src/config/Config'
-import LighthouseModule from '../src/LighthouseModule'
+import {LighthouseModule} from '../src/LighthouseModule'
 
 
 jest.mock('../src/api/Client')
