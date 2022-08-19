@@ -127,18 +127,12 @@
       "name": "website-start",
       "summary": "Starts website for development purposes",
       "safeForSimultaneousRushProcesses": false,
-      "shellCommand": "./common/temp/pnpm-local/node_modules/.bin/pnpm --prefix website/ run start"
+      "shellCommand": "rush-pnpm --rush-skip-checks --dir website/ run start"
     },
     {
       "commandKind": "bulk",
       "name": "lint",
-      "summary": "Run linters for every package",
-      "enableParallelism": true
-    },
-    {
-      "commandKind": "bulk",
-      "name": "outdated",
-      "summary": "Checks outdated dependencies",
+      "summary": "Lint files",
       "enableParallelism": true
     },
     {
@@ -147,6 +141,14 @@
       "summary": "Run test for every package",
       "enableParallelism": true,
       "allowWarningsInSuccessfulBuild": true
+    },
+    {
+      "name": "build:watch",
+      "commandKind": "bulk",
+      "summary": "Build projects and watch for changes",
+      "incremental": true,
+      "enableParallelism": true,
+      "watchForChanges": true
     }
   ],
 

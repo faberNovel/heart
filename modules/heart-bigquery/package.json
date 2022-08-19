@@ -25,9 +25,8 @@
   },
   "scripts": {
     "build": "tsc --project tsconfig.build.json",
-    "build-watch": "tsc -w",
+    "build:watch": "npm run build --watch",
     "lint": "eslint .",
-    "outdated": "npm outdated",
     "prepublishOnly": "npm run build",
     "test": "jest --silent --passWithNoTests"
   },
