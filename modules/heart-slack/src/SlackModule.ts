@@ -13,7 +13,7 @@ export class SlackModule extends Module
   implements ModuleListenerInterface {
   private slackClient: Client;
 
-  constructor(module: Partial<ModuleInterface>) {
+  constructor(module: Omit<ModuleInterface, 'id'>) {
     super(module);
 
     this.slackClient = new Client();

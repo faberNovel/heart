@@ -4,6 +4,10 @@ import { ThresholdInputObject, ThresholdOutputObject } from '../threshold/Report
 
 import {ReportInterface} from './ReportInterface';
 
+type ReportParams = Omit<ReportInterface, 'normalizedNote'> & {
+  normalizedNote?: number
+}
+
 /**
  * Define an analysis report that is shared between every Heart module.
  *
@@ -22,18 +26,20 @@ export class Report implements ReportInterface {
   thresholdsResults?: ThresholdOutputObject;
   areThresholdsReached?: boolean;
 
-  constructor(report: Partial<ReportInterface>) {
-    Object.assign(this, report);
+  constructor(report: ReportParams) {
+    this.analyzedUrl = report.analyzedUrl
+    this.date = report.date
+    this.note = report.note
+    this.normalizedNote = report.normalizedNote ?? Number(this.note) ?? 0
+    this.resultUrl = report.resultUrl
+    this.service = report.service
 
-    this.normalizedNote = this.normalizedNote || parseInt(this.note, 10) || 0;
-
+    this.thresholds = report.thresholds;
     if (this.thresholds && Object.keys(this.thresholds).length > 0) {
-      const { status, results } = validateAgainstThresholds(this);
+      const { areThresholdsReached , results } = validateAgainstThresholds(this, this.thresholds);
 
-      this.areThresholdsReached = status;
+      this.areThresholdsReached = areThresholdsReached ;
       this.thresholdsResults = results;
     }
   }
-
 }
-

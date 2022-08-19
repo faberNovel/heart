@@ -11,7 +11,7 @@ export class Client {
   private client: WebClient;
 
   constructor() {
-    this.channel = process.env.SLACK_CHANNEL_ID;
+    this.channel = process.env.SLACK_CHANNEL_ID as string;
     this.client = new WebClient(process.env.SLACK_API_TOKEN);
   }
 

@@ -7,26 +7,22 @@ import {
 
 import { runAnalysis } from './api/Client';
 import { Result } from './api/model/Result';
-import { Config } from './config/Config';
+import { GreenITConfig } from './config/Config';
 
 export class GreenITModule
   extends Module
-  implements ModuleAnalysisInterface {
-  constructor(module: Partial<ModuleInterface>) {
+  implements ModuleAnalysisInterface<GreenITConfig> {
+  constructor(module: Omit<ModuleInterface, 'id'>) {
     super(module);
   }
 
-  public async startAnalysis(conf: Config): Promise<Report> {
-    try {
-      const result = await runAnalysis(conf);
+  public async startAnalysis(conf: GreenITConfig): Promise<Report> {
+    const result = await runAnalysis(conf);
 
-      if (!result.success) {
-        throw new Error('Error during GreenIT analysis');
-      } else {
-        return this.handleResults(result);
-      }
-    } catch (error) {
-      throw new Error(error.message);
+    if (!result.success) {
+      throw new Error('Error during GreenIT analysis');
+    } else {
+      return this.handleResults(result);
     }
   }
 

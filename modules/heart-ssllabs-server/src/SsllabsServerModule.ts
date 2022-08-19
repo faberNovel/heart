@@ -3,19 +3,20 @@ import { Helper, Module, ModuleAnalysisInterface, ModuleInterface, Report } from
 import { Status } from './api/enum/Status';
 import {Host} from './api/model/Host';
 import {Client} from './api/Client';
+import { SsllabsServerConfig } from './config/Config';
 
-export class SsllabsServerModule extends Module implements ModuleAnalysisInterface {
+export class SsllabsServerModule extends Module implements ModuleAnalysisInterface<SsllabsServerConfig> {
   private static readonly MAX_TRIES = 100;
   private static readonly TIME_BETWEEN_TRIES = 10000; // 10 seconds
   private apiClient: Client;
 
-  constructor(module: Partial<ModuleInterface>) {
+  constructor(module: Omit<ModuleInterface, 'id'>) {
     super(module);
 
     this.apiClient = new Client();
   }
 
-  public async startAnalysis(conf: object): Promise<Report> {
+  public async startAnalysis(conf: SsllabsServerConfig): Promise<Report> {
     await this.apiClient.launchAnalysis(conf);
 
     return this.requestReport();
@@ -26,16 +27,9 @@ export class SsllabsServerModule extends Module implements ModuleAnalysisInterfa
       throw new Error(`The maximum number of tries (${SsllabsServerModule.MAX_TRIES}) to retrieve the report has been reached.`);
     }
 
-    try {
-      const host = await this.apiClient.getAnalysisReport();
+    const host = await this.apiClient.getAnalysisReport();
 
-      return this.handleRequestScan(host, triesQty);
-    } catch (error) {
-      return Promise.reject({
-        error: 'error',
-        message: error.message
-      });
-    }
+    return this.handleRequestScan(host, triesQty);
   }
 
   private async handleRequestScan(host: Host, triesQty: number): Promise<Report> {

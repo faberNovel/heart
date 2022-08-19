@@ -1,5 +1,5 @@
 
-import { ModuleAnalysisInterface, ModuleListenerInterface, Report } from '@fabernovel/heart-core';
+import { Config, ModuleAnalysisInterface, ModuleListenerInterface, Report } from '@fabernovel/heart-core';
 
 import {App} from '../src/App';
 
@@ -26,12 +26,16 @@ test('Register events from Listener modules', () => {
 
 test('Displays the results of an analysis', async () => {
   const report = new Report({
-    analyzedUrl: 'www.my-awesome-website',
+    analyzedUrl: 'https://heart.fabernovel.com',
+    date: new Date(),
     note: '50',
     normalizedNote: 50,
+    service: {
+      name: 'Heart CLI'
+    }
   });
 
-  const module: ModuleAnalysisInterface = {
+  const module: ModuleAnalysisInterface<Config> = {
     id: 'test-analysis-tool',
     name: 'Heart Test Analysis Tool',
     service: {

@@ -5,6 +5,7 @@ import {
   ModuleAnalysisInterface,
   ModuleInterface,
   Report,
+  Config,
 } from '@fabernovel/heart-core';
 import * as EventEmitter from 'events';
 import * as express from 'express';
@@ -28,17 +29,9 @@ export class ExpressApp {
     return this._express;
   }
 
-  /**
-   *
-   */
-  private createRouteHandler(module: ModuleAnalysisInterface): express.RequestHandler {
+  private createRouteHandler<T extends Config>(module: ModuleAnalysisInterface<T>): express.RequestHandler {
     return (req: express.Request, res: express.Response) => {
       module.startAnalysis(req.body.conf, req.body.threshold)
-        .catch ((error) => {
-          res
-            .status(500)
-            .send(error);
-        })
         .then((report: Report) => {
           this.eventEmitter.emit(AnalysisEvents.DONE, report);
 
@@ -52,6 +45,11 @@ export class ExpressApp {
             normalizedNote: report.normalizedNote,
             resultUrl: report.resultUrl,
           });
+        })
+        .catch ((error) => {
+          res
+            .status(500)
+            .send(error);
         });
     };
   }

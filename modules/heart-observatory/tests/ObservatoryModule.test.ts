@@ -1,5 +1,6 @@
 import { Report, ThresholdInputObject } from '@fabernovel/heart-core';
 import {ScanInterface} from '../src/api/model/Scan';
+import { ObservatoryConfig } from '../src/config/Config';
 import {ObservatoryModule} from '../src/ObservatoryModule';
 
 const ANALYZE_URL = 'www.observatory.mozilla-test/results/';
@@ -72,7 +73,7 @@ describe('Starts an analysis', () => {
 
   it('Should throw an error with an invalid configuration', async () => {
     try {
-      await module.startAnalysis({});
+      await module.startAnalysis({} as ObservatoryConfig);
     } catch (e) {
       expect(e).toHaveProperty('error');
     }

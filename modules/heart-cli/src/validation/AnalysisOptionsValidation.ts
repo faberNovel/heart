@@ -1,4 +1,4 @@
-import { ThresholdInputObject } from '@fabernovel/heart-core';
+import { Config, ThresholdInputObject } from '@fabernovel/heart-core';
 import { readFileSync } from 'fs';
 import { isAbsolute } from 'path';
 
@@ -7,12 +7,12 @@ export class AnalysisOptionsValidation {
    * Validate that the analysis options are correct
    * @returns The analysis configuration and the threshold
    */
-  public static validate(
+  public static validate<T extends Config>(
     configFile?: string,
     configInline?: string,
     thresholdFile?: string,
     thresholdInline?: string
-  ): [object, ThresholdInputObject?] {
+  ): [T, ThresholdInputObject?] {
     let config = undefined;
     let threshold = undefined;
 
@@ -28,17 +28,13 @@ export class AnalysisOptionsValidation {
 
     if (configInline) {
       config = configInline;
-    } else {
+    } else if (undefined !== configFile) {
       // file: load file from the given path
       const path = isAbsolute(configFile)
         ? configFile
         : `${process.env.PWD}/${configFile}`;
 
-      try {
-        config = readFileSync(path, 'utf8');
-      } catch (error) {
-        throw new Error(error.message);
-      }
+      config = readFileSync(path, 'utf8');
     }
 
     if (undefined !== thresholdInline) {
@@ -48,15 +44,11 @@ export class AnalysisOptionsValidation {
         ? thresholdFile
         : `${process.env.PWD}/${thresholdFile}`;
 
-      try {
-        threshold = readFileSync(path, 'utf8');
-      } catch (error) {
-        throw new Error(error.message);
-      }
+      threshold = readFileSync(path, 'utf8');
     }
 
     try {
-      config = JSON.parse(config);
+      config = JSON.parse(config as string);
     } catch (error) {
       throw new Error('Cannot parse the configuration. Please check the JSON syntax.');
     }

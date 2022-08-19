@@ -1,10 +1,10 @@
 import { createJsonReports, Options, Report } from 'greenit-cli/cli-core/analysis';
 import puppeteer from 'puppeteer';
 
-import { Config, PageInfos } from '../config/Config';
+import { GreenITConfig } from '../config/Config';
 import { Result } from './model/Result';
 
-export async function runAnalysis(conf: Config): Promise<Result> {
+export async function runAnalysis(conf: GreenITConfig): Promise<Result> {
   const DEFAULT_OPTIONS: Options = {
     max_tab: 3,
     timeout: 3000,
@@ -21,18 +21,15 @@ export async function runAnalysis(conf: Config): Promise<Result> {
     ignoreDefaultArgs: ['--disable-gpu'],
   });
 
-  const page: PageInfos = {
-    ...(conf.url && { url: conf.url })
-  };
+  const options: Options = { 
+    timeout: conf.timeout ?? DEFAULT_OPTIONS.timeout,
+    retry: conf.retry ?? DEFAULT_OPTIONS.retry,
+    device: conf.device ?? DEFAULT_OPTIONS.device,
+   }
 
-  const options: Partial<Options> = {
-    ...(conf.timeout && { timeout: conf.timeout }),
-    ...(conf.retry && { retry: conf.retry }),
-    ...(conf.device && { device: conf.device }),
-  };
 
   try {
-    const results: Report[] = await createJsonReports(browser, [page], { ...DEFAULT_OPTIONS, ...options });
+    const results: Report[] = await createJsonReports(browser, [{ url: conf.url }], options);
 
     const firstResult: Result = await import(results[0].path);
     return firstResult;

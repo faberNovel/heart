@@ -1,7 +1,7 @@
 import { isModuleAnalysis, isModuleListener, isModuleServer, ModuleInterface } from '@fabernovel/heart-core';
 import * as dotenv from 'dotenv';
-import fs = require('fs');
-
+import { readFileSync } from 'fs'
+import { PackageJson } from 'type-fest'
 import {MissingEnvironmentVariables} from '../error/MissingEnvironmentVariables';
 
 export class ModuleLoader {
@@ -62,7 +62,7 @@ export class ModuleLoader {
       try {
         // load the .env.sample file from the module
         const requiredModuleDotenvVariables = Object.entries(
-          dotenv.parse(fs.readFileSync(modulePath + this.ENVIRONMENT_VARIABLE_MODEL, 'utf8'))
+          dotenv.parse(readFileSync(modulePath + this.ENVIRONMENT_VARIABLE_MODEL, 'utf8'))
         );
   
         // set variables if
@@ -90,7 +90,7 @@ export class ModuleLoader {
    * List the Heart modules root path, according to the modules defined in package.json that follows the given pattern.
    */
   private async getPaths(pattern: RegExp, packageJsonPath: string): Promise<string[]> {
-    let packageJson: object;
+    let packageJson: PackageJson;
 
     try {
       // read package.json from this module (Heart CLI)
@@ -105,18 +105,24 @@ export class ModuleLoader {
 
     // list the modules according to the given pattern
     // look into the 'dependencies' and 'devDependencies' keys
-    const modulesNames = [];
-    ['dependencies', 'devDependencies']
-      .forEach((key: string) => {
-        if (packageJson[key]) { // the key exists
-          Object.keys(packageJson[key]).forEach((moduleName: string) => {
-            // add the module name to the list if it is not already there and matches the pattern
-            if (-1 === modulesNames.indexOf(moduleName) && pattern.test(moduleName)) {
-              modulesNames.push(moduleName);
-            }
-          });
-        }
-      });
+    const modulesNames: string[] = [];
+
+    if (undefined !== packageJson['dependencies']) {
+      Object.keys(packageJson['dependencies'])
+        // add the module name to the list if it is not already there and matches the pattern
+        .filter((moduleName) => -1 === modulesNames.indexOf(moduleName) && pattern.test(moduleName))
+        .forEach((moduleName: string) => {
+          modulesNames.push(moduleName)
+        })
+    }
+    if (undefined !== packageJson['devDependencies']) {
+      Object.keys(packageJson['devDependencies'])
+        // add the module name to the list if it is not already there and matches the pattern
+        .filter((moduleName) => -1 === modulesNames.indexOf(moduleName) && pattern.test(moduleName))
+        .forEach((moduleName: string) => {
+          modulesNames.push(moduleName)
+        })
+    }
 
     // list the absolute path of each modules
     const paths = modulesNames.map((moduleName: string) => `${this.ROOT_PATH}/node_modules/${moduleName}/`);

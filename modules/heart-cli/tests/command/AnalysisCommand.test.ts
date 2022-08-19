@@ -1,15 +1,20 @@
-import { ModuleAnalysisInterface, Report } from '@fabernovel/heart-core';
+import { Config, ModuleAnalysisInterface, Report } from '@fabernovel/heart-core';
 import * as program from 'commander';
 
 import {AnalysisCommand} from '../../src/command/AnalysisCommand';
 
 test('Create an analysis command', () => {
   const report = new Report({
+    analyzedUrl: 'https://heart.fabernovel.com',
+    date: new Date(),
     note: '50',
     normalizedNote: 50,
+    service: {
+      name: 'Heart CLI'
+    }
   });
 
-  const module: ModuleAnalysisInterface = {
+  const module: ModuleAnalysisInterface<Config> = {
     id: 'test-analysis-tool',
     name: 'Heart Test Analysis Tool',
     service: {

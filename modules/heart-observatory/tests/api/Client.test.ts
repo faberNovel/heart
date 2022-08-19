@@ -1,6 +1,7 @@
 import {ScanInterface} from '../../src/api/model/Scan';
 import {Client} from '../../src/api/Client';
 import { Request } from '@fabernovel/heart-core'
+import { ObservatoryConfig } from '../../src/config/Config';
 
 jest.mock('@fabernovel/heart-core');
 const mockedRequest = jest.mocked(Request);
@@ -43,7 +44,7 @@ describe('Client', () => {
   });
 
   test('Analyze with invalid configuration', async () => {
-    const CONF = {};
+    const CONF = {} as ObservatoryConfig;
 
     const client = new Client();
 

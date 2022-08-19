@@ -1,40 +1,42 @@
 import {Report} from '../report/Report';
 
-import { compare } from './Operators';
-import { ThresholdOutputObject } from './ReportThresholdObject';
+import { compare, OperatorEnum } from './Operators';
+import { ThresholdInputObject, ThresholdOutputObject } from './ReportThresholdObject';
 
-export function validateAgainstThresholds(report: Report)
-    : { status: boolean, results: ThresholdOutputObject } {
+type ValidatedThreshold = {
+  areThresholdsReached?: boolean,
+  results?: ThresholdOutputObject
+}
 
-    const output: ThresholdOutputObject = {};
-    let status = true;
+export function validateAgainstThresholds(report: Report, thresholds: ThresholdInputObject): ValidatedThreshold {
+  const output: ThresholdOutputObject = {};
+  let areThresholdsReached  = false;
 
-    for (const attribute in report.thresholds) {
-        if (report.thresholds[attribute]) {
-            output[attribute] = {};
+  Object.entries(thresholds).forEach(([key, thresholdInputType]) => {
+    const attribute = key as keyof ThresholdInputObject
 
-            for (const operator in report.thresholds[attribute]) {
-                if (report.thresholds[attribute][operator]) {
-                    const value = report[attribute];
-                    const ref = report.thresholds[attribute][operator];
+    output[attribute] = {}
 
-                    if (!value) {
-                        status = false;
-                    }
+    Object.entries(thresholdInputType).forEach(([k, ref]) => {
+      const operator = k as keyof typeof OperatorEnum
+      
+      const value = report[attribute];
+      const result = compare(value, ref, operator)
 
-                    output[attribute][operator] = {
-                        result: compare(value, ref, operator),
-                        actual: value,
-                        ref
-                    }
-
-                    if (output[attribute][operator].result === false) {
-                        status = false;
-                    }
-                }
-            }
+      Object.defineProperty(output[attribute], operator, {
+        enumerable: true,
+        value: {
+          result,
+          actual: value,
+          ref
         }
-    }
+      })
 
-    return { status, results: output };
+      if (result === false) {
+          areThresholdsReached = false;
+      }
+    })
+  })
+  
+  return { areThresholdsReached , results: output };
 }
