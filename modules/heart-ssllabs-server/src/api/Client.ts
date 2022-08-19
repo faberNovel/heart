@@ -1,17 +1,17 @@
 import { Request } from '@fabernovel/heart-core';
 import { stringify } from 'querystring';
 
-import {AnalyzeParametersInterface} from './model/parameters/AnalyzeParameters';
 import {Host} from './model/Host';
 import { Error, isError } from './model/Error';
 import { Status } from './enum/Status';
+import { SsllabsServerConfig } from '../config/Config';
 
 export class Client {
-  private readonly API_URL = 'https://api.ssllabs.com/api/v3';
-  private readonly SERVICE_URL = 'https://www.ssllabs.com/ssltest/analyze.html?d=';
-  private conf: AnalyzeParametersInterface;
+  private readonly API_URL = 'https://api.ssllabs.com/api/v3'
+  private readonly SERVICE_URL = 'https://www.ssllabs.com/ssltest/analyze.html?d='
+  private conf: SsllabsServerConfig = { host: '' }
 
-  public async launchAnalysis(conf: AnalyzeParametersInterface): Promise<Host> {
+  public async launchAnalysis(conf: SsllabsServerConfig): Promise<Host> {
     this.conf = conf;
 
     return this.requestApi();
@@ -43,8 +43,7 @@ export class Client {
 
     if (isError(host)) {
       return Promise.reject({
-        error: host['error'],
-        message: host['text']
+        error: host.errors
       })
     }
 

@@ -1,4 +1,5 @@
 import { Report, ThresholdInputObject } from '@fabernovel/heart-core';
+import { DareboostConfig } from '../src/config/Config';
 
 import {DareboostModule} from '../src/DareboostModule';
 
@@ -50,7 +51,7 @@ describe('Starts an analysis', () => {
 
   it('should starts an analysis with an invalid configuration', async () => {
     try {
-      await module.startAnalysis({});
+      await module.startAnalysis({} as DareboostConfig);
     } catch (e) {
       expect(e).toHaveProperty('error');
     }

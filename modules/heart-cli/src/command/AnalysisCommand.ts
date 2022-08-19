@@ -1,16 +1,15 @@
-import { ModuleAnalysisInterface, ThresholdInputObject } from '@fabernovel/heart-core';
+import { Config, ModuleAnalysisInterface, ThresholdInputObject } from '@fabernovel/heart-core';
 import { Command, CommanderStatic } from 'commander';
-
 import {AnalysisOptionsValidation} from '../validation/AnalysisOptionsValidation';
 
 export class AnalysisCommand {
   /**
    * Create a command dedicated to the given analysis module
    */
-  public static create(
+  public static create<T extends Config>(
     program: CommanderStatic,
-    module: ModuleAnalysisInterface,
-    callback: (config: object, threshold?: ThresholdInputObject) => void
+    module: ModuleAnalysisInterface<T>,
+    callback: (config: T, threshold?: ThresholdInputObject) => void
   ): void {
     program
       .command(module.id)
@@ -21,7 +20,7 @@ export class AnalysisCommand {
       .option('-l, --threshold-inline [inline]', 'Inlined JSON threshold definition')
       .action((cmd: Command) => {
         try {
-          const [config, threshold] = AnalysisOptionsValidation.validate(
+          const [config, threshold] = AnalysisOptionsValidation.validate<T>(
             cmd.file,
             cmd.inline,
             cmd.thresholdFile,

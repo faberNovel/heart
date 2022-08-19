@@ -1,7 +1,6 @@
+import { Config } from '@fabernovel/heart-core';
 import { Options } from 'greenit-cli/cli-core/analysis';
 
-export interface PageInfos {
-  url: string;
+export type GreenITConfig = Config & Options & {
+  url: string
 }
-
-export interface Config extends PageInfos, Options { }

@@ -17,8 +17,18 @@ export class Host implements HostInterface {
   criteriaVersion: string;
   endpoints: EndpointInterface[];
 
-  constructor(host: Partial<Host> = {}) {
-    Object.assign(this, host);
+  constructor(host: Host) {
+    this.host = host.host
+    this.port = host.port
+    this.protocol = host.protocol
+    this.isPublic = host.isPublic
+    this.status = host.status
+    this.statusMessage = host.statusMessage
+    this.startTime = host.startTime
+    this.testTime = host.testTime
+    this.engineVersion = host.engineVersion
+    this.criteriaVersion = host.criteriaVersion
+    this.endpoints = host.endpoints
   }
 
   /**

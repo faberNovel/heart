@@ -1,6 +1,7 @@
-import LH from 'lighthouse'
+import { Config as BaseConfig } from '@fabernovel/heart-core'
+import { Config } from 'lighthouse'
 
-export interface Config {
+export type LighthouseConfig = BaseConfig & {
   url: string
-  config?: LH.Config.Json
+  config?: Config.Json
 }

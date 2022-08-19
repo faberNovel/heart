@@ -1,20 +1,20 @@
 import { Request } from '@fabernovel/heart-core';
+import { ObservatoryConfig } from '../config/Config';
 import { Error, isError } from './model/Error';
-
 import {ScanInterface} from './model/Scan';
 
 export class Client {
   private analyzeUrl: string;
   private apiUrl: string;
-  private host: string;
+  private host = '';
 
   constructor() {
-    this.analyzeUrl = process.env.OBSERVATORY_ANALYZE_URL;
-    this.apiUrl = process.env.OBSERVATORY_API_URL;
+    this.analyzeUrl = process.env.OBSERVATORY_ANALYZE_URL as string;
+    this.apiUrl = process.env.OBSERVATORY_API_URL as string;
   }
 
-  public async launchAnalysis(conf: object): Promise<ScanInterface> {
-    this.host = conf['host'];
+  public async launchAnalysis(conf: ObservatoryConfig): Promise<ScanInterface> {
+    this.host = conf.host;
 
     if (undefined === this.host) {
       return Promise.reject({

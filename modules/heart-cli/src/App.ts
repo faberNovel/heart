@@ -6,6 +6,7 @@ import {
   ModuleListenerInterface,
   ModuleServerInterface,
   ThresholdInputObject,
+  Config,
 } from '@fabernovel/heart-core';
 import * as EventEmitter from 'events';
 
@@ -19,7 +20,7 @@ export class App {
     this.registerEventsListeners();
   }
 
-  public async startAnalysis(module: ModuleAnalysisInterface, conf: object, threshold?: ThresholdInputObject): Promise<void> {
+  public async startAnalysis<T extends Config>(module: ModuleAnalysisInterface<T>, conf: T, threshold?: ThresholdInputObject): Promise<void> {
     try {
       const report = await module.startAnalysis(conf, threshold);
 
@@ -63,7 +64,7 @@ export class App {
    */
   private registerEventsListeners(): void {
     this.modules
-      .filter((module: ModuleInterface) => isModuleListener(module))
-      .forEach((module: ModuleListenerInterface) => module.registerEvents(this.eventEmitter));
+      .filter((module: ModuleInterface): module is ModuleListenerInterface => isModuleListener(module))
+      .forEach((module) => module.registerEvents(this.eventEmitter))
   }
 }

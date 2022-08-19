@@ -1,35 +1,29 @@
 import { Helper, Module, ModuleAnalysisInterface, ModuleInterface, Report, ThresholdInputObject, } from '@fabernovel/heart-core';
-
-
 import {ReportResponseInterface} from './api/model/ReportResponseInterface';
 import {Client} from './api/Client';
+import { DareboostConfig } from './config/Config';
 
-export class DareboostModule extends Module implements ModuleAnalysisInterface {
+export class DareboostModule extends Module implements ModuleAnalysisInterface<DareboostConfig> {
   private readonly MAX_TRIES = 500;
   private readonly TIME_BETWEEN_TRIES = 5000;
 
-  private conf: object;
+  private conf: DareboostConfig = { url: '' };
   private apiClient: Client;
-  private thresholds: ThresholdInputObject;
+  private thresholds?: ThresholdInputObject;
 
-  constructor(module: Partial<ModuleInterface>) {
+  constructor(module: Omit<ModuleInterface, 'id'>) {
     super(module);
 
     this.apiClient = new Client();
   }
 
-  public async startAnalysis(
-    conf: object, thresholds?: ThresholdInputObject): Promise<Report> {
+  public async startAnalysis(conf: DareboostConfig, thresholds?: ThresholdInputObject): Promise<Report> {
     this.conf = conf;
     this.thresholds = thresholds;
 
-    try {
-      const analysisResponse = await this.apiClient.launchAnalysis(this.conf);
+    const analysisResponse = await this.apiClient.launchAnalysis(this.conf);
 
-      return this.requestReport(analysisResponse.reportId);
-    } catch (error) {
-      throw new Error(error.message);
-    }
+    return this.requestReport(analysisResponse.reportId);
   }
 
   private async requestReport(reportId: string, triesQty = 1): Promise<Report> {
@@ -39,13 +33,9 @@ export class DareboostModule extends Module implements ModuleAnalysisInterface {
       );
     }
 
-    try {
-      const reportResponse = await this.apiClient.getAnalysisReport(reportId);
+    const reportResponse = await this.apiClient.getAnalysisReport(reportId);
 
-      return this.handleResponseStatus(reportResponse, reportId, triesQty);
-    } catch (error) {
-      throw new Error(error.message);
-    }
+    return this.handleResponseStatus(reportResponse, reportId, triesQty);
   }
 
   private async handleResponseStatus(
@@ -60,7 +50,7 @@ export class DareboostModule extends Module implements ModuleAnalysisInterface {
 
       case 200:
         return new Report({
-          analyzedUrl: this.conf["url"],
+          analyzedUrl: this.conf.url,
           date: new Date(reportResponse.report.date),
           service: this.service,
           resultUrl: reportResponse.report.publicReportUrl,

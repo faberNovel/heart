@@ -30,9 +30,8 @@ export interface ReportInterface {
 
   /**
    * Details about the service that process the analysis
-   * Optional because some Heart modules do not sollicitate a third-party service (Heart API for example)
    */
-  service?: ServiceInterface;
+  service: ServiceInterface;
 
   /**
    * Copy of the threshold input object

@@ -5,7 +5,7 @@ import {EndpointInterface} from './EndpointInterface';
 /**
  * @see [Documentation]{@link https://github.com/ssllabs/ssllabs-scan/blob/master/ssllabs-api-docs-v3.md#host}
  */
-export class HostInterface {
+export interface HostInterface {
   host: string;
   port: number;
   protocol: string;

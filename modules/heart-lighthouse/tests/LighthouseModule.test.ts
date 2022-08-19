@@ -1,7 +1,7 @@
 import { mocked } from 'jest-mock'
-
+import { Result } from 'lighthouse'
 import { runAnalysis } from '../src/api/Client'
-import { Config } from '../src/config/Config'
+import { LighthouseConfig } from '../src/config/Config'
 import {LighthouseModule} from '../src/LighthouseModule'
 
 
@@ -9,20 +9,19 @@ jest.mock('../src/api/Client')
 const mockedRunAnalysis = mocked(runAnalysis, true)
 
 describe('Starts an analysis', () => {
-  const URL = 'https://www.examples.com/'
+  const URL = 'https://heart.fabernovel.com/'
 
-  const RESULTS = {
-    lhr: {
-      categories: {
-        category1: { score: 67 },
-        category2: { score: 74 },
-        category3: { score: 95 },
-        category4: { score: 88 },
-        category5: { score: 53 },
-      },
-      requestedUrl: URL
-    }
-  }
+  const RESULT = {
+    categories: {
+      category1: { score: 67 },
+      category2: { score: 74 },
+      category3: { score: 95 },
+      category4: { score: 88 },
+      category5: { score: 53 },
+    },
+    requestedUrl: URL,
+  } as unknown as Result // avoid the declaration of a huuuuuge object
+
 
   it('should starts an analysis with a valid configuration', async () => {
     const module = new LighthouseModule({
@@ -32,7 +31,7 @@ describe('Starts an analysis', () => {
       },
     })
 
-    const CONF: Config = {
+    const CONF: LighthouseConfig = {
       url: URL,
       config: {
         extends: 'lighthouse:default',
@@ -48,7 +47,7 @@ describe('Starts an analysis', () => {
     }
 
     // mock the analysis stuff
-    mockedRunAnalysis.mockResolvedValue(RESULTS)
+    mockedRunAnalysis.mockResolvedValue(RESULT)
 
     const report = await module.startAnalysis(CONF)
 

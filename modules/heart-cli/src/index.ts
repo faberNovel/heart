@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 
-import { isModuleAnalysis, isModuleServer, ModuleInterface, ThresholdInputObject } from '@fabernovel/heart-core';
+import { Config, isModuleAnalysis, isModuleServer, ModuleInterface, ThresholdInputObject } from '@fabernovel/heart-core';
 import * as program from 'commander';
 
 import {AnalysisCommand} from './command/AnalysisCommand';
@@ -29,7 +29,7 @@ moduleLoader.load()
     // create a command for each module
     modules.forEach((module: ModuleInterface) => {
       if (isModuleAnalysis(module)) {
-        AnalysisCommand.create(program, module, (conf: object, threshold?: ThresholdInputObject) => app.startAnalysis(module, conf, threshold));
+        AnalysisCommand.create(program, module, <T extends Config>(conf: T, threshold?: ThresholdInputObject) => app.startAnalysis(module, conf, threshold));
       } else if (isModuleServer(module)) {
         ServerCommand.create(program, module, (port: number) => app.startServer(module, modules, port));
       }
