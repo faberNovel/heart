@@ -1,7 +1,7 @@
 import LH from 'lighthouse'
 
-export default (categories: Record<string, LH.Result.Category>, fractionDigits?: number): number => {
-  const avgScore = compute(categories)
+export const compute = (categories: Record<string, LH.Result.Category>, fractionDigits?: number): number => {
+  const avgScore = computeAvg(categories)
 
   return normalize(avgScore, fractionDigits)
 }
@@ -12,7 +12,7 @@ export default (categories: Record<string, LH.Result.Category>, fractionDigits?:
  *
  * @returns Average score (between 0 and 1) accross all category
  */
-function compute(categories: Record<string, LH.Result.Category>): number {
+function computeAvg(categories: Record<string, LH.Result.Category>): number {
   const categoriesName = Object.keys(categories)
 
   const sumScores = categoriesName.reduce((acc, categoryName) => acc + categories[categoryName].score, 0)

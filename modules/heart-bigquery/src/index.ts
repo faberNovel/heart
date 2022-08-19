@@ -1,4 +1,4 @@
-import BigQueryModule from './BigQueryModule';
+import {BigQueryModule} from './BigQueryModule';
 
 export default new BigQueryModule({
   name: 'Heart BigQuery',

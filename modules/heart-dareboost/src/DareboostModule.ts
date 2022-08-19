@@ -1,21 +1,21 @@
 import { Helper, Module, ModuleAnalysisInterface, ModuleInterface, Report, ThresholdInputObject, } from '@fabernovel/heart-core';
 
 
-import ReportResponseInterface from './api/model/ReportResponseInterface';
-import ApiClient from './api/Client';
+import {ReportResponseInterface} from './api/model/ReportResponseInterface';
+import {Client} from './api/Client';
 
-export default class DareboostModule extends Module implements ModuleAnalysisInterface {
+export class DareboostModule extends Module implements ModuleAnalysisInterface {
   private readonly MAX_TRIES = 500;
   private readonly TIME_BETWEEN_TRIES = 5000;
 
   private conf: object;
-  private apiClient: ApiClient;
+  private apiClient: Client;
   private thresholds: ThresholdInputObject;
 
   constructor(module: Partial<ModuleInterface>) {
     super(module);
 
-    this.apiClient = new ApiClient();
+    this.apiClient = new Client();
   }
 
   public async startAnalysis(

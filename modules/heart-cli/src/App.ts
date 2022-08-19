@@ -9,7 +9,7 @@ import {
 } from '@fabernovel/heart-core';
 import * as EventEmitter from 'events';
 
-export default class App {
+export class App {
   private eventEmitter: EventEmitter;
   private modules: ModuleInterface[];
 

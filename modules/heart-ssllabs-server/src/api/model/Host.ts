@@ -1,10 +1,10 @@
 import { Status } from '../enum/Status';
-import GradeTransformer from '../transformer/GradeTransformer';
+import {GradeTransformer} from '../transformer/GradeTransformer';
 
-import EndpointInterface from './EndpointInterface';
-import HostInterface from './HostInterface';
+import {EndpointInterface} from './EndpointInterface';
+import {HostInterface} from './HostInterface';
 
-export default class Host implements HostInterface {
+export class Host implements HostInterface {
   host: string;
   port: number;
   protocol: string;

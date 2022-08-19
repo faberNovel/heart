@@ -1,4 +1,4 @@
-import LighthouseModule from './LighthouseModule.js'
+import {LighthouseModule} from './LighthouseModule.js'
 
 export default new LighthouseModule({
   name: 'Heart Lighthouse',

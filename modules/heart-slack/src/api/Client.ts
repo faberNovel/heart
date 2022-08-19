@@ -6,7 +6,7 @@ import { WebAPICallResult, WebClient } from '@slack/web-api';
  * - the SLACK_API_TOKEN process.env property
  * - the SLACK_CHANNEL_ID process.env property
  */
-export default class Client {
+export class Client {
   private channel: string;
   private client: WebClient;
 

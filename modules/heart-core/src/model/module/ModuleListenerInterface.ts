@@ -1,11 +1,11 @@
 import { EventEmitter } from 'events';
 
-import ModuleInterface from './ModuleInterface';
+import {ModuleInterface} from './ModuleInterface';
 
 /**
  * Define an Listener module.
  */
-export default interface ModuleListenerInterface extends ModuleInterface {
+export interface ModuleListenerInterface extends ModuleInterface {
   /**
    * Register events on the given emitter.
    * Note: this method must be public.

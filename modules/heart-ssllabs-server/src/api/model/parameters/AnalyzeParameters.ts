@@ -1,7 +1,7 @@
 /**
  * @see {@link https://github.com/ssllabs/ssllabs-scan/blob/master/ssllabs-api-docs-v3.md#invoke-assessment-and-check-progress}
  */
-export default interface AnalyzeParameters {
+export interface AnalyzeParametersInterface {
   /**
    * Hostname
    */

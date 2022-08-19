@@ -7,16 +7,16 @@ import {
 } from '@fabernovel/heart-core';
 import { EventEmitter } from 'events';
 
-import SlackClient from './api/Client';
+import {Client} from './api/Client';
 
-export default class SlackModule extends Module
+export class SlackModule extends Module
   implements ModuleListenerInterface {
-  private slackClient: SlackClient;
+  private slackClient: Client;
 
   constructor(module: Partial<ModuleInterface>) {
     super(module);
 
-    this.slackClient = new SlackClient();
+    this.slackClient = new Client();
   }
 
   /**

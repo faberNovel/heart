@@ -1,7 +1,7 @@
 /**
  * Representation of an analysis service in BigQuery
  */
-export default class RecordService {
+export class RecordService {
   public name: string;
 
   constructor(name: string) {

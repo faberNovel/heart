@@ -1,41 +1,49 @@
-jest.mock('@fabernovel/heart-core');
-
 import { Report, ThresholdInputObject } from '@fabernovel/heart-core';
+import {ScanInterface} from '../src/api/model/Scan';
+import {ObservatoryModule} from '../src/ObservatoryModule';
 
-import Scan from '../src/api/model/Scan';
-import ObservatoryModule from '../src/ObservatoryModule';
+const ANALYZE_URL = 'www.observatory.mozilla-test/results/';
+const API_URL = 'www.observatory.mozilla-test/api/';
+const CONF = { host: 'heart.fabernovel.com' }
+const SCAN: ScanInterface = {
+  end_time: 'May 13, 2022 5:58 PM',
+  grade: 'B',
+  hidden: true,
+  response_headers: {},
+  scan_id: 1,
+  score: 95,
+  likelihood_indicator: '',
+  start_time: '',
+  state: 'FINISHED',
+  tests_failed: 3,
+  tests_passed: 4,
+  tests_quantity: 12
+};
+
+const mockGetAnalysisReport = jest.fn().mockResolvedValue(SCAN);
+const mockGetAnalyzeUrl = jest.fn().mockReturnValue(ANALYZE_URL + CONF.host);
+const mockGetProjectHost = jest.fn().mockReturnValue(CONF.host);
+const mockLaunchAnalysis = jest.fn().mockResolvedValue(SCAN);
+jest.mock('../src/api/Client', () => {
+  return {
+    Client: jest.fn().mockImplementation(() => {
+      return {
+        getAnalysisReport: mockGetAnalysisReport,
+        getAnalyzeUrl: mockGetAnalyzeUrl,
+        getProjectHost: mockGetProjectHost,
+        launchAnalysis: mockLaunchAnalysis,
+      };
+    })
+  }
+});
+
 
 describe('Starts an analysis', () => {
-
   let module: ObservatoryModule;
-  let SCAN: Scan;
-  let report: Report;
-  let expectedReport: Report;
-
-  const ANALYZE_URL = 'www.observatory.mozilla-test/results/';
-  const API_URL = 'www.observatory.mozilla-test/api/';
 
   beforeEach(() => {
-    SCAN = {
-      end_time: 'May 13, 2022 5:58 PM',
-      grade: 'B',
-      hidden: true,
-      response_headers: {},
-      scan_id: 1,
-      score: 95,
-      likelihood_indicator: '',
-      start_time: '',
-      state: 'FINISHED',
-      tests_failed: 3,
-      tests_passed: 4,
-      tests_quantity: 12
-    };
-
     process.env.OBSERVATORY_ANALYZE_URL = ANALYZE_URL;
     process.env.OBSERVATORY_API_URL = API_URL;
-
-    // eslint-disable-next-line @typescript-eslint/no-var-requires
-    require('@fabernovel/heart-core').__setMockScan(SCAN);
 
     module = new ObservatoryModule({
       name: 'Heart Observatory Test',
@@ -43,18 +51,16 @@ describe('Starts an analysis', () => {
         name: 'Observatory Test'
       },
     });
-
   });
 
   it('Should start an analysis with a valid configuration without a threshold', async () => {
+    const report = await module.startAnalysis(CONF);
 
-    report = await module.startAnalysis({ host: 'www.heart.fabernovel.com' });
-
-    expectedReport = new Report({
-      analyzedUrl: 'www.heart.fabernovel.com',
+    const expectedReport = new Report({
+      analyzedUrl: 'heart.fabernovel.com',
       date: report.date,
       note: SCAN.grade,
-      resultUrl: ANALYZE_URL + 'www.heart.fabernovel.com',
+      resultUrl: ANALYZE_URL + 'heart.fabernovel.com',
       normalizedNote: SCAN.score > 100 ? 100 : SCAN.score,
       service: {
         name: 'Observatory Test'
@@ -65,18 +71,14 @@ describe('Starts an analysis', () => {
   });
 
   it('Should throw an error with an invalid configuration', async () => {
-
     try {
       await module.startAnalysis({});
-
-
     } catch (e) {
       expect(e).toHaveProperty('error');
     }
   });
 
   it('Should start an analysis with a multi-variable thresholds object', async () => {
-
     const thresholds: ThresholdInputObject = {
       normalizedNote: {
         gte: 90,
@@ -84,13 +86,13 @@ describe('Starts an analysis', () => {
       },
     };
 
-    report = await module.startAnalysis({ host: 'www.heart.fabernovel.com' }, thresholds);
+    const report = await module.startAnalysis(CONF, thresholds);
 
-    expectedReport = new Report({
-      analyzedUrl: 'www.heart.fabernovel.com',
+    const expectedReport = new Report({
+      analyzedUrl: 'heart.fabernovel.com',
       date: report.date,
       note: SCAN.grade,
-      resultUrl: ANALYZE_URL + 'www.heart.fabernovel.com',
+      resultUrl: ANALYZE_URL + 'heart.fabernovel.com',
       normalizedNote: SCAN.score > 100 ? 100 : SCAN.score,
       thresholds,
       service: {
@@ -102,16 +104,15 @@ describe('Starts an analysis', () => {
   });
 
   it('Should start an analysis with an empty thresholds', async () => {
-
     const thresholds: ThresholdInputObject = {};
 
-    report = await module.startAnalysis({ host: 'www.heart.fabernovel.com' }, thresholds);
+    const report = await module.startAnalysis(CONF, thresholds);
 
-    expectedReport = new Report({
-      analyzedUrl: 'www.heart.fabernovel.com',
+    const expectedReport = new Report({
+      analyzedUrl: 'heart.fabernovel.com',
       date: report.date,
       note: SCAN.grade,
-      resultUrl: ANALYZE_URL + 'www.heart.fabernovel.com',
+      resultUrl: ANALYZE_URL + 'heart.fabernovel.com',
       normalizedNote: SCAN.score > 100 ? 100 : SCAN.score,
       thresholds,
       service: {
@@ -126,7 +127,6 @@ describe('Starts an analysis', () => {
   });
 
   it('Should return false status when results do not match thresholds objectives', async () => {
-
     const thresholds: ThresholdInputObject = {
       normalizedNote: {
         gte: 98,
@@ -134,13 +134,13 @@ describe('Starts an analysis', () => {
       },
     };
 
-    report = await module.startAnalysis({ host: 'www.heart.fabernovel.com' }, thresholds);
+    const report = await module.startAnalysis(CONF, thresholds);
 
-    expectedReport = new Report({
-      analyzedUrl: 'www.heart.fabernovel.com',
+    const expectedReport = new Report({
+      analyzedUrl: 'heart.fabernovel.com',
       date: report.date,
       note: SCAN.grade,
-      resultUrl: ANALYZE_URL + 'www.heart.fabernovel.com',
+      resultUrl: ANALYZE_URL + 'heart.fabernovel.com',
       normalizedNote: SCAN.score > 100 ? 100 : SCAN.score,
       thresholds,
       service: {

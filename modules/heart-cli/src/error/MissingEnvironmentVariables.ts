@@ -1,4 +1,4 @@
-export default class MissingEnvironmentVariables extends Error {
+export class MissingEnvironmentVariables extends Error {
   constructor(missingVariables: string[]) {
     const variables = missingVariables.join(', ');
     const message = missingVariables.length > 1

@@ -1,6 +1,6 @@
-import ServiceInterface from '../service/ServiceInterface';
+import {ServiceInterface} from '../service/ServiceInterface';
 
-export default interface ModuleInterface {
+export interface ModuleInterface {
   /**
    * Example: observatory
    */

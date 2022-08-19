@@ -1,6 +1,6 @@
 import { TableMetadata } from '@google-cloud/bigquery/build/src/table';
 
-export default class Definitions {
+export class Definitions {
   public static readonly DATASET: {ID: string} = {
     ID: 'heart'
   };

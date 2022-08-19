@@ -1,7 +1,7 @@
 import fetch, { HeadersInit, Response } from 'node-fetch';
 import { stringify } from 'querystring';
 
-export default class Request {
+export class Request {
   private static GET = 'GET';
   private static POST = 'POST';
   public static HEADER_CONTENT_TYPE = 'Content-Type';

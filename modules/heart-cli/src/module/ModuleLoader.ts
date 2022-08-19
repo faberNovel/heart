@@ -2,9 +2,9 @@ import { isModuleAnalysis, isModuleListener, isModuleServer, ModuleInterface } f
 import * as dotenv from 'dotenv';
 import fs = require('fs');
 
-import MissingEnvironmentVariables from '../error/MissingEnvironmentVariables';
+import {MissingEnvironmentVariables} from '../error/MissingEnvironmentVariables';
 
-export default class ModuleLoader {
+export class ModuleLoader {
   // file that contains the list of required environment variables
   private readonly ENVIRONMENT_VARIABLE_MODEL = '.env.sample';
   private readonly PACKAGE_PREFIX = '@fabernovel/heart-';

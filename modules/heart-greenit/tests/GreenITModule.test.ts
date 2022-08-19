@@ -3,7 +3,7 @@ import { createJsonReports } from 'greenit-cli/cli-core/analysis';
 import path from 'path';
 import { mocked } from 'jest-mock';
 
-import GreenITModule from '../src/GreenITModule';
+import {GreenITModule} from '../src/GreenITModule';
 
 import successResults from './data/successReport.json';
 import { conf } from './data/Conf';

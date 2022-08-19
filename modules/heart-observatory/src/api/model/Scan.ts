@@ -1,7 +1,7 @@
 /**
  * @see {@link https://github.com/mozilla/http-observatory/blob/master/httpobs/docs/api.md#scan}
  */
-export default interface Scan {
+export interface ScanInterface {
     // timestamp for when the scan completed
     end_time: string;
 

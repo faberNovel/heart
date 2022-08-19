@@ -1,9 +1,9 @@
 import { Module, ModuleInterface, ModuleServerInterface } from '@fabernovel/heart-core';
 import * as http from 'http';
 
-import ExpressApp from './ExpressApp';
+import {ExpressApp} from './ExpressApp';
 
-export default class ApiModule extends Module implements ModuleServerInterface {
+export class ApiModule extends Module implements ModuleServerInterface {
   constructor(module: Partial<ModuleServerInterface>) {
     super(module);
   }

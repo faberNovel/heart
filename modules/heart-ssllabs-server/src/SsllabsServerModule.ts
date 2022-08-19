@@ -1,18 +1,18 @@
 import { Helper, Module, ModuleAnalysisInterface, ModuleInterface, Report } from '@fabernovel/heart-core';
 
 import { Status } from './api/enum/Status';
-import Host from './api/model/Host';
-import ApiClient from './api/Client';
+import {Host} from './api/model/Host';
+import {Client} from './api/Client';
 
-export default class SsllabsServerModule extends Module implements ModuleAnalysisInterface {
+export class SsllabsServerModule extends Module implements ModuleAnalysisInterface {
   private static readonly MAX_TRIES = 100;
   private static readonly TIME_BETWEEN_TRIES = 10000; // 10 seconds
-  private apiClient: ApiClient;
+  private apiClient: Client;
 
   constructor(module: Partial<ModuleInterface>) {
     super(module);
 
-    this.apiClient = new ApiClient();
+    this.apiClient = new Client();
   }
 
   public async startAnalysis(conf: object): Promise<Report> {

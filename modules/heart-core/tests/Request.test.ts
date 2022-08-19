@@ -1,4 +1,4 @@
-import Request from '../src/http/Request';
+import {Request} from '../src/http/Request';
 
 describe('The different Request methods must returns a JSON content', () => {
   const API_URL = 'https://jsonplaceholder.typicode.com/todos/1';

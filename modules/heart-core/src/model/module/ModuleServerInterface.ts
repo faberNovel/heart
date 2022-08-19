@@ -1,11 +1,11 @@
 import { Server } from 'http';
 
-import ModuleInterface from './ModuleInterface';
+import {ModuleInterface} from './ModuleInterface';
 
 /**
  * Define a Server module.
  */
-export default interface ModuleServerInterface extends ModuleInterface {
+export interface ModuleServerInterface extends ModuleInterface {
   startServer: (modules: ModuleInterface[], port?: number) => Server;
 }
 

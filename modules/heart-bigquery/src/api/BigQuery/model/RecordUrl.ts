@@ -1,4 +1,4 @@
-export default class RecordUrl {
+export class RecordUrl {
   public analyzed: string;
   public report?: string;
 

@@ -2,7 +2,7 @@ import { ThresholdInputObject } from '@fabernovel/heart-core';
 import { readFileSync } from 'fs';
 import { isAbsolute } from 'path';
 
-export default class AnalysisOptionsValidation {
+export class AnalysisOptionsValidation {
   /**
    * Validate that the analysis options are correct
    * @returns The analysis configuration and the threshold

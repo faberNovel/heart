@@ -1,4 +1,4 @@
-import SsllabsServerModule from './SsllabsServerModule.js';
+import {SsllabsServerModule} from './SsllabsServerModule.js';
 
 export default new SsllabsServerModule({
   name: 'Heart SSL Labs Server',
