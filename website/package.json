@@ -6,8 +6,8 @@
   "scripts": {
     "build": "run-s build:svg && parcel build src/index.pug",
     "build:svg": "svg-sprite --config sprite-config.json src/assets/icons/sprite/*.svg",
+    "build:watch": "",
     "lint": "pug-lint src/ && stylelint --syntax scss src/**/*.scss",
-    "outdated": "npm outdated",
     "start": "run-s build:svg && parcel src/index.pug",
     "test": "jest --silent --passWithNoTests"
   },

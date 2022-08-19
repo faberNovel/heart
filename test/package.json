@@ -4,8 +4,8 @@
   "private": true,
   "scripts": {
     "build": "",
+    "build:watch": "",
     "lint": "",
-    "outdated": "npm outdated",
     "test": ""
   },
   "dependencies": {
