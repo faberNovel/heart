@@ -23,18 +23,18 @@ include:
   - local: 'ci/modules/heart-ssllabs-server.yml'
   - local: 'ci/website.yml'
 
-🏗 Build for master:
+🏗 Build for default:
   extends:
     - .install
     - .build
-    - .only-master
+    - .on-default
   interruptible: true
 
 🏗 Build for MR:
   extends:
     - .install
     - .build
-    - .only-mr
+    - .on-mr
   interruptible: true
 
 # Checks code linting
@@ -42,7 +42,7 @@ include:
   stage: test
   extends:
     - .install
-    - .only-mr
+    - .on-mr
   dependencies:
     - 🏗 Build for MR
   script:
@@ -54,7 +54,7 @@ include:
   stage: test
   extends:
     - .install
-    - .only-mr
+    - .on-mr
   dependencies:
     - 🏗 Build for MR
   script:
@@ -68,7 +68,7 @@ include:
 🐛 Test:
   extends:
     - .test
-    - .only-mr
+    - .on-mr
   dependencies:
     - 🏗 Build for MR
   script:
@@ -78,22 +78,16 @@ include:
 # Publish packages to NPM.
 # By default, the dry-run mode is enabled and the policy version is set to individualVersion.
 # These two behaviors can be changed with the PUBLISH and VERSION_POLICY variables.
-# This job is only triggered:
-# - if the pipeline as been created from the Gitlab web interface (only:web)
-# - if the branch name is `master` (only:branches and only:/^master$/)
-# - if the user clicks on the 'play' button and has enough rights to write on this branch (when:manual)
 🚀 Publish the packages to NPM:
   stage: deploy
   extends:
     - .install
-    - .only-master
-  only:
-    - web
+    - .on-web
   variables:
     PUBLISH: 0
     VERSION_POLICY: "individualVersion"
   dependencies:
-    - 🏗 Build for master
+    - 🏗 Build for default
   script:
     - git remote set-url origin $RUSHJSON_REPOSITORY_URL_CI
     # Set Git publisher values (required by Rush)

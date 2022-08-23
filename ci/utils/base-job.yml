@@ -21,9 +21,9 @@
 .coverage:
   extends:
     - .test
-    - .only-master
+    - .on-default
   dependencies:
-    - 🏗 Build for master
+    - 🏗 Build for default
   coverage: /Branches\s+:\s\d+.?\d+/
 
 .install:
