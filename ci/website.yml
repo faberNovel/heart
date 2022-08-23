@@ -72,18 +72,24 @@
 🔬 Analyze the website with GreenIT:
   extends:
     - .analyze
+    - .install-chrome
+  variables:
+    CHROME_PATH: /usr/bin/google-chrome-stable
+  before_script:
+    - !reference [.install-chrome, before_script]
+    - cd ci/conf
   script:
     - npx heart greenit --file greenit.json
 
 
-# This operation use artifacts created and stored during the "Build for default" job.
+# This operation use artifacts created and stored during the "Build" job.
 # This speeds up this job by avoiding to execute additional operations on the repository (like Rush commands).
 🚀 Publish the website to production:
   stage: deploy
   extends:
     - .on-default
   dependencies:
-    - 🏗 Build for default
+    - 🏗 Build
   before_script:
     # Grab Firebase CLI
     - npm install -g firebase-tools
