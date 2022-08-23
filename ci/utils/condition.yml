@@ -3,32 +3,19 @@
 
 # Only triggered on merge requests creation and update
 .on-mr:
-  only:
-    - merge_requests
+  rules:
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
 
 # Used to analyze the website
 .on-schedule:
-  only:
-    refs:
-      - $CI_DEFAULT_BRANCH
-      - schedules
-    variables:
-      - $CI_COMMIT_REF_PROTECTED
+  rules:
+    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH && $CI_COMMIT_REF_PROTECTED && $CI_PIPELINE_SOURCE == "schedule"
 
 # Used to deploy the website
 .on-web:
-  only:
-    refs:
-      - $CI_DEFAULT_BRANCH
-      - web
-    variables:
-      - $CI_COMMIT_REF_PROTECTED
+  rules:
+    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH && $CI_COMMIT_REF_PROTECTED && $CI_PIPELINE_SOURCE == "web"
 
 .on-default:
-  only:
-    refs:
-      - $CI_DEFAULT_BRANCH
-    variables:
-      - $CI_COMMIT_REF_PROTECTED
-  except:
-    - schedules
+  rules:
+    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH && $CI_COMMIT_REF_PROTECTED && $CI_PIPELINE_SOURCE != "schedule"

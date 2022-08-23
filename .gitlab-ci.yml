@@ -23,18 +23,14 @@ include:
   - local: 'ci/modules/heart-ssllabs-server.yml'
   - local: 'ci/website.yml'
 
-🏗 Build for default:
+🏗 Build:
   extends:
     - .install
     - .build
-    - .on-default
-  interruptible: true
-
-🏗 Build for MR:
-  extends:
-    - .install
-    - .build
-    - .on-mr
+  rules:
+    # Either .on-mr, either .on-default
+    - !reference [.on-mr, rules]
+    - !reference [.on-default, rules]
   interruptible: true
 
 # Checks code linting
@@ -44,7 +40,7 @@ include:
     - .install
     - .on-mr
   dependencies:
-    - 🏗 Build for MR
+    - 🏗 Build
   script:
     - node common/scripts/install-run-rush.js lint
   interruptible: true
@@ -56,7 +52,7 @@ include:
     - .install
     - .on-mr
   dependencies:
-    - 🏗 Build for MR
+    - 🏗 Build
   script:
     - git fetch origin $CI_MERGE_REQUEST_TARGET_BRANCH_NAME -a
     # Checks that a changelog has been provided, regarding the target branch
@@ -70,7 +66,7 @@ include:
     - .test
     - .on-mr
   dependencies:
-    - 🏗 Build for MR
+    - 🏗 Build
   script:
     - node common/scripts/install-run-rush.js test --verbose
   interruptible: true
@@ -87,7 +83,7 @@ include:
     PUBLISH: 0
     VERSION_POLICY: "individualVersion"
   dependencies:
-    - 🏗 Build for default
+    - 🏗 Build
   script:
     - git remote set-url origin $RUSHJSON_REPOSITORY_URL_CI
     # Set Git publisher values (required by Rush)
