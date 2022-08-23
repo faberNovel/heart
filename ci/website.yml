@@ -76,14 +76,14 @@
     - npx heart greenit --file greenit.json
 
 
-# This operation use artifacts created and stored during the "Build for master" job.
+# This operation use artifacts created and stored during the "Build for default" job.
 # This speeds up this job by avoiding to execute additional operations on the repository (like Rush commands).
 🚀 Publish the website to production:
   stage: deploy
   extends:
-    - .only-master
+    - .on-default
   dependencies:
-    - 🏗 Build for master
+    - 🏗 Build for default
   before_script:
     # Grab Firebase CLI
     - npm install -g firebase-tools
