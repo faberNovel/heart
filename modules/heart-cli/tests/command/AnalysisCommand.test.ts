@@ -1,6 +1,5 @@
 import { Config, ModuleAnalysisInterface, Report } from '@fabernovel/heart-core';
-import * as program from 'commander';
-
+import { Command } from 'commander'
 import {AnalysisCommand} from '../../src/command/AnalysisCommand';
 
 test('Create an analysis command', () => {
@@ -23,17 +22,26 @@ test('Create an analysis command', () => {
     startAnalysis: () => new Promise((resolve) => resolve(report))
   };
 
-  // eslint-disable-next-line @typescript-eslint/no-empty-function
-  AnalysisCommand.create(program, module, () => {});
+  const configInline = '{"url":"https://www.heart.fabernovel.com"}'
 
-  expect(program.commands[0]._name).toBe(module.id);
-  expect(program.commands[0].options.length).toBe(4);
-  expect(program.commands[0].options[0].short).toBe('-f');
-  expect(program.commands[0].options[0].long).toBe('--file');
-  expect(program.commands[0].options[1].short).toBe('-i');
-  expect(program.commands[0].options[1].long).toBe('--inline');
-  expect(program.commands[0].options[2].short).toBe('-t');
-  expect(program.commands[0].options[2].long).toBe('--threshold-file');
-  expect(program.commands[0].options[3].short).toBe('-l');
-  expect(program.commands[0].options[3].long).toBe('--threshold-inline');
+  const program = new Command()
+
+  // eslint-disable-next-line no-empty-pattern
+  AnalysisCommand.create(program, module, ({}) => Promise.resolve())
+
+  program.parse([
+    'test-analysis-tool',
+    '--inline',
+    configInline
+  ], { from: 'user' })
+
+  expect(program.commands).toHaveLength(1)
+
+  const command = program.commands.shift() as Command
+  const options = command.opts()
+
+  expect(command.name()).toBe(module.id)
+  expect(Object.keys(options)).toHaveLength(1)
+  expect(options).toHaveProperty('inline', configInline)
+
 });

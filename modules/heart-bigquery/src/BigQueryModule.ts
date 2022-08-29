@@ -19,7 +19,9 @@ export class BigQueryModule extends Module implements ModuleListenerInterface {
    * 2. register each event on the event emitter
    */
   public registerEvents(eventEmitter: EventEmitter): void {
-    eventEmitter.on(AnalysisEvents.DONE, this.storeReport.bind(this));
+    eventEmitter.on(AnalysisEvents.DONE, () => {
+      this.storeReport.bind(this)
+    });
   }
 
   private async storeReport(report: Report) {
