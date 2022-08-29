@@ -1,4 +1,4 @@
-import { createJsonReports, Options, Report } from 'greenit-cli/cli-core/analysis';
+import { createJsonReports, Options } from 'greenit-cli/cli-core/analysis';
 import puppeteer from 'puppeteer';
 
 import { GreenITConfig } from '../config/Config';
@@ -29,10 +29,13 @@ export async function runAnalysis(conf: GreenITConfig): Promise<Result> {
 
 
   try {
-    const results: Report[] = await createJsonReports(browser, [{ url: conf.url }], options);
+    const reports = await createJsonReports(browser, [{ url: conf.url }], options);
 
-    const firstResult: Result = await import(results[0].path);
-    return firstResult;
+    if (0 === reports.length) {
+      throw new Error('No report has been generated')
+    }
+
+    return import(reports[0].path) as Promise<Result>
   } catch (error) {
     return Promise.reject(error);
   } finally {

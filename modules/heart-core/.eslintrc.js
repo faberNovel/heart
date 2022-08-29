@@ -15,6 +15,10 @@ module.exports = {
     /**
     * @see https://typescript-eslint.io/rules/
     */
-    "plugin:@typescript-eslint/recommended"
+    "plugin:@typescript-eslint/recommended",
+    /**
+    * @see https://typescript-eslint.io/docs/linting/typed-linting/
+    */
+    "plugin:@typescript-eslint/recommended-requiring-type-checking"
   ]
 }

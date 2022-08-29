@@ -6,9 +6,12 @@ import {
   ModuleInterface,
   Report,
   Config,
+  ThresholdInputObject,
 } from '@fabernovel/heart-core';
 import * as EventEmitter from 'events';
 import * as express from 'express';
+
+type Body<T> = { conf: T, threshold?: ThresholdInputObject }
 
 /**
  * Creates and configures an ExpressJS application.
@@ -30,7 +33,7 @@ export class ExpressApp {
   }
 
   private createRouteHandler<T extends Config>(module: ModuleAnalysisInterface<T>): express.RequestHandler {
-    return (req: express.Request, res: express.Response) => {
+    return (req: express.Request<unknown, unknown, Body<T>>, res) => {
       module.startAnalysis(req.body.conf, req.body.threshold)
         .then((report: Report) => {
           this.eventEmitter.emit(AnalysisEvents.DONE, report);
@@ -44,7 +47,7 @@ export class ExpressApp {
             note: report.note,
             normalizedNote: report.normalizedNote,
             resultUrl: report.resultUrl,
-            thresholds: req.body.thresholds.normalizedNote
+            thresholds: req.body.threshold
           });
         })
         .catch ((error) => {

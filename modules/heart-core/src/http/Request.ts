@@ -1,4 +1,4 @@
-import fetch, { Response } from 'node-fetch';
+import fetch from 'node-fetch';
 import { stringify } from 'querystring';
 
 export class Request {
@@ -15,7 +15,7 @@ export class Request {
     return fetch(url, {
         method: Request.GET,
         headers: {...Request.BASE_HEADER, ...headers},
-      }).then((res: Response) => res.json());
+      }).then((res) => res.json() as Promise<T>);
   }
 
   public static async post<T>(url: string, body: object = {}, headers: { [index: string]: string } = {}): Promise<T> {
@@ -37,6 +37,6 @@ export class Request {
       method: Request.POST,
       body: bodyString,
       headers
-    }).then((res: Response) => res.json());
+    }).then((res) => res.json() as Promise<T>);
   }
 }

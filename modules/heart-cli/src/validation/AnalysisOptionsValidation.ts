@@ -13,9 +13,6 @@ export class AnalysisOptionsValidation {
     thresholdFile?: string,
     thresholdInline?: string
   ): [T, ThresholdInputObject?] {
-    let config = undefined;
-    let threshold = undefined;
-
     if (undefined === configFile && undefined === configInline) {
       throw new Error('You must provide a configuration');
     } else if (undefined !== configFile && undefined !== configInline) {
@@ -26,41 +23,31 @@ export class AnalysisOptionsValidation {
       throw new Error('You must provide only one threshold input');
     }
 
-    if (configInline) {
-      config = configInline;
-    } else if (undefined !== configFile) {
-      // file: load file from the given path
-      const path = isAbsolute(configFile)
-        ? configFile
-        : `${process.env.PWD}/${configFile}`;
-
-      config = readFileSync(path, 'utf8');
-    }
-
-    if (undefined !== thresholdInline) {
-      threshold = thresholdInline;
-    } else if (undefined !== thresholdFile) {
-      const path = isAbsolute(thresholdFile)
-        ? thresholdFile
-        : `${process.env.PWD}/${thresholdFile}`;
-
-      threshold = readFileSync(path, 'utf8');
-    }
-
     try {
-      config = JSON.parse(config as string);
+      let config: T;
+      let threshold: ThresholdInputObject | undefined = undefined;
+
+      if (undefined !== configInline) {
+        config = JSON.parse(configInline) as T;
+      } else { // TypeScript cannot infer that configFile is a string at this point, so we need an assertion
+        config = JSON.parse(AnalysisOptionsValidation.readFile(configFile as string)) as T
+      }
+
+      if (undefined !== thresholdInline) {
+        threshold = JSON.parse(thresholdInline) as ThresholdInputObject;
+      } else if (undefined !== thresholdFile) {
+        threshold = JSON.parse(AnalysisOptionsValidation.readFile(thresholdFile)) as ThresholdInputObject
+      }
+
+      return [config, threshold];
     } catch (error) {
       throw new Error('Cannot parse the configuration. Please check the JSON syntax.');
     }
+  }
 
-    if (undefined !== threshold) {
-      try {
-        threshold = JSON.parse(threshold);
-      } catch (error) {
-        throw new Error('Cannot parse the threshold. Please check the JSON syntax.');
-      }
-    }
+  private static readFile(path: string): string {
+    const realPath = isAbsolute(path) ? path : `${process.env.PWD as string}/${path}`;
 
-    return [config, threshold];
+    return readFileSync(realPath, 'utf8');
   }
 }

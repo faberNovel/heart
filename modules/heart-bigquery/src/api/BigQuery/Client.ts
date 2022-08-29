@@ -24,7 +24,7 @@ export class BigQueryClient {
    * Retrieve the dataset, or create it if it does not exist.
    */
   private async getOrCreateDataset(): Promise<Dataset> {
-    let dataset = await this.bigqueryClient.dataset(Definitions.DATASET.ID);
+    let dataset = this.bigqueryClient.dataset(Definitions.DATASET.ID);
 
     // create the dataset if it does not exist
     const [datasetExists] = await dataset.exists();

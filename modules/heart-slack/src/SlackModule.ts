@@ -42,7 +42,7 @@ export class SlackModule extends Module
       message += "\n:warning: Your thresholds are not reached.";
     }
 
-    this.slackClient.postMessage({
+    void this.slackClient.postMessage({
       text: message,
       icon_url: report.service ? report.service.logo : undefined,
       username: report.service ? report.service.name : undefined

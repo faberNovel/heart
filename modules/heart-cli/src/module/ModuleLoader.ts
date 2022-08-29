@@ -1,4 +1,4 @@
-import { isModuleAnalysis, isModuleListener, isModuleServer, ModuleInterface } from '@fabernovel/heart-core';
+import { isModuleAnalysis, isModuleListener, isModuleServer, ModuleIndex, ModuleInterface } from '@fabernovel/heart-core';
 import * as dotenv from 'dotenv';
 import { readFileSync } from 'fs'
 import { PackageJson } from 'type-fest'
@@ -90,18 +90,13 @@ export class ModuleLoader {
    * List the Heart modules root path, according to the modules defined in package.json that follows the given pattern.
    */
   private async getPaths(pattern: RegExp, packageJsonPath: string): Promise<string[]> {
-    let packageJson: PackageJson;
-
-    try {
-      // read package.json from this module (Heart CLI)
-      packageJson = await import(packageJsonPath);
-    } catch (error) {
+    const packageJson = await import(packageJsonPath).catch((error) => {
       if (this.debug) {
         console.error(`package.json not found in ${this.ROOT_PATH}`);
       }
 
-      return Promise.reject([]);
-    }
+      throw error
+    }) as PackageJson
 
     // list the modules according to the given pattern
     // look into the 'dependencies' and 'devDependencies' keys
@@ -152,8 +147,11 @@ export class ModuleLoader {
           console.log('Loading module %s...', modulePath);
         }
 
-        const packageJson = await import(`${modulePath}package.json`);
-        const pkg = await import(modulePath + packageJson.main);
+        const packageJson = await import(`${modulePath}package.json`) as Omit<PackageJson, 'name' |'main'> & {
+          name: NonNullable<PackageJson['name']>
+          main: NonNullable<PackageJson['main']>
+        };
+        const pkg = await import(modulePath + packageJson.main) as ModuleIndex;
         const module = pkg.default;
 
         // only keep the modules that are compatible

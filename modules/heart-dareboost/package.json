@@ -42,12 +42,12 @@
   "devDependencies": {
     "@types/jest": "^27.5.1",
     "@types/node": "^10.14.10",
-    "jest": "^28.1.0",
-    "ts-jest": "^28.0.2",
-    "typescript": "^4.6.4",
+    "@typescript-eslint/eslint-plugin":"^5.32.0",
+    "@typescript-eslint/parser":"^5.32.0",
     "eslint": "^8.16.0",
-    "@typescript-eslint/parser": "^5.26.0",
-    "@typescript-eslint/eslint-plugin": "^5.26.0",
-    "jest-mock": "^28.1.1"
+    "jest": "^28.1.0",
+    "jest-mock": "^28.1.1",
+    "ts-jest": "^28.0.2",
+    "typescript": "^4.6.4"
   }
 }
