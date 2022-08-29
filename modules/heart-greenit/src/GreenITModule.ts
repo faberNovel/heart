@@ -3,6 +3,7 @@ import {
   ModuleAnalysisInterface,
   ModuleInterface,
   Report,
+  ThresholdInputObject,
 } from '@fabernovel/heart-core';
 
 import { runAnalysis } from './api/Client';
@@ -12,11 +13,15 @@ import { GreenITConfig } from './config/Config';
 export class GreenITModule
   extends Module
   implements ModuleAnalysisInterface<GreenITConfig> {
+  private thresholds?: ThresholdInputObject;
+
   constructor(module: Omit<ModuleInterface, 'id'>) {
     super(module);
   }
 
-  public async startAnalysis(conf: GreenITConfig): Promise<Report> {
+  public async startAnalysis(conf: GreenITConfig, thresholds?: ThresholdInputObject): Promise<Report> {
+    this.thresholds = thresholds
+
     const result = await runAnalysis(conf);
 
     if (!result.success) {
@@ -32,6 +37,7 @@ export class GreenITModule
       date: new Date(results.date),
       note: results.ecoIndex.toString(),
       service: this.service,
+      thresholds: this.thresholds
     });
   }
 }
