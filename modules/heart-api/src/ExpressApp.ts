@@ -44,6 +44,7 @@ export class ExpressApp {
             note: report.note,
             normalizedNote: report.normalizedNote,
             resultUrl: report.resultUrl,
+            thresholds: req.body.thresholds.normalizedNote
           });
         })
         .catch ((error) => {
