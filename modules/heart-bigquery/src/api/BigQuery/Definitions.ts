@@ -5,7 +5,7 @@ export class Definitions {
     ID: 'heart'
   };
 
-  public static readonly TABLE: {ID: string, METADATA: TableMetadata} = {
+  public static readonly TABLE: { ID: string, METADATA: TableMetadata } = {
     ID: 'analysis',
     METADATA: {
       schema: {
@@ -58,6 +58,18 @@ export class Definitions {
                 name: 'normalized',
                 type: 'INTEGER',
                 mode: 'REQUIRED',
+              },
+            ]
+          },
+          {
+            name: 'threshold',
+            type: 'RECORD',
+            mode: 'NULLABLE',
+            fields: [
+              {
+                name: 'areThresholdsReached',
+                type: 'BOOL',
+                mode: 'NULLABLE',
               },
             ]
           },
