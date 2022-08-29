@@ -10,7 +10,7 @@ type ValidatedThreshold = {
 
 export function validateAgainstThresholds(report: Report, thresholds: ThresholdInputObject): ValidatedThreshold {
   const output: ThresholdOutputObject = {};
-  let areThresholdsReached  = false;
+  const thresholdsResults: boolean[] = [];
 
   Object.entries(thresholds).forEach(([key, thresholdInputType]) => {
     const attribute = key as keyof ThresholdInputObject
@@ -19,7 +19,7 @@ export function validateAgainstThresholds(report: Report, thresholds: ThresholdI
 
     Object.entries(thresholdInputType).forEach(([k, ref]) => {
       const operator = k as keyof typeof OperatorEnum
-      
+
       const value = report[attribute];
       const result = compare(value, ref, operator)
 
@@ -32,11 +32,9 @@ export function validateAgainstThresholds(report: Report, thresholds: ThresholdI
         }
       })
 
-      if (result === false) {
-          areThresholdsReached = false;
-      }
+      thresholdsResults.push(result)
     })
   })
-  
-  return { areThresholdsReached , results: output };
+
+  return { areThresholdsReached: thresholdsResults.every((r) => r === true), results: output };
 }
