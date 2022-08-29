@@ -11,18 +11,16 @@
     "url": "https://gitlab.com/fabernovel/heart.git"
   },
   "license": "MIT",
-  "contributors": [
-
-  ],
-  "files": [
-    "lib/**/*",
-    ".env.sample"
-  ],
+  "contributors": [],
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
   "directories": {
     "lib": "lib"
   },
+  "files": [
+    "lib/**/*",
+    ".env.sample"
+  ],
   "scripts": {
     "build": "tsc --project tsconfig.build.json",
     "build:watch": "npm run build --watch",
@@ -30,24 +28,24 @@
     "prepublishOnly": "npm run build",
     "test": "jest --silent --passWithNoTests"
   },
-  "engines": {
-    "node": ">=14.17.0"
-  },
-  "peerDependencies": {
-    "@fabernovel/heart-cli": "^3.2.0"
-  },
   "dependencies": {
-    "@fabernovel/heart-core": "workspace:^3.2.0"
+    "@fabernovel/heart-core": "workspace:^3.3.0"
   },
   "devDependencies": {
     "@types/jest": "^27.5.1",
     "@types/node": "^10.14.10",
-    "@typescript-eslint/eslint-plugin": "^5.26.0",
-    "@typescript-eslint/parser": "^5.26.0",
+    "@typescript-eslint/eslint-plugin": "^5.32.0",
+    "@typescript-eslint/parser": "^5.32.0",
     "eslint": "^8.16.0",
     "jest": "^28.1.0",
     "ts-jest": "^28.0.2",
     "tslint": "^5.18.0",
     "typescript": "^4.6.4"
+  },
+  "peerDependencies": {
+    "@fabernovel/heart-cli": "^3.2.0"
+  },
+  "engines": {
+    "node": ">=14.17.0"
   }
 }
