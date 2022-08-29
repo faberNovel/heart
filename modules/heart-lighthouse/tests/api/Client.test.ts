@@ -3,7 +3,7 @@ import * as chromeLauncher from 'chrome-launcher'
 import { RunnerResult } from 'lighthouse'
 import lighthouse from 'lighthouse/lighthouse-core'
 import { runAnalysis } from '../../src/api/Client'
-import { LighthouseConfig } from '../../src/config/Config'
+import { Conf } from '../data/Conf'
 
 jest.mock('chrome-launcher')
 jest.mock('lighthouse')
@@ -32,25 +32,10 @@ describe('Run an analysis', () => {
   } as unknown as RunnerResult // avoid the declaration of a huuuuuge object
 
   it('should runs an analysis with a valid configuration', async () => {
-    const CONF: LighthouseConfig = {
-      url: 'https://www.examples.com/',
-      config: {
-        extends: 'lighthouse:default',
-        settings: {
-          onlyAudits: [
-            'first-meaningful-paint',
-            'speed-index',
-            'first-cpu-idle',
-            'interactive'
-          ]
-        }
-      }
-    }
-
     // mock chrome-launcher and lighthouse modules methods
     mockedLighthouse.mockResolvedValue(RUNNER_RESULT)
 
-    const results = await runAnalysis(CONF)
+    const results = await runAnalysis(Conf)
     expect(results).toStrictEqual(RUNNER_RESULT.lhr)
   })
 })
