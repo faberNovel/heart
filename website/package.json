@@ -4,7 +4,7 @@
   "description": "Heart's website",
   "main": "dist/index.html",
   "scripts": {
-    "build": "run-s build:svg && parcel build src/index.pug",
+    "build": "rimraf dist && run-s build:svg && parcel build src/index.pug",
     "build:svg": "svg-sprite --config sprite-config.json src/assets/icons/sprite/*.svg",
     "build:watch": "",
     "lint": "pug-lint src/ && stylelint --syntax scss src/**/*.scss",
@@ -31,6 +31,7 @@
     "parcel-plugin-static-files-copy": "^2.6.0",
     "pug": "^2.0.4",
     "pug-lint": "^2.6.0",
+    "rimraf": "^3.0.2",
     "sass": "^1.51.0",
     "stylelint": "^13.13.1",
     "stylelint-config-rational-order": "^0.1.2",
