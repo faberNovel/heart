@@ -25,7 +25,7 @@
     "lib": "lib"
   },
   "scripts": {
-    "build": "tsc --project tsconfig.build.json",
+    "build": "rimraf lib && tsc --project tsconfig.build.json",
     "build:watch": "npm run build --watch",
     "lint": "eslint .",
     "prepublishOnly": "npm run build",
@@ -57,6 +57,7 @@
   "dependencies": {
     "@fabernovel/heart-core": "workspace:^3.2.0",
     "greenit-cli": "github:cnumr/GreenIT-Analysis-cli#a4363a9bcf7630e4a5a4cd264a7da9ec6f34b571",
-    "puppeteer": "^5.5.0"
+    "puppeteer": "^5.5.0",
+    "rimraf": "^3.0.2"
   }
 }
