@@ -7,6 +7,7 @@ import {AnalysisCommand} from './command/AnalysisCommand';
 import {ServerCommand} from './command/ServerCommand';
 import {ModuleLoader} from './module/ModuleLoader';
 import {App} from './App';
+import { CorsOptions } from 'cors';
 
 // set environment variables from a.env file
 // assume that the root path if the one from where the script has been called
@@ -28,7 +29,7 @@ moduleLoader.load()
       if (isModuleAnalysis(module)) {
         AnalysisCommand.create(program, module, <T extends Config>(conf: T, threshold?: ThresholdInputObject) => app.startAnalysis(module, conf, threshold));
       } else if (isModuleServer(module)) {
-        ServerCommand.create(program, module, (port: number) => app.startServer(module, modules, port));
+        ServerCommand.create(program, module, (port: number, cors?: CorsOptions) => app.startServer(module, modules, port, cors));
       }
     });
 

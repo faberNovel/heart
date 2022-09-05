@@ -28,11 +28,13 @@ In the following sections, every examples are using NPM as package manager, but 
 
 ## General
 
-Start the Node.js server, and make it listen to `127.0.0.1:3000` (you can specify a custom port with the `--port` option):
-
 ```shell
 npx heart api
 ```
+
+This command starts the Node.js server and make it listen to `127.0.0.1:3000`.
+
+You can change the default port with the `--port` option, and specify HTTP CORS headers with the `--cors` one.
 
 From now on, the HTTP API is available and exposes the endpoints according to the following rules:
 * there are as many endpoints as there are _analysis_ modules installed

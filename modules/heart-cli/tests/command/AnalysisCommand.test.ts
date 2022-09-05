@@ -22,17 +22,17 @@ test('Create an analysis command', () => {
     startAnalysis: () => new Promise((resolve) => resolve(report))
   };
 
-  const configInline = '{"url":"https://www.heart.fabernovel.com"}'
+  const optionConfigInline = '{"url": "https://www.heart.fabernovel.com"}'
 
   const program = new Command()
 
   // eslint-disable-next-line no-empty-pattern
-  AnalysisCommand.create(program, module, ({}) => Promise.resolve())
+  AnalysisCommand.create(program, module, () => Promise.resolve())
 
   program.parse([
     'test-analysis-tool',
     '--inline',
-    configInline
+    optionConfigInline
   ], { from: 'user' })
 
   expect(program.commands).toHaveLength(1)
@@ -42,6 +42,5 @@ test('Create an analysis command', () => {
 
   expect(command.name()).toBe(module.id)
   expect(Object.keys(options)).toHaveLength(1)
-  expect(options).toHaveProperty('inline', configInline)
-
+  expect(options).toHaveProperty('inline', optionConfigInline)
 });

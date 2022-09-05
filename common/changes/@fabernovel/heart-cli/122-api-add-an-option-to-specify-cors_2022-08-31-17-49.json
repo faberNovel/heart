@@ -1,0 +1,10 @@
+{
+  "changes": [
+    {
+      "packageName": "@fabernovel/heart-cli",
+      "comment": "Add the --cors options for the server modules, to allow the definition of HTTP CORS headers",
+      "type": "minor"
+    }
+  ],
+  "packageName": "@fabernovel/heart-cli"
+}

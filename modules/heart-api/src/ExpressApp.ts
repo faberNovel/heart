@@ -8,6 +8,8 @@ import {
   Config,
   ThresholdInputObject,
 } from '@fabernovel/heart-core';
+import { CorsOptions } from 'cors';
+import cors = require('cors');
 import * as EventEmitter from 'events';
 import * as express from 'express';
 
@@ -21,9 +23,9 @@ export class ExpressApp {
   private _express: express.Application;
   private eventEmitter: EventEmitter;
 
-  constructor(modules: ModuleInterface[]) {
+  constructor(modules: ModuleInterface[], corsOptions?: CorsOptions) {
     this._express = express();
-    this.addMiddleware();
+    this.addMiddleware(corsOptions);
     this.eventEmitter = new EventEmitter();
     this.init(modules);
   }
@@ -51,6 +53,7 @@ export class ExpressApp {
           });
         })
         .catch ((error) => {
+          console.error(error)
           res
             .status(500)
             .send(error);
@@ -84,10 +87,16 @@ export class ExpressApp {
   /**
    * Configure Express middleware for the given path
    */
-  private addMiddleware(): void {
-    this.express.use([
+  private addMiddleware(corsOptions?: CorsOptions): void {
+    const middlewares = [
       express.json(),
-      express.urlencoded({ extended: false })
-    ]);
+      express.urlencoded({ extended: false }),
+    ]
+
+    if (undefined !== corsOptions) {
+      middlewares.push(cors(corsOptions))
+    }
+
+    this.express.use(middlewares);
   }
 }
