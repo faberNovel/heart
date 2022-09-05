@@ -8,6 +8,7 @@ import {
   ThresholdInputObject,
   Config,
 } from '@fabernovel/heart-core';
+import { CorsOptions } from 'cors';
 import * as EventEmitter from 'events';
 
 export class App {
@@ -49,9 +50,9 @@ export class App {
     }
   }
 
-  public startServer(module: ModuleServerInterface, modules: ModuleInterface[], port: number): void {
+  public startServer(module: ModuleServerInterface, modules: ModuleInterface[], port: number, cors?: CorsOptions): void {
     module
-      .startServer(modules, port)
+      .startServer(modules, port, cors)
       .on('listening', () => console.log(`Server listening on port ${port}`))
       .on('error', (error: NodeJS.ErrnoException) => {
         console.error(error.message);

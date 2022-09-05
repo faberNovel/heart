@@ -1,3 +1,4 @@
+import { CorsOptions } from 'cors';
 import { Server } from 'http';
 
 import {ModuleInterface} from './ModuleInterface';
@@ -6,7 +7,7 @@ import {ModuleInterface} from './ModuleInterface';
  * Define a Server module.
  */
 export interface ModuleServerInterface extends ModuleInterface {
-  startServer: (modules: ModuleInterface[], port?: number) => Server;
+  startServer: (modules: ModuleInterface[], port: number, cors?: CorsOptions) => Server;
 }
 
 /**

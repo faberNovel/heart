@@ -1,0 +1,10 @@
+{
+  "changes": [
+    {
+      "packageName": "@fabernovel/heart-core",
+      "comment": "Add the optional cors parameter to the startServer method of the ModuleServerInterface, and make the port parameter mandatory",
+      "type": "minor"
+    }
+  ],
+  "packageName": "@fabernovel/heart-core"
+}

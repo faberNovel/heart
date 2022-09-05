@@ -1,0 +1,10 @@
+{
+  "changes": [
+    {
+      "packageName": "@fabernovel/heart-api",
+      "comment": "HTTP CORS headers can now be set",
+      "type": "minor"
+    }
+  ],
+  "packageName": "@fabernovel/heart-api"
+}
