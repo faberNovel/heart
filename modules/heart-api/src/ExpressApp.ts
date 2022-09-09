@@ -13,8 +13,6 @@ import cors = require('cors');
 import * as EventEmitter from 'events';
 import * as express from 'express';
 
-type Body<T> = { conf: T, threshold?: ThresholdInputObject }
-
 /**
  * Creates and configures an ExpressJS application.
  */
@@ -35,12 +33,15 @@ export class ExpressApp {
   }
 
   private createRouteHandler<T extends Config>(module: ModuleAnalysisInterface<T>): express.RequestHandler {
-    return (req: express.Request<unknown, unknown, Body<T>>, res) => {
-      module.startAnalysis(req.body.conf, req.body.threshold)
+    return (request: express.Request<unknown, unknown, T>, response) => {
+      try {
+        const thresholds = 'string' === typeof request.query.thresholds ? JSON.parse(request.query.thresholds) as ThresholdInputObject : undefined
+
+        module.startAnalysis(request.body, thresholds)
         .then((report: Report) => {
           this.eventEmitter.emit(AnalysisEvents.DONE, report);
 
-          res.status(200).send({
+          response.status(200).send({
             analyzedUrl: report.analyzedUrl,
             date: report.date,
             service: {
@@ -49,15 +50,21 @@ export class ExpressApp {
             note: report.note,
             normalizedNote: report.normalizedNote,
             resultUrl: report.resultUrl,
-            thresholds: req.body.threshold
+            thresholds: request.body.threshold
           });
         })
         .catch ((error) => {
           console.error(error)
-          res
+          response
             .status(500)
             .send(error);
         });
+      } catch (error) {
+        console.error(error)
+        response
+          .status(500)
+          .send(error);
+      }
     };
   }
 
