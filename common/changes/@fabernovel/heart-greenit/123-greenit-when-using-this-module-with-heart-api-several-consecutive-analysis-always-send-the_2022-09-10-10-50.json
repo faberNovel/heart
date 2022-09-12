@@ -1,0 +1,10 @@
+{
+  "changes": [
+    {
+      "packageName": "@fabernovel/heart-greenit",
+      "comment": "Consecutive analysis triggered by Heart API now send back the correct report instead of always the first",
+      "type": "patch"
+    }
+  ],
+  "packageName": "@fabernovel/heart-greenit"
+}
