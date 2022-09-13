@@ -14,10 +14,7 @@
 
 mixin svg(svg_id, inline=false, directory = '')
   if !inline
-    svg()&attributes(attributes)
-      use(href= 'assets/icons/sprite.svg#' + svg_id)
+    svg&attributes(attributes)
+      use(href="assets/icons/sprite.svg#" + svg_id)
   else
-    +img(
-      src= 'assets/icons/inline/' + directory + svg_id + '.svg',
-      alt= infosInlineSvg[svg_id] || ''
-    )&attributes(attributes)
+    +img(src="assets/icons/inline/" + directory + svg_id + ".svg", alt=infosInlineSvg[svg_id] || "")&attributes(attributes)

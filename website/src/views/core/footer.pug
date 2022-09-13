@@ -26,15 +26,15 @@ footer.footer
         each footerCategory in footerCategories
           .column
             .footer__column
-              h3.footer__title=footerCategory.title
+              h3.footer__title= footerCategory.title
               ul
                 each link in footerCategory.links
                   li
                     - let linkFooterAttributes = {}
-                    - linkFooterAttributes.target = '_blank'
-                    - linkFooterAttributes.rel = 'noreferrer'
+                    - linkFooterAttributes.target = "_blank"
+                    - linkFooterAttributes.rel = "noreferrer"
                     if link.hreflang
                       - linkFooterAttributes.hreflang = link.hreflang
-                    a.footer__link(href=link.href)&attributes(linkFooterAttributes)=link.label
+                    a.footer__link(href=link.href)&attributes(linkFooterAttributes)= link.label
         .column
           p Made with love in Paris

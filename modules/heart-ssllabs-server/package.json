@@ -14,27 +14,21 @@
   "contributors": [
     "Bastien Gatellier <bastien.gatellier@fabernovel.com>"
   ],
-  "files": [
-    "lib/**/*",
-    ".env.sample"
-  ],
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
   "directories": {
     "lib": "lib"
   },
+  "files": [
+    "lib/**/*",
+    ".env.sample"
+  ],
   "scripts": {
     "build": "rimraf lib && tsc --project tsconfig.build.json",
     "build:watch": "npm run build --watch",
     "lint": "eslint .",
     "prepublishOnly": "npm run build",
     "test": "jest --silent --passWithNoTests"
-  },
-  "engines": {
-    "node": ">=14.17.0"
-  },
-  "peerDependencies": {
-    "@fabernovel/heart-cli": "^3.2.0"
   },
   "dependencies": {
     "@fabernovel/heart-core": "workspace:^3.2.0"
@@ -49,5 +43,11 @@
     "rimraf": "^3.0.2",
     "ts-jest": "^28.0.2",
     "typescript": "^4.6.4"
+  },
+  "peerDependencies": {
+    "@fabernovel/heart-cli": "^3.2.0"
+  },
+  "engines": {
+    "node": ">=14.17.0"
   }
 }

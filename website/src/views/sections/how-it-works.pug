@@ -31,18 +31,18 @@ section#how-it-works.section
       .schema__columns
         //- User
         .schema__column
-          .schema__square.-big=user
+          .schema__square.-big= user
 
         //- Steps 1 and 4 + listener modules
         .schema__column.-isStep
-          p.schema__info=steps[1]
+          p.schema__info= steps[1]
           .schema__arrow
             .schema__arrowNumber 1
             +svg('arrow-horizontal-1', true, 'arrows/')
           .schema__arrow
             .schema__arrowNumber 4
             +svg('arrow-horizontal-4', true, 'arrows/')
-          p.schema__info=steps[4]
+          p.schema__info= steps[4]
           .schema__listeners
             each listenerModule in listenerModules
               .schema__square
@@ -56,14 +56,14 @@ section#how-it-works.section
 
         //- Steps 2 and 3
         .schema__column.-isStep
-          p.schema__info=steps[2]
+          p.schema__info= steps[2]
           .schema__arrow
             .schema__arrowNumber 2
             +svg('arrow-horizontal-2', true, 'arrows/')
           .schema__arrow
             .schema__arrowNumber 3
             +svg('arrow-horizontal-3', true, 'arrows/')
-          p.schema__info=steps[3]
+          p.schema__info= steps[3]
 
         //- Analysis modules
         .schema__column
@@ -75,14 +75,14 @@ section#how-it-works.section
       .schema__columns
         //- User
         .schema__column
-          .schema__square.-big=user
+          .schema__square.-big= user
 
         //- Step 1
         .schema__column.-isStep.-isStep1
           .schema__arrow
             .schema__arrowNumber 1
             +svg('arrow-vertical-1', true, 'arrows/')
-          p.schema__info=steps[1]
+          p.schema__info= steps[1]
 
         //- Heart
         .schema__column
@@ -95,7 +95,7 @@ section#how-it-works.section
           .schema__arrow
             .schema__arrowNumber 2
             +svg('arrow-vertical-2-3', true, 'arrows/')
-          p.schema__info=steps[2]
+          p.schema__info= steps[2]
 
         //- Analysis modules
         .schema__column
@@ -117,7 +117,7 @@ section#how-it-works.section
           .schema__arrow
             .schema__arrowNumber 3
             +svg('arrow-vertical-2-3', true, 'arrows/')
-          p.schema__info=steps[3]
+          p.schema__info= steps[3]
 
         //- Heart
         .schema__column
@@ -130,7 +130,7 @@ section#how-it-works.section
           .schema__arrow
             .schema__arrowNumber 4
             +svg('arrow-vertical-4', true, 'arrows/')
-          p.schema__info=steps[4]
+          p.schema__info= steps[4]
           .schema__listeners
             each listenerModule in listenerModules
               .schema__square
@@ -138,4 +138,4 @@ section#how-it-works.section
 
         //- User
         .schema__column
-          .schema__square.-big=user
+          .schema__square.-big= user

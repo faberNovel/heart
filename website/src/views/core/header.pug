@@ -1,10 +1,9 @@
 header.header
   .container.-initialPosition
     .header__container
-
       //- Hamburger icon for mobile
-      input#header__button.header__button(type='checkbox')
-      label.header__icon(for='header__button')
+      input#header__button.header__button(type="checkbox")
+      label.header__icon(for="header__button")
         span.header__iconLines
 
       //- Branding
@@ -20,7 +19,7 @@ header.header
           .header__brandingAuthor by Fabernovel
 
       //- Desktop navigation
-      +navigation().is-hidden-mobile
+      +navigation.is-hidden-mobile
 
       //- Mobile sidebar
-      +navigation().-isSidebar.is-hidden-tablet
+      +navigation.-isSidebar.is-hidden-tablet
