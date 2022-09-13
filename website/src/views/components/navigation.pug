@@ -1,4 +1,4 @@
-mixin navigation()
+mixin navigation
   -
     const menu = [
       { label: 'Heart', route: '#in-few-words' },
@@ -7,16 +7,16 @@ mixin navigation()
       { icon: 'gitlab', route: 'https://gitlab.com/fabernovel/heart/', blank: true }
     ]
 
-  nav.header__navigation(aria-label='navigation')&attributes(attributes)
+  nav.header__navigation(aria-label="navigation")&attributes(attributes)
     ul.header__navigationList
       each item, index in menu
         li.header__navigationItem
           - const linkHeaderAttributes = {}
           if item.blank
-            - linkHeaderAttributes.target = '_blank'
-            - linkHeaderAttributes.rel = 'noreferrer'
+            - linkHeaderAttributes.target = "_blank"
+            - linkHeaderAttributes.rel = "noreferrer"
           a.header__navigationLink(href=item.route)&attributes(linkHeaderAttributes)
             if item.icon
               +svg(item.icon)
             else
-              span=item.label
+              span= item.label

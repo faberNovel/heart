@@ -4,39 +4,42 @@ include views/components/all.pug
 include views/components/navigation.pug
 
 doctype html
-html(lang='en')
+html(lang="en")
   head
-    meta(charset='utf-8')
-    meta(name='viewport', content='width=device-width, initial-scale=1')
+    meta(charset="utf-8")
+    meta(name="viewport", content="width=device-width, initial-scale=1")
 
     title Heart
-    meta(name='description', content='A tool that automates the web quality measurements')
+    meta(name="description", content="A tool that automates the web quality measurements")
 
     //- Open Graph metadata
-    meta(property='og:type' content='website')
-    meta(property='og:title' content='Heart')
-    meta(property='og:description' content='A tool that automates the web quality measurements')
-    meta(property='og:url' content='https://heart.fabernovel.com')
-    meta(property='og:image' content='https://heart.fabernovel.com/heart-ecosystem.png')
-    meta(property='og:image:alt' content='Third-party services compatible with Heart, symbolized by microprocessors. They are all connected to the main microprocessor, which is Heart\'s.')
-    meta(property='og:image:type' content='image/png')
-    meta(property='og:image:width' content='622')
-    meta(property='og:image:height' content='395')
+    meta(property="og:type", content="website")
+    meta(property="og:title", content="Heart")
+    meta(property="og:description", content="A tool that automates the web quality measurements")
+    meta(property="og:url", content="https://heart.fabernovel.com")
+    meta(property="og:image", content="https://heart.fabernovel.com/heart-ecosystem.png")
+    meta(
+      property="og:image:alt",
+      content="Third-party services compatible with Heart, symbolized by microprocessors. They are all connected to the main microprocessor, which is Heart's."
+    )
+    meta(property="og:image:type", content="image/png")
+    meta(property="og:image:width", content="622")
+    meta(property="og:image:height", content="395")
 
     //- Favicons
-    link(rel='apple-touch-icon', sizes='180x180', href='../static/apple-touch-icon.png')
-    link(rel='icon', type='image/png', sizes='32x32', href='../static/favicon-32x32.png')
-    link(rel='icon', type='image/png', sizes='16x16', href='../static/favicon-16x16.png')
-    link(rel='manifest', href='../static/site.webmanifest')
-    link(rel='mask-icon', href='../static/safari-pinned-tab.svg', color='#541d62')
-    meta(name='msapplication-TileColor', content='#541d62')
-    meta(name='theme-color', content='#541d62')
+    link(rel="apple-touch-icon", sizes="180x180", href="../static/apple-touch-icon.png")
+    link(rel="icon", type="image/png", sizes="32x32", href="../static/favicon-32x32.png")
+    link(rel="icon", type="image/png", sizes="16x16", href="../static/favicon-16x16.png")
+    link(rel="manifest", href="../static/site.webmanifest")
+    link(rel="mask-icon", href="../static/safari-pinned-tab.svg", color="#541d62")
+    meta(name="msapplication-TileColor", content="#541d62")
+    meta(name="theme-color", content="#541d62")
 
     //- https://humanstxt.org/
-    link(type='text/plain' rel='author' href='../static/humans.txt')
+    link(type="text/plain", rel="author", href="../static/humans.txt")
 
-    link(rel='stylesheet', href='styles/main.scss')
-    script(defer, src='/scripts/main.ts')
+    link(rel="stylesheet", href="styles/main.scss")
+    script(defer, src="/scripts/main.ts")
   body
     include views/core/header.pug
     include views/sections/introduction.pug

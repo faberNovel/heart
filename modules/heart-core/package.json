@@ -14,14 +14,14 @@
   "contributors": [
     "Bastien Gatellier <bastien.gatellier@fabernovel.com>"
   ],
-  "files": [
-    "lib/**/*"
-  ],
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
   "directories": {
     "lib": "lib"
   },
+  "files": [
+    "lib/**/*"
+  ],
   "scripts": {
     "build": "rimraf lib && tsc --project tsconfig.build.json",
     "build:watch": "npm run build --watch",
@@ -29,12 +29,9 @@
     "prepublishOnly": "npm run build",
     "test": "jest --silent"
   },
-  "engines": {
-    "node": ">=14.17.0"
-  },
   "dependencies": {
-    "node-fetch": "^2.6.0",
-    "lodash": "^4.17.21"
+    "lodash": "^4.17.21",
+    "node-fetch": "^2.6.0"
   },
   "devDependencies": {
     "@types/cors": "^2.8.12",
@@ -45,9 +42,12 @@
     "@typescript-eslint/eslint-plugin": "^5.32.0",
     "@typescript-eslint/parser": "^5.32.0",
     "eslint": "^8.16.0",
-    "rimraf": "^3.0.2",
     "jest": "^28.1.0",
+    "rimraf": "^3.0.2",
     "ts-jest": "^28.0.2",
     "typescript": "^4.6.4"
+  },
+  "engines": {
+    "node": ">=14.17.0"
   }
 }

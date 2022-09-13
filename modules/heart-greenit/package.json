@@ -2,6 +2,11 @@
   "name": "@fabernovel/heart-greenit",
   "version": "3.0.0",
   "description": "Analysis module of Heart, which analyses URLs with GreenIT",
+  "keywords": [
+    "greenit",
+    "ecoindex",
+    "ecometer"
+  ],
   "homepage": "https://heart.fabernovel.com",
   "bugs": {
     "url": "https://gitlab.com/fabernovel/heart/issues"
@@ -16,14 +21,14 @@
     "Florian Nguyen <florian.nguyen@fabernovel.com>",
     "Bastien Gatellier <bastien.gatellier@fabernovel.com>"
   ],
-  "files": [
-    "lib/**/*"
-  ],
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
   "directories": {
     "lib": "lib"
   },
+  "files": [
+    "lib/**/*"
+  ],
   "scripts": {
     "build": "rimraf lib && tsc --project tsconfig.build.json",
     "build:watch": "npm run build --watch",
@@ -31,13 +36,11 @@
     "prepublishOnly": "npm run build",
     "test": "jest --silent"
   },
-  "keywords": [
-    "greenit",
-    "ecoindex",
-    "ecometer"
-  ],
-  "engines": {
-    "node": ">=14.17.0"
+  "dependencies": {
+    "@fabernovel/heart-core": "workspace:^3.2.0",
+    "greenit-cli": "github:cnumr/GreenIT-Analysis-cli#a4363a9bcf7630e4a5a4cd264a7da9ec6f34b571",
+    "puppeteer": "^5.5.0",
+    "rimraf": "^3.0.2"
   },
   "devDependencies": {
     "@types/jest": "^27.5.1",
@@ -54,10 +57,7 @@
   "peerDependencies": {
     "@fabernovel/heart-cli": "^3.2.0"
   },
-  "dependencies": {
-    "@fabernovel/heart-core": "workspace:^3.2.0",
-    "greenit-cli": "github:cnumr/GreenIT-Analysis-cli#a4363a9bcf7630e4a5a4cd264a7da9ec6f34b571",
-    "puppeteer": "^5.5.0",
-    "rimraf": "^3.0.2"
+  "engines": {
+    "node": ">=14.17.0"
   }
 }

@@ -38,12 +38,20 @@ mixin img
               srcSetSizeDefault.push(`${densitySizePrefix}.${ext} ${density}`)
 
           //- WebP must appear first before any extension
-          source(type= 'image/webp', srcset= srcSetSizeWebP.join(srcSetSeparator), media= '(max-width: ' + size + 'px)')
-          source(type= 'image/' + ext, srcset= srcSetSizeDefault.join(srcSetSeparator), media= '(max-width: ' + size + 'px)')
+          source(
+            type="image/webp",
+            srcset=srcSetSizeWebP.join(srcSetSeparator),
+            media="(max-width: " + size + "px)"
+          )
+          source(
+            type="image/" + ext,
+            srcset=srcSetSizeDefault.join(srcSetSeparator),
+            media="(max-width: " + size + "px)"
+          )
 
-      source(type= 'image/webp', srcset= srcSetWebP.join(srcSetSeparator))
+      source(type="image/webp", srcset=srcSetWebP.join(srcSetSeparator))
 
       //- Set the <img> tag fallback. First remove the unwanted attributes to use the simple &attributes(attributes) syntax.
       - attributes.sizes = undefined
       - attributes.densities = undefined
-      img(srcset= srcSetDefault.join(srcSetSeparator))&attributes(attributes)
+      img(srcset=srcSetDefault.join(srcSetSeparator))&attributes(attributes)
