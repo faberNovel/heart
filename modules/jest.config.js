@@ -14,9 +14,7 @@ module.exports = {
    * An array of glob patterns indicating a set of files for which coverage information should be collected.
    * If a file matches the specified glob pattern, coverage information will be collected for it even if no tests exist for this file and it's never required in the test suite.
    */
-  collectCoverageFrom: [
-    "src/**/*",
-  ],
+  collectCoverageFrom: ["src/**/*"],
 
   /**
    * A list of reporter names that Jest uses when writing coverage reports. Any istanbul reporter can be used.
@@ -28,4 +26,4 @@ module.exports = {
    * A preset should point to an npm module that has a jest-preset.json, jest-preset.js, jest-preset.cjs or jest-preset.mjs file at the root.
    */
   preset: "ts-jest/presets/default",
-};
+}

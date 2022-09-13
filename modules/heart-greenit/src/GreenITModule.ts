@@ -4,30 +4,28 @@ import {
   ModuleInterface,
   Report,
   ThresholdInputObject,
-} from '@fabernovel/heart-core';
+} from "@fabernovel/heart-core"
 
-import { runAnalysis } from './api/Client';
-import { Result } from './api/model/Result';
-import { GreenITConfig } from './config/Config';
+import { runAnalysis } from "./api/Client"
+import { Result } from "./api/model/Result"
+import { GreenITConfig } from "./config/Config"
 
-export class GreenITModule
-  extends Module
-  implements ModuleAnalysisInterface<GreenITConfig> {
-  private thresholds?: ThresholdInputObject;
+export class GreenITModule extends Module implements ModuleAnalysisInterface<GreenITConfig> {
+  private thresholds?: ThresholdInputObject
 
-  constructor(module: Omit<ModuleInterface, 'id'>) {
-    super(module);
+  constructor(module: Omit<ModuleInterface, "id">) {
+    super(module)
   }
 
   public async startAnalysis(conf: GreenITConfig, thresholds?: ThresholdInputObject): Promise<Report> {
     this.thresholds = thresholds
 
-    const result = await runAnalysis(conf);
+    const result = await runAnalysis(conf)
 
     if (!result.success) {
-      throw new Error('Error during GreenIT analysis');
+      throw new Error("Error during GreenIT analysis")
     } else {
-      return this.handleResults(result);
+      return this.handleResults(result)
     }
   }
 
@@ -37,7 +35,7 @@ export class GreenITModule
       date: new Date(results.date),
       note: results.ecoIndex.toString(),
       service: this.service,
-      thresholds: this.thresholds
-    });
+      thresholds: this.thresholds,
+    })
   }
 }

@@ -1,47 +1,56 @@
-import { Helper, Module, ModuleAnalysisInterface, ModuleInterface, Report, ThresholdInputObject } from '@fabernovel/heart-core';
-import { Status } from './api/enum/Status';
-import {Host} from './api/model/Host';
-import {Client} from './api/Client';
-import { SsllabsServerConfig } from './config/Config';
+import {
+  Helper,
+  Module,
+  ModuleAnalysisInterface,
+  ModuleInterface,
+  Report,
+  ThresholdInputObject,
+} from "@fabernovel/heart-core"
+import { Status } from "./api/enum/Status"
+import { Host } from "./api/model/Host"
+import { Client } from "./api/Client"
+import { SsllabsServerConfig } from "./config/Config"
 
 export class SsllabsServerModule extends Module implements ModuleAnalysisInterface<SsllabsServerConfig> {
-  private static readonly MAX_TRIES = 100;
-  private static readonly TIME_BETWEEN_TRIES = 10000; // 10 seconds
-  private apiClient: Client;
-  private thresholds?: ThresholdInputObject;
+  private static readonly MAX_TRIES = 100
+  private static readonly TIME_BETWEEN_TRIES = 10000 // 10 seconds
+  private apiClient: Client
+  private thresholds?: ThresholdInputObject
 
-  constructor(module: Omit<ModuleInterface, 'id'>) {
-    super(module);
+  constructor(module: Omit<ModuleInterface, "id">) {
+    super(module)
 
-    this.apiClient = new Client();
+    this.apiClient = new Client()
   }
 
   public async startAnalysis(conf: SsllabsServerConfig, thresholds?: ThresholdInputObject): Promise<Report> {
-    this.thresholds = thresholds;
-    await this.apiClient.launchAnalysis(conf);
+    this.thresholds = thresholds
+    await this.apiClient.launchAnalysis(conf)
 
-    return this.requestReport();
+    return this.requestReport()
   }
 
   private async requestReport(triesQty = 1): Promise<Report> {
     if (triesQty > SsllabsServerModule.MAX_TRIES) {
-      throw new Error(`The maximum number of tries (${SsllabsServerModule.MAX_TRIES}) to retrieve the report has been reached.`);
+      throw new Error(
+        `The maximum number of tries (${SsllabsServerModule.MAX_TRIES}) to retrieve the report has been reached.`
+      )
     }
 
-    const host = await this.apiClient.getAnalysisReport();
+    const host = await this.apiClient.getAnalysisReport()
 
-    return this.handleRequestScan(host, triesQty);
+    return this.handleRequestScan(host, triesQty)
   }
 
   private async handleRequestScan(host: Host, triesQty: number): Promise<Report> {
     switch (host.status) {
       case Status.ERROR:
-        throw new Error(`${host.status}: ${host.statusMessage}`);
+        throw new Error(`${host.status}: ${host.statusMessage}`)
 
       case Status.DNS:
       case Status.IN_PROGRESS:
-        await Helper.timeout(SsllabsServerModule.TIME_BETWEEN_TRIES);
-        return this.requestReport(++triesQty);
+        await Helper.timeout(SsllabsServerModule.TIME_BETWEEN_TRIES)
+        return this.requestReport(++triesQty)
 
       case Status.READY:
         return new Report({
@@ -51,11 +60,11 @@ export class SsllabsServerModule extends Module implements ModuleAnalysisInterfa
           resultUrl: this.apiClient.getAnalyzeUrl(),
           date: new Date(host.startTime),
           service: this.service,
-          thresholds: this.thresholds
-        });
+          thresholds: this.thresholds,
+        })
 
       default:
-        throw new Error(host.statusMessage);
+        throw new Error(host.statusMessage)
     }
   }
 }

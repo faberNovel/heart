@@ -117,15 +117,15 @@
       position: relative;
       width: rem(24);
       height: rem(2);
-      transition: background-color .2s ease-out;
+      transition: background-color 0.2s ease-out;
 
       &:before,
       &:after {
         position: absolute;
         width: 100%;
         height: 100%;
-        transition: all .2s ease-out;
-        content: '';
+        transition: all 0.2s ease-out;
+        content: "";
       }
 
       &,
@@ -167,7 +167,7 @@
       }
     }
 
-    &Link{
+    &Link {
       color: $white;
       font-weight: $weight-normal;
       font-size: rem(16);
@@ -177,12 +177,12 @@
       border-color: transparent;
       border-style: solid;
       border-width: 0 0 rem(2) 0;
-      transition: color .3s, border-color .3s;
+      transition: color 0.3s, border-color 0.3s;
 
       svg {
         width: rem(36);
         height: rem(33);
-        transition: opacity .3s;
+        transition: opacity 0.3s;
       }
 
       &:focus {
@@ -191,11 +191,11 @@
       }
 
       &:hover {
-        color: rgba($white, .6);
+        color: rgba($white, 0.6);
         text-decoration: none;
 
         svg {
-          opacity: .6;
+          opacity: 0.6;
         }
       }
     }
@@ -218,9 +218,9 @@
       align-items: center;
       justify-content: center;
       min-width: rem(260);
-      background: rgba($color-haiti, .9);
+      background: rgba($color-haiti, 0.9);
       transform: translateX(-150vw);
-      transition: transform .3s;
+      transition: transform 0.3s;
 
       #{$nav} {
         &Item {
@@ -244,7 +244,6 @@
           flex-direction: column;
         }
       }
-
     }
   }
 }

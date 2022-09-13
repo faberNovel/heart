@@ -1,14 +1,15 @@
 /*
 * Override Bulma variables
 */
-$grey-dark:     hsl(0, 0%, 33%);
-$grey:          hsl(0, 0%, 46%);
-$grey-light:    hsl(0, 0%, 67%);
-$grey-lighter:  hsl(0, 0%, 84%);
+$grey-dark: hsl(0, 0%, 33%);
+$grey: hsl(0, 0%, 46%);
+$grey-light: hsl(0, 0%, 67%);
+$grey-lighter: hsl(0, 0%, 84%);
 $grey-lightest: hsl(0, 0%, 97%);
 
-$family-sans-serif: "Source Sans Pro", BlinkMacSystemFont, -apple-system, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", "Helvetica", "Arial", sans-serif; // system font stack
-$family-monospace : courier, monospace; // font for code and samples
+$family-sans-serif: "Source Sans Pro", BlinkMacSystemFont, -apple-system, "Segoe UI", "Roboto", "Oxygen",
+  "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", "Helvetica", "Arial", sans-serif; // system font stack
+$family-monospace: courier, monospace; // font for code and samples
 $scheme-main: $grey-lightest;
 
 /*

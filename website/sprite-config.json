@@ -1,16 +1,16 @@
 {
   "dest": "src",
   "mode": {
-      "defs": {
-          "dest": ".",
-          "sprite": "assets/icons/sprite.svg",
-          "inline": true
-      }
+    "defs": {
+      "dest": ".",
+      "sprite": "assets/icons/sprite.svg",
+      "inline": true
+    }
   },
   "svg": {
     "rootAttributes": {
-        "xmlns": "http://www.w3.org/2000/svg",
-        "xmlns:xlink": "http://www.w3.org/1999/xlink"
+      "xmlns": "http://www.w3.org/2000/svg",
+      "xmlns:xlink": "http://www.w3.org/1999/xlink"
     }
   }
 }

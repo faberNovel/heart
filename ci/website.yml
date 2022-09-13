@@ -5,7 +5,7 @@
     # See the repository configuration for sensitive ones
     OBSERVATORY_API_URL: https://http-observatory.security.mozilla.org/api/v1/
     OBSERVATORY_ANALYZE_URL: https://observatory.mozilla.org/analyze/
-    SLACK_CHANNEL_ID: '#heart-ci'
+    SLACK_CHANNEL_ID: "#heart-ci"
   extends:
     - .on-schedule
   dependencies:
@@ -80,7 +80,6 @@
     - cd ci/conf
   script:
     - npx heart greenit --file greenit.json
-
 
 # This operation use artifacts created and stored during the "Build" job.
 # This speeds up this job by avoiding to execute additional operations on the repository (like Rush commands).

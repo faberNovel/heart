@@ -1,4 +1,4 @@
-'🚦 Coverage: Heart GreenIT':
+"🚦 Coverage: Heart GreenIT":
   extends:
     - .coverage
   script:

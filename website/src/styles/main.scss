@@ -23,12 +23,12 @@
 
 html {
   scroll-behavior: smooth;
-  background-repeat:  no-repeat;
+  background-repeat: no-repeat;
   background-position: top center;
   background-size: 100% rem(1210);
   @include background-responsive(
-    '../assets/images/background-purple',
-    'jpg',
+    "../assets/images/background-purple",
+    "jpg",
     (1600, 1366, 1024, 768, 640, 375)
   );
 

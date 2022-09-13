@@ -30,7 +30,7 @@
       border-radius: 50%;
       outline: 0;
       cursor: pointer;
-      transition: background-color .3s, box-shadow .6s;
+      transition: background-color 0.3s, box-shadow 0.6s;
       -webkit-appearance: none;
 
       &.-isActive {

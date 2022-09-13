@@ -7,7 +7,7 @@
   margin-top: rem(60);
 
   @include desktop-only() {
-    transform: scale(.9);
+    transform: scale(0.9);
   }
 
   &__analysisContainer {
@@ -34,7 +34,7 @@
     }
 
     @include touch {
-      left: - rem(13);
+      left: -rem(13);
     }
 
     &Number {
@@ -46,14 +46,14 @@
       transform: translateX(-50%);
 
       @include desktop {
-        top: - rem(12);
+        top: -rem(12);
         left: calc(50% + #{rem(4)});
       }
     }
   }
 
   &__column {
-    border-color: rgba($grey-lighter, .5);
+    border-color: rgba($grey-lighter, 0.5);
     border-style: dashed;
     border-width: rem(2) 0 0 0;
 
@@ -109,14 +109,14 @@
       &2,
       &3 {
         #{$root}__arrowNumber {
-          top: rem(73)
+          top: rem(73);
         }
       }
 
       &1,
       &4 {
         #{$root}__arrowNumber {
-          bottom: rem(76)
+          bottom: rem(76);
         }
       }
     }
@@ -126,14 +126,14 @@
     display: flex;
     flex-direction: column;
 
-     > * {
-       display: flex;
-       flex-direction: column;
-       align-items: center;
-       justify-content: center;
-     }
+    > * {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
 
-     @include desktop {
+    @include desktop {
       flex-direction: row;
     }
   }
@@ -179,7 +179,7 @@
     font-size: rem(20);
     background-color: $white;
     border-radius: rem(20);
-    box-shadow: 0 rem(4) rem(8) 0 rgba($grey-light, .5);
+    box-shadow: 0 rem(4) rem(8) 0 rgba($grey-light, 0.5);
 
     @include desktop {
       margin-top: rem(10);

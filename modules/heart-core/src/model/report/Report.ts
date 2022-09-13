@@ -1,10 +1,10 @@
-import {ServiceInterface} from '../service/ServiceInterface';
-import { validateAgainstThresholds } from '../threshold/validateAgainstThresholds';
-import { ThresholdInputObject, ThresholdOutputObject } from '../threshold/ReportThresholdObject';
+import { ServiceInterface } from "../service/ServiceInterface"
+import { validateAgainstThresholds } from "../threshold/validateAgainstThresholds"
+import { ThresholdInputObject, ThresholdOutputObject } from "../threshold/ReportThresholdObject"
 
-import {ReportInterface} from './ReportInterface';
+import { ReportInterface } from "./ReportInterface"
 
-type ReportParams = Omit<ReportInterface, 'normalizedNote'> & {
+type ReportParams = Omit<ReportInterface, "normalizedNote"> & {
   normalizedNote?: number
 }
 
@@ -15,16 +15,16 @@ type ReportParams = Omit<ReportInterface, 'normalizedNote'> & {
  * Be very careful if you change the Report class structure, as it could have an impact on every Heart module.
  */
 export class Report implements ReportInterface {
-  analyzedUrl: string;
-  date: Date;
-  note: string;
-  normalizedNote: number;
-  resultUrl?: string;
-  service: ServiceInterface;
+  analyzedUrl: string
+  date: Date
+  note: string
+  normalizedNote: number
+  resultUrl?: string
+  service: ServiceInterface
 
-  thresholds?: ThresholdInputObject;
-  thresholdsResults?: ThresholdOutputObject;
-  areThresholdsReached?: boolean;
+  thresholds?: ThresholdInputObject
+  thresholdsResults?: ThresholdOutputObject
+  areThresholdsReached?: boolean
 
   constructor(report: ReportParams) {
     this.analyzedUrl = report.analyzedUrl
@@ -34,12 +34,12 @@ export class Report implements ReportInterface {
     this.resultUrl = report.resultUrl
     this.service = report.service
 
-    this.thresholds = report.thresholds;
+    this.thresholds = report.thresholds
     if (this.thresholds && Object.keys(this.thresholds).length > 0) {
-      const { areThresholdsReached , results } = validateAgainstThresholds(this, this.thresholds);
+      const { areThresholdsReached, results } = validateAgainstThresholds(this, this.thresholds)
 
-      this.areThresholdsReached = areThresholdsReached ;
-      this.thresholdsResults = results;
+      this.areThresholdsReached = areThresholdsReached
+      this.thresholdsResults = results
     }
   }
 }

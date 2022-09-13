@@ -2,9 +2,6 @@
   "$schema": "http://json.schemastore.org/tsconfig",
 
   "extends": "../tsconfig.json",
-  
-  "include": [
-    "src/**/*.ts",
-    "tests/**/*.ts"
-  ]
+
+  "include": ["src/**/*.ts", "tests/**/*.ts"]
 }

@@ -1,19 +1,19 @@
 {
-    "name": "Heart",
-    "short_name": "Heart",
-    "icons": [
-        {
-            "src": "../static/android-chrome-192x192.png",
-            "sizes": "192x192",
-            "type": "image/png"
-        },
-        {
-            "src": "../static/android-chrome-512x512.png",
-            "sizes": "512x512",
-            "type": "image/png"
-        }
-    ],
-    "theme_color": "#541d62",
-    "background_color": "#541d62",
-    "display": "standalone"
+  "name": "Heart",
+  "short_name": "Heart",
+  "icons": [
+    {
+      "src": "../static/android-chrome-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "../static/android-chrome-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ],
+  "theme_color": "#541d62",
+  "background_color": "#541d62",
+  "display": "standalone"
 }

@@ -1,3 +1,3 @@
 export type Config = {
-    [key: string]: unknown
+  [key: string]: unknown
 }

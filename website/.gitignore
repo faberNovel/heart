@@ -1,8 +1,2 @@
-# Firebase
-.firebase
-
-# Parcel files
-.cache
-
 # sprite
 src/assets/icons/sprite.svg

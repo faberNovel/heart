@@ -1,9 +1,9 @@
-import {SsllabsServerModule} from './SsllabsServerModule.js';
+import { SsllabsServerModule } from "./SsllabsServerModule.js"
 
 export default new SsllabsServerModule({
-  name: 'Heart SSL Labs Server',
+  name: "Heart SSL Labs Server",
   service: {
-    name: 'Qualys SSL Labs Server',
-    logo: 'https://gitlab.com/fabernovel/heart/raw/master/assets/images/logos/SSLLabs.png?v=20190723'
-  }
-});
+    name: "Qualys SSL Labs Server",
+    logo: "https://gitlab.com/fabernovel/heart/raw/master/assets/images/logos/SSLLabs.png?v=20190723",
+  },
+})

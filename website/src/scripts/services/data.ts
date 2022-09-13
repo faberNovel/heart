@@ -1,11 +1,11 @@
-import { Breakpoint } from '../models/breakpoint';
-import { Slider } from '../components/slider';
+import { Breakpoint } from "../models/breakpoint"
+import { Slider } from "../components/slider"
 
 export class DataService {
-  private static instance: DataService;
+  private static instance: DataService
 
-  #sliders: Slider[] = [];
-  #currentBreakpoint: Breakpoint;
+  #sliders: Slider[] = []
+  #currentBreakpoint: Breakpoint
 
   /**
    * The static method that controls the access to the DataService instance (singleton).
@@ -15,25 +15,25 @@ export class DataService {
    */
   public static getInstance(): DataService {
     if (!DataService.instance) {
-      DataService.instance = new DataService();
+      DataService.instance = new DataService()
     }
 
-    return DataService.instance;
+    return DataService.instance
   }
 
   get currentBreakpoint(): Breakpoint {
-    return this.#currentBreakpoint;
+    return this.#currentBreakpoint
   }
 
   set currentBreakpoint(breakpoint: Breakpoint) {
-    this.#currentBreakpoint = breakpoint;
+    this.#currentBreakpoint = breakpoint
   }
 
   get sliders(): Slider[] {
-    return this.#sliders;
+    return this.#sliders
   }
 
   set sliders(sliders: Slider[]) {
-    this.#sliders = sliders;
+    this.#sliders = sliders
   }
 }

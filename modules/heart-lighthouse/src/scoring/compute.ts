@@ -14,13 +14,20 @@ export const compute = (categories: Record<string, Result.Category>, fractionDig
  */
 function computeCategories(categories: Record<string, Result.Category>): number {
   const categoriesName = Object.keys(categories)
-  const categoriesNameWithScore = categoriesName.filter((categoryName) => null !== categories[categoryName].score)
+  const categoriesNameWithScore = categoriesName.filter(
+    (categoryName) => null !== categories[categoryName].score
+  )
 
   if (categoriesName.length > categoriesNameWithScore.length) {
-    console.warn(`Some Lighthouse categories does not have a score. Consequently, they will not be taken into account for the computation of the average score.`)
+    console.warn(
+      `Some Lighthouse categories does not have a score. Consequently, they will not be taken into account for the computation of the average score.`
+    )
   }
 
-  const sumScores = categoriesNameWithScore.reduce((acc, categoryName) => acc + (categories[categoryName].score as number), 0)
+  const sumScores = categoriesNameWithScore.reduce(
+    (acc, categoryName) => acc + (categories[categoryName].score as number),
+    0
+  )
 
   return sumScores / categoriesName.length
 }

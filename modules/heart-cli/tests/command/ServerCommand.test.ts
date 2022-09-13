@@ -1,27 +1,27 @@
-import { ModuleServerInterface } from '@fabernovel/heart-core';
-import { Command } from 'commander'
-import { createServer } from 'http';
-import {ServerCommand} from '../../src/command/ServerCommand';
+import { ModuleServerInterface } from "@fabernovel/heart-core"
+import { Command } from "commander"
+import { createServer } from "http"
+import { ServerCommand } from "../../src/command/ServerCommand"
 
-test('Create a server command', () => {
+test("Create a server command", () => {
   const module: ModuleServerInterface = {
-    id: 'test-server',
-    name: 'Heart Test Server',
+    id: "test-server",
+    name: "Heart Test Server",
     service: {
-      name: 'Test Server'
+      name: "Test Server",
     },
-    startServer: () => createServer()
-  };
+    startServer: () => createServer(),
+  }
 
   const optionCors = '{"origin":"http://127.0..0.1:8080/"}'
-  const optionPort = '3000'
+  const optionPort = "3000"
 
   const program = new Command()
 
   // eslint-disable-next-line @typescript-eslint/no-empty-function
-  ServerCommand.create(program, module, () => {});
+  ServerCommand.create(program, module, () => {})
 
-  program.parse(['test-server', '--port', optionPort, '--cors', optionCors], { from: 'user' })
+  program.parse(["test-server", "--port", optionPort, "--cors", optionCors], { from: "user" })
 
   expect(program.commands).toHaveLength(1)
 
@@ -32,6 +32,6 @@ test('Create a server command', () => {
 
   expect(command.name()).toBe(module.id)
   expect(Object.keys(options)).toHaveLength(2)
-  expect(options).toHaveProperty('port', optionPort)
-  expect(options).toHaveProperty('cors', JSON.parse(optionCors))
-});
+  expect(options).toHaveProperty("port", optionPort)
+  expect(options).toHaveProperty("cors", JSON.parse(optionCors))
+})

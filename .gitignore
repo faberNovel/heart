@@ -28,3 +28,9 @@ common/autoinstallers/*/.npmrc
 
 # Visual Studio Code
 .vscode
+
+# Firebase
+.firebase
+
+# Parcel files
+.cache

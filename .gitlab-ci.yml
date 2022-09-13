@@ -2,26 +2,26 @@ variables:
   # Use a The Personal Access Token to allow write operations on the repository from the CI,
   # as the $CI_JOB_TOKEN only allows read operations.
   # The Personal Access Token is the password, and the login is the Gitlab username to which the token is linked.
-  RUSHJSON_REPOSITORY_URL_CI: 'https://bgatellier:$GITLAB_CI_TOKEN@$CI_SERVER_HOST/$CI_PROJECT_PATH.git'
+  RUSHJSON_REPOSITORY_URL_CI: "https://bgatellier:$GITLAB_CI_TOKEN@$CI_SERVER_HOST/$CI_PROJECT_PATH.git"
 
 default:
   # The version must match the minimum version declared in rush.json
   image: node:14
 
 include:
-  - local: 'ci/utils/base-job.yml'
-  - local: 'ci/utils/condition.yml'
-  - local: 'ci/modules/heart-api.yml'
-  - local: 'ci/modules/heart-bigquery.yml'
-  - local: 'ci/modules/heart-cli.yml'
-  - local: 'ci/modules/heart-core.yml'
-  - local: 'ci/modules/heart-dareboost.yml'
-  - local: 'ci/modules/heart-lighthouse.yml'
-  - local: 'ci/modules/heart-observatory.yml'
-  - local: 'ci/modules/heart-greenit.yml'
-  - local: 'ci/modules/heart-slack.yml'
-  - local: 'ci/modules/heart-ssllabs-server.yml'
-  - local: 'ci/website.yml'
+  - local: "ci/utils/base-job.yml"
+  - local: "ci/utils/condition.yml"
+  - local: "ci/modules/heart-api.yml"
+  - local: "ci/modules/heart-bigquery.yml"
+  - local: "ci/modules/heart-cli.yml"
+  - local: "ci/modules/heart-core.yml"
+  - local: "ci/modules/heart-dareboost.yml"
+  - local: "ci/modules/heart-lighthouse.yml"
+  - local: "ci/modules/heart-observatory.yml"
+  - local: "ci/modules/heart-greenit.yml"
+  - local: "ci/modules/heart-slack.yml"
+  - local: "ci/modules/heart-ssllabs-server.yml"
+  - local: "ci/website.yml"
 
 🏗 Build:
   extends:

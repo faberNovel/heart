@@ -34,7 +34,7 @@
     paths:
       - common/temp/node_modules/.pnpm
   variables:
-    RUSHJSON_REPOSITORY_URL_LOCAL: 'git@$CI_SERVER_HOST:$CI_PROJECT_PATH.git'
+    RUSHJSON_REPOSITORY_URL_LOCAL: "git@$CI_SERVER_HOST:$CI_PROJECT_PATH.git"
   before_script:
     # Update the rush.json repository url with the one used by the CI, to make the rush commands works.
     # See https://rushjs.io/pages/configs/rush_json/

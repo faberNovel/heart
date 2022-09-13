@@ -1,10 +1,10 @@
 .footer {
-  background-repeat:  no-repeat;
+  background-repeat: no-repeat;
   background-position: top center;
   background-size: cover;
   @include background-responsive(
-    '../assets/images/galaxy-background',
-    'jpg',
+    "../assets/images/galaxy-background",
+    "jpg",
     (1600, 1366, 1024, 768, 640, 375)
   );
 
@@ -31,10 +31,10 @@
     font-weight: $weight-light;
     font-size: rem(18);
     line-height: 2.22;
-    transition: color .3s;
+    transition: color 0.3s;
 
     &:hover {
-      color: rgba($white, .6);
+      color: rgba($white, 0.6);
     }
   }
 

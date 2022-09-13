@@ -1,11 +1,7 @@
 {
   "hosting": {
     "public": "dist",
-    "ignore": [
-      "firebase.json",
-      "**/.*",
-      "**/node_modules/**"
-    ],
+    "ignore": ["firebase.json", "**/.*", "**/node_modules/**"],
     "headers": [
       /**
        * Security headers
@@ -37,10 +33,12 @@
       },
       {
         "source": "**",
-        "headers": [{
-          "key": "X-Content-Type-Options",
-          "value": "nosniff"
-        }]
+        "headers": [
+          {
+            "key": "X-Content-Type-Options",
+            "value": "nosniff"
+          }
+        ]
       },
       /**
        * Cache-Control headers for static files
@@ -48,17 +46,21 @@
        **/
       {
         "source": "**/*.@(css|js)",
-        "headers": [{
-          "key": "Cache-Control",
-          "value": "public, max-age=31536000"
-        }]
+        "headers": [
+          {
+            "key": "Cache-Control",
+            "value": "public, max-age=31536000"
+          }
+        ]
       },
       {
         "source": "**/*.@(jpg|png|svg|webp|woff|woff2)",
-        "headers": [{
-          "key": "Cache-Control",
-          "value": "public, max-age=2592000"
-        }]
+        "headers": [
+          {
+            "key": "Cache-Control",
+            "value": "public, max-age=2592000"
+          }
+        ]
       }
     ],
     "rewrites": [

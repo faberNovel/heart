@@ -1,26 +1,26 @@
-import { Report } from '@fabernovel/heart-core';
-import { BigQueryDatetime } from '@google-cloud/bigquery';
+import { Report } from "@fabernovel/heart-core"
+import { BigQueryDatetime } from "@google-cloud/bigquery"
 
-import {RecordRanking} from './RecordRanking';
-import {RecordService} from './RecordService';
-import {RecordThreshold} from './RecordThreshold';
-import {RecordUrl} from './RecordUrl';
+import { RecordRanking } from "./RecordRanking"
+import { RecordService } from "./RecordService"
+import { RecordThreshold } from "./RecordThreshold"
+import { RecordUrl } from "./RecordUrl"
 
 /**
  * Representation of a Report object in BigQuery
  */
 export class RowReport {
-  public date: BigQueryDatetime;
-  public ranking: RecordRanking;
-  public service: RecordService;
-  public url: RecordUrl;
+  public date: BigQueryDatetime
+  public ranking: RecordRanking
+  public service: RecordService
+  public url: RecordUrl
   public areThresholdsReached: RecordThreshold
 
   constructor(report: Report) {
-    this.date = new BigQueryDatetime(report.date.toISOString());
-    this.ranking = new RecordRanking(report.note, Math.round(report.normalizedNote));
-    this.service = new RecordService(report.service.name);
-    this.url = new RecordUrl(report.analyzedUrl, report.resultUrl);
+    this.date = new BigQueryDatetime(report.date.toISOString())
+    this.ranking = new RecordRanking(report.note, Math.round(report.normalizedNote))
+    this.service = new RecordService(report.service.name)
+    this.url = new RecordUrl(report.analyzedUrl, report.resultUrl)
     this.areThresholdsReached = new RecordThreshold(report.areThresholdsReached)
   }
 }
