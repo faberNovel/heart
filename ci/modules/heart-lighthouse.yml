@@ -1,4 +1,4 @@
-'🚦 Coverage: Heart Lighthouse':
+"🚦 Coverage: Heart Lighthouse":
   extends:
     - .coverage
   script:

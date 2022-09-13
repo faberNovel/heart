@@ -1,41 +1,47 @@
-declare module 'greenit-cli/cli-core/analysis' {
-  import { SizeNames } from 'greenit-cli'
-  import { Browser, LoadEvent } from 'puppeteer'
-  
+declare module "greenit-cli/cli-core/analysis" {
+  import { SizeNames } from "greenit-cli"
+  import { Browser, LoadEvent } from "puppeteer"
+
   interface Action {
-    type: 'click' | 'text' | 'select' | 'scroll',
-    element: string,
-    content: unknown,
+    type: "click" | "text" | "select" | "scroll"
+    element: string
+    content: unknown
     timeoutBefore: number
     values: unknown
   }
-  
+
   interface PageInformation {
-    url: string,
-    screenshot?: string,
-    actions?: Action[] | { screenshot: string },
-    waitForSelector?: string,
-    waitForXPath?: string,
+    url: string
+    screenshot?: string
+    actions?: Action[] | { screenshot: string }
+    waitForSelector?: string
+    waitForXPath?: string
     waitForNavigation?: LoadEvent | LoadEvent[] | undefined
   }
-  
+
   interface Options {
-    timeout?: number,
-    max_tab?: number,
-    retry?: number,
-    device?: SizeNames,
+    timeout?: number
+    max_tab?: number
+    retry?: number
+    device?: SizeNames
     ci?: boolean
   }
-  
+
   interface Proxy {
-    user: string,
+    user: string
     password: string
   }
-  
+
   interface Report {
-    name: string,
+    name: string
     path: string
   }
-  
-  export function createJsonReports(browser: Browser, pagesInformations: PageInformation[], options: Options, proxy?: Proxy, headers?: Record<string, string>): Promise<Report[]>
+
+  export function createJsonReports(
+    browser: Browser,
+    pagesInformations: PageInformation[],
+    options: Options,
+    proxy?: Proxy,
+    headers?: Record<string, string>
+  ): Promise<Report[]>
 }

@@ -1,104 +1,103 @@
-import { Request } from '@fabernovel/heart-core';
-import { mocked } from 'jest-mock';
+import { Request } from "@fabernovel/heart-core"
+import { mocked } from "jest-mock"
 
-import {AnalysisResponseInterface} from '../../src/api/model/AnalysisResponseInterface';
-import {ReportResponseInterface} from '../../src/api/model/ReportResponseInterface';
-import {Client} from '../../src/api/Client';
+import { AnalysisResponseInterface } from "../../src/api/model/AnalysisResponseInterface"
+import { ReportResponseInterface } from "../../src/api/model/ReportResponseInterface"
+import { Client } from "../../src/api/Client"
 
+jest.mock("@fabernovel/heart-core")
+const mockedRequest = mocked(Request, true)
 
-jest.mock('@fabernovel/heart-core');
-const mockedRequest = mocked(Request, true);
-
-describe('Launch analysis', () => {
+describe("Launch analysis", () => {
   const ANALYSIS: AnalysisResponseInterface = {
-    status: '',
-    message: '',
-    reportId: ''
-  };
+    status: "",
+    message: "",
+    reportId: "",
+  }
 
-  it('should launch an analysis', async () => {
-    const CONF = { url: 'www.website.test' };
-    mockedRequest.post.mockResolvedValue(ANALYSIS);
+  it("should launch an analysis", async () => {
+    const CONF = { url: "www.website.test" }
+    mockedRequest.post.mockResolvedValue(ANALYSIS)
 
-    const client = new Client();
-    const scan = await client.launchAnalysis(CONF);
+    const client = new Client()
+    const scan = await client.launchAnalysis(CONF)
 
-    expect(scan).toStrictEqual(ANALYSIS);
-  });
-});
+    expect(scan).toStrictEqual(ANALYSIS)
+  })
+})
 
-describe('Get anaysis report', () => {
+describe("Get anaysis report", () => {
   const REPORT: ReportResponseInterface = {
     status: 0,
-    message: '',
+    message: "",
     missing: [],
     report: {
-      publicReportUrl: '',
-      harFileUrl: '',
+      publicReportUrl: "",
+      harFileUrl: "",
       date: 0,
-      url: '',
-      lang: '',
+      url: "",
+      lang: "",
       config: {
-        location: '',
+        location: "",
         browser: {
-          name: '',
-          version: ''
+          name: "",
+          version: "",
         },
         isMobile: true,
         bandwidth: {
           upstream: 0,
-          downstream: 0
+          downstream: 0,
         },
         latency: 0,
         isPrivate: true,
         screen: {
           height: 800,
-          width: 600
+          width: 600,
         },
         basicAuth: {
-          user: '',
-          password: ''
+          user: "",
+          password: "",
         },
         postData: [
           {
-            key: '',
-            value: ''
-          }
+            key: "",
+            value: "",
+          },
         ],
         header: [
           {
-            key: '',
-            value: ''
-          }
+            key: "",
+            value: "",
+          },
         ],
         blacklist: [],
         whiteList: [],
         dnsMapping: [
           {
-            origin: '',
-            destination: ''
-          }
-        ]
+            origin: "",
+            destination: "",
+          },
+        ],
       },
       summary: {
         loadTime: 0,
         score: 0,
         requestsCount: 0,
-        weight: 0
+        weight: 0,
       },
       categories: [
         {
-          name: '',
-        }
+          name: "",
+        },
       ],
       tips: [
         {
-          advice: '',
-          category: '',
+          advice: "",
+          category: "",
           score: 0,
-          name: '',
+          name: "",
           priority: 0,
-        }
+        },
       ],
       timings: {
         firstByte: 0,
@@ -112,27 +111,27 @@ describe('Get anaysis report', () => {
       },
       resourceByType: [
         {
-          type: '',
+          type: "",
           bodyWeight: 0,
           headerWeight: 0,
           requestCount: 0,
-        }
+        },
       ],
       technos: [
         {
-          name: '',
-          version: '',
-        }
-      ]
-    }
-  };
+          name: "",
+          version: "",
+        },
+      ],
+    },
+  }
 
-  it('should retrieve the analysis report', async () => {
-    mockedRequest.post.mockResolvedValue(REPORT);
+  it("should retrieve the analysis report", async () => {
+    mockedRequest.post.mockResolvedValue(REPORT)
 
-    const client = new Client();
-    const report = await client.getAnalysisReport('');
+    const client = new Client()
+    const report = await client.getAnalysisReport("")
 
-    expect(report).toStrictEqual(REPORT);
-  });
-});
+    expect(report).toStrictEqual(REPORT)
+  })
+})

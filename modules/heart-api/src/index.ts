@@ -1,8 +1,8 @@
-import {ApiModule} from './ApiModule';
+import { ApiModule } from "./ApiModule"
 
 export default new ApiModule({
-  name: 'Heart API',
+  name: "Heart API",
   service: {
-    name: 'Heart API'
-  }
-});
+    name: "Heart API",
+  },
+})

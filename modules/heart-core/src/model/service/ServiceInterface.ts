@@ -6,10 +6,10 @@ export interface ServiceInterface {
   /**
    * Example: Mozilla Observatory
    */
-  readonly name: string;
+  readonly name: string
 
   /**
    * Public url to the logo
    */
-  readonly logo?: string;
+  readonly logo?: string
 }

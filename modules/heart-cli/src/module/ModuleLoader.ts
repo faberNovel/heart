@@ -1,20 +1,26 @@
-import { isModuleAnalysis, isModuleListener, isModuleServer, ModuleIndex, ModuleInterface } from '@fabernovel/heart-core';
-import * as dotenv from 'dotenv';
-import { readFileSync } from 'fs'
-import { PackageJson } from 'type-fest'
-import {MissingEnvironmentVariables} from '../error/MissingEnvironmentVariables';
+import {
+  isModuleAnalysis,
+  isModuleListener,
+  isModuleServer,
+  ModuleIndex,
+  ModuleInterface,
+} from "@fabernovel/heart-core"
+import * as dotenv from "dotenv"
+import { readFileSync } from "fs"
+import { PackageJson } from "type-fest"
+import { MissingEnvironmentVariables } from "../error/MissingEnvironmentVariables"
 
 export class ModuleLoader {
   // file that contains the list of required environment variables
-  private readonly ENVIRONMENT_VARIABLE_MODEL = '.env.sample';
-  private readonly PACKAGE_PREFIX = '@fabernovel/heart-';
+  private readonly ENVIRONMENT_VARIABLE_MODEL = ".env.sample"
+  private readonly PACKAGE_PREFIX = "@fabernovel/heart-"
   // assume that the root path is the one from where the script has been called
   // /!\ this approach does not follow symlink
-  private readonly ROOT_PATH = process.cwd();
-  private readonly debug: boolean;
+  private readonly ROOT_PATH = process.cwd()
+  private readonly debug: boolean
 
   constructor(debug = false) {
-    this.debug = debug;
+    this.debug = debug
   }
 
   /**
@@ -28,90 +34,95 @@ export class ModuleLoader {
       // retrieve the paths of @fabernovel/heart-* modules, except heart-cli and heart-core.
       // (Heart Core must not be installed as an npm package, but who knows ¯\_(ツ)_/¯)
       // paths are guessed according to the content of the package.json
-      const modulesPaths = await this.getPaths(new RegExp(`^${this.PACKAGE_PREFIX}(?!cli|core)`), `${this.ROOT_PATH}/package.json`);
+      const modulesPaths = await this.getPaths(
+        new RegExp(`^${this.PACKAGE_PREFIX}(?!cli|core)`),
+        `${this.ROOT_PATH}/package.json`
+      )
 
       if (modulesPaths.length > 0) {
         if (this.debug) {
-          console.log('Checking missing environment variables...');
+          console.log("Checking missing environment variables...")
         }
 
         // check if environment variables are missing,
         // according to the .env.sample of the loaded modules
-        const missingEnvironmentVariables = this.loadEnvironmentVariables(modulesPaths);
+        const missingEnvironmentVariables = this.loadEnvironmentVariables(modulesPaths)
 
         if (missingEnvironmentVariables.length > 0) {
-          throw new MissingEnvironmentVariables(missingEnvironmentVariables);
+          throw new MissingEnvironmentVariables(missingEnvironmentVariables)
         }
       }
 
-      return this.loadModules(modulesPaths);
+      return this.loadModules(modulesPaths)
     } catch (error) {
-      return Promise.reject(error);
+      return Promise.reject(error)
     }
   }
 
   /**
    * Load environment variables for the given loaded modules.
-   * 
+   *
    * @returns The environment variables names that are missing
    */
   private loadEnvironmentVariables(modulesPaths: string[]): string[] {
-    const missingEnvironmentVariables: string[] = [];
+    const missingEnvironmentVariables: string[] = []
 
     modulesPaths.forEach((modulePath: string) => {
       try {
         // load the .env.sample file from the module
         const requiredModuleDotenvVariables = Object.entries(
-          dotenv.parse(readFileSync(modulePath + this.ENVIRONMENT_VARIABLE_MODEL, 'utf8'))
-        );
-  
+          dotenv.parse(readFileSync(modulePath + this.ENVIRONMENT_VARIABLE_MODEL, "utf8"))
+        )
+
         // set variables if
         // not yet registered in process.env
         // and having a default value in .env.sample file,
         requiredModuleDotenvVariables.forEach(([variableName, defaultValue]) => {
-            if (!process.env[variableName] && defaultValue.length !== 0) {
-              process.env[variableName] = defaultValue;
-            }
-        });
-  
-        // get the environment variables names that are not registered in process.env
-        const missingModuleEnvironmentVariables = requiredModuleDotenvVariables.filter(([variableName]) => !process.env[variableName]).map(([variableName]) => variableName);
-  
-        // add the missing module dotenv variables to the missing list
-        missingEnvironmentVariables.push(...missingModuleEnvironmentVariables);
-      // eslint-disable-next-line no-empty
-      } catch (error) {}
-    });
+          if (!process.env[variableName] && defaultValue.length !== 0) {
+            process.env[variableName] = defaultValue
+          }
+        })
 
-    return missingEnvironmentVariables;
+        // get the environment variables names that are not registered in process.env
+        const missingModuleEnvironmentVariables = requiredModuleDotenvVariables
+          .filter(([variableName]) => !process.env[variableName])
+          .map(([variableName]) => variableName)
+
+        // add the missing module dotenv variables to the missing list
+        missingEnvironmentVariables.push(...missingModuleEnvironmentVariables)
+        // eslint-disable-next-line no-empty
+      } catch (error) {}
+    })
+
+    return missingEnvironmentVariables
   }
 
   /**
    * List the Heart modules root path, according to the modules defined in package.json that follows the given pattern.
    */
   private async getPaths(pattern: RegExp, packageJsonPath: string): Promise<string[]> {
-    const packageJson = await import(packageJsonPath).catch((error) => {
+    const packageJson = (await import(packageJsonPath).catch((error) => {
       if (this.debug) {
-        console.error(`package.json not found in ${this.ROOT_PATH}`);
+        console.error(`package.json not found in ${this.ROOT_PATH}`)
       }
 
       throw error
-    }) as PackageJson
+    })) as PackageJson
 
     // list the modules according to the given pattern
     // look into the 'dependencies' and 'devDependencies' keys
-    const modulesNames: string[] = [];
+    const modulesNames: string[] = []
 
-    if (undefined !== packageJson['dependencies']) {
-      Object.keys(packageJson['dependencies'])
+    if (undefined !== packageJson["dependencies"]) {
+      Object.keys(packageJson["dependencies"])
         // add the module name to the list if it is not already there and matches the pattern
         .filter((moduleName) => -1 === modulesNames.indexOf(moduleName) && pattern.test(moduleName))
         .forEach((moduleName: string) => {
           modulesNames.push(moduleName)
         })
     }
-    if (undefined !== packageJson['devDependencies']) {
-      Object.keys(packageJson['devDependencies'])
+    if (undefined !== packageJson["devDependencies"]) {
+      Object.keys(packageJson["devDependencies"])
         // add the module name to the list if it is not already there and matches the pattern
         .filter((moduleName) => -1 === modulesNames.indexOf(moduleName) && pattern.test(moduleName))
         .forEach((moduleName: string) => {
@@ -120,57 +131,62 @@ export class ModuleLoader {
     }
 
     // list the absolute path of each modules
-    const paths = modulesNames.map((moduleName: string) => `${this.ROOT_PATH}/node_modules/${moduleName}/`);
+    const paths = modulesNames.map((moduleName: string) => `${this.ROOT_PATH}/node_modules/${moduleName}/`)
 
     if (this.debug) {
-      paths.forEach((path: string) => console.log(`Looking for a module in ${path}`));
+      paths.forEach((path: string) => console.log(`Looking for a module in ${path}`))
     }
 
-    return paths;
+    return paths
   }
 
   /**
    * Load a list of modules according to their path.
    */
   private async loadModules(modulesPaths: string[]): Promise<ModuleInterface[]> {
-    const promises = [];
+    const promises = []
 
     // do not use the .forEach() method here instead of the for() loop,
     // because the 'await' keyword will not be available.
-    for (let i = 0 ; i < modulesPaths.length ; i++) {
-      const modulePath = modulesPaths[i];
+    for (let i = 0; i < modulesPaths.length; i++) {
+      const modulePath = modulesPaths[i]
 
       // read package.json file from the module to look for the module entry point
       // @see {@link https://docs.npmjs.com/files/package.json#main}
       try {
         if (this.debug) {
-          console.log('Loading module %s...', modulePath);
+          console.log("Loading module %s...", modulePath)
         }
 
-        const packageJson = await import(`${modulePath}package.json`) as Omit<PackageJson, 'name' |'main'> & {
-          name: NonNullable<PackageJson['name']>
-          main: NonNullable<PackageJson['main']>
-        };
-        const pkg = await import(modulePath + packageJson.main) as ModuleIndex;
-        const module = pkg.default;
+        const packageJson = (await import(`${modulePath}package.json`)) as Omit<
+          PackageJson,
+          "name" | "main"
+        > & {
+          name: NonNullable<PackageJson["name"]>
+          main: NonNullable<PackageJson["main"]>
+        }
+        const pkg = (await import(modulePath + packageJson.main)) as ModuleIndex
+        const module = pkg.default
 
         // only keep the modules that are compatible
         if (isModuleAnalysis(module) || isModuleListener(module) || isModuleServer(module)) {
           // guess the module id from the package name: take the string after the characters "@fabernovel/heart-"
-          const matches = (new RegExp(`^${this.PACKAGE_PREFIX}(.+)$`)).exec(packageJson.name);
+          const matches = new RegExp(`^${this.PACKAGE_PREFIX}(.+)$`).exec(packageJson.name)
 
           if (null === matches) {
-            console.error(`${packageJson.name} module not loaded because the name does not start with ${this.PACKAGE_PREFIX}.`);
+            console.error(
+              `${packageJson.name} module not loaded because the name does not start with ${this.PACKAGE_PREFIX}.`
+            )
           } else {
-            module.id = matches[1];
-            promises.push(module);
+            module.id = matches[1]
+            promises.push(module)
           }
         }
       } catch (error) {
-        console.error(error);
+        console.error(error)
       }
     }
 
-    return Promise.all(promises);
+    return Promise.all(promises)
   }
 }

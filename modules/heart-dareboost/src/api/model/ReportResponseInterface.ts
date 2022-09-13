@@ -2,100 +2,100 @@
  * @see {@link https://www.dareboost.com/fr/documentation-api#result}
  */
 export interface ReportResponseInterface {
-  status: number;
-  message: string;
-  missing: unknown[];
+  status: number
+  message: string
+  missing: unknown[]
   report: {
-    publicReportUrl: string;
-    harFileUrl: string;
-    date: number;
-    url: string;
-    lang: string;
+    publicReportUrl: string
+    harFileUrl: string
+    date: number
+    url: string
+    lang: string
     config: {
-      location: string;
+      location: string
       browser: {
-        name: string;
+        name: string
         version: string
-      },
-      isMobile: boolean;
+      }
+      isMobile: boolean
       bandwidth: {
-        upstream: number;
+        upstream: number
         downstream: number
-      },
+      }
       latency: number
-      isPrivate: boolean;
+      isPrivate: boolean
       screen: {
-        height: number;
-        width: number;
-      },
+        height: number
+        width: number
+      }
       basicAuth: {
-        user: string;
-        password: string;
-      },
+        user: string
+        password: string
+      }
       postData: [
         {
-          key: string,
-          value: string;
+          key: string
+          value: string
         }
-      ],
+      ]
       header: [
         {
-          key: string,
-          value: string;
+          key: string
+          value: string
         }
-      ],
-      blacklist: unknown[];
-      whiteList: unknown[];
+      ]
+      blacklist: unknown[]
+      whiteList: unknown[]
       dnsMapping: [
         {
-          origin: string,
+          origin: string
           destination: string
         }
       ]
-    },
+    }
     summary: {
-      loadTime: number;
-      score: number;
-      requestsCount: number;
-      weight: number;
-    },
+      loadTime: number
+      score: number
+      requestsCount: number
+      weight: number
+    }
     categories: [
       {
-        name: string;
-      }
-    ],
-    tips: [
-      {
-        advice: string;
-        category: string;
-        score: number;
-        name: string;
-        priority: number;
-      }
-    ],
-    timings: {
-      firstByte: number;
-      firstPaint: number;
-      domInteractive: number;
-      loadEvent: number;
-      startRender: number;
-      speedIndex: number;
-      visuallyComplete: number;
-      oldVisuallyComplete: number;
-    },
-    resourceByType: [
-      {
-        type: string;
-        bodyWeight: number;
-        headerWeight: number;
-        requestCount: number;
-      }
-    ],
-    technos: [
-      {
-        name: string;
-        version: string;
+        name: string
       }
     ]
-  };
+    tips: [
+      {
+        advice: string
+        category: string
+        score: number
+        name: string
+        priority: number
+      }
+    ]
+    timings: {
+      firstByte: number
+      firstPaint: number
+      domInteractive: number
+      loadEvent: number
+      startRender: number
+      speedIndex: number
+      visuallyComplete: number
+      oldVisuallyComplete: number
+    }
+    resourceByType: [
+      {
+        type: string
+        bodyWeight: number
+        headerWeight: number
+        requestCount: number
+      }
+    ]
+    technos: [
+      {
+        name: string
+        version: string
+      }
+    ]
+  }
 }

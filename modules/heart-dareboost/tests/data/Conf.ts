@@ -1,3 +1,3 @@
 export const Conf = {
-  url: 'heart.fabernovel.com'
-};
+  url: "heart.fabernovel.com",
+}

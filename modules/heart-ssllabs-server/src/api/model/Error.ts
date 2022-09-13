@@ -8,4 +8,4 @@ export type Error = {
   }[]
 }
 
-export const isError = (object: unknown): object is Error => Array.isArray((object as Error).errors) 
+export const isError = (object: unknown): object is Error => Array.isArray((object as Error).errors)

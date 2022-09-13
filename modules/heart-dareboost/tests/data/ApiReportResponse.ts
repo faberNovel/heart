@@ -1,56 +1,56 @@
-import {ReportResponseInterface} from '../../src/api/model/ReportResponseInterface';
+import { ReportResponseInterface } from "../../src/api/model/ReportResponseInterface"
 
 export const ApiReportResponse: ReportResponseInterface = {
   status: 200,
-  message: '',
+  message: "",
   missing: [],
   report: {
-    publicReportUrl: '',
-    harFileUrl: '',
+    publicReportUrl: "",
+    harFileUrl: "",
     date: 1584540399,
-    url: '',
-    lang: '',
+    url: "",
+    lang: "",
     config: {
-      location: '',
+      location: "",
       browser: {
-        name: '',
-        version: ''
+        name: "",
+        version: "",
       },
       isMobile: true,
       bandwidth: {
         upstream: 0,
-        downstream: 0
+        downstream: 0,
       },
       latency: 0,
       isPrivate: true,
       screen: {
         height: 0,
-        width: 0
+        width: 0,
       },
       basicAuth: {
-        user: '',
-        password: '',
+        user: "",
+        password: "",
       },
       postData: [
         {
-          key: '',
-          value: '',
-        }
+          key: "",
+          value: "",
+        },
       ],
       header: [
         {
-          key: '',
-          value: '',
-        }
+          key: "",
+          value: "",
+        },
       ],
       blacklist: [],
       whiteList: [],
       dnsMapping: [
         {
-          origin: '',
-          destination: ''
-        }
-      ]
+          origin: "",
+          destination: "",
+        },
+      ],
     },
     summary: {
       loadTime: 0,
@@ -60,17 +60,17 @@ export const ApiReportResponse: ReportResponseInterface = {
     },
     categories: [
       {
-        name: '',
-      }
+        name: "",
+      },
     ],
     tips: [
       {
-        advice: '',
-        category: '',
+        advice: "",
+        category: "",
         score: 0,
-        name: '',
+        name: "",
         priority: 0,
-      }
+      },
     ],
     timings: {
       firstByte: 0,
@@ -84,17 +84,17 @@ export const ApiReportResponse: ReportResponseInterface = {
     },
     resourceByType: [
       {
-        type: '',
+        type: "",
         bodyWeight: 0,
         headerWeight: 0,
         requestCount: 0,
-      }
+      },
     ],
     technos: [
       {
-        name: '',
-        version: '',
-      }
-    ]
-  }
-};
+        name: "",
+        version: "",
+      },
+    ],
+  },
+}

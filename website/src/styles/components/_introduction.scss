@@ -1,5 +1,4 @@
 .introduction {
-
   &__columns {
     @include from($tablet) {
       flex-direction: row-reverse;

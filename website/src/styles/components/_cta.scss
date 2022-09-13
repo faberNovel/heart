@@ -13,7 +13,7 @@
   border: 0;
   border-radius: rem(200); // High value to maintain circular corners regardless of height
   cursor: pointer;
-  transition: background-color .3s, color .3s, box-shadow .3s;
+  transition: background-color 0.3s, color 0.3s, box-shadow 0.3s;
 
   @include from($tablet) {
     display: inline-block;

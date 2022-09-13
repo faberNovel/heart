@@ -4,12 +4,12 @@
   }
 
   &__block {
-    background-repeat:  no-repeat;
+    background-repeat: no-repeat;
     background-position: top center;
     background-size: cover;
     @include background-responsive(
-      '../assets/images/contribute-background',
-      'jpg',
+      "../assets/images/contribute-background",
+      "jpg",
       (1600, 1366, 1024, 768, 640, 375)
     );
   }

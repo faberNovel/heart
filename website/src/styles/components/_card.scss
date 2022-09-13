@@ -2,7 +2,7 @@
   padding: rem(30);
   background: $white;
   border-radius: rem(10);
-  box-shadow: 0 rem(2) rem(4) 0 rgba($grey-lighter, .5);
+  box-shadow: 0 rem(2) rem(4) 0 rgba($grey-lighter, 0.5);
 
   @include from($tablet) {
     padding: rem(40) rem(75);

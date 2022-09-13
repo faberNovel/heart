@@ -1,15 +1,15 @@
-import {ServiceInterface} from '../service/ServiceInterface';
+import { ServiceInterface } from "../service/ServiceInterface"
 
 export interface ModuleInterface {
   /**
    * Example: observatory
    */
-  id: string;
+  id: string
 
   /**
    * Example: Heart Observatory
    */
-  name: string;
+  name: string
 
-  service: ServiceInterface;
+  service: ServiceInterface
 }

@@ -1,4 +1,4 @@
-'🚦 Coverage: Heart CLI':
+"🚦 Coverage: Heart CLI":
   extends:
     - .coverage
   script:
