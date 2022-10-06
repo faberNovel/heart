@@ -53,19 +53,13 @@ describe("Starts an analysis", () => {
   })
 
   it("Should return true status when results match thresholds objectives", async () => {
-    const thresholds = {
-      normalizedNote: {
-        gte: 80,
-        eq: 90,
-      },
-    }
+    const THRESHOLD = 80
 
     //mock the analysis stuff
     mockedRunAnalysis.mockResolvedValue(RESULT)
 
-    const report = await module.startAnalysis(Conf, thresholds)
-    expect(report.areThresholdsReached).toStrictEqual(true)
-    expect(report.thresholdsResults?.normalizedNote?.gte?.result).toStrictEqual(true)
-    expect(report.thresholdsResults?.normalizedNote?.eq?.result).toStrictEqual(true)
+    const report = await module.startAnalysis(Conf, THRESHOLD)
+
+    expect(report.isThresholdReached()).toStrictEqual(true)
   })
 })

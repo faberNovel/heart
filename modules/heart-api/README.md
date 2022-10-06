@@ -50,12 +50,12 @@ Starting with this situation:
 >
 > The _[Heart Dareboost](https://www.npmjs.com/package/@fabernovel/heart-dareboost)_ _analysis_ module is installed (package name: `@fabernovel/heart-dareboost`)
 >
-> You want to analyse the https://heart.fabernovel.com URL with a threshold of at least 90
+> You want to analyse the https://heart.fabernovel.com URL with a threshold of 90
 
 You can do the following request on `127.0.0.1:3000`:
 
 ```http
-POST /dareboost?thresholds={"thresholds":{"normalizedNote":{"gte":90}}}
+POST /dareboost?thresholds=90
 Content-type: application/json
 {
   "url": "https://heart.fabernovel.com",

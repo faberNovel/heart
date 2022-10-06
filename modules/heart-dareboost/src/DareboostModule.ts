@@ -1,11 +1,4 @@
-import {
-  Helper,
-  Module,
-  ModuleAnalysisInterface,
-  ModuleInterface,
-  Report,
-  ThresholdInputObject,
-} from "@fabernovel/heart-core"
+import { Helper, Module, ModuleAnalysisInterface, ModuleInterface, Report } from "@fabernovel/heart-core"
 import { ReportResponseInterface } from "./api/model/ReportResponseInterface"
 import { Client } from "./api/Client"
 import { DareboostConfig } from "./config/Config"
@@ -16,7 +9,7 @@ export class DareboostModule extends Module implements ModuleAnalysisInterface<D
 
   private conf: DareboostConfig = { url: "" }
   private apiClient: Client
-  private thresholds?: ThresholdInputObject
+  private threshold?: number
 
   constructor(module: Omit<ModuleInterface, "id">) {
     super(module)
@@ -24,9 +17,9 @@ export class DareboostModule extends Module implements ModuleAnalysisInterface<D
     this.apiClient = new Client()
   }
 
-  public async startAnalysis(conf: DareboostConfig, thresholds?: ThresholdInputObject): Promise<Report> {
+  public async startAnalysis(conf: DareboostConfig, threshold?: number): Promise<Report> {
     this.conf = conf
-    this.thresholds = thresholds
+    this.threshold = threshold
 
     const analysisResponse = await this.apiClient.launchAnalysis(this.conf)
 
@@ -63,7 +56,7 @@ export class DareboostModule extends Module implements ModuleAnalysisInterface<D
           resultUrl: reportResponse.report.publicReportUrl,
           note: reportResponse.report.summary.score.toString(),
           normalizedNote: reportResponse.report.summary.score,
-          thresholds: this.thresholds,
+          threshold: this.threshold,
         })
 
       default:

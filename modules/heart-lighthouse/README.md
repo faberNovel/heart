@@ -28,10 +28,12 @@ The analysis setup must use the JSON format with a `url` key.
 
 ## Simple
 
-Using _[Heart CLI](https://www.npmjs.com/package/@fabernovel/heart-cli)_, to start a _Google Lighthouse_ analysis of https://www.fabernovel.com looks like this:
+> Using _[Heart CLI](https://www.npmjs.com/package/@fabernovel/heart-cli)_
+>
+> You want to analyse the https://heart.fabernovel.com URL and check that the rating is at least 90
 
 ```shell
-npx heart lighthouse --inline '{"url":"https://heart.fabernovel.com"}'
+npx heart lighthouse --inline '{"url":"https://heart.fabernovel.com"}' --threshold 90
 ```
 
 ## Advanced

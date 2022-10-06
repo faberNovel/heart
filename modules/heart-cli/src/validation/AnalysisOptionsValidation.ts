@@ -1,4 +1,4 @@
-import { Config, ThresholdInputObject } from "@fabernovel/heart-core"
+import { Config } from "@fabernovel/heart-core"
 import { readFileSync } from "fs"
 import { isAbsolute } from "path"
 
@@ -10,37 +10,31 @@ export class AnalysisOptionsValidation {
   public static validate<T extends Config>(
     configFile?: string,
     configInline?: string,
-    thresholdFile?: string,
     thresholdInline?: string
-  ): [T, ThresholdInputObject?] {
+  ): [T, number?] {
     if (undefined === configFile && undefined === configInline) {
-      throw new Error("You must provide a configuration")
+      throw new Error("You must provide a configuration.")
     } else if (undefined !== configFile && undefined !== configInline) {
-      throw new Error("You must provide only one configuration")
+      throw new Error("You must provide only one configuration.")
     }
 
-    if (undefined !== thresholdFile && undefined !== thresholdInline) {
-      throw new Error("You must provide only one threshold input")
+    const parsedThreshold = thresholdInline ? Number(thresholdInline) : undefined
+
+    if (
+      parsedThreshold !== undefined &&
+      (isNaN(parsedThreshold) || parsedThreshold < 0 || parsedThreshold > 100)
+    ) {
+      throw new Error("The threshold must be a number between 0 and 100.")
     }
 
     try {
-      let config: T
-      let threshold: ThresholdInputObject | undefined = undefined
+      const parsedConfig: T =
+        undefined !== configInline
+          ? (JSON.parse(configInline) as T)
+          : // TypeScript cannot infer that configFile is a string at this point, so we need an assertion
+            (JSON.parse(AnalysisOptionsValidation.readFile(configFile as string)) as T)
 
-      if (undefined !== configInline) {
-        config = JSON.parse(configInline) as T
-      } else {
-        // TypeScript cannot infer that configFile is a string at this point, so we need an assertion
-        config = JSON.parse(AnalysisOptionsValidation.readFile(configFile as string)) as T
-      }
-
-      if (undefined !== thresholdInline) {
-        threshold = JSON.parse(thresholdInline) as ThresholdInputObject
-      } else if (undefined !== thresholdFile) {
-        threshold = JSON.parse(AnalysisOptionsValidation.readFile(thresholdFile)) as ThresholdInputObject
-      }
-
-      return [config, threshold]
+      return [parsedConfig, parsedThreshold]
     } catch (error) {
       throw new Error("Cannot parse the configuration. Please check the JSON syntax.")
     }

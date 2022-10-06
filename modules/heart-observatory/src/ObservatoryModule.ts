@@ -1,11 +1,4 @@
-import {
-  Helper,
-  Module,
-  ModuleAnalysisInterface,
-  ModuleInterface,
-  Report,
-  ThresholdInputObject,
-} from "@fabernovel/heart-core"
+import { Helper, Module, ModuleAnalysisInterface, ModuleInterface, Report } from "@fabernovel/heart-core"
 
 import { ScanInterface } from "./api/model/Scan"
 import { Client } from "./api/Client"
@@ -15,7 +8,7 @@ export class ObservatoryModule extends Module implements ModuleAnalysisInterface
   private readonly TIME_BETWEEN_TRIES = 10000
 
   private apiClient: Client
-  private thresholds?: ThresholdInputObject
+  private threshold?: number
 
   constructor(module: Omit<ModuleInterface, "id">) {
     super(module)
@@ -23,8 +16,8 @@ export class ObservatoryModule extends Module implements ModuleAnalysisInterface
     this.apiClient = new Client()
   }
 
-  public async startAnalysis(conf: ObservatoryConfig, thresholds?: ThresholdInputObject): Promise<Report> {
-    this.thresholds = thresholds
+  public async startAnalysis(conf: ObservatoryConfig, threshold?: number): Promise<Report> {
+    this.threshold = threshold
 
     await this.apiClient.launchAnalysis(conf)
 
@@ -56,7 +49,7 @@ export class ObservatoryModule extends Module implements ModuleAnalysisInterface
           service: this.service,
           date: new Date(scan.end_time),
           normalizedNote: scan.score > 100 ? 100 : scan.score,
-          thresholds: this.thresholds,
+          threshold: this.threshold,
         })
 
       default:

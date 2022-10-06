@@ -37,7 +37,7 @@ describe("Run GreenIT analysis", () => {
       date: new Date(successResults.date),
       note: successResults.ecoIndex.toString(),
       service: moduleConfig.service,
-      thresholds: undefined,
+      threshold: undefined,
     })
     expect(analysisReport).toStrictEqual(mockReport)
   })
@@ -86,26 +86,20 @@ describe("Run GreenIT analysis", () => {
       },
     }
 
-    const thresholds = {
-      normalizedNote: {
-        gte: 30,
-      },
-    }
+    const THRESHOLD = 30
 
     const module = new GreenITModule(moduleConfig)
-    const analysisReport = await module.startAnalysis(conf, thresholds)
+    const analysisReport = await module.startAnalysis(conf, THRESHOLD)
 
     const mockReport = new Report({
       analyzedUrl: successResults.url,
       date: new Date(successResults.date),
       note: successResults.ecoIndex.toString(),
       service: moduleConfig.service,
-      thresholds,
+      threshold: THRESHOLD,
     })
 
     expect(analysisReport).toStrictEqual(mockReport)
-    expect(analysisReport).toHaveProperty("areThresholdsReached")
-    expect(analysisReport).toHaveProperty("thresholdsResults")
   })
 
   it("Should return false when results do not match thresholds objectives", async () => {
@@ -125,28 +119,20 @@ describe("Run GreenIT analysis", () => {
       },
     }
 
-    const thresholds = {
-      normalizedNote: {
-        gte: 30,
-      },
-    }
+    const THRESHOLD = 30
 
     const module = new GreenITModule(moduleConfig)
-    const analysisReport = await module.startAnalysis(conf, thresholds)
+    const analysisReport = await module.startAnalysis(conf, THRESHOLD)
 
     const mockReport = new Report({
       analyzedUrl: successResults.url,
       date: new Date(successResults.date),
       note: successResults.ecoIndex.toString(),
       service: moduleConfig.service,
-      thresholds,
+      threshold: THRESHOLD,
     })
 
     expect(analysisReport).toStrictEqual(mockReport)
-    expect(analysisReport).toHaveProperty("areThresholdsReached")
-    expect(analysisReport).toHaveProperty("thresholdsResults")
-    expect(analysisReport.areThresholdsReached).toStrictEqual(false)
-    expect(analysisReport.thresholdsResults?.normalizedNote?.gte?.result).toStrictEqual(false)
-    expect(analysisReport.thresholdsResults?.normalizedNote?.gte?.result).not.toStrictEqual(true)
+    expect(analysisReport.isThresholdReached()).toStrictEqual(false)
   })
 })

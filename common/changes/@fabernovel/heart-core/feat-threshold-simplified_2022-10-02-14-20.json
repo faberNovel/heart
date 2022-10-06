@@ -2,8 +2,8 @@
   "changes": [
     {
       "packageName": "@fabernovel/heart-core",
-      "comment": "Add the threshold feature",
-      "type": "minor"
+      "comment": "",
+      "type": "none"
     }
   ],
   "packageName": "@fabernovel/heart-core"

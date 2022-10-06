@@ -1,4 +1,4 @@
-import { Report, ThresholdInputObject } from "@fabernovel/heart-core"
+import { Report } from "@fabernovel/heart-core"
 import { DareboostConfig } from "../src/config/Config"
 
 import { DareboostModule } from "../src/DareboostModule"
@@ -56,35 +56,8 @@ describe("Starts an analysis", () => {
     }
   })
 
-  it("Should start an analysis with a multi-variable thresholds object", async () => {
-    const thresholds: ThresholdInputObject = {
-      normalizedNote: {
-        gte: 90,
-        eq: 95,
-      },
-    }
-
-    const report = await module.startAnalysis(Conf, thresholds)
-
-    const expectedReport = new Report({
-      analyzedUrl: Conf.url,
-      date: new Date(ApiReportResponse.report.date),
-      note: ApiReportResponse.report.summary.score.toString(),
-      resultUrl: ApiReportResponse.report.publicReportUrl,
-      normalizedNote: ApiReportResponse.report.summary.score,
-      thresholds,
-      service: {
-        name: "Dareboost Test",
-      },
-    })
-
-    expect(report).toStrictEqual(expectedReport)
-  })
-
   it("Should start an analysis with an empty thresholds", async () => {
-    const thresholds: ThresholdInputObject = {}
-
-    const report = await module.startAnalysis(Conf, thresholds)
+    const report = await module.startAnalysis(Conf)
 
     const expectedReport = new Report({
       analyzedUrl: Conf.url,
@@ -92,27 +65,19 @@ describe("Starts an analysis", () => {
       note: ApiReportResponse.report.summary.score.toString(),
       resultUrl: ApiReportResponse.report.publicReportUrl,
       normalizedNote: ApiReportResponse.report.summary.score,
-      thresholds,
       service: {
         name: "Dareboost Test",
       },
     })
 
     expect(report).toStrictEqual(expectedReport)
-    expect(report).toHaveProperty("thresholds", {})
-    expect(report).not.toHaveProperty("areThresholdsReached")
-    expect(report).not.toHaveProperty("thresholdsResults")
+    expect(report.isThresholdReached()).toBeUndefined()
   })
 
-  it("Should return false status when results do not match thresholds objectives", async () => {
-    const thresholds: ThresholdInputObject = {
-      normalizedNote: {
-        gte: 98,
-        lte: 98,
-      },
-    }
+  it("Should return false status when results do not match threshold objective", async () => {
+    const THRESHOLD = 98
 
-    const report = await module.startAnalysis(Conf, thresholds)
+    const report = await module.startAnalysis(Conf, THRESHOLD)
 
     const expectedReport = new Report({
       analyzedUrl: Conf.url,
@@ -120,17 +85,13 @@ describe("Starts an analysis", () => {
       note: ApiReportResponse.report.summary.score.toString(),
       resultUrl: ApiReportResponse.report.publicReportUrl,
       normalizedNote: ApiReportResponse.report.summary.score,
-      thresholds,
+      threshold: THRESHOLD,
       service: {
         name: "Dareboost Test",
       },
     })
 
     expect(report).toStrictEqual(expectedReport)
-    expect(report).toHaveProperty("areThresholdsReached")
-    expect(report).toHaveProperty("thresholdsResults")
-    expect(report.areThresholdsReached).toStrictEqual(false)
-    expect(report.thresholdsResults?.normalizedNote?.gte?.result).toStrictEqual(false)
-    expect(report.thresholdsResults?.normalizedNote?.lte?.result).toStrictEqual(true)
+    expect(report.isThresholdReached()).toStrictEqual(false)
   })
 })

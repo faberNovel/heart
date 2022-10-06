@@ -30,8 +30,10 @@ The analysis setup must use the JSON format, and follow the [Invoke assessment a
 
 ## Example
 
-Using _[Heart CLI](https://www.npmjs.com/package/@fabernovel/heart-cli)_, starting a _Qualys SSL Labs server_ analysis of `heart.fabernovel.com` could look like that:
+> Using _[Heart CLI](https://www.npmjs.com/package/@fabernovel/heart-cli)_
+>
+> You want to analyse the heart.fabernovel.com host and check that the rating is at least 90
 
 ```shell
-npx heart ssllabs-server --inline '{"host":"heart.fabernovel.com","fromCache":"on"}'
+npx heart ssllabs-server --inline '{"host":"heart.fabernovel.com","fromCache":"on"}' --threshold 90
 ```

@@ -67,9 +67,14 @@ export class Definitions {
             mode: "NULLABLE",
             fields: [
               {
-                name: "areThresholdsReached",
+                name: "value",
+                type: "INTEGER",
+                mode: "REQUIRED",
+              },
+              {
+                name: "isReached",
                 type: "BOOL",
-                mode: "NULLABLE",
+                mode: "REQUIRED",
               },
             ],
           },

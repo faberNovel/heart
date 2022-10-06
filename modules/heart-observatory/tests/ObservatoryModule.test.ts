@@ -1,4 +1,4 @@
-import { Report, ThresholdInputObject } from "@fabernovel/heart-core"
+import { Report } from "@fabernovel/heart-core"
 import { ScanInterface } from "../src/api/model/Scan"
 import { ObservatoryConfig } from "../src/config/Config"
 import { ObservatoryModule } from "../src/ObservatoryModule"
@@ -78,15 +78,8 @@ describe("Starts an analysis", () => {
     }
   })
 
-  it("Should start an analysis with a multi-variable thresholds object", async () => {
-    const thresholds: ThresholdInputObject = {
-      normalizedNote: {
-        gte: 90,
-        eq: 95,
-      },
-    }
-
-    const report = await module.startAnalysis(CONF, thresholds)
+  it("Should start an analysis with an empty threshold", async () => {
+    const report = await module.startAnalysis(CONF)
 
     const expectedReport = new Report({
       analyzedUrl: "heart.fabernovel.com",
@@ -94,47 +87,18 @@ describe("Starts an analysis", () => {
       note: SCAN.grade,
       resultUrl: ANALYZE_URL + "heart.fabernovel.com",
       normalizedNote: SCAN.score > 100 ? 100 : SCAN.score,
-      thresholds,
       service: {
         name: "Observatory Test",
       },
     })
 
     expect(report).toStrictEqual(expectedReport)
+    expect(report).toHaveProperty("threshold", undefined)
   })
 
-  it("Should start an analysis with an empty thresholds", async () => {
-    const thresholds: ThresholdInputObject = {}
-
-    const report = await module.startAnalysis(CONF, thresholds)
-
-    const expectedReport = new Report({
-      analyzedUrl: "heart.fabernovel.com",
-      date: report.date,
-      note: SCAN.grade,
-      resultUrl: ANALYZE_URL + "heart.fabernovel.com",
-      normalizedNote: SCAN.score > 100 ? 100 : SCAN.score,
-      thresholds,
-      service: {
-        name: "Observatory Test",
-      },
-    })
-
-    expect(report).toStrictEqual(expectedReport)
-    expect(report).toHaveProperty("thresholds", {})
-    expect(report).not.toHaveProperty("areThresholdsReached")
-    expect(report).not.toHaveProperty("thresholdsResults")
-  })
-
-  it("Should return false status when results do not match thresholds objectives", async () => {
-    const thresholds: ThresholdInputObject = {
-      normalizedNote: {
-        gte: 98,
-        lte: 98,
-      },
-    }
-
-    const report = await module.startAnalysis(CONF, thresholds)
+  it("Should return false status when results do not match threshold objective", async () => {
+    const THRESHOLD = 98
+    const report = await module.startAnalysis(CONF, THRESHOLD)
 
     const expectedReport = new Report({
       analyzedUrl: "heart.fabernovel.com",
@@ -142,17 +106,13 @@ describe("Starts an analysis", () => {
       note: SCAN.grade,
       resultUrl: ANALYZE_URL + "heart.fabernovel.com",
       normalizedNote: SCAN.score > 100 ? 100 : SCAN.score,
-      thresholds,
+      threshold: THRESHOLD,
       service: {
         name: "Observatory Test",
       },
     })
 
     expect(report).toStrictEqual(expectedReport)
-    expect(report).toHaveProperty("areThresholdsReached")
-    expect(report).toHaveProperty("thresholdsResults")
-    expect(report.areThresholdsReached).toEqual(false)
-    expect(report.thresholdsResults?.normalizedNote?.gte?.result).toStrictEqual(false)
-    expect(report.thresholdsResults?.normalizedNote?.lte?.result).toStrictEqual(true)
+    expect(report.isThresholdReached()).toEqual(false)
   })
 })

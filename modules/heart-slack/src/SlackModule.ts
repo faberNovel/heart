@@ -34,10 +34,10 @@ export class SlackModule extends Module implements ModuleListenerInterface {
       message += `. <${report.resultUrl}|view full report>`
     }
 
-    if (report.areThresholdsReached === true) {
-      message += "\n:white_check_mark: Your thresholds are reached."
-    } else if (report.areThresholdsReached === false) {
-      message += "\n:warning: Your thresholds are not reached."
+    if (report.isThresholdReached() === true) {
+      message += "\n:white_check_mark: Your threshold is reached."
+    } else if (report.isThresholdReached() === false) {
+      message += "\n:warning: Your threshold is not reached."
     }
 
     void this.slackClient.postMessage({

@@ -55,3 +55,11 @@ If you want to start an analysis, you can use one of the following options:
       "host": "heart.fabernovel.com"
     }
     ```
+
+You can also provide a minimum threshold that you want your analysis to reach, by using the `--threshold` option (the value must be a number between 0 and 100):
+
+  * ```shell
+    npx heart observatory --file observatory.json --threshold 85
+    ```
+
+Note that _Heart_ does a soft check: the program does not trigger an error if the threshold is not reached.

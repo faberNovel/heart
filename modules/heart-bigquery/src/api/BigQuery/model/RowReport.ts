@@ -14,13 +14,13 @@ export class RowReport {
   public ranking: RecordRanking
   public service: RecordService
   public url: RecordUrl
-  public areThresholdsReached: RecordThreshold
+  public threshold: RecordThreshold
 
   constructor(report: Report) {
     this.date = new BigQueryDatetime(report.date.toISOString())
     this.ranking = new RecordRanking(report.note, Math.round(report.normalizedNote))
     this.service = new RecordService(report.service.name)
     this.url = new RecordUrl(report.analyzedUrl, report.resultUrl)
-    this.areThresholdsReached = new RecordThreshold(report.areThresholdsReached)
+    this.threshold = new RecordThreshold(report.threshold, report.isThresholdReached())
   }
 }

@@ -43,10 +43,12 @@ The analysis setup must use the JSON format with the following keys:
 
 ## Example
 
-Using _[Heart CLI](https://www.npmjs.com/package/@fabernovel/heart-cli)_, starting a _GreenIT_ analysis of https://www.fabernovel.com could look like that:
+> Using _[Heart CLI](https://www.npmjs.com/package/@fabernovel/heart-cli)_
+>
+> You want to analyse the https://www.fabernovel.com URL and check that the rating is at least 90
 
 ```shell
-npx heart greenit --inline '{"url":"https://www.fabernovel.com"}'
+npx heart greenit --inline '{"url":"https://www.fabernovel.com"}' --threshold 90
 ```
 
 # Disclaimer
