@@ -1,5 +1,4 @@
 import { ServiceInterface } from "../service/ServiceInterface"
-import { ThresholdInputObject, ThresholdOutputObject } from "../threshold/ReportThresholdObject"
 
 export interface ReportInterface {
   /**
@@ -34,17 +33,9 @@ export interface ReportInterface {
   service: ServiceInterface
 
   /**
-   * Copy of the threshold input object
+   * Threshold
    */
-  thresholds?: ThresholdInputObject
+  threshold?: number
 
-  /**
-   * Detailed summary of the threshold validation for each condition specified in the input thresholds object
-   */
-  thresholdsResults?: ThresholdOutputObject
-
-  /**
-   * Status indicating if analysis report satisfies the conditions defined by the thresholds
-   */
-  areThresholdsReached?: boolean
+  isThresholdReached(): boolean | undefined
 }

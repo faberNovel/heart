@@ -78,6 +78,8 @@ I want to analyse URLs using the _Dareboost_ service.
 I want to start the analysis from the CLI.
 
 I want to be notified on my Slack channel when the analysis are over.
+
+I want to reach a minimum score of 85.
 >>>
 
 Following the general installation steps, here is a list of the operations you must perform:
@@ -92,6 +94,6 @@ Following the general installation steps, here is a list of the operations you m
    
    `echo SLACK_CHANNEL_ID=#my-slack-channel >> .env`
 
-4. `npx heart dareboost --inline '{"url":"https://about.gitlab.com/"}'`
+4. `npx heart dareboost --inline '{"url":"https://about.gitlab.com/"}' --threshold 85`
 
 Note that step 3 shows an example of setting up environment variables using a `.env` file. This is a convenient way offered by _Heart_ to set them, but you can define them in any way you want.

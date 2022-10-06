@@ -1,24 +1,18 @@
-import {
-  Module,
-  ModuleAnalysisInterface,
-  ModuleInterface,
-  Report,
-  ThresholdInputObject,
-} from "@fabernovel/heart-core"
+import { Module, ModuleAnalysisInterface, ModuleInterface, Report } from "@fabernovel/heart-core"
 import { Result } from "lighthouse"
 import { runAnalysis } from "./api/Client"
 import { LighthouseConfig } from "./config/Config"
 import { compute } from "./scoring/compute"
 
 export class LighthouseModule extends Module implements ModuleAnalysisInterface<LighthouseConfig> {
-  private thresholds?: ThresholdInputObject
+  private threshold?: number
 
   constructor(module: Omit<ModuleInterface, "id">) {
     super(module)
   }
 
-  public async startAnalysis(conf: LighthouseConfig, thresholds?: ThresholdInputObject): Promise<Report> {
-    this.thresholds = thresholds
+  public async startAnalysis(conf: LighthouseConfig, threshold?: number): Promise<Report> {
+    this.threshold = threshold
 
     const results = await runAnalysis(conf)
 
@@ -34,7 +28,7 @@ export class LighthouseModule extends Module implements ModuleAnalysisInterface<
       service: this.service,
       note: score.toString(),
       normalizedNote: score,
-      thresholds: this.thresholds,
+      threshold: this.threshold,
     })
   }
 }

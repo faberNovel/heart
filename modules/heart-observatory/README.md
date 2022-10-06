@@ -49,8 +49,12 @@ Example:
 
 ## Example
 
-Using _[Heart CLI](https://www.npmjs.com/package/@fabernovel/heart-cli)_, starting an _Observatory_ analysis of https://heart.fabernovel.com could look like that:
+Starting with this situation:
+
+> Using _[Heart CLI](https://www.npmjs.com/package/@fabernovel/heart-cli)_
+>
+> You want to analyse the https://heart.fabernovel.com URL and check that the rating is at least 90
 
 ```shell
-npx heart observatory --inline '{"host": "heart.fabernovel.com"}'
+npx heart observatory --inline '{"host": "heart.fabernovel.com"}' --threshold 90
 ```

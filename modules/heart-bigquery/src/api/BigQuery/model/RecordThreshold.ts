@@ -2,9 +2,11 @@
  * Representation of an analysis service in BigQuery
  */
 export class RecordThreshold {
-  public areThresholdsReached?: boolean
+  public value?: number
+  public isReached?: boolean
 
-  constructor(areThresholdsReached?: boolean) {
-    this.areThresholdsReached = areThresholdsReached
+  constructor(value?: number, isReached?: boolean) {
+    this.value = value
+    this.isReached = isReached
   }
 }

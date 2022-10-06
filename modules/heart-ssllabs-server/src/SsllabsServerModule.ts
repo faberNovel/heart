@@ -1,11 +1,4 @@
-import {
-  Helper,
-  Module,
-  ModuleAnalysisInterface,
-  ModuleInterface,
-  Report,
-  ThresholdInputObject,
-} from "@fabernovel/heart-core"
+import { Helper, Module, ModuleAnalysisInterface, ModuleInterface, Report } from "@fabernovel/heart-core"
 import { Status } from "./api/enum/Status"
 import { Host } from "./api/model/Host"
 import { Client } from "./api/Client"
@@ -15,7 +8,7 @@ export class SsllabsServerModule extends Module implements ModuleAnalysisInterfa
   private static readonly MAX_TRIES = 100
   private static readonly TIME_BETWEEN_TRIES = 10000 // 10 seconds
   private apiClient: Client
-  private thresholds?: ThresholdInputObject
+  private threshold?: number
 
   constructor(module: Omit<ModuleInterface, "id">) {
     super(module)
@@ -23,8 +16,8 @@ export class SsllabsServerModule extends Module implements ModuleAnalysisInterfa
     this.apiClient = new Client()
   }
 
-  public async startAnalysis(conf: SsllabsServerConfig, thresholds?: ThresholdInputObject): Promise<Report> {
-    this.thresholds = thresholds
+  public async startAnalysis(conf: SsllabsServerConfig, threshold?: number): Promise<Report> {
+    this.threshold = threshold
     await this.apiClient.launchAnalysis(conf)
 
     return this.requestReport()
@@ -60,7 +53,7 @@ export class SsllabsServerModule extends Module implements ModuleAnalysisInterfa
           resultUrl: this.apiClient.getAnalyzeUrl(),
           date: new Date(host.startTime),
           service: this.service,
-          thresholds: this.thresholds,
+          threshold: this.threshold,
         })
 
       default:

@@ -29,6 +29,7 @@ In the following sections, every examples are using NPM as package manager, but 
     ```dotenv
     SLACK_API_TOKEN=My_Slack_Api_Token
     ```
+
 4. [Optional] Customize the Slack channel:
 
     By default the #heart channel is used, but you can customize it by adding the `SLACK_CHANNEL_ID` environment variable to your .env file:

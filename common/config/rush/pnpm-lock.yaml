@@ -110,25 +110,21 @@ importers:
     specifiers:
       '@types/cors': ^2.8.12
       '@types/jest': ^27.5.1
-      '@types/lodash': ^4.14.182
       '@types/node': ^10.14.10
       '@types/node-fetch': ^2.3.7
       '@typescript-eslint/eslint-plugin': ^5.32.0
       '@typescript-eslint/parser': ^5.32.0
       eslint: ^8.16.0
       jest: ^28.1.0
-      lodash: ^4.17.21
       node-fetch: ^2.6.0
       rimraf: ^3.0.2
       ts-jest: ^28.0.2
       typescript: ^4.6.4
     dependencies:
-      lodash: 4.17.21
       node-fetch: 2.6.7
     devDependencies:
       '@types/cors': 2.8.12
       '@types/jest': 27.5.2
-      '@types/lodash': 4.14.182
       '@types/node': 10.17.60
       '@types/node-fetch': 2.6.2
       '@typescript-eslint/eslint-plugin': 5.35.1_mi3lhfgei7nvuceu4dzpqadaba
@@ -2341,10 +2337,6 @@ packages:
     dependencies:
       '@types/node': 10.17.60
     dev: false
-
-  /@types/lodash/4.14.182:
-    resolution: {integrity: sha512-/THyiqyQAP9AfARo4pF+aCGcyiQ94tX/Is2I7HofNRqoYLgN1PBoOWu2/zTA5zMxzP5EFutMtWtGAFRKUe961Q==}
-    dev: true
 
   /@types/mdast/3.0.10:
     resolution: {integrity: sha512-W864tg/Osz1+9f4lrGTZpCSO5/z4608eUp19tbozkq2HJK6i3z1kT0H9tlADXuYIb1YYOBByU4Jsqkk75q48qA==}

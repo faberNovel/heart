@@ -36,8 +36,12 @@ The analysis setup must use the JSON format, and follow the [request format API 
 
 ## Example
 
-Using _[Heart CLI](https://www.npmjs.com/package/@fabernovel/heart-cli)_, starting a _Dareboost_ analysis of https://heart.fabernovel.com could look like that:
+Starting with this situation:
+
+> Using _[Heart CLI](https://www.npmjs.com/package/@fabernovel/heart-cli)_
+>
+> You want to analyse the https://heart.fabernovel.com URL and check that the rating is at least 90
 
 ```shell
-npx heart dareboost --inline '{"url":"https://heart.fabernovel.com","location":"Paris"}'
+npx heart dareboost --inline '{"url":"https://heart.fabernovel.com","location":"Paris"}' --threshold 90
 ```

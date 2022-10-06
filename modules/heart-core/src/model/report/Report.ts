@@ -1,12 +1,12 @@
 import { ServiceInterface } from "../service/ServiceInterface"
-import { validateAgainstThresholds } from "../threshold/validateAgainstThresholds"
-import { ThresholdInputObject, ThresholdOutputObject } from "../threshold/ReportThresholdObject"
 
 import { ReportInterface } from "./ReportInterface"
 
-type ReportParams = Omit<ReportInterface, "normalizedNote"> & {
-  normalizedNote?: number
-}
+type ReportParams = Pick<
+  ReportInterface,
+  "analyzedUrl" | "date" | "note" | "resultUrl" | "service" | "threshold"
+> &
+  Partial<Pick<ReportInterface, "normalizedNote">>
 
 /**
  * Define an analysis report that is shared between every Heart module.
@@ -21,10 +21,7 @@ export class Report implements ReportInterface {
   normalizedNote: number
   resultUrl?: string
   service: ServiceInterface
-
-  thresholds?: ThresholdInputObject
-  thresholdsResults?: ThresholdOutputObject
-  areThresholdsReached?: boolean
+  threshold?: number
 
   constructor(report: ReportParams) {
     this.analyzedUrl = report.analyzedUrl
@@ -33,13 +30,10 @@ export class Report implements ReportInterface {
     this.normalizedNote = report.normalizedNote ?? Number(this.note) ?? 0
     this.resultUrl = report.resultUrl
     this.service = report.service
+    this.threshold = report.threshold
+  }
 
-    this.thresholds = report.thresholds
-    if (this.thresholds && Object.keys(this.thresholds).length > 0) {
-      const { areThresholdsReached, results } = validateAgainstThresholds(this, this.thresholds)
-
-      this.areThresholdsReached = areThresholdsReached
-      this.thresholdsResults = results
-    }
+  isThresholdReached(): boolean | undefined {
+    return this.threshold ? this.normalizedNote >= this.threshold : undefined
   }
 }

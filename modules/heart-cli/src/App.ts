@@ -5,7 +5,6 @@ import {
   ModuleInterface,
   ModuleListenerInterface,
   ModuleServerInterface,
-  ThresholdInputObject,
   Config,
 } from "@fabernovel/heart-core"
 import { CorsOptions } from "cors"
@@ -24,7 +23,7 @@ export class App {
   public async startAnalysis<T extends Config>(
     module: ModuleAnalysisInterface<T>,
     conf: T,
-    threshold?: ThresholdInputObject
+    threshold?: number
   ): Promise<void> {
     try {
       const report = await module.startAnalysis(conf, threshold)
@@ -36,10 +35,11 @@ export class App {
       if (report.resultUrl) {
         messageParts.push(`View full report: ${report.resultUrl}`)
       }
-      if (report.areThresholdsReached === true) {
-        messageParts.push("Your thresholds are reached")
-      } else if (report.areThresholdsReached === false) {
-        messageParts.push("Your thresholds are not reached")
+
+      if (report.isThresholdReached() === true) {
+        messageParts.push("Your threshold is reached")
+      } else if (report.isThresholdReached() === false) {
+        messageParts.push("Your threshold is not reached")
       }
 
       console.log(messageParts.join(". ") + ".")

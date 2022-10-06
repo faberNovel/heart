@@ -6,7 +6,6 @@ import {
   ModuleInterface,
   Report,
   Config,
-  ThresholdInputObject,
 } from "@fabernovel/heart-core"
 import { CorsOptions } from "cors"
 import cors = require("cors")
@@ -34,14 +33,12 @@ export class ExpressApp {
 
   private createRouteHandler<T extends Config>(module: ModuleAnalysisInterface<T>): express.RequestHandler {
     return (request: express.Request<unknown, unknown, T>, response) => {
-      try {
-        const thresholds =
-          "string" === typeof request.query.thresholds
-            ? (JSON.parse(request.query.thresholds) as ThresholdInputObject)
-            : undefined
+      const threshold: number | undefined =
+        "string" === typeof request.query.threshold ? Number(request.query.threshold) : undefined
 
+      try {
         module
-          .startAnalysis(request.body, thresholds)
+          .startAnalysis(request.body, threshold)
           .then((report: Report) => {
             this.eventEmitter.emit(AnalysisEvents.DONE, report)
 
@@ -54,7 +51,8 @@ export class ExpressApp {
               note: report.note,
               normalizedNote: report.normalizedNote,
               resultUrl: report.resultUrl,
-              thresholds: request.body.threshold,
+              threshold: report.threshold ?? null,
+              isThresholdReached: report.isThresholdReached() ?? null,
             })
           })
           .catch((error) => {

@@ -2,7 +2,7 @@
   "changes": [
     {
       "packageName": "@fabernovel/heart-cli",
-      "comment": "The threshold implementation give you the possibility to use two new options: --threshold-file and --threshold-inline. With them you can set threshold for the `normalizedNote` of an analysis and validate them.",
+      "comment": "Add a threshold mecanism available with the --threshold option. You can now validate that the `normalizedNote` of an analysis meet yourt requirements.",
       "type": "minor"
     }
   ],
