@@ -30,7 +30,7 @@ export class ExpressApp {
     this.addCommonMiddlewares(corsOptions)
     this.eventEmitter = new EventEmitter()
     this.init(modules)
-    this.addErrorHandlerMiddleware() // The error handler middleware must be added last, after other middlewares and route declaration
+    this.addErrorHandlerMiddleware() // The error handler middleware must be added last, after other middlewares and routes declaration
   }
 
   get express(): express.Application {
@@ -38,10 +38,10 @@ export class ExpressApp {
   }
 
   /**
-   * @see {@link https://expressjs.com/fr/api.html#app.settings.table|Express settings}
+   * @see {@link https://expressjs.com/fr/api.html#app.settings.table}
    */
   private configure() {
-    this.express.set("case sensitive routing", true)
+    this.express.set("case sensitive routing", false)
     this.express.set("env", "production")
     this.express.set("strict routing", false)
     this.express.set("x-powered-by", false)
@@ -112,7 +112,7 @@ export class ExpressApp {
    * Configure Express middleware for the given path
    */
   private addCommonMiddlewares(corsOptions?: CorsOptions): void {
-    const middlewares = [express.json(), express.urlencoded({ extended: false })]
+    const middlewares: express.RequestHandler[] = [express.json(), express.urlencoded({ extended: false })]
 
     if (undefined !== corsOptions) {
       middlewares.push(cors(corsOptions))
