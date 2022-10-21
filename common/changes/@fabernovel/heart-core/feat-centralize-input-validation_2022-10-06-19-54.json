@@ -1,0 +1,10 @@
+{
+  "changes": [
+    {
+      "packageName": "@fabernovel/heart-core",
+      "comment": "Add the input validation (previously located in @fabernovel/heart-cli)",
+      "type": "minor"
+    }
+  ],
+  "packageName": "@fabernovel/heart-core"
+}
