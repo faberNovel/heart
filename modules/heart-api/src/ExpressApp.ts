@@ -44,7 +44,6 @@ export class ExpressApp {
     this.express.set("case sensitive routing", false)
     this.express.set("env", "production")
     this.express.set("strict routing", false)
-    this.express.set("x-powered-by", false)
   }
 
   private createRouteHandler<T extends Config>(module: ModuleAnalysisInterface<T>): express.RequestHandler {
