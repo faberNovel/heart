@@ -26,6 +26,7 @@ export class ExpressApp {
 
   constructor(modules: ModuleInterface[], corsOptions?: CorsOptions) {
     this._express = express()
+    this.configure()
     this.addCommonMiddlewares(corsOptions)
     this.eventEmitter = new EventEmitter()
     this.init(modules)
@@ -34,6 +35,16 @@ export class ExpressApp {
 
   get express(): express.Application {
     return this._express
+  }
+
+  /**
+   * @see {@link https://expressjs.com/fr/api.html#app.settings.table|Express settings}
+   */
+  private configure() {
+    this.express.set("case sensitive routing", true)
+    this.express.set("env", "production")
+    this.express.set("strict routing", false)
+    this.express.set("x-powered-by", false)
   }
 
   private createRouteHandler<T extends Config>(module: ModuleAnalysisInterface<T>): express.RequestHandler {
