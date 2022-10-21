@@ -1,6 +1,5 @@
-import { Config, ModuleAnalysisInterface } from "@fabernovel/heart-core"
+import { Config, ModuleAnalysisInterface, validateInput } from "@fabernovel/heart-core"
 import { Command } from "commander"
-import { AnalysisOptionsValidation } from "../validation/AnalysisOptionsValidation"
 
 type Options = Partial<{
   file: string
@@ -30,11 +29,7 @@ export class AnalysisCommand {
         const { file, inline, threshold } = options
 
         try {
-          const [parsedConfig, parsedThreshold] = AnalysisOptionsValidation.validate<T>(
-            file,
-            inline,
-            threshold
-          )
+          const [parsedConfig, parsedThreshold] = validateInput<T>(file, inline, threshold)
 
           void callback(parsedConfig, parsedThreshold)
         } catch (error) {

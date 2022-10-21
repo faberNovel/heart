@@ -1,16 +1,20 @@
 import {
+  AnalysisEvents,
+  Config,
+  ConfigError,
   isModuleAnalysis,
   isModuleListener,
-  AnalysisEvents,
   ModuleAnalysisInterface,
   ModuleInterface,
   Report,
-  Config,
+  ThresholdError,
+  validateInput,
 } from "@fabernovel/heart-core"
 import { CorsOptions } from "cors"
-import cors = require("cors")
 import * as EventEmitter from "events"
 import * as express from "express"
+import * as cors from "cors"
+import { createJsonError } from "./error/JsonError"
 
 /**
  * Creates and configures an ExpressJS application.
@@ -22,9 +26,10 @@ export class ExpressApp {
 
   constructor(modules: ModuleInterface[], corsOptions?: CorsOptions) {
     this._express = express()
-    this.addMiddleware(corsOptions)
+    this.addCommonMiddlewares(corsOptions)
     this.eventEmitter = new EventEmitter()
     this.init(modules)
+    this.addErrorHandlerMiddleware() // The error handler middleware must be added last, after other middlewares and route declaration
   }
 
   get express(): express.Application {
@@ -32,17 +37,24 @@ export class ExpressApp {
   }
 
   private createRouteHandler<T extends Config>(module: ModuleAnalysisInterface<T>): express.RequestHandler {
-    return (request: express.Request<unknown, unknown, T>, response) => {
-      const threshold: number | undefined =
-        "string" === typeof request.query.threshold ? Number(request.query.threshold) : undefined
-
+    return (
+      request: express.Request<unknown, unknown, T>,
+      response: express.Response,
+      next: express.NextFunction
+    ) => {
       try {
+        const [config, threshold] = validateInput<T>(
+          undefined,
+          JSON.stringify(request.body),
+          typeof request.query.threshold === "string" ? request.query.threshold : undefined
+        )
+
         module
-          .startAnalysis(request.body, threshold)
+          .startAnalysis(config, threshold)
           .then((report: Report) => {
             this.eventEmitter.emit(AnalysisEvents.DONE, report)
 
-            response.status(200).send({
+            response.status(200).json({
               analyzedUrl: report.analyzedUrl,
               date: report.date,
               service: {
@@ -55,13 +67,9 @@ export class ExpressApp {
               isThresholdReached: report.isThresholdReached() ?? null,
             })
           })
-          .catch((error) => {
-            console.error(error)
-            response.status(500).send(error)
-          })
+          .catch(next)
       } catch (error) {
-        console.error(error)
-        response.status(500).send(error)
+        next(error)
       }
     }
   }
@@ -92,7 +100,7 @@ export class ExpressApp {
   /**
    * Configure Express middleware for the given path
    */
-  private addMiddleware(corsOptions?: CorsOptions): void {
+  private addCommonMiddlewares(corsOptions?: CorsOptions): void {
     const middlewares = [express.json(), express.urlencoded({ extended: false })]
 
     if (undefined !== corsOptions) {
@@ -100,5 +108,27 @@ export class ExpressApp {
     }
 
     this.express.use(middlewares)
+  }
+
+  private addErrorHandlerMiddleware(): void {
+    this.express.use(errorHandler)
+  }
+}
+
+function errorHandler(
+  error: unknown,
+  _request: express.Request,
+  response: express.Response,
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  _next: express.NextFunction
+) {
+  console.error(error)
+
+  if (error instanceof ConfigError || error instanceof ThresholdError) {
+    response.status(400).json(createJsonError(error.message))
+  } else if (error instanceof Error) {
+    response.status(500).json(createJsonError(error.message))
+  } else {
+    response.status(500).json(createJsonError("A server error occured"))
   }
 }
