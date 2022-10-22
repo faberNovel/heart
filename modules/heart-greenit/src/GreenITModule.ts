@@ -16,11 +16,7 @@ export class GreenITModule extends Module implements ModuleAnalysisInterface<Gre
 
     const result = await runAnalysis(conf)
 
-    if (!result.success) {
-      throw new Error("Error during GreenIT analysis")
-    } else {
-      return this.handleResults(result)
-    }
+    return this.handleResults(result)
   }
 
   private handleResults(results: Result): Report {

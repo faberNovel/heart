@@ -1,5 +1,5 @@
 import { readFileSync } from "fs"
-import { createJsonReports, Options } from "greenit-cli/cli-core/analysis"
+import { createJsonReports, Options, Report } from "greenit-cli/cli-core/analysis"
 import puppeteer from "puppeteer"
 
 import { GreenITConfig } from "../config/Config"
@@ -24,25 +24,44 @@ export async function runAnalysis(conf: GreenITConfig): Promise<Result> {
   })
 
   const options: Options = {
+    ci: true,
     device: conf.device ?? DEFAULT_OPTIONS.device,
     max_tab: DEFAULT_OPTIONS.max_tab,
     retry: conf.retry ?? DEFAULT_OPTIONS.retry,
     timeout: conf.timeout ?? DEFAULT_OPTIONS.timeout,
   }
 
+  const reports = new Array<Report>()
+
+  // As the createJsonReports use console.* functions to display progress info and errors and do not send back these information,
+  // we need to disable the console.* functions during this operation to properly handle the output
+  const consoleLog = console.log
+  const consoleError = console.error
+
   try {
-    const reports = await createJsonReports(browser, [{ url: conf.url }], options)
+    // eslint-disable-next-line @typescript-eslint/no-empty-function
+    console.log = () => {}
+    // eslint-disable-next-line @typescript-eslint/no-empty-function
+    console.error = () => {}
 
-    if (0 === reports.length) {
-      throw new Error("No report has been generated")
-    }
+    const r = await createJsonReports(browser, [{ url: conf.url }], options)
 
-    return JSON.parse(readFileSync(reports[0].path, { encoding: "utf-8" })) as Result
+    reports.push(...r)
   } catch (error) {
     return Promise.reject(error)
   } finally {
+    console.log = consoleLog
+    console.error = consoleError
     const pages = await browser.pages()
     await Promise.all(pages.map((_) => _.close()))
     await browser.close()
+  }
+
+  if (0 === reports.length) {
+    return Promise.reject("No report has been generated")
+  } else {
+    const result = JSON.parse(readFileSync(reports[0].path, { encoding: "utf-8" })) as Result
+
+    return result.success ? result : Promise.reject("Error during GreenIT analysis")
   }
 }
