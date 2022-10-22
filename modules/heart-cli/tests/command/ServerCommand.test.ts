@@ -1,7 +1,7 @@
 import { ModuleServerInterface } from "@fabernovel/heart-core"
 import { Command } from "commander"
 import { createServer } from "http"
-import { ServerCommand } from "../../src/command/ServerCommand"
+import { createServerCommand } from "../../src/command/ServerCommand"
 
 test("Create a server command", () => {
   const module: ModuleServerInterface = {
@@ -19,8 +19,9 @@ test("Create a server command", () => {
   const program = new Command()
 
   // eslint-disable-next-line @typescript-eslint/no-empty-function
-  ServerCommand.create(program, module, () => {})
+  const serverCommand = createServerCommand(module, () => {})
 
+  program.addCommand(serverCommand)
   program.parse(["test-server", "--port", optionPort, "--cors", optionCors], { from: "user" })
 
   expect(program.commands).toHaveLength(1)

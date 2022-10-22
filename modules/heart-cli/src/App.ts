@@ -27,7 +27,7 @@ export class App {
     conf: T,
     threshold?: number
   ): Promise<void> {
-    this.spinner.start("Analyzing...")
+    this.spinner.start("Analysis in progress...")
 
     try {
       const report = await module.startAnalysis(conf, threshold)
