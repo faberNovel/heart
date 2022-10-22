@@ -1,0 +1,10 @@
+{
+  "changes": [
+    {
+      "packageName": "@fabernovel/heart-greenit",
+      "comment": "Hide the messages triggered by GreenIT Analysis during or after an analysis",
+      "type": "patch"
+    }
+  ],
+  "packageName": "@fabernovel/heart-greenit"
+}
