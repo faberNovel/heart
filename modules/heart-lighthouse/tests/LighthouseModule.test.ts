@@ -1,5 +1,5 @@
 import { mocked } from "jest-mock"
-import { Result } from "lighthouse"
+import Result from "lighthouse/types/lhr/lhr"
 import { runAnalysis } from "../src/api/Client"
 import { LighthouseModule } from "../src/LighthouseModule"
 import { Conf } from "./data/Conf"
