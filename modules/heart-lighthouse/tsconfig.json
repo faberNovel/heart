@@ -4,7 +4,11 @@
   "extends": "../tsconfig.json",
 
   "compilerOptions": {
-    "esModuleInterop": true
+    "esModuleInterop": true,
+    /**
+     * Disable lib check because of lighthouse poor TypeScript file definition
+     */
+    "skipLibCheck": true
   },
 
   "include": ["src/**/*.ts", "tests/**/*.ts"]
