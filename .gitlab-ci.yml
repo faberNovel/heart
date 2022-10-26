@@ -21,7 +21,6 @@ include:
   - local: "ci/modules/heart-greenit.yml"
   - local: "ci/modules/heart-slack.yml"
   - local: "ci/modules/heart-ssllabs-server.yml"
-  - local: "ci/website.yml"
 
 🏗 Build:
   extends:

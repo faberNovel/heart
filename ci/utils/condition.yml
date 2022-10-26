@@ -6,16 +6,6 @@
   rules:
     - if: $CI_PIPELINE_SOURCE == "merge_request_event"
 
-# Used to analyze the website
-.on-schedule:
-  rules:
-    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH && $CI_COMMIT_REF_PROTECTED && $CI_PIPELINE_SOURCE == "schedule"
-
-# Used to deploy the website
-.on-web:
-  rules:
-    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH && $CI_COMMIT_REF_PROTECTED && $CI_PIPELINE_SOURCE == "web"
-
 .on-default:
   rules:
     - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH && $CI_COMMIT_REF_PROTECTED && $CI_PIPELINE_SOURCE != "schedule"
