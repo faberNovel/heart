@@ -134,13 +134,6 @@
       "shellCommand": "pretty-quick --staged"
     },
     {
-      "commandKind": "global",
-      "name": "website-start",
-      "summary": "Starts website for development purposes",
-      "safeForSimultaneousRushProcesses": false,
-      "shellCommand": "rush-pnpm --rush-skip-checks --dir website/ run start"
-    },
-    {
       "commandKind": "bulk",
       "name": "lint",
       "summary": "Lint files",
