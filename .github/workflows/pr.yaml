@@ -1,0 +1,42 @@
+name: 🧹 Pull request
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened, edited]
+
+jobs:
+  pull-request:
+    name: Pull request
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 2
+
+      - name: Git config user
+        uses: snow-actions/git-config-user@v1.0.0
+        with:
+          name: Fabernovel
+          email: heart@fabernovel.com
+
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 18
+
+      - name: Install
+        run: node common/scripts/install-run-rush.js install
+
+      - name: Build
+        run: node common/scripts/install-run-rush.js build
+
+      - name: Verify change logs
+        run: |
+          git fetch origin master -a
+          node common/scripts/install-run-rush.js change --target-branch origin/master --verify -v
+
+      - name: Lint
+        run: node common/scripts/install-run-rush.js lint
+
+      - name: Test
+        run: node common/scripts/install-run-rush.js test

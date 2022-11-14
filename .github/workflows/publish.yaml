@@ -10,7 +10,7 @@ on:
           # Simulate the publication
           - simulate
           # Do the publication
-          - publish
+          #- publish
         default: simulate
         required: true
       VERSION_POLICY:

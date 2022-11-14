@@ -8,11 +8,11 @@ To make the _Heart_ accessible to most users, everything is written in english, 
 
 ## Make sure that your contribution does not already exist
 
-Before making a new contribution, please check [the issues](https://gitlab.com/fabernovel/heart/-/boards) and the [merge requests](https://gitlab.com/fabernovel/heart/-/merge_requests) as you might find out that you don't need to create one.
+Before making a new contribution, please check [the issues](https://github.com/faberNovel/heart/issues) and the [pull requests](https://github.com/faberNovel/heart/pulls) as you might find out that you don't need to create one.
 
 ## Reporting Bugs
 
-[Create a new issue](https://gitlab.com/fabernovel/heart/-/issues/new) and include as many details as possible, such as:
+[Create a new issue](https://github.com/faberNovel/heart/issues/new/choose) and include as many details as possible, such as:
 * the version of Node.js
 * the list of _Heart_ modules installed
 * the differents steps that lead to the bug
@@ -57,7 +57,7 @@ npm install -g @microsoft/rush
 #### Clone the repository
 
 ```shell
-git clone git@gitlab.com:fabernovel/heart.git
+git clone git@github.com:faberNovel/heart.git
 ```
 
 #### Install the dependencies
