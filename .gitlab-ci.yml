@@ -32,44 +32,6 @@ include:
     - !reference [.on-default, rules]
   interruptible: true
 
-# Checks code linting
-💅 Lint:
-  stage: test
-  extends:
-    - .install
-    - .on-mr
-  dependencies:
-    - 🏗 Build
-  script:
-    - node common/scripts/install-run-rush.js lint
-  interruptible: true
-
-# Checks that a changelog has been provided
-📝 Missing changelog:
-  stage: test
-  extends:
-    - .install
-    - .on-mr
-  dependencies:
-    - 🏗 Build
-  script:
-    - git fetch origin $CI_MERGE_REQUEST_TARGET_BRANCH_NAME -a
-    # Checks that a changelog has been provided, regarding the target branch
-    - node common/scripts/install-run-rush.js change
-      --target-branch origin/$CI_MERGE_REQUEST_TARGET_BRANCH_NAME
-      --verify
-  interruptible: true
-
-🐛 Test:
-  extends:
-    - .test
-    - .on-mr
-  dependencies:
-    - 🏗 Build
-  script:
-    - node common/scripts/install-run-rush.js test --verbose
-  interruptible: true
-
 # Publish packages to NPM.
 # By default, the dry-run mode is enabled and the policy version is set to individualVersion.
 # These two behaviors can be changed with the PUBLISH and VERSION_POLICY variables.
