@@ -1,12 +1,22 @@
-name: Pull request
+name: Pull request validation
 
 on:
   pull_request:
     types: [opened, synchronize, reopened, edited]
 
 jobs:
-  ci:
-    name: CI
+  changelog_lint:
+    name: 📝 Missing changelog
+    runs-on: ubuntu-latest
+    container: node:14-alpine # Matches the version defined in .nmvrc and rush.json
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 2
+      - name: 📝 Missing changelog
+        run: node common/scripts/install-run-rush.js change --verify
+  test:
+    name: 💅 Lint & 🐛 Test
     runs-on: ubuntu-latest
     container: node:14 # Matches the version defined in .nmvrc and rush.json
     steps:
@@ -23,8 +33,6 @@ jobs:
         run: node common/scripts/install-run-rush.js install
       - name: Rush rebuild
         run: node common/scripts/install-run-rush.js rebuild --verbose
-      - name: 📝 Missing changelog
-        run: node common/scripts/install-run-rush.js change --verify
       - name: 💅 Lint
         run: node common/scripts/install-run-rush.js lint
       - name: 🐛 Test
