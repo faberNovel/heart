@@ -1,0 +1,30 @@
+name: Pull request
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened, edited]
+
+jobs:
+  ci:
+    name: CI
+    runs-on: ubuntu-latest
+    container: node:14-alpine # Matches the version defined in .nmvrc and rush.json
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 2
+      - name: Git config user
+        uses: snow-actions/git-config-user@v1.0.0
+        with:
+          name: Heart
+          email: heart@fabernovel.com
+      - name: Rush install
+        run: node common/scripts/install-run-rush.js install
+      - name: Rush rebuild
+        run: node common/scripts/install-run-rush.js rebuild --verbose --production
+      - name: 📝 Missing changelog
+        run: node common/scripts/install-run-rush.js change --verify
+      - name: 💅 Lint
+        run: node common/scripts/install-run-rush.js lint
+      - name: 🐛 Test
+        run: node common/scripts/install-run-rush.js test --verbose
