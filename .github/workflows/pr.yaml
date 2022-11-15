@@ -8,7 +8,7 @@ jobs:
   ci:
     name: CI
     runs-on: ubuntu-latest
-    container: node:14-alpine # Matches the version defined in .nmvrc and rush.json
+    container: node:14 # Matches the version defined in .nmvrc and rush.json
     steps:
       - uses: actions/checkout@v3
         with:
