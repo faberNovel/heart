@@ -31,6 +31,7 @@ jobs:
     container: node:14
     env:
       MODE: ${{ inputs.MODE }}
+      # Force the master branch to be deployed: avoid the publication of WIP code from other branches
       TARGET_BRANCH: master
       VERSION_POLICY: ${{ inputs.VERSION_POLICY }}
     steps:
@@ -42,16 +43,15 @@ jobs:
         with:
           name: Fabernovel
           email: heart@fabernovel.com
+      # As we are using the version policies, we need to bump versions first:
+      # https://rushjs.io/pages/maintainer/publishing/#publishing-process-when-version-policies-are-used
       - name: Bump packages versions numbers
         run: node common/scripts/install-run-rush.js version --bump --target-branch $TARGET_BRANCH --version-policy $VERSION_POLICY
-      - name: Publishing the packages to npmjs.org with the ${VERSION_POLICY} version policy...
-        run: |
-          if (( $MODE == "simulate" )); then PUBLISH_OPTION="--publish"; else PUBLISH_OPTION=""; fi
-          echo $PUBLISH_OPTION
-          echo $TARGET_BRANCH
-          echo $VERSION_POLICY
-          node common/scripts/install-run-rush.js publish --include-all --target-branch $TARGET_BRANCH --version-policy $VERSION_POLICY
-      # - name: Publishing the packages to npmjs.org with the ${VERSION_POLICY} version policy...
-      #   run: |
-      #     if (( $MODE == "simulate" )); then PUBLISH_OPTION="--publish"; else PUBLISH_OPTION=""; fi
-      #     node common/scripts/install-run-rush.js publish --include-all $PUBLISH_OPTION --target-branch $TARGET_BRANCH --version-policy $VERSION_POLICY
+      - name: debug
+        run: echo $MODE $TARGET_BRANCH $VERSION_POLICY
+      - name: Simulate a publication to npmjs.org with the ${VERSION_POLICY} version policy
+        if: $MODE == "simulate"
+        run: node common/scripts/install-run-rush.js publish --include-all --target-branch $TARGET_BRANCH --version-policy $VERSION_POLICY
+      - name: Publish to npmjs.org with the ${VERSION_POLICY} version policy
+        if: $MODE == "publish"
+        run: node common/scripts/install-run-rush.js publish --include-all --target-branch $TARGET_BRANCH --version-policy $VERSION_POLICY --publish
