@@ -9,7 +9,7 @@ jobs:
     name: 📝 Missing changelog, 💅 Lint & 🐛 Test
     runs-on: ubuntu-latest
     # Matches the version defined in .nmvrc and rush.json
-    container: node:14-slim
+    container: node:14
     steps:
       - name: Install Google Chrome
         run: |

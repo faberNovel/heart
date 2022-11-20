@@ -28,7 +28,7 @@ jobs:
   publish:
     runs-on: ubuntu-latest
     # Matches the version defined in .nmvrc and rush.json
-    container: node:14-slim
+    container: node:14
     env:
       MODE: ${{ inputs.MODE }}
       # Force the master branch to be deployed: avoid the publication of WIP code from other branches
