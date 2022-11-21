@@ -27,7 +27,6 @@ on:
 jobs:
   publish:
     runs-on: ubuntu-latest
-    # Matches the version defined in .nmvrc and rush.json
     env:
       MODE: ${{ inputs.MODE }}
       # Force the master branch to be deployed: avoid the publication of WIP code from other branches
@@ -38,6 +37,7 @@ jobs:
         with:
           fetch-depth: 2
       - uses: actions/setup-node@v3
+        # Matches the version defined in .nmvrc and rush.json
         with:
           node-version: 14
       - name: Set Git publisher values (required by Rush)
