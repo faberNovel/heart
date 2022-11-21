@@ -27,16 +27,16 @@ jobs:
       - name: Install
         run: node common/scripts/install-run-rush.js install
 
-      - name: Build
+      - name: 🏗 Build
         run: node common/scripts/install-run-rush.js build
 
-      - name: Verify change logs
+      - name: 📝 Verify missing changelogs
         run: |
           git fetch origin master -a
           node common/scripts/install-run-rush.js change --target-branch origin/master --verify -v
 
-      - name: Lint
+      - name: 💅 Lint
         run: node common/scripts/install-run-rush.js lint
 
-      - name: Test
+      - name: 🐛 Test
         run: node common/scripts/install-run-rush.js test
