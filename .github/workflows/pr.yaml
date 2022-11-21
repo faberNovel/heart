@@ -27,7 +27,7 @@ jobs:
       - name: Install
         run: node common/scripts/install-run-rush.js install
 
-      - name: Build
+      - name: 🏗 Build
         run: node common/scripts/install-run-rush.js build
 
       - name: 📝 Verify missing changelogs
