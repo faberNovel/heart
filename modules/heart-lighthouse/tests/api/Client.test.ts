@@ -1,7 +1,7 @@
 import childProcess from "child_process"
 import * as chromeLauncher from "chrome-launcher"
-import { RunnerResult } from "lighthouse"
-import lighthouse from "lighthouse/lighthouse-core"
+import lighthouse from "lighthouse"
+import { RunnerResult } from "lighthouse/types/externs"
 import { runAnalysis } from "../../src/api/Client"
 import { Conf } from "../data/Conf"
 
@@ -15,7 +15,7 @@ mockChromeLauncherLaunch.mockResolvedValue({
   pid: 1111,
   port: 1234,
   process: childProcess.spawn("ls"),
-  kill: () => Promise.resolve({}),
+  kill: () => Promise.resolve(),
 })
 
 describe("Run an analysis", () => {

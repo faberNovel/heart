@@ -1,0 +1,10 @@
+{
+  "changes": [
+    {
+      "packageName": "@fabernovel/heart-lighthouse",
+      "comment": "Update Google Lighthouse to get Web Core Vitals calculation",
+      "type": "minor"
+    }
+  ],
+  "packageName": "@fabernovel/heart-lighthouse"
+}

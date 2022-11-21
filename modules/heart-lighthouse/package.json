@@ -33,8 +33,8 @@
   },
   "dependencies": {
     "@fabernovel/heart-core": "workspace:^3.2.0",
-    "chrome-launcher": "^0.12.0",
-    "lighthouse": "^5.6.0"
+    "chrome-launcher": "^0.15.1",
+    "lighthouse": "^9.6.7"
   },
   "devDependencies": {
     "@types/jest": "^27.5.1",
