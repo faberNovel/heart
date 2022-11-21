@@ -5,5 +5,4 @@ export type Result = {
   url: string
   ecoIndex: number
   success: boolean
-  date: string
 }
