@@ -1,4 +1,4 @@
-name: Publish packages on npmjs.org
+name: 🚀 Publish packages
 
 on:
   workflow_dispatch:
