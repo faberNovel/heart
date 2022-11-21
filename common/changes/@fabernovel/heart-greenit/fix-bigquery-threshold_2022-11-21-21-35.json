@@ -1,0 +1,10 @@
+{
+  "changes": [
+    {
+      "packageName": "@fabernovel/heart-greenit",
+      "comment": "The date of the report is now correct",
+      "type": "patch"
+    }
+  ],
+  "packageName": "@fabernovel/heart-greenit"
+}
