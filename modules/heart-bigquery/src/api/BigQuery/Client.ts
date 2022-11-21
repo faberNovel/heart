@@ -26,9 +26,10 @@ export class BigQueryClient {
   private async getOrCreateDataset(): Promise<Dataset> {
     let dataset = this.bigqueryClient.dataset(Definitions.DATASET.ID)
 
-    // create the dataset if it does not exist
     const [datasetExists] = await dataset.exists()
+
     if (!datasetExists) {
+      // create the dataset if it does not exist
       const datasetResponse = await this.bigqueryClient.createDataset(Definitions.DATASET.ID)
       dataset = datasetResponse[0]
     }
@@ -37,16 +38,21 @@ export class BigQueryClient {
   }
 
   /**
-   * Retrieve the table of the dataset, or create it if it does not exist.
+   * Retrieve the table of the dataset.
+   * Update it if it exists, or create it if not.
    */
-  private async getOrCreateTable() {
+  private async getOrCreateTable(): Promise<Table> {
     const dataset = await this.getOrCreateDataset()
 
     let table = dataset.table(Definitions.TABLE.ID)
 
-    // create the table if it does not exist
     const [tableExists] = await table.exists()
-    if (!tableExists) {
+
+    if (tableExists) {
+      // update the table if it exists
+      await table.setMetadata(Definitions.TABLE.METADATA)
+    } else {
+      // create the table if it does not exist
       const tableResponse = await dataset.createTable(Definitions.TABLE.ID, Definitions.TABLE.METADATA)
       table = tableResponse[0]
     }
