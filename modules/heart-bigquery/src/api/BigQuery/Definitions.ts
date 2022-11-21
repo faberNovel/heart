@@ -69,12 +69,12 @@ export class Definitions {
               {
                 name: "value",
                 type: "INTEGER",
-                mode: "REQUIRED",
+                mode: "NULLABLE",
               },
               {
                 name: "isReached",
                 type: "BOOL",
-                mode: "REQUIRED",
+                mode: "NULLABLE",
               },
             ],
           },
