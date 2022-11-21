@@ -28,7 +28,6 @@ jobs:
   publish:
     runs-on: ubuntu-latest
     # Matches the version defined in .nmvrc and rush.json
-    container: node:14
     env:
       MODE: ${{ inputs.MODE }}
       # Force the master branch to be deployed: avoid the publication of WIP code from other branches
@@ -38,6 +37,9 @@ jobs:
       - uses: actions/checkout@v3
         with:
           fetch-depth: 2
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 14
       - name: Set Git publisher values (required by Rush)
         uses: snow-actions/git-config-user@v1.0.0
         with:
@@ -50,8 +52,8 @@ jobs:
       - name: debug
         run: echo $MODE $TARGET_BRANCH $VERSION_POLICY
       - name: Simulate a publication to npmjs.org with the ${VERSION_POLICY} version policy
-        if: $MODE == "simulate"
+        if: ${{ env.MODE == 'simulate' }}
         run: node common/scripts/install-run-rush.js publish --include-all --target-branch $TARGET_BRANCH --version-policy $VERSION_POLICY
       - name: Publish to npmjs.org with the ${VERSION_POLICY} version policy
-        if: $MODE == "publish"
+        if: ${{ env.MODE == 'publish' }}
         run: node common/scripts/install-run-rush.js publish --include-all --target-branch $TARGET_BRANCH --version-policy $VERSION_POLICY --publish
