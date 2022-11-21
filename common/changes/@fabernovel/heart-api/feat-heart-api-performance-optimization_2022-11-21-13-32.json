@@ -1,0 +1,10 @@
+{
+  "changes": [
+    {
+      "packageName": "@fabernovel/heart-api",
+      "comment": "Remove a useless dependency",
+      "type": "patch"
+    }
+  ],
+  "packageName": "@fabernovel/heart-api"
+}
