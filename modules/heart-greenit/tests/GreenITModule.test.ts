@@ -65,7 +65,7 @@ describe("Run GreenIT analysis", () => {
     try {
       await module.startAnalysis(conf)
     } catch (error) {
-      expect(error).toHaveProperty("message", errorMessage)
+      expect(error).toBe(errorMessage)
     }
   })
 

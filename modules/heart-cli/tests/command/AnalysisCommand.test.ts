@@ -1,6 +1,6 @@
 import { Config, ModuleAnalysisInterface, Report } from "@fabernovel/heart-core"
 import { Command } from "commander"
-import { AnalysisCommand } from "../../src/command/AnalysisCommand"
+import { createAnalysisCommand } from "../../src/command/AnalysisCommand"
 
 test("Create an analysis command", () => {
   const report = new Report({
@@ -26,9 +26,9 @@ test("Create an analysis command", () => {
 
   const program = new Command()
 
-  // eslint-disable-next-line no-empty-pattern
-  AnalysisCommand.create(program, module, () => Promise.resolve())
+  const analysisCommand = createAnalysisCommand(module, () => Promise.resolve())
 
+  program.addCommand(analysisCommand)
   program.parse(["test-analysis-tool", "--inline", optionConfigInline], { from: "user" })
 
   expect(program.commands).toHaveLength(1)

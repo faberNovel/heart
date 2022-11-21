@@ -43,14 +43,11 @@ test("Displays the results of an analysis", async () => {
   }
 
   const startAnalysisMock = jest.spyOn(module, "startAnalysis")
-  const consoleLogMock = jest.spyOn(global.console, "log")
 
   const app = new App([module])
   await app.startAnalysis(module, {})
 
   expect(startAnalysisMock).toHaveBeenCalled()
-  expect(consoleLogMock).toHaveBeenCalled()
 
-  consoleLogMock.mockRestore()
   startAnalysisMock.mockRestore()
 })

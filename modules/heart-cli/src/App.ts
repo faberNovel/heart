@@ -8,11 +8,13 @@ import {
   Config,
 } from "@fabernovel/heart-core"
 import { CorsOptions } from "cors"
-import * as EventEmitter from "events"
+import { EventEmitter } from "events"
+import * as ora from "ora"
 
 export class App {
   private eventEmitter: EventEmitter
   private modules: ModuleInterface[]
+  private spinner = ora({ spinner: "hearts", interval: 200 })
 
   constructor(modules: ModuleInterface[]) {
     this.eventEmitter = new EventEmitter()
@@ -25,10 +27,11 @@ export class App {
     conf: T,
     threshold?: number
   ): Promise<void> {
+    this.spinner.start("Analysis in progress...")
+
     try {
       const report = await module.startAnalysis(conf, threshold)
 
-      // print analyse result
       const reportName = report.service ? `[${report.service.name}] ` : ""
       const messageParts = [`${reportName}${report.analyzedUrl}: ${report.note}`]
 
@@ -42,15 +45,16 @@ export class App {
         messageParts.push("Your threshold is not reached")
       }
 
-      console.log(messageParts.join(". ") + ".")
+      this.spinner.succeed("Analysis completed.")
+      console.info(messageParts.join(". ") + ".")
 
       this.eventEmitter.emit(AnalysisEvents.DONE, report)
 
-      // /!\ do not exit the node process at this point,
-      //     because it could stop the execution of the event handlers
+      return Promise.resolve()
     } catch (error) {
-      console.error(error)
-      process.exit(1)
+      this.spinner.fail("Analysis failed.")
+
+      return Promise.reject(error)
     }
   }
 

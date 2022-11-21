@@ -11,7 +11,7 @@ import {
   validateInput,
 } from "@fabernovel/heart-core"
 import { CorsOptions } from "cors"
-import * as EventEmitter from "events"
+import { EventEmitter } from "events"
 import * as express from "express"
 import * as cors from "cors"
 import { createJsonError } from "./error/JsonError"

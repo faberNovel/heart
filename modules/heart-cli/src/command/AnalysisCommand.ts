@@ -7,35 +7,30 @@ type Options = Partial<{
   threshold: string
 }>
 
-export class AnalysisCommand {
-  /**
-   * Create a command dedicated to the given analysis module
-   */
-  public static create<T extends Config>(
-    program: Command,
-    module: ModuleAnalysisInterface<T>,
-    callback: (config: T, threshold?: number) => Promise<void>
-  ): void {
-    program
-      .command(module.id)
-      .description(`Analyzes an url with ${module.service.name}`)
-      .option("-f, --file [file]", "Path to the JSON configuration file")
-      .option("-i, --inline [inline]", "Inlined JSON configuration definition")
-      .option(
-        "-t, --threshold [threshold]",
-        "A threshold between 0 and 100 that your want to reach with the analysis"
-      )
-      .action((options: Options) => {
-        const { file, inline, threshold } = options
+/**
+ * Create a command dedicated to the given analysis module
+ */
+export const createAnalysisCommand = <T extends Config>(
+  module: ModuleAnalysisInterface<T>,
+  callback: (config: T, threshold?: number) => Promise<void>
+): Command => {
+  const command = new Command(module.id)
 
-        try {
-          const [parsedConfig, parsedThreshold] = validateInput<T>(file, inline, threshold)
+  command
+    .description(`Analyzes an url with ${module.service.name}`)
+    .option("-f, --file [file]", "Path to the JSON configuration file")
+    .option("-i, --inline [inline]", "Inlined JSON configuration definition")
+    .option(
+      "-t, --threshold [threshold]",
+      "A threshold between 0 and 100 that you want to reach with the analysis"
+    )
+    .action(async (options: Options) => {
+      const { file, inline, threshold } = options
 
-          void callback(parsedConfig, parsedThreshold)
-        } catch (error) {
-          console.error(error)
-          program.help()
-        }
-      })
-  }
+      const [parsedConfig, parsedThreshold] = validateInput<T>(file, inline, threshold)
+
+      await callback(parsedConfig, parsedThreshold)
+    })
+
+  return command
 }
