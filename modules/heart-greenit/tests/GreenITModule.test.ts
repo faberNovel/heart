@@ -13,6 +13,8 @@ const mockedCreateJsonReports = mocked(createJsonReports, true)
 
 describe("Run GreenIT analysis", () => {
   it("should be able to launch a successful analysis without thresholds", async () => {
+    const now = new Date()
+
     mockedCreateJsonReports.mockResolvedValue([
       {
         path: path.join(__dirname, "./data/successReport.json"),
@@ -31,10 +33,11 @@ describe("Run GreenIT analysis", () => {
 
     const module = new GreenITModule(moduleConfig)
     const analysisReport = await module.startAnalysis(conf)
+    analysisReport.date = now
 
     const mockReport = new Report({
       analyzedUrl: successResults.url,
-      date: new Date(successResults.date),
+      date: now,
       note: successResults.ecoIndex.toString(),
       service: moduleConfig.service,
       threshold: undefined,
@@ -70,6 +73,8 @@ describe("Run GreenIT analysis", () => {
   })
 
   it("should be able to launch a successful analysis with thresholds", async () => {
+    const now = new Date()
+
     mockedCreateJsonReports.mockResolvedValue([
       {
         path: path.join(__dirname, "./data/successReport.json"),
@@ -90,10 +95,11 @@ describe("Run GreenIT analysis", () => {
 
     const module = new GreenITModule(moduleConfig)
     const analysisReport = await module.startAnalysis(conf, THRESHOLD)
+    analysisReport.date = now
 
     const mockReport = new Report({
       analyzedUrl: successResults.url,
-      date: new Date(successResults.date),
+      date: now,
       note: successResults.ecoIndex.toString(),
       service: moduleConfig.service,
       threshold: THRESHOLD,
@@ -103,6 +109,8 @@ describe("Run GreenIT analysis", () => {
   })
 
   it("Should return false when results do not match thresholds objectives", async () => {
+    const now = new Date()
+
     mockedCreateJsonReports.mockResolvedValue([
       {
         path: path.join(__dirname, "./data/successReport.json"),
@@ -123,10 +131,11 @@ describe("Run GreenIT analysis", () => {
 
     const module = new GreenITModule(moduleConfig)
     const analysisReport = await module.startAnalysis(conf, THRESHOLD)
+    analysisReport.date = now
 
     const mockReport = new Report({
       analyzedUrl: successResults.url,
-      date: new Date(successResults.date),
+      date: now,
       note: successResults.ecoIndex.toString(),
       service: moduleConfig.service,
       threshold: THRESHOLD,
