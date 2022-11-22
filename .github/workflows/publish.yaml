@@ -47,7 +47,11 @@ jobs:
           email: heart@fabernovel.com
       # As we are using the version policies, we need to bump versions first:
       # https://rushjs.io/pages/maintainer/publishing/#publishing-process-when-version-policies-are-used
-      - name: Bump packages versions numbers
+      - name: Bump packages versions numbers for simulation
+        if: ${{ env.MODE == 'simulate' }}
+        run: node common/scripts/install-run-rush.js version --bump --version-policy $VERSION_POLICY
+      - name: Bump packages versions numbers for publishing
+        if: ${{ env.MODE == 'publish' }}
         run: node common/scripts/install-run-rush.js version --bump --target-branch $TARGET_BRANCH --version-policy $VERSION_POLICY
       - name: debug
         run: echo $MODE $TARGET_BRANCH $VERSION_POLICY
