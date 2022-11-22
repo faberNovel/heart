@@ -33,7 +33,7 @@ jobs:
       TARGET_BRANCH: master
       VERSION_POLICY: ${{ inputs.VERSION_POLICY }}
     permissions:
-      contents: read|write
+      contents: write
     steps:
       - uses: actions/checkout@v3
         with:
