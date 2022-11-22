@@ -34,30 +34,37 @@ jobs:
       VERSION_POLICY: ${{ inputs.VERSION_POLICY }}
     permissions:
       contents: write
+
     steps:
       - uses: actions/checkout@v3
         with:
           fetch-depth: 2
+
       - uses: actions/setup-node@v3
-        # Matches the version defined in .nmvrc and rush.json
         with:
+          # Matches the version defined in .nmvrc and rush.json
           node-version: 14
-      - name: Set Git publisher values (required by Rush)
+
+      - name: Git config user
         uses: snow-actions/git-config-user@v1.0.0
         with:
           name: Fabernovel
           email: heart@fabernovel.com
+
       # As we are using the version policies, we need to bump versions first:
       # https://rushjs.io/pages/maintainer/publishing/#publishing-process-when-version-policies-are-used
-      - name: Bump packages versions numbers for simulation
+      - name: Simulate packages versions numbers bump
         if: ${{ env.MODE == 'simulate' }}
         run: node common/scripts/install-run-rush.js version --bump --version-policy $VERSION_POLICY
-      - name: Bump packages versions numbers for publishing
-        if: ${{ env.MODE == 'publish' }}
-        run: node common/scripts/install-run-rush.js version --bump --target-branch $TARGET_BRANCH --version-policy $VERSION_POLICY
-      - name: Simulate a publication to npmjs.org with the $VERSION_POLICY version policy
+
+      - name: Simulate a publication to npmjs.org with the ${{ env.VERSION_POLICY }} version policy
         if: ${{ env.MODE == 'simulate' }}
         run: node common/scripts/install-run-rush.js publish --include-all --target-branch $TARGET_BRANCH --version-policy $VERSION_POLICY
-      - name: Publish to npmjs.org with the $VERSION_POLICY version policy
+
+      - name: Bump packages versions numbers for publication
+        if: ${{ env.MODE == 'publish' }}
+        run: node common/scripts/install-run-rush.js version --bump --target-branch $TARGET_BRANCH --version-policy $VERSION_POLICY
+
+      - name: Publish to npmjs.org with the ${{ env.VERSION_POLICY }} version policy
         if: ${{ env.MODE == 'publish' }}
         run: node common/scripts/install-run-rush.js publish --include-all --target-branch $TARGET_BRANCH --version-policy $VERSION_POLICY --publish

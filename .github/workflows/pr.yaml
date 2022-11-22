@@ -2,7 +2,7 @@ name: 🧹 Pull request
 
 on:
   pull_request:
-    types: [opened, synchronize, reopened, edited]
+    types: [opened, synchronize, reopened]
 
 jobs:
   pull-request:
@@ -14,26 +14,19 @@ jobs:
         with:
           fetch-depth: 2
 
-      - name: Git config user
-        uses: snow-actions/git-config-user@v1.0.0
-        with:
-          name: Fabernovel
-          email: heart@fabernovel.com
-
       - uses: actions/setup-node@v3
         with:
+          # Matches the version defined in .nmvrc and rush.json
           node-version: 14
 
       - name: Install
         run: node common/scripts/install-run-rush.js install
 
       - name: 🏗 Build
-        run: node common/scripts/install-run-rush.js build
+        run: node common/scripts/install-run-rush.js rebuild
 
       - name: 📝 Verify missing changelogs
-        run: |
-          git fetch origin master -a
-          node common/scripts/install-run-rush.js change --target-branch origin/master --verify -v
+        run: node common/scripts/install-run-rush.js change --target-branch origin/$GITHUB_BASE_REF --verify -v
 
       - name: 💅 Lint
         run: node common/scripts/install-run-rush.js lint
