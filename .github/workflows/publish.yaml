@@ -10,7 +10,7 @@ on:
           # Simulate the publication
           - simulate
           # Do the publication
-          #- publish
+          - publish
         default: simulate
         required: true
       VERSION_POLICY:
@@ -34,7 +34,6 @@ jobs:
       VERSION_POLICY: ${{ inputs.VERSION_POLICY }}
     permissions:
       contents: read|write
-      security-events: read|write
     steps:
       - uses: actions/checkout@v3
         with:
@@ -52,8 +51,6 @@ jobs:
       # https://rushjs.io/pages/maintainer/publishing/#publishing-process-when-version-policies-are-used
       - name: Bump packages versions numbers
         run: node common/scripts/install-run-rush.js version --bump --target-branch $TARGET_BRANCH --version-policy $VERSION_POLICY
-      - name: debug
-        run: echo $MODE $TARGET_BRANCH $VERSION_POLICY
       - name: Simulate a publication to npmjs.org with the $VERSION_POLICY version policy
         if: ${{ env.MODE == 'simulate' }}
         run: node common/scripts/install-run-rush.js publish --include-all --target-branch $TARGET_BRANCH --version-policy $VERSION_POLICY
