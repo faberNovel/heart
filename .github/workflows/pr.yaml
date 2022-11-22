@@ -26,7 +26,7 @@ jobs:
         run: node common/scripts/install-run-rush.js rebuild
 
       - name: 📝 Verify missing changelogs
-        run: node common/scripts/install-run-rush.js change --target-branch $GITHUB_BASE_REF --verify -v
+        run: node common/scripts/install-run-rush.js change --target-branch origin/$GITHUB_BASE_REF --verify -v
 
       - name: 💅 Lint
         run: node common/scripts/install-run-rush.js lint
