@@ -8,6 +8,8 @@ jobs:
   pull-request:
     name: Pull request
     runs-on: ubuntu-latest
+    env:
+      VERSION_POLICY: testVariableInjection
 
     steps:
       - uses: actions/checkout@v3
@@ -24,7 +26,7 @@ jobs:
         with:
           node-version: 14
 
-      - name: Install
+      - name: Install ${{ env.VERSION_POLICY }}
         run: node common/scripts/install-run-rush.js install
 
       - name: 🏗 Build
