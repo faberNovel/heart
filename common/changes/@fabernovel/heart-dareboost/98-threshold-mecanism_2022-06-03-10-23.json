@@ -2,7 +2,7 @@
   "changes": [
     {
       "packageName": "@fabernovel/heart-dareboost",
-      "comment": "Make the module compatible with the threshold feature introduced with @fabernovel/heart-cli 3.2.0",
+      "comment": "Make the module compatible with the threshold feature introduced with @fabernovel/heart-cli 3.3.0",
       "type": "minor"
     }
   ],

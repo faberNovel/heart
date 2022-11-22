@@ -10,7 +10,7 @@ on:
           # Simulate the publication
           - simulate
           # Do the publication
-          #- publish
+          - publish
         default: simulate
         required: true
       VERSION_POLICY:
@@ -32,6 +32,8 @@ jobs:
       # Force the master branch to be deployed: avoid the publication of WIP code from other branches
       TARGET_BRANCH: master
       VERSION_POLICY: ${{ inputs.VERSION_POLICY }}
+    permissions:
+      contents: read|write
     steps:
       - uses: actions/checkout@v3
         with:
@@ -53,11 +55,9 @@ jobs:
       - name: Bump packages versions numbers for publishing
         if: ${{ env.MODE == 'publish' }}
         run: node common/scripts/install-run-rush.js version --bump --target-branch $TARGET_BRANCH --version-policy $VERSION_POLICY
-      - name: debug
-        run: echo $MODE $TARGET_BRANCH $VERSION_POLICY
-      - name: Simulate a publication to npmjs.org with the ${VERSION_POLICY} version policy
+      - name: Simulate a publication to npmjs.org with the $VERSION_POLICY version policy
         if: ${{ env.MODE == 'simulate' }}
         run: node common/scripts/install-run-rush.js publish --include-all --target-branch $TARGET_BRANCH --version-policy $VERSION_POLICY
-      - name: Publish to npmjs.org with the ${VERSION_POLICY} version policy
+      - name: Publish to npmjs.org with the $VERSION_POLICY version policy
         if: ${{ env.MODE == 'publish' }}
         run: node common/scripts/install-run-rush.js publish --include-all --target-branch $TARGET_BRANCH --version-policy $VERSION_POLICY --publish
