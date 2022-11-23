@@ -55,6 +55,13 @@ jobs:
         with:
           node-version-file: .nvmrc
 
+      - name: Git config user
+        if: ${{ env.MODE == 'publish' }}
+        uses: snow-actions/git-config-user@v1.0.0
+        with:
+          name: Heart
+          email: heart@fabernovel.com
+
       # simulate mode
 
       - name: Simulate packages versions numbers bump
@@ -66,13 +73,6 @@ jobs:
         run: node common/scripts/install-run-rush.js publish --include-all --target-branch $TARGET_BRANCH --version-policy $VERSION_POLICY
 
       # publish mode
-
-      - name: Git config user
-        if: ${{ env.MODE == 'publish' }}
-        uses: snow-actions/git-config-user@v1.0.0
-        with:
-          name: Heart
-          email: heart@fabernovel.com
 
       - name: Install
         if: ${{ env.MODE == 'publish' }}
