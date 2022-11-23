@@ -99,8 +99,11 @@ jobs:
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-      # Use --merge to keep the Git tags added by the previous step and move them to the $TARGET_BRANCH
-      # gh pr merge $TARGET_BRANCH --merge --auto --delete-branch
+      # We use a PAT (Personal Access Token) to do the following operations on the PR, as $GITHUB_TOKEN cannot review his own PR and cannot enforce repository settings.
+      # We use a merge commit to preserve Git tags added by the previous step and move them to the $TARGET_BRANCH.
+      # gh pr merge $TARGET_BRANCH --merge --admin --delete-branch
+      # To make the merge commit work (--merge option), the "Allow merge commits" option must be checked in the repository settings.
+      # As the "Require linear history" option of the $SOURCE_BRANCH protected branch is on, we enforce this setting with the --admin flag.
       - name: Review and merge the Pull Request, then delete the branch
         if: ${{ env.MODE == 'publish' }}
         run: |
