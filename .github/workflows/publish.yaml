@@ -41,7 +41,7 @@ jobs:
     runs-on: ubuntu-latest
     env:
       # MODE: ${{ inputs.MODE }}
-      MODE: "simulate"
+      MODE: "publish"
       SOURCE_BRANCH: master # Force the master branch to be deployed: avoid the publication of WIP code from other branches
       TARGET_BRANCH: release/${{ github.run_id }}
       # VERSION_POLICY: ${{ inputs.VERSION_POLICY }}
@@ -72,7 +72,7 @@ jobs:
         if: ${{ env.MODE == 'simulate' }}
         run: node common/scripts/install-run-rush.js version --bump --version-policy $VERSION_POLICY
 
-      - name: Simulate a publication to npmjs.org with the ${{ env.VERSION_POLICY }} version policy
+      - name: Simulate a publication to npmjs.org with the version policy ${{ env.VERSION_POLICY }}
         if: ${{ env.MODE == 'simulate' }}
         run: node common/scripts/install-run-rush.js publish --include-all --target-branch $TARGET_BRANCH --version-policy $VERSION_POLICY
 
@@ -89,14 +89,15 @@ jobs:
         if: ${{ env.MODE == 'publish' }}
         run: node common/scripts/install-run-rush.js version --bump --target-branch $TARGET_BRANCH --version-policy $VERSION_POLICY
 
-      # - name: Publish to npmjs.org with the ${{ env.VERSION_POLICY }} version policy
+      # - name: Publish to npmjs.org with the version policy ${{ env.VERSION_POLICY }}
       #   if: ${{ env.MODE == 'publish' }}
       #   run: node common/scripts/install-run-rush.js publish --include-all --target-branch $TARGET_BRANCH --version-policy $VERSION_POLICY --publish
 
       - name: Create, approve and merge a Pull Request
         if:
           ${{ env.MODE == 'publish' }}
-          # gh pr merge $TARGET_BRANCH --admin --squash --delete-branch
+          # Use --merge to keep the Git tags added by the previous step and move them to the $TARGET_BRANCH
+          # gh pr merge $TARGET_BRANCH --admin --merge --delete-branch
         run: |
           gh pr create --base $SOURCE_BRANCH --head $TARGET_BRANCH --title "Release $GITHUB_RUN_ID" --body "Packages have been published"
           gh pr review $TARGET_BRANCH --approve
