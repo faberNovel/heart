@@ -95,14 +95,15 @@ jobs:
 
       - name: Create a Pull Request
         if: ${{ env.MODE == 'publish' }}
-        run: gh pr create --base $SOURCE_BRANCH --head $TARGET_BRANCH --title "Release $GITHUB_RUN_ID" --body "Packages have been published" --no-maintainer-edit
+        run: gh pr create --base $SOURCE_BRANCH --head $TARGET_BRANCH --fill --no-maintainer-edit
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
+      # Use --merge to keep the Git tags added by the previous step and move them to the $TARGET_BRANCH
+      # gh pr merge $TARGET_BRANCH --merge --auto --delete-branch
       - name: Review and merge the Pull Request, then delete the branch
         if: ${{ env.MODE == 'publish' }}
-        # Use --merge to keep the Git tags added by the previous step and move them to the $TARGET_BRANCH
-        # gh pr merge $TARGET_BRANCH --admin --merge --delete-branch
-        run: gh pr review $TARGET_BRANCH --approve
+        run: |
+          gh pr review $TARGET_BRANCH --approve
         env:
           GH_TOKEN: ${{ secrets.BGATELLIER_PAT }}
