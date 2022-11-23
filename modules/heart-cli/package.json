@@ -1,6 +1,6 @@
 {
   "name": "@fabernovel/heart-cli",
-  "version": "3.2.0",
+  "version": "3.3.0",
   "description": "Runner module of Heart, which starts an analysis by using a CLI",
   "homepage": "https://heart.fabernovel.com",
   "bugs": {
@@ -34,7 +34,7 @@
     "test": "jest --silent"
   },
   "dependencies": {
-    "@fabernovel/heart-core": "workspace:^3.2.0",
+    "@fabernovel/heart-core": "workspace:^3.3.0",
     "commander": "^9.4.0",
     "dotenv": "^8.0.0",
     "ora": "^5.4.1"
