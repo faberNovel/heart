@@ -2,6 +2,48 @@
   "name": "@fabernovel/heart-greenit",
   "entries": [
     {
+      "version": "3.1.0",
+      "tag": "@fabernovel/heart-greenit_v3.1.0",
+      "date": "Wed, 23 Nov 2022 17:50:36 GMT",
+      "comments": {
+        "none": [
+          {
+            "comment": "Updated the url used in the example to one who will not trigger a failed analysis. Such urls must be avoided until the issue has been solved. "
+          },
+          {
+            "comment": "Updated the homepage field to redirect to the heart website and not to the gitlab repository. Changed the link \"Read more about\" of the README to redirect to the README of the repository. The old link redirected to an article that do not exist anymore."
+          },
+          {
+            "comment": "Updating dependency \\\"@fabernovel/heart-core\\\" from `^3.1.1` to `^3.2.0`"
+          }
+        ],
+        "minor": [
+          {
+            "comment": "Make the module compatible with the threshold feature introduced with @fabernovel/heart-cli 3.3.0"
+          }
+        ],
+        "patch": [
+          {
+            "comment": "Consecutive analysis triggered by Heart API now send back the correct report instead of always the first"
+          },
+          {
+            "comment": "Hide the messages triggered by GreenIT Analysis during or after an analysis"
+          },
+          {
+            "comment": "The date of the report is now correct"
+          }
+        ],
+        "dependency": [
+          {
+            "comment": "Updating dependency \"@fabernovel/heart-core\" from `^3.2.0` to `^3.3.0`"
+          },
+          {
+            "comment": "Updating dependency \"@fabernovel/heart-cli\" from `^3.2.0` to `^3.3.0`"
+          }
+        ]
+      }
+    },
+    {
       "version": "3.0.0",
       "tag": "@fabernovel/heart-greenit_v3.0.0",
       "date": "Wed, 27 Jul 2022 13:43:15 GMT",
