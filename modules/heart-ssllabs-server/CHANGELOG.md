@@ -1,6 +1,13 @@
 # Change Log - @fabernovel/heart-ssllabs-server
 
-This log was last generated on Wed, 27 Jul 2022 13:43:15 GMT and should not be manually modified.
+This log was last generated on Wed, 23 Nov 2022 17:16:17 GMT and should not be manually modified.
+
+## 3.3.0
+Wed, 23 Nov 2022 17:16:17 GMT
+
+### Minor changes
+
+- Make the module compatible with the threshold feature introduced with @fabernovel/heart-cli 3.3.0
 
 ## 3.2.2
 Wed, 27 Jul 2022 13:43:15 GMT

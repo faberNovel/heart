@@ -1,6 +1,16 @@
 # Change Log - @fabernovel/heart-cli
 
-This log was last generated on Wed, 27 Jul 2022 13:43:15 GMT and should not be manually modified.
+This log was last generated on Wed, 23 Nov 2022 17:16:17 GMT and should not be manually modified.
+
+## 3.3.0
+Wed, 23 Nov 2022 17:16:17 GMT
+
+### Minor changes
+
+- Add the --cors options for the server modules, to allow the definition of HTTP CORS headers
+- Add a spinner during the analysis to show that Heart is working
+- Add a threshold mecanism available with the --threshold option. You can now validate that the `normalizedNote` of an analysis meet yourt requirements.
+- Move the input validation to @fabernovel/heart-core
 
 ## 3.2.0
 Wed, 27 Jul 2022 13:43:15 GMT
