@@ -15,7 +15,6 @@ node_modules/
 
 # Common toolchain intermediate files
 lib
-dist
 
 # OS X temporary files
 .DS_Store
@@ -28,9 +27,3 @@ common/autoinstallers/*/.npmrc
 
 # Visual Studio Code
 .vscode
-
-# Firebase
-.firebase
-
-# Parcel files
-.cache
