@@ -1,3 +1,12 @@
+# Strategy
+#
+# 2 modes: simulate and publish
+# - simulate: pachages versions numbers bump and npmj.com publication are simulated in the workflow
+# - publication: a release branch is created that contains packages versions bumps and updated changelogs
+#
+# As we are using Rush version policies feature, we need to bump versions first:
+# https://rushjs.io/pages/maintainer/publishing/#publishing-process-when-version-policies-are-used
+
 name: 🚀 Publish packages
 
 on:
@@ -31,10 +40,12 @@ jobs:
   publish:
     runs-on: ubuntu-latest
     env:
-      MODE: ${{ inputs.MODE }}
+      # MODE: ${{ inputs.MODE }}
+      MODE: "simulate"
       SOURCE_BRANCH: master # Force the master branch to be deployed: avoid the publication of WIP code from other branches
       TARGET_BRANCH: release/${{ github.run_id }}
-      VERSION_POLICY: ${{ inputs.VERSION_POLICY }}
+      # VERSION_POLICY: ${{ inputs.VERSION_POLICY }}
+      VERSION_POLICY: "individualVersion"
     permissions:
       contents: write
       pull-requests: write
@@ -55,27 +66,34 @@ jobs:
           name: Heart
           email: heart@fabernovel.com
 
-      - name: Debug
-        run: env
+      # simulate mode
 
-      - name: Create origin/${{ env.TARGET_BRANCH }} branch and switch to it
-        run: git checkout -b $TARGET_BRANCH
+      # - name: Simulate packages versions numbers bump
+      #   if: ${{ env.MODE == 'simulate' }}
+      #   run: node common/scripts/install-run-rush.js version --bump --version-policy $VERSION_POLICY
 
-      # As we are using Rush version policies feature, we need to bump versions first:
-      # https://rushjs.io/pages/maintainer/publishing/#publishing-process-when-version-policies-are-used
+      # - name: Simulate a publication to npmjs.org with the ${{ env.VERSION_POLICY }} version policy
+      #   if: ${{ env.MODE == 'simulate' }}
+      #   run: node common/scripts/install-run-rush.js publish --include-all --target-branch $TARGET_BRANCH --version-policy $VERSION_POLICY
+
+      # publish mode
+
+      - name: Create origin/${{ env.TARGET_BRANCH }} branch
+        # if: ${{ env.MODE == 'publish' }}
+        run: |
+          git checkout -b $TARGET_BRANCH
+          git push origin $TARGET_BRANCH
+          git checkout $SOURCE_BRANCH
+
       - name: Bump packages versions numbers
-        if: ${{ env.MODE == 'publish' }}
+        # if: ${{ env.MODE == 'publish' }}
         run: node common/scripts/install-run-rush.js version --bump --target-branch $TARGET_BRANCH --version-policy $VERSION_POLICY
-
-      - name: Simulate a publication to npmjs.org with the ${{ env.VERSION_POLICY }} version policy
-        if: ${{ env.MODE == 'simulate' }}
-        run: node common/scripts/install-run-rush.js publish --include-all --target-branch $TARGET_BRANCH --version-policy $VERSION_POLICY
 
       # - name: Publish to npmjs.org with the ${{ env.VERSION_POLICY }} version policy
       #   if: ${{ env.MODE == 'publish' }}
       #   run: node common/scripts/install-run-rush.js publish --include-all --target-branch $TARGET_BRANCH --version-policy $VERSION_POLICY --publish
 
       - name: Create Pull Request
-        run: gh pr create --base $SOURCE_BRANCH --head $TARGET_BRANCH --reviewer bgatellier
+        run: gh pr create --base $SOURCE_BRANCH --head $TARGET_BRANCH --title "Release $GITHUB_RUN_ID" --body "Packages have been published" --reviewer bgatellier
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
