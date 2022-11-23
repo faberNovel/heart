@@ -12,7 +12,7 @@
   },
   "license": "MIT",
   "contributors": [
-    "Thomas GIOVANNINI <thomas.giovannini@fabernovel.com>",
+    "Thomas Giovannini",
     "Bastien Gatellier <bastien.gatellier@fabernovel.com>"
   ],
   "main": "lib/index.js",
