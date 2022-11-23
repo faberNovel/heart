@@ -1,6 +1,15 @@
 # Change Log - @fabernovel/heart-core
 
-This log was last generated on Wed, 27 Jul 2022 13:43:15 GMT and should not be manually modified.
+This log was last generated on Wed, 23 Nov 2022 14:50:55 GMT and should not be manually modified.
+
+## 3.3.0
+Wed, 23 Nov 2022 14:50:55 GMT
+
+### Minor changes
+
+- Add the optional cors parameter to the startServer method of the ModuleServerInterface, and make the port parameter mandatory
+- Add the threshold feature
+- Add the input validation (previously located in @fabernovel/heart-cli)
 
 ## 3.1.2
 Wed, 27 Jul 2022 13:43:15 GMT

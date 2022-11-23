@@ -2,6 +2,37 @@
   "name": "@fabernovel/heart-cli",
   "entries": [
     {
+      "version": "3.3.0",
+      "tag": "@fabernovel/heart-cli_v3.3.0",
+      "date": "Wed, 23 Nov 2022 14:50:55 GMT",
+      "comments": {
+        "none": [
+          {
+            "comment": "Updated the homepage field to redirect to the heart website and not to the gitlab repository. Changed the link \"Read more about\" of the README to redirect to the README of the repository. The old link redirected to an article that do not exist anymore."
+          }
+        ],
+        "minor": [
+          {
+            "comment": "Add the --cors options for the server modules, to allow the definition of HTTP CORS headers"
+          },
+          {
+            "comment": "Add a spinner during the analysis to show that Heart is working"
+          },
+          {
+            "comment": "Add a threshold mecanism available with the --threshold option. You can now validate that the `normalizedNote` of an analysis meet yourt requirements."
+          },
+          {
+            "comment": "Move the input validation to @fabernovel/heart-core"
+          }
+        ],
+        "dependency": [
+          {
+            "comment": "Updating dependency \"@fabernovel/heart-core\" from `^3.2.0` to `^3.3.0`"
+          }
+        ]
+      }
+    },
+    {
       "version": "3.2.0",
       "tag": "@fabernovel/heart-cli_v3.2.0",
       "date": "Wed, 27 Jul 2022 13:43:15 GMT",

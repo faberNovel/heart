@@ -1,6 +1,13 @@
 # Change Log - @fabernovel/heart-slack
 
-This log was last generated on Wed, 27 Jul 2022 13:43:15 GMT and should not be manually modified.
+This log was last generated on Wed, 23 Nov 2022 14:50:55 GMT and should not be manually modified.
+
+## 3.4.0
+Wed, 23 Nov 2022 14:50:55 GMT
+
+### Minor changes
+
+- Make the module compatible with the threshold feature introduced with @fabernovel/heart-cli 3.3.0
 
 ## 3.3.0
 Wed, 27 Jul 2022 13:43:15 GMT
