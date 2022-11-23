@@ -73,6 +73,10 @@ jobs:
 
       # publish mode
 
+      - name: Install
+        if: ${{ env.MODE == 'publish' }}
+        run: node common/scripts/install-run-rush.js install
+
       - name: Create origin/${{ env.TARGET_BRANCH }} branch
         if: ${{ env.MODE == 'publish' }}
         run: |
