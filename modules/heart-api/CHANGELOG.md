@@ -1,6 +1,19 @@
 # Change Log - @fabernovel/heart-api
 
-This log was last generated on Wed, 27 Jul 2022 13:43:15 GMT and should not be manually modified.
+This log was last generated on Wed, 23 Nov 2022 11:13:32 GMT and should not be manually modified.
+
+## 3.2.0
+Wed, 23 Nov 2022 11:13:32 GMT
+
+### Minor changes
+
+- Make the module compatible with the threshold feature introduced with @fabernovel/heart-cli 3.3.0
+- HTTP CORS headers can now be set
+- Add input validation: a 400 HTTP status code and a detailed body response are now send if the configuration or the threshold have an unexpected format
+
+### Patches
+
+- Remove a useless dependency
 
 ## 3.1.1
 Wed, 27 Jul 2022 13:43:15 GMT

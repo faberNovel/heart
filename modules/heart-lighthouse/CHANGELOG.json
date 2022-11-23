@@ -2,6 +2,37 @@
   "name": "@fabernovel/heart-lighthouse",
   "entries": [
     {
+      "version": "3.1.0",
+      "tag": "@fabernovel/heart-lighthouse_v3.1.0",
+      "date": "Wed, 23 Nov 2022 11:13:32 GMT",
+      "comments": {
+        "minor": [
+          {
+            "comment": "Make the module compatible with the threshold feature introduced with @fabernovel/heart-cli 3.3.0"
+          },
+          {
+            "comment": "Update Google Lighthouse to get Web Core Vitals calculation"
+          }
+        ],
+        "none": [
+          {
+            "comment": "Updated the homepage field to redirect to the heart website and not to the gitlab repository. Changed the link \"Read more about\" of the README to redirect to the README of the repository. The old link redirected to an article that do not exist anymore."
+          },
+          {
+            "comment": "Updating dependency \\\"@fabernovel/heart-core\\\" from `^3.1.1` to `^3.2.0`"
+          }
+        ],
+        "dependency": [
+          {
+            "comment": "Updating dependency \"@fabernovel/heart-core\" from `^3.2.0` to `^3.3.0`"
+          },
+          {
+            "comment": "Updating dependency \"@fabernovel/heart-cli\" from `^3.2.0` to `^3.3.0`"
+          }
+        ]
+      }
+    },
+    {
       "version": "3.0.2",
       "tag": "@fabernovel/heart-lighthouse_v3.0.2",
       "date": "Wed, 27 Jul 2022 13:43:15 GMT",

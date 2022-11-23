@@ -2,6 +2,29 @@
   "name": "@fabernovel/heart-core",
   "entries": [
     {
+      "version": "3.3.0",
+      "tag": "@fabernovel/heart-core_v3.3.0",
+      "date": "Wed, 23 Nov 2022 11:13:32 GMT",
+      "comments": {
+        "none": [
+          {
+            "comment": "Updated the homepage field to redirect to the heart website and not to the gitlab repository. Changed the link \"Read more about\" of the README to redirect to the README of the repository. The old link redirected to an article that do not exist anymore."
+          }
+        ],
+        "minor": [
+          {
+            "comment": "Add the optional cors parameter to the startServer method of the ModuleServerInterface, and make the port parameter mandatory"
+          },
+          {
+            "comment": "Add the threshold feature"
+          },
+          {
+            "comment": "Add the input validation (previously located in @fabernovel/heart-cli)"
+          }
+        ]
+      }
+    },
+    {
       "version": "3.1.2",
       "tag": "@fabernovel/heart-core_v3.1.2",
       "date": "Wed, 27 Jul 2022 13:43:15 GMT",
