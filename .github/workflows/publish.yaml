@@ -32,20 +32,15 @@ on:
           - lockStepVersion
         default: "individualVersion"
         required: true
-  # debug
-  pull_request:
-    types: [opened, synchronize, reopened]
 
 jobs:
   publish:
     runs-on: ubuntu-latest
     env:
-      # MODE: ${{ inputs.MODE }}
-      MODE: "publish"
+      MODE: ${{ inputs.MODE }}
       SOURCE_BRANCH: master # Force the master branch to be deployed: avoid the publication of WIP code from other branches
       TARGET_BRANCH: release/${{ github.run_id }}
-      # VERSION_POLICY: ${{ inputs.VERSION_POLICY }}
-      VERSION_POLICY: "individualVersion"
+      VERSION_POLICY: ${{ inputs.VERSION_POLICY }}
     permissions:
       contents: write
       pull-requests: write
@@ -89,9 +84,9 @@ jobs:
         if: ${{ env.MODE == 'publish' }}
         run: node common/scripts/install-run-rush.js version --bump --target-branch $TARGET_BRANCH --version-policy $VERSION_POLICY
 
-      # - name: Publish to npmjs.org with the version policy ${{ env.VERSION_POLICY }}
-      #   if: ${{ env.MODE == 'publish' }}
-      #   run: node common/scripts/install-run-rush.js publish --include-all --target-branch $TARGET_BRANCH --version-policy $VERSION_POLICY --publish
+      - name: Publish to npmjs.org with the version policy ${{ env.VERSION_POLICY }}
+        if: ${{ env.MODE == 'publish' }}
+        run: node common/scripts/install-run-rush.js publish --include-all --target-branch $TARGET_BRANCH --version-policy $VERSION_POLICY --publish
 
       - name: Create a Pull Request
         if: ${{ env.MODE == 'publish' }}
@@ -101,12 +96,12 @@ jobs:
 
       # We use a PAT (Personal Access Token) to do the following operations on the PR, as $GITHUB_TOKEN cannot review his own PR and cannot enforce repository settings.
       # We use a merge commit to preserve Git tags added by the previous step and move them to the $TARGET_BRANCH.
-      # gh pr merge $TARGET_BRANCH --merge --admin --delete-branch
       # To make the merge commit work (--merge option), the "Allow merge commits" option must be checked in the repository settings.
       # As the "Require linear history" option of the $SOURCE_BRANCH protected branch is on, we enforce this setting with the --admin flag.
       - name: Review and merge the Pull Request, then delete the branch
         if: ${{ env.MODE == 'publish' }}
         run: |
           gh pr review $TARGET_BRANCH --approve
+          gh pr merge $TARGET_BRANCH --merge --admin --delete-branch
         env:
           GH_TOKEN: ${{ secrets.BGATELLIER_PAT }}
