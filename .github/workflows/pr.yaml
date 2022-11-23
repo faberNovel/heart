@@ -16,8 +16,7 @@ jobs:
 
       - uses: actions/setup-node@v3
         with:
-          # Matches the version defined in .nmvrc and rush.json
-          node-version: 14
+          node-version-file: .nvmrc
 
       - name: Install
         run: node common/scripts/install-run-rush.js install
