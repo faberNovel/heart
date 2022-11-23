@@ -42,8 +42,7 @@ jobs:
 
       - uses: actions/setup-node@v3
         with:
-          # Matches the version defined in .nmvrc and rush.json
-          node-version: 14
+          node-version-file: .nvmrc
 
       - name: Git config user
         uses: snow-actions/git-config-user@v1.0.0
