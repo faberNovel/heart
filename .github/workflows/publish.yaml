@@ -23,22 +23,27 @@ on:
           - lockStepVersion
         default: "individualVersion"
         required: true
+  # debug
+  pull_request:
+    types: [opened, synchronize, reopened]
 
 jobs:
   publish:
     runs-on: ubuntu-latest
     env:
       MODE: ${{ inputs.MODE }}
-      # Force the master branch to be deployed: avoid the publication of WIP code from other branches
-      TARGET_BRANCH: master
+      SOURCE_BRANCH: master # Force the master branch to be deployed: avoid the publication of WIP code from other branches
+      TARGET_BRANCH: release/${{ github.run_id }}
       VERSION_POLICY: ${{ inputs.VERSION_POLICY }}
     permissions:
       contents: write
+      pull-requests: write
 
     steps:
       - uses: actions/checkout@v3
         with:
           fetch-depth: 2
+          ref: ${{ env.SOURCE_BRANCH }}
 
       - uses: actions/setup-node@v3
         with:
@@ -47,23 +52,30 @@ jobs:
       - name: Git config user
         uses: snow-actions/git-config-user@v1.0.0
         with:
-          name: Fabernovel
+          name: Heart
           email: heart@fabernovel.com
 
-      # As we are using the version policies, we need to bump versions first:
+      - name: Debug
+        run: env
+
+      - name: Create origin/${{ env.TARGET_BRANCH }} branch and switch to it
+        run: git checkout -b $TARGET_BRANCH
+
+      # As we are using Rush version policies feature, we need to bump versions first:
       # https://rushjs.io/pages/maintainer/publishing/#publishing-process-when-version-policies-are-used
-      - name: Simulate packages versions numbers bump
-        if: ${{ env.MODE == 'simulate' }}
-        run: node common/scripts/install-run-rush.js version --bump --version-policy $VERSION_POLICY
+      - name: Bump packages versions numbers
+        if: ${{ env.MODE == 'publish' }}
+        run: node common/scripts/install-run-rush.js version --bump --target-branch $TARGET_BRANCH --version-policy $VERSION_POLICY
 
       - name: Simulate a publication to npmjs.org with the ${{ env.VERSION_POLICY }} version policy
         if: ${{ env.MODE == 'simulate' }}
         run: node common/scripts/install-run-rush.js publish --include-all --target-branch $TARGET_BRANCH --version-policy $VERSION_POLICY
 
-      - name: Bump packages versions numbers for publication
-        if: ${{ env.MODE == 'publish' }}
-        run: node common/scripts/install-run-rush.js version --bump --target-branch $TARGET_BRANCH --version-policy $VERSION_POLICY
+      # - name: Publish to npmjs.org with the ${{ env.VERSION_POLICY }} version policy
+      #   if: ${{ env.MODE == 'publish' }}
+      #   run: node common/scripts/install-run-rush.js publish --include-all --target-branch $TARGET_BRANCH --version-policy $VERSION_POLICY --publish
 
-      - name: Publish to npmjs.org with the ${{ env.VERSION_POLICY }} version policy
-        if: ${{ env.MODE == 'publish' }}
-        run: node common/scripts/install-run-rush.js publish --include-all --target-branch $TARGET_BRANCH --version-policy $VERSION_POLICY --publish
+      - name: Create Pull Request
+        run: gh pr create --base $SOURCE_BRANCH --head $TARGET_BRANCH --reviewer bgatellier
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
