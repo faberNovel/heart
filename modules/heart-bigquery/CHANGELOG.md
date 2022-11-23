@@ -1,6 +1,17 @@
 # Change Log - @fabernovel/heart-bigquery
 
-This log was last generated on Wed, 27 Jul 2022 13:43:15 GMT and should not be manually modified.
+This log was last generated on Wed, 23 Nov 2022 16:49:30 GMT and should not be manually modified.
+
+## 3.3.0
+Wed, 23 Nov 2022 16:49:30 GMT
+
+### Minor changes
+
+- Make the module compatible with the threshold feature introduced with @fabernovel/heart-cli 3.3.0
+
+### Patches
+
+- Fix an error that caused the module to crash if the normalized value of the note of the report was a floating point number
 
 ## 3.2.1
 Wed, 27 Jul 2022 13:43:15 GMT
