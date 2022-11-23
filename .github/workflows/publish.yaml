@@ -68,32 +68,37 @@ jobs:
 
       # simulate mode
 
-      # - name: Simulate packages versions numbers bump
-      #   if: ${{ env.MODE == 'simulate' }}
-      #   run: node common/scripts/install-run-rush.js version --bump --version-policy $VERSION_POLICY
+      - name: Simulate packages versions numbers bump
+        if: ${{ env.MODE == 'simulate' }}
+        run: node common/scripts/install-run-rush.js version --bump --version-policy $VERSION_POLICY
 
-      # - name: Simulate a publication to npmjs.org with the ${{ env.VERSION_POLICY }} version policy
-      #   if: ${{ env.MODE == 'simulate' }}
-      #   run: node common/scripts/install-run-rush.js publish --include-all --target-branch $TARGET_BRANCH --version-policy $VERSION_POLICY
+      - name: Simulate a publication to npmjs.org with the ${{ env.VERSION_POLICY }} version policy
+        if: ${{ env.MODE == 'simulate' }}
+        run: node common/scripts/install-run-rush.js publish --include-all --target-branch $TARGET_BRANCH --version-policy $VERSION_POLICY
 
       # publish mode
 
       - name: Create origin/${{ env.TARGET_BRANCH }} branch
-        # if: ${{ env.MODE == 'publish' }}
+        if: ${{ env.MODE == 'publish' }}
         run: |
           git checkout -b $TARGET_BRANCH
           git push origin $TARGET_BRANCH
           git checkout $SOURCE_BRANCH
 
       - name: Bump packages versions numbers
-        # if: ${{ env.MODE == 'publish' }}
+        if: ${{ env.MODE == 'publish' }}
         run: node common/scripts/install-run-rush.js version --bump --target-branch $TARGET_BRANCH --version-policy $VERSION_POLICY
 
       # - name: Publish to npmjs.org with the ${{ env.VERSION_POLICY }} version policy
       #   if: ${{ env.MODE == 'publish' }}
       #   run: node common/scripts/install-run-rush.js publish --include-all --target-branch $TARGET_BRANCH --version-policy $VERSION_POLICY --publish
 
-      - name: Create Pull Request
-        run: gh pr create --base $SOURCE_BRANCH --head $TARGET_BRANCH --title "Release $GITHUB_RUN_ID" --body "Packages have been published" --reviewer bgatellier
+      - name: Create, approve and merge a Pull Request
+        if:
+          ${{ env.MODE == 'publish' }}
+          # gh pr merge $TARGET_BRANCH --admin --squash --delete-branch
+        run: |
+          gh pr create --base $SOURCE_BRANCH --head $TARGET_BRANCH --title "Release $GITHUB_RUN_ID" --body "Packages have been published"
+          gh pr review $TARGET_BRANCH --approve
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
