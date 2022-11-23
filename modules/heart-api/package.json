@@ -1,6 +1,6 @@
 {
   "name": "@fabernovel/heart-api",
-  "version": "3.1.1",
+  "version": "3.2.0",
   "description": "Runner module of Heart, which exposes an API that starts an analysis when it is requested",
   "homepage": "https://heart.fabernovel.com",
   "bugs": {
@@ -30,7 +30,7 @@
     "test": "jest --silent --passWithNoTests"
   },
   "dependencies": {
-    "@fabernovel/heart-core": "workspace:^3.2.0",
+    "@fabernovel/heart-core": "workspace:^3.3.0",
     "cors": "^2.8.5",
     "express": "^4.16.4"
   },
@@ -48,7 +48,7 @@
     "typescript": "^4.6.4"
   },
   "peerDependencies": {
-    "@fabernovel/heart-cli": "^3.2.0"
+    "@fabernovel/heart-cli": "^3.3.0"
   },
   "engines": {
     "node": ">=14.17.0"
