@@ -38,7 +38,10 @@ jobs:
     runs-on: ubuntu-latest
     env:
       MODE: ${{ inputs.MODE }}
-      SOURCE_BRANCH: master # Force the master branch to be deployed: avoid the publication of WIP code from other branches
+      # Variable name must match the one defined in common/config/rush/.npmrc-publish
+      NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+      # Force the master branch to be deployed: avoid the publication of WIP code from other branches
+      SOURCE_BRANCH: master
       TARGET_BRANCH: release/${{ github.run_id }}
       VERSION_POLICY: ${{ inputs.VERSION_POLICY }}
     permissions:
