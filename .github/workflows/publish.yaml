@@ -34,15 +34,20 @@ on:
           - lockStepVersion
         default: "individualVersion"
         required: true
+  push:
+    branches:
+      - fix/update-lock-file-after-publication
 
 env:
   # The name of the NPM_TOKEN variable matches the one in common/config/rush/.npmrc-publish
   NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
-  PUBLICATION_MODE: ${{ inputs.PUBLICATION_MODE }}
+  # PUBLICATION_MODE: ${{ inputs.PUBLICATION_MODE }}
+  PUBLICATION_MODE: publish
   # Force the master branch to be deployed: avoid the publication of WIP code from other branches
   SOURCE_BRANCH: master
   TARGET_BRANCH: release/${{ github.run_id }}
-  VERSION_POLICY: ${{ inputs.VERSION_POLICY }}
+  # VERSION_POLICY: ${{ inputs.VERSION_POLICY }}
+  VERSION_POLICY: individualVersion
 
 jobs:
   simulate:
