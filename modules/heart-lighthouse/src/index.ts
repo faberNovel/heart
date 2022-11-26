@@ -4,6 +4,6 @@ export default new LighthouseModule({
   name: "Heart Lighthouse",
   service: {
     name: "Google Lighthouse",
-    logo: "https://gitlab.com/fabernovel/heart/raw/master/assets/images/logos/Lighthouse.png?v=20190916",
+    logo: "https://raw.githubusercontent.com/faberNovel/heart/master/assets/images/logos/Lighthouse.png?v=20221126",
   },
 })

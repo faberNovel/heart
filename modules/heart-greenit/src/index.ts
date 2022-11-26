@@ -4,6 +4,6 @@ export default new GreenITModule({
   name: "Heart GreenIT",
   service: {
     name: "GreenIT Analysis",
-    logo: "https://gitlab.com/fabernovel/heart/raw/master/assets/images/logos/GreenIT.png",
+    logo: "https://raw.githubusercontent.com/faberNovel/heart/master/assets/images/logos/ecoIndex.png?v=20221126",
   },
 })

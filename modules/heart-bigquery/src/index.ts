@@ -4,6 +4,6 @@ export default new BigQueryModule({
   name: "Heart BigQuery",
   service: {
     name: "Google BigQuery",
-    logo: "https://gitlab.com/fabernovel/heart/raw/master/assets/images/logos/BigQuery.png",
+    logo: "https://raw.githubusercontent.com/faberNovel/heart/master/assets/images/logos/BigQuery.png?v=20221126",
   },
 })
