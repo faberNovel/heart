@@ -35,17 +35,45 @@ on:
         default: "individualVersion"
         required: true
 
+env:
+  # The name of the NPM_TOKEN variable matches the one in common/config/rush/.npmrc-publish
+  NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+  PUBLICATION_MODE: ${{ inputs.PUBLICATION_MODE }}
+  # Force the master branch to be deployed: avoid the publication of WIP code from other branches
+  SOURCE_BRANCH: master
+  TARGET_BRANCH: release/${{ github.run_id }}
+  VERSION_POLICY: ${{ inputs.VERSION_POLICY }}
+
 jobs:
-  publish:
+  simulate:
+    if: env.PUBLICATION_MODE == 'simulate'
     runs-on: ubuntu-latest
-    env:
-      # Variable name must match the one defined in common/config/rush/.npmrc-publish
-      NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
-      PUBLICATION_MODE: ${{ inputs.PUBLICATION_MODE }}
-      # Force the master branch to be deployed: avoid the publication of WIP code from other branches
-      SOURCE_BRANCH: master
-      TARGET_BRANCH: release/${{ github.run_id }}
-      VERSION_POLICY: ${{ inputs.VERSION_POLICY }}
+
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 2
+          ref: ${{ env.SOURCE_BRANCH }}
+
+      - uses: actions/setup-node@v3
+        with:
+          node-version-file: .nvmrc
+
+      - name: Git config user
+        uses: snow-actions/git-config-user@v1.0.0
+        with:
+          name: Heart
+          email: heart@fabernovel.com
+
+      - name: Simulate packages versions numbers bump
+        run: node common/scripts/install-run-rush.js version --bump --version-policy $VERSION_POLICY
+
+      - name: Simulate a publication to npmjs.org with the version policy ${{ env.VERSION_POLICY }}
+        run: node common/scripts/install-run-rush.js publish --include-all --target-branch $TARGET_BRANCH --version-policy $VERSION_POLICY
+
+  publish:
+    if: env.PUBLICATION_MODE == 'publish'
+    runs-on: ubuntu-latest
     permissions:
       contents: write
       pull-requests: write
@@ -66,28 +94,13 @@ jobs:
           name: Heart
           email: heart@fabernovel.com
 
-      # simulate mode
-
-      - name: Simulate packages versions numbers bump
-        if: ${{ env.PUBLICATION_MODE == 'simulate' }}
-        run: node common/scripts/install-run-rush.js version --bump --version-policy $VERSION_POLICY
-
-      - name: Simulate a publication to npmjs.org with the version policy ${{ env.VERSION_POLICY }}
-        if: ${{ env.PUBLICATION_MODE == 'simulate' }}
-        run: node common/scripts/install-run-rush.js publish --include-all --target-branch $TARGET_BRANCH --version-policy $VERSION_POLICY
-
-      # publish mode
-
       - name: Install
-        if: ${{ env.PUBLICATION_MODE == 'publish' }}
         run: node common/scripts/install-run-rush.js install
 
       - name: 🏗 Build
-        if: ${{ env.PUBLICATION_MODE == 'publish' }}
         run: node common/scripts/install-run-rush.js rebuild
 
       - name: Create origin/${{ env.TARGET_BRANCH }} branch
-        if: ${{ env.PUBLICATION_MODE == 'publish' }}
         run: |
           git checkout -b $TARGET_BRANCH
           git push origin $TARGET_BRANCH
@@ -96,15 +109,20 @@ jobs:
       # As we are using Rush version policies feature, we need to bump versions first:
       # https://rushjs.io/pages/maintainer/publishing/#publishing-process-when-version-policies-are-used
       - name: Bump packages versions numbers
-        if: ${{ env.PUBLICATION_MODE == 'publish' }}
         run: node common/scripts/install-run-rush.js version --bump --target-branch $TARGET_BRANCH --version-policy $VERSION_POLICY
 
-      - name: Publish to npmjs.org with the version policy ${{ env.VERSION_POLICY }}
-        if: ${{ env.PUBLICATION_MODE == 'publish' }}
-        run: node common/scripts/install-run-rush.js publish --include-all --target-branch $TARGET_BRANCH --version-policy $VERSION_POLICY --publish
+      # - name: Publish to npmjs.org with the version policy ${{ env.VERSION_POLICY }}
+      #   if: ${{ env.PUBLICATION_MODE == 'publish' }}
+      #   run: node common/scripts/install-run-rush.js publish --include-all --target-branch $TARGET_BRANCH --version-policy $VERSION_POLICY --publish
+
+      - name: Update lock file
+        run: |
+          node common/scripts/install-run-rush.js update
+          git add common/config/rush/pnpm-lock.yaml
+          git commit -m "feat: update lock file"
+          git push origin $TARGET_BRANCH
 
       - name: Create a Pull Request
-        if: ${{ env.PUBLICATION_MODE == 'publish' }}
         run: gh pr create --base $SOURCE_BRANCH --head $TARGET_BRANCH --fill --no-maintainer-edit
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -113,10 +131,9 @@ jobs:
       # We use a merge commit to preserve Git tags added by the previous step and move them to the $TARGET_BRANCH.
       # To make the merge commit work (--merge option), the "Allow merge commits" option must be checked in the repository settings.
       # As the "Require linear history" option of the $SOURCE_BRANCH protected branch is on, we enforce this setting with the --admin flag.
-      - name: Review and merge the Pull Request, then delete the branch
-        if: ${{ env.PUBLICATION_MODE == 'publish' }}
-        run: |
-          gh pr review $TARGET_BRANCH --approve
-          gh pr merge $TARGET_BRANCH --merge --admin --delete-branch
-        env:
-          GH_TOKEN: ${{ secrets.BGATELLIER_PAT }}
+      # - name: Review and merge the Pull Request, then delete the branch
+      #   run: |
+      #     gh pr review $TARGET_BRANCH --approve
+      #     gh pr merge $TARGET_BRANCH --merge --admin --delete-branch
+      #   env:
+      #     GH_TOKEN: ${{ secrets.BGATELLIER_PAT }}
