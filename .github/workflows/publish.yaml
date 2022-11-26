@@ -34,18 +34,11 @@ on:
           - lockStepVersion
         default: "individualVersion"
         required: true
-  pull_request:
-    types:
-      - synchronize
 
 env:
-  # The name of the NPM_TOKEN variable matches the one in common/config/rush/.npmrc-publish
-  NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
-  # Force the master branch to be deployed: avoid the publication of WIP code from other branches
+  # Force the master branch to be deployed, whatever the input is: avoid the publication of WIP code from other branches
   SOURCE_BRANCH: master
   TARGET_BRANCH: release/${{ github.run_id }}
-  # VERSION_POLICY: ${{ inputs.VERSION_POLICY }}
-  VERSION_POLICY: individualVersion
 
 jobs:
   simulate:
@@ -72,10 +65,10 @@ jobs:
           email: heart@fabernovel.com
 
       - name: Bump packages versions numbers
-        run: node common/scripts/install-run-rush.js version --bump --version-policy $VERSION_POLICY
+        run: node common/scripts/install-run-rush.js version --bump --version-policy ${{ inputs.VERSION_POLICY }}
 
       - name: Simulate the publication
-        run: node common/scripts/install-run-rush.js publish --include-all --target-branch $TARGET_BRANCH --version-policy $VERSION_POLICY
+        run: node common/scripts/install-run-rush.js publish --include-all --target-branch $TARGET_BRANCH --version-policy ${{ inputs.VERSION_POLICY }}
 
   publish:
     if: inputs.PUBLICATION_MODE == 'publish'
@@ -115,11 +108,14 @@ jobs:
       # As we are using Rush version policies feature, we need to bump versions first:
       # https://rushjs.io/pages/maintainer/publishing/#publishing-process-when-version-policies-are-used
       - name: Bump packages versions numbers
-        run: node common/scripts/install-run-rush.js version --bump --target-branch $TARGET_BRANCH --version-policy $VERSION_POLICY
+        run: node common/scripts/install-run-rush.js version --bump --target-branch $TARGET_BRANCH --version-policy ${{ inputs.VERSION_POLICY }}
 
-      - name: Publish to npmjs.org with the version policy ${{ env.VERSION_POLICY }}
+      - name: Publish to npmjs.org with the version policy ${{ inputs.VERSION_POLICY }}
         if: ${{ env.PUBLICATION_MODE == 'publish' }}
-        run: node common/scripts/install-run-rush.js publish --include-all --target-branch $TARGET_BRANCH --version-policy $VERSION_POLICY --publish
+        run: node common/scripts/install-run-rush.js publish --include-all --target-branch $TARGET_BRANCH --version-policy ${{ inputs.VERSION_POLICY }} --publish
+        env:
+          # NPM_TOKEN is the expected environment variable name from common/config/rush/.npmrc-publish
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
 
       # Required step because of the test/ package
       - name: Update lock file
