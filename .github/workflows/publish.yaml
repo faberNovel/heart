@@ -49,7 +49,7 @@ env:
 
 jobs:
   simulate:
-    if: true # inputs.PUBLICATION_MODE == 'simulate'
+    if: inputs.PUBLICATION_MODE == 'simulate'
     name: Simulate a publication to npmjs.org with the version policy ${{ inputs.VERSION_POLICY }}
     runs-on: ubuntu-latest
     permissions:
@@ -78,7 +78,7 @@ jobs:
         run: node common/scripts/install-run-rush.js publish --include-all --target-branch $TARGET_BRANCH --version-policy $VERSION_POLICY
 
   publish:
-    if: inputs.PUBLICATION_MODE == 'publish'
+    if: true # inputs.PUBLICATION_MODE == 'publish'
     name: Publish to npmjs.org with the version policy ${{ inputs.VERSION_POLICY }}
     runs-on: ubuntu-latest
     permissions:
@@ -111,7 +111,6 @@ jobs:
         run: |
           git checkout -b $TARGET_BRANCH
           git push origin $TARGET_BRANCH
-          git checkout $SOURCE_BRANCH
 
       # As we are using Rush version policies feature, we need to bump versions first:
       # https://rushjs.io/pages/maintainer/publishing/#publishing-process-when-version-policies-are-used
