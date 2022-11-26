@@ -121,6 +121,7 @@ jobs:
         if: ${{ env.PUBLICATION_MODE == 'publish' }}
         run: node common/scripts/install-run-rush.js publish --include-all --target-branch $TARGET_BRANCH --version-policy $VERSION_POLICY --publish
 
+      # Required step because of the test/ package
       - name: Update lock file
         run: |
           node common/scripts/install-run-rush.js update
