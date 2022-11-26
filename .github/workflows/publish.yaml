@@ -52,6 +52,8 @@ jobs:
     if: true # inputs.PUBLICATION_MODE == 'simulate'
     name: Simulate a publication to npmjs.org with the version policy ${{ inputs.VERSION_POLICY }}
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
 
     steps:
       - uses: actions/checkout@v3
