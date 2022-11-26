@@ -2,8 +2,8 @@
   "changes": [
     {
       "packageName": "@fabernovel/heart-greenit",
-      "comment": "",
-      "type": "none"
+      "comment": "Use the ecoIndex logo instead of the greenit.com one",
+      "type": "patch"
     }
   ],
   "packageName": "@fabernovel/heart-greenit"
