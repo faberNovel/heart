@@ -9,11 +9,12 @@
   ],
   "homepage": "https://heart.fabernovel.com",
   "bugs": {
-    "url": "https://gitlab.com/fabernovel/heart/issues"
+    "url": "https://github.com/faberNovel/heart/issues"
   },
   "repository": {
     "type": "git",
-    "url": "https://gitlab.com/fabernovel/heart.git"
+    "url": "https://github.com/faberNovel/heart.git",
+    "directory": "modules/heart-greenit"
   },
   "license": "AGPL-3.0-or-later",
   "contributors": [
