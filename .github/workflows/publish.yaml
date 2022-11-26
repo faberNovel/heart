@@ -36,7 +36,7 @@ on:
         required: true
   push:
     branches:
-      - fix/update-lock-file-after-publication
+      - "fix/update-lock-file-after-publication"
 
 env:
   # The name of the NPM_TOKEN variable matches the one in common/config/rush/.npmrc-publish
