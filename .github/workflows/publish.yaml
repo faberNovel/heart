@@ -50,7 +50,7 @@ env:
 jobs:
   simulate:
     if: inputs.PUBLICATION_MODE == 'simulate'
-    name: Simulate a publication to npmjs.org with the version policy ${{ env.VERSION_POLICY }}
+    name: Simulate a publication to npmjs.org with the version policy ${{ inputs.VERSION_POLICY }}
     runs-on: ubuntu-latest
 
     steps:
@@ -77,7 +77,7 @@ jobs:
 
   publish:
     if: inputs.PUBLICATION_MODE == 'publish'
-    name: Publish to npmjs.org with the version policy ${{ env.VERSION_POLICY }}
+    name: Publish to npmjs.org with the version policy ${{ inputs.VERSION_POLICY }}
     runs-on: ubuntu-latest
     permissions:
       contents: write
