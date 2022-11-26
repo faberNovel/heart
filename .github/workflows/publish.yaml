@@ -41,8 +41,6 @@ on:
 env:
   # The name of the NPM_TOKEN variable matches the one in common/config/rush/.npmrc-publish
   NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
-  # PUBLICATION_MODE: ${{ inputs.PUBLICATION_MODE }}
-  PUBLICATION_MODE: publish
   # Force the master branch to be deployed: avoid the publication of WIP code from other branches
   SOURCE_BRANCH: master
   TARGET_BRANCH: release/${{ github.run_id }}
@@ -51,7 +49,8 @@ env:
 
 jobs:
   simulate:
-    if: ${{ env.PUBLICATION_MODE == 'simulate' }}
+    if: inputs.PUBLICATION_MODE == 'simulate'
+    name: Simulate a publication to npmjs.org with the version policy ${{ env.VERSION_POLICY }}
     runs-on: ubuntu-latest
 
     steps:
@@ -70,14 +69,15 @@ jobs:
           name: Heart
           email: heart@fabernovel.com
 
-      - name: Simulate packages versions numbers bump
+      - name: Bump packages versions numbers
         run: node common/scripts/install-run-rush.js version --bump --version-policy $VERSION_POLICY
 
-      - name: Simulate a publication to npmjs.org with the version policy ${{ env.VERSION_POLICY }}
+      - name: Simulate the publication
         run: node common/scripts/install-run-rush.js publish --include-all --target-branch $TARGET_BRANCH --version-policy $VERSION_POLICY
 
   publish:
-    if: ${{ env.PUBLICATION_MODE == 'publish' }}
+    if: inputs.PUBLICATION_MODE == 'publish'
+    name: Publish to npmjs.org with the version policy ${{ env.VERSION_POLICY }}
     runs-on: ubuntu-latest
     permissions:
       contents: write
