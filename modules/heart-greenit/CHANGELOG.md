@@ -1,6 +1,13 @@
 # Change Log - @fabernovel/heart-greenit
 
-This log was last generated on Wed, 23 Nov 2022 19:51:43 GMT and should not be manually modified.
+This log was last generated on Sat, 26 Nov 2022 19:10:56 GMT and should not be manually modified.
+
+## 3.1.1
+Sat, 26 Nov 2022 19:10:56 GMT
+
+### Patches
+
+- Use the ecoIndex logo instead of the greenit.com one
 
 ## 3.1.0
 Wed, 23 Nov 2022 19:51:43 GMT

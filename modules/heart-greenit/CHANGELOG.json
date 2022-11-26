@@ -2,6 +2,18 @@
   "name": "@fabernovel/heart-greenit",
   "entries": [
     {
+      "version": "3.1.1",
+      "tag": "@fabernovel/heart-greenit_v3.1.1",
+      "date": "Sat, 26 Nov 2022 19:10:56 GMT",
+      "comments": {
+        "patch": [
+          {
+            "comment": "Use the ecoIndex logo instead of the greenit.com one"
+          }
+        ]
+      }
+    },
+    {
       "version": "3.1.0",
       "tag": "@fabernovel/heart-greenit_v3.1.0",
       "date": "Wed, 23 Nov 2022 19:51:43 GMT",
