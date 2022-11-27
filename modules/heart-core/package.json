@@ -4,11 +4,12 @@
   "description": "Centralize helpful code needed by every Heart modules",
   "homepage": "https://heart.fabernovel.com",
   "bugs": {
-    "url": "https://gitlab.com/fabernovel/heart/issues"
+    "url": "https://github.com/faberNovel/heart/issues"
   },
   "repository": {
     "type": "git",
-    "url": "git@gitlab.com:fabernovel/heart.git"
+    "url": "git@gitlab.com:fabernovel/heart.git",
+    "directory": "modules/heart-core"
   },
   "license": "MIT",
   "contributors": [

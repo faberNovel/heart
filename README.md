@@ -1,12 +1,12 @@
 # Purpose
 
-The main feature of _Heart_ is to analyse URLs using different third-party services, like _Mozilla Observatory_ or _Dareboost_.
+_Heart_ is a command-line tool written in Node.js that centralize the analyse of webpages using different third-party services, like [_Google Lighthouse_](https://pagespeed.web.dev/), [_ecoIndex_](https://www.ecoindex.fr/) or [_Mozilla Observatory_](https://observatory.mozilla.org/).
 
 Moreover, it can also store the results of these analysis and notify you when they are over.
 
 # Design
 
-One important concept of _Heart_ is to be modular: you only install what you need.
+_Heart_ has been designed to be as light as possible, which explains its modular structure: you only install what you need.
 
 ## Modules types
 
@@ -26,31 +26,31 @@ The minimum setup you need to run _Heart_, is to have the _Heart CLI_ _runner_ m
 
 _Heart CLI_ is the only _Runner_ module required.
 
-| Name | Purpose | NPM registry URL | Code coverage |
-| ------ | ------ | ------ | ------ |
-| Heart API | Exposes an HTTP API that starts an analysis when it is requested | https://www.npmjs.com/package/@fabernovel/heart-api | ![coverage](https://gitlab.com/fabernovel/heart/badges/master/coverage.svg?job=%F0%9F%9A%A6+Coverage%3A+Heart+API) |
-| Heart CLI | Control the other modules by using a CLI | https://www.npmjs.com/package/@fabernovel/heart-cli | ![coverage](https://gitlab.com/fabernovel/heart/badges/master/coverage.svg?job=%F0%9F%9A%A6+Coverage%3A+Heart+CLI) |
+| Name | Purpose | |
+| ------ | ------ | ------ |
+| Heart API | Exposes an HTTP API that starts an analysis when it is requested | [![npm install @fabernovel/heart-api](https://nodei.co/npm/@fabernovel/heart-api.png?mini=true)](https://www.npmjs.com/package/@fabernovel/heart-api) |
+| Heart CLI | Control the other modules by using a CLI | [![npm install @fabernovel/heart-cli](https://nodei.co/npm/@fabernovel/heart-cli.png?mini=true)](https://www.npmjs.com/package/@fabernovel/heart-cli) |
 
 ### Analysis
 
 Only one _Analysis_ module is required, regardless of which one.
 
-| Name | Purpose | NPM registry URL | Code coverage |
-| ------ | ------ | ------ | ------ |
-| Heart Dareboost | Analyses URLs with [Dareboost](https://www.dareboost.com/en) | https://www.npmjs.com/package/@fabernovel/heart-dareboost | ![coverage](https://gitlab.com/fabernovel/heart/badges/master/coverage.svg?job=%F0%9F%9A%A6+Coverage%3A+Heart+Dareboost) |
-| Heart Lighthouse | Analyses URLs with [Google Lighthouse](https://developers.google.com/web/tools/lighthouse) | https://www.npmjs.com/package/@fabernovel/heart-lighthouse | ![coverage](https://gitlab.com/fabernovel/heart/badges/master/coverage.svg?job=%F0%9F%9A%A6+Coverage%3A+Heart+Lighthouse) |
-| Heart Observatory | Analyses URLs with [Mozilla Observatory](https://observatory.mozilla.org/) | https://www.npmjs.com/package/@fabernovel/heart-observatory | ![coverage](https://gitlab.com/fabernovel/heart/badges/master/coverage.svg?job=%F0%9F%9A%A6+Coverage%3A+Heart+Observatory) |
-| Heart SSL Labs Server | Analyses URLs with [Qualys SSL Labs Server](https://www.ssllabs.com/ssltest/) | https://www.npmjs.com/package/@fabernovel/heart-ssllabs-server | ![coverage](https://gitlab.com/fabernovel/heart/badges/master/coverage.svg?job=%F0%9F%9A%A6+Coverage%3A+Heart+SSL+Labs+Server) |
-| Heart GreenIT | Analyzes URLs with [GreenIT Analysis](https://chrome.google.com/webstore/detail/greenit-analysis/mofbfhffeklkbebfclfaiifefjflcpad?hl=en) | https://www.npmjs.com/package/@fabernovel/heart-greenit | ![coverage](https://gitlab.com/fabernovel/heart/badges/master/coverage.svg?job=%F0%9F%9A%A6+Coverage%3A+Heart+GreenIT) |
+| Name | Purpose | |
+| ------ | ------ | ------ |
+| Heart Dareboost | Analyses URLs with [Dareboost](https://www.dareboost.com/en) | [![npm install @fabernovel/heart-dareboost](https://nodei.co/npm/@fabernovel/heart-dareboost.png?mini=true)](https://www.npmjs.com/package/@fabernovel/heart-dareboost) |
+| Heart GreenIT | Analyzes URLs with [GreenIT Analysis](https://chrome.google.com/webstore/detail/greenit-analysis/mofbfhffeklkbebfclfaiifefjflcpad?hl=en) | [![npm install @fabernovel/heart-greenit](https://nodei.co/npm/@fabernovel/heart-greenit.png?mini=true)](https://www.npmjs.com/package/@fabernovel/heart-greenit) |
+| Heart Lighthouse | Analyses URLs with [Google Lighthouse](https://developers.google.com/web/tools/lighthouse) | [![npm install @fabernovel/heart-lighthouse](https://nodei.co/npm/@fabernovel/heart-lighthouse.png?mini=true)](https://www.npmjs.com/package/@fabernovel/heart-lighthouse) |
+| Heart Observatory | Analyses URLs with [Mozilla Observatory](https://observatory.mozilla.org/) | [![npm install @fabernovel/heart-observatory](https://nodei.co/npm/@fabernovel/heart-observatory.png?mini=true)](https://www.npmjs.com/package/@fabernovel/heart-observatory) |
+| Heart SSL Labs Server | Analyses URLs with [Qualys SSL Labs Server](https://www.ssllabs.com/ssltest/) | [![npm install @fabernovel/heart-ssllabs-server](https://nodei.co/npm/@fabernovel/heart-ssllabs-server.png?mini=true)](https://www.npmjs.com/package/@fabernovel/heart-ssllabs-server) |
 
 ### Listener
 
 All _Listener_ modules are optional.
 
-| Name | Purpose | NPM registry URL | Code coverage |
-| ------ | ------ | ------ | ------ |
-| Heart BigQuery | Stores the results of the analysis into a [Google BigQuery](https://cloud.google.com/bigquery) table | https://www.npmjs.com/package/@fabernovel/heart-bigquery | ![coverage](https://gitlab.com/fabernovel/heart/badges/master/coverage.svg?job=%F0%9F%9A%A6+Coverage%3A+Heart+BigQuery) |
-| Heart Slack | Sends the results of the analysis to a [Slack](https://slack.com) channel | https://www.npmjs.com/package/@fabernovel/heart-slack | ![coverage](https://gitlab.com/fabernovel/heart/badges/master/coverage.svg?job=%F0%9F%9A%A6+Coverage%3A+Heart+Slack) |
+| Name | Purpose | |
+| ------ | ------ | ------ |
+| Heart BigQuery | Stores the results of the analysis into a [Google BigQuery](https://cloud.google.com/bigquery) table | [![npm install @fabernovel/heart-bigquery](https://nodei.co/npm/@fabernovel/heart-bigquery.png?mini=true)](https://www.npmjs.com/package/@fabernovel/heart-bigquery)
+| Heart Slack | Sends the results of the analysis to a [Slack](https://slack.com) channel | [![npm install @fabernovel/heart-slack](https://nodei.co/npm/@fabernovel/heart-slack.png?mini=true)](https://www.npmjs.com/package/@fabernovel/heart-slack) |
 
 ## Configuration
 
@@ -73,27 +73,19 @@ Now that you know every concept of _Heart_, let's the installation begin!
 ## Example
 
 >>>
-I want to analyse URLs using the _Dareboost_ service.
+I want to analyse URLs using the _Google Lighthouse_ service.
 
-I want to start the analysis from the CLI.
+I want to be notified on the `#heart` Slack channel when the analysis is over.
 
-I want to be notified on my Slack channel when the analysis are over.
-
-I want to reach a minimum score of 85.
+I want to check if the score reach a minimum of 85.
 >>>
 
 Following the general installation steps, here is a list of the operations you must perform:
 
-1. `npm install @fabernovel/heart-dareboost @fabernovel/heart-cli`
+1. `npm install @fabernovel/heart-cli @fabernovel/heart-lighthouse @fabernovel/heart-slack`
 
-2. `npm install @fabernovel/heart-slack`
+2. `echo SLACK_API_TOKEN=My_Slack_Api_Token >> .env`
 
-3. `echo DAREBOOST_API_TOKEN=My_Dareboost_Api_Token >> .env`
-   
-   `echo SLACK_API_TOKEN=My_Slack_Api_Token >> .env`
-   
-   `echo SLACK_CHANNEL_ID=#my-slack-channel >> .env`
-
-4. `npx heart dareboost --inline '{"url":"https://about.gitlab.com/"}' --threshold 85`
+4. `npx heart lighthouse --inline '{"url":"https://about.gitlab.com/"}' --threshold 85`
 
 Note that step 3 shows an example of setting up environment variables using a `.env` file. This is a convenient way offered by _Heart_ to set them, but you can define them in any way you want.

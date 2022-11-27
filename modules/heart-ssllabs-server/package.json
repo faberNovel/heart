@@ -4,11 +4,12 @@
   "description": "Analysis module of Heart, which analyses URLs with Qualys SSL Labs server",
   "homepage": "https://heart.fabernovel.com",
   "bugs": {
-    "url": "https://gitlab.com/fabernovel/heart/issues"
+    "url": "https://github.com/faberNovel/heart/issues"
   },
   "repository": {
     "type": "git",
-    "url": "https://gitlab.com/fabernovel/heart.git"
+    "url": "https://github.com/faberNovel/heart.git",
+    "directory": "modules/heart-ssllabs-server"
   },
   "license": "MIT",
   "contributors": [

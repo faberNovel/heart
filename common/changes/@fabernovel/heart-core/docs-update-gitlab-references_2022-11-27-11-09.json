@@ -1,0 +1,10 @@
+{
+  "changes": [
+    {
+      "packageName": "@fabernovel/heart-core",
+      "comment": "Update issues and repository URLs",
+      "type": "none"
+    }
+  ],
+  "packageName": "@fabernovel/heart-core"
+}
