@@ -23,22 +23,18 @@ Before making a new contribution, please check [the issues](https://github.com/f
 ### Before submitting an enhancement suggestion
 
 1. Check if there's already a package which provides that enhancement.
-2. Check that there is an issue related to this enhancement. If not, please create it
+2. Check that there is an issue related to this enhancement. If not, please create it.
 
-### Create a _Merge Request_ from the issue
+### Create a _Pull Request_
 
-Using the _GitLab_ interface:
-
-1. Open the issue related to your enhancement
-2. Click on _Create merge request_ to create a new branch, a new merge request and link them both
-
-The _Merge Request_ is created with the _WIP:_ prefix, which indicates that the enhancements are still under construction
+1. Create a branch for your enhancement from the `master` branch and push it to the remote
+2. [Create a Pull Request from the GitHub interface](https://github.com/faberNovel/heart/compare) and select your branch
 
 ### Setup your local environment
 
 #### Install the requirements
 
-Make sure you're using Node.js version >= 14.17.0
+Make sure you're using Node.js in the same or superior version to the one indicated in the .nvmrc file.
 
 If you have [nvm](https://github.com/nvm-sh/nvm) installed:
 
@@ -46,9 +42,9 @@ If you have [nvm](https://github.com/nvm-sh/nvm) installed:
 nvm use
 ```
 
-_Heart_ handle every modules in a single repository that is managed with [Rush](https://rushjs.io/) and [pnpm](https://pnpm.js.org/).
+_Heart_ handle every modules in a single repository that is managed with [Rush](https://rushjs.io/).
 
-So make sure you have them both installed on your computer before you begin:
+So make sure you have it installed on your computer before you begin:
 
 ```shell
 npm install -g @microsoft/rush
@@ -148,7 +144,7 @@ You will be asked to provide, for each package that has changed:
 Now that your enhancements work perfectly and that you provide a changelog, it is time to submit for review:
 
 1. Push your local changes to the remote
-2. Using the Gitlab interface, check that every pipeline is green on the _Merge Request_
+2. Using the GitHub interface, check that every check
 3. If so, you can remove the _WIP:_ prefix from the title.
     
     If not, you have to open the pipeline and see what is failing, update your code and start the submitting process again.
