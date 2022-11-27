@@ -75,8 +75,6 @@ Now that you know every concept of _Heart_, let's the installation begin!
 >>>
 I want to analyse URLs using the _Google Lighthouse_ service.
 
-I want to start the analysis from the CLI.
-
 I want to be notified on the `#heart` Slack channel when the analysis is over.
 
 I want to check if the score reach a minimum of 85.
