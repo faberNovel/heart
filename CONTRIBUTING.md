@@ -30,54 +30,12 @@ Before making a new contribution, please check [the issues](https://github.com/f
 1. Create a branch for your enhancement from the `master` branch and push it to the remote
 2. [Create a Pull Request from the GitHub interface](https://github.com/faberNovel/heart/compare) and select your branch
 
-### Setup your local environment
-
-#### Install the requirements
-
-Make sure you're using Node.js in the same or superior version to the one indicated in the .nvmrc file.
-
-If you have [nvm](https://github.com/nvm-sh/nvm) installed:
-
-```
-nvm use
-```
-
-_Heart_ handle every modules in a single repository that is managed with [Rush](https://rushjs.io/).
-
-So make sure you have it installed on your computer before you begin:
-
-```shell
-npm install -g @microsoft/rush
-```
-
-#### Clone the repository
-
-```shell
-git clone git@github.com:faberNovel/heart.git
-```
-
-#### Install the dependencies
-
-```shell
-rush install
-```
-
-#### Build the modules
-
-As the code is written using TypeScript, it has to be compiled into plain JavaScript.
-
-To do so, a `build` task is defined in the `package.json` of each module.
-
-Rush makes it easy to build only the modules that need to be built. Run the following command from the root directory:
-
-```shell
-rush build
-```
+### [Setup your local environment](.docs/SETUP_LOCAL_ENVIRONMENT.md)
 
 ### Code your enhancements
 
 1. Checkout the newly created branch
-2. Code your enhancements
+2. Code your enhancements. If your enhancement is about creating a new module, you will find some help with [the dedicated documentation](./docs/CREATE_NEW_MODULE.md).
 
 ### Test your enhancements
 
@@ -113,31 +71,7 @@ To do so, you have to:
     rush-pnpm exec heart dareboost -i '{"url": "https://heart.fabernovel.com/"}'
     ```
 
-### Provide a changelog
-
-Your enhancements may require to provide a list of changes and an increase in the package version number.
-
-You can check if you need to provide these two with:
-
-```shell
-rush change --verify
-```
-
-If you get a message that says
-> The following projects have been changed and require change descriptions [...]
-
-You have to provide the list of changes and the type of version number implied by these changes. _Heart_ version number follows the [semver rules](https://semver.org/): `major.minor.patch`.
-
-Providing the changes is done by using
-
-```shell
-rush change
-```
-
-You will be asked to provide, for each package that has changed:
-
-* a description of the changes following the [Rush best practices](https://rushjs.io/pages/best_practices/change_logs/)
-* the type of version increment: `minor` or `patch`, as the `major` version number is locked amongst every package
+### [Provide a changelog](.docs/PROVIDE_CHANGELOG.md)
 
 ### Submit your enhancements
 

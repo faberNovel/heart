@@ -86,6 +86,6 @@ Following the general installation steps, here is a list of the operations you m
 
 2. `echo SLACK_API_TOKEN=My_Slack_Api_Token >> .env`
 
-4. `npx heart lighthouse --inline '{"url":"https://about.gitlab.com/"}' --threshold 85`
+4. `npx heart lighthouse --inline '{"url":"https://heart.fabernovel.com/"}' --threshold 85`
 
 Note that step 3 shows an example of setting up environment variables using a `.env` file. This is a convenient way offered by _Heart_ to set them, but you can define them in any way you want.

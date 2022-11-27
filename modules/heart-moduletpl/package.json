@@ -1,7 +1,7 @@
 {
-  "name": "@fabernovel/heart-ssllabs-server",
-  "version": "3.3.0",
-  "description": "Analysis module of Heart, which analyses URLs with Qualys SSL Labs server",
+  "name": "@fabernovel/heart-moduletpl",
+  "version": "3.0.0-beta.1",
+  "description": "",
   "homepage": "https://heart.fabernovel.com",
   "bugs": {
     "url": "https://github.com/faberNovel/heart/issues"
@@ -9,12 +9,10 @@
   "repository": {
     "type": "git",
     "url": "https://github.com/faberNovel/heart.git",
-    "directory": "modules/heart-ssllabs-server"
+    "directory": "modules/heart-moduletpl"
   },
   "license": "MIT",
-  "contributors": [
-    "Bastien Gatellier <bastien.gatellier@fabernovel.com>"
-  ],
+  "contributors": [],
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
   "directories": {
@@ -45,7 +43,7 @@
     "typescript": "^4.6.4"
   },
   "peerDependencies": {
-    "@fabernovel/heart-cli": "^3.3.0"
+    "@fabernovel/heart-cli": "^3.2.0"
   },
   "engines": {
     "node": ">=14.17.0"
