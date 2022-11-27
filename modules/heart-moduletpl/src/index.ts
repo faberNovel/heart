@@ -1,9 +1,9 @@
-import { ModuleTplModule } from './ModuleTplModule';
+import { ModuleTplModule } from "./ModuleTplModule"
 
 export default new ModuleTplModule({
-  name: 'Heart ModuleTpl',
+  name: "Heart ModuleTpl",
   service: {
-    name: 'ModuleTpl',
-    logo: 'https://gitlab.com/fabernovel/heart/raw/master/assets/images/logos/ModuleTpl.png?v=20211015'
+    name: "ModuleTpl",
+    logo: "https://raw.githubusercontent.com/faberNovel/heart/master/assets/images/logos/ModuleTpl.png?v=20221126",
   },
-});
+})

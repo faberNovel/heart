@@ -2,7 +2,7 @@
 
 ## Install the requirements
 
-Make sure you're using Node.js version >= 14.17.0
+Make sure you're using Node.js in the same or superior version to the one indicated in the .nvmrc file.
 
 If you have [nvm](https://github.com/nvm-sh/nvm) installed:
 
@@ -10,9 +10,9 @@ If you have [nvm](https://github.com/nvm-sh/nvm) installed:
 nvm use
 ```
 
-_Heart_ handle every modules in a single repository that is managed with [Rush](https://rushjs.io/) and [pnpm](https://pnpm.js.org/).
+_Heart_ handle every modules in a single repository that is managed with [Rush](https://rushjs.io/).
 
-So make sure you have them both installed on your computer before you begin:
+So make sure you have it installed on your computer before you begin:
 
 ```shell
 npm install -g @microsoft/rush
@@ -21,7 +21,7 @@ npm install -g @microsoft/rush
 ## Clone the repository
 
 ```shell
-git clone git@gitlab.com:fabernovel/heart.git
+git clone git@github.com:faberNovel/heart.git
 ```
 
 ## Install the dependencies
