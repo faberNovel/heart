@@ -111,7 +111,6 @@ jobs:
         run: node common/scripts/install-run-rush.js version --bump --target-branch $TARGET_BRANCH --version-policy ${{ inputs.VERSION_POLICY }}
 
       - name: Publish to npmjs.org with the version policy ${{ inputs.VERSION_POLICY }}
-        if: ${{ env.PUBLICATION_MODE == 'publish' }}
         run: node common/scripts/install-run-rush.js publish --include-all --target-branch $TARGET_BRANCH --version-policy ${{ inputs.VERSION_POLICY }} --publish
         env:
           # NPM_TOKEN is the expected environment variable name from common/config/rush/.npmrc-publish
