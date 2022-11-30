@@ -1,6 +1,5 @@
-import Result from "lighthouse/types/lhr/lhr"
+import { LighthouseResult } from "@fabernovel/heart-core"
 import { runAnalysis } from "../src/api/Client"
-import { LighthouseResult } from "../src/api/model/Result"
 import { LighthouseModule } from "../src/LighthouseModule"
 import { Conf } from "./data/Conf"
 

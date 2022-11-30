@@ -1,7 +1,5 @@
-import { Request } from "@fabernovel/heart-core"
-import { ObservatoryConfig } from "../config/Config"
-import { Error, isError } from "./model/Error"
-import { ObservatoryScan } from "./model/Scan"
+import { Request, ObservatoryConfig, ObservatoryResult } from "@fabernovel/heart-core"
+import { Error, isError } from "./Error"
 
 export class Client {
   private analyzeUrl: string
@@ -13,7 +11,7 @@ export class Client {
     this.apiUrl = process.env.OBSERVATORY_API_URL as string
   }
 
-  public async launchAnalysis(conf: ObservatoryConfig): Promise<ObservatoryScan> {
+  public async launchAnalysis(conf: ObservatoryConfig): Promise<ObservatoryResult> {
     this.host = conf.host
 
     if (undefined === this.host) {
@@ -23,7 +21,7 @@ export class Client {
       })
     }
 
-    const scan = await Request.post<ObservatoryScan | Error>(this.generateApiUrl("analyze"), conf, {
+    const scan = await Request.post<ObservatoryResult | Error>(this.generateApiUrl("analyze"), conf, {
       [Request.HEADER_CONTENT_TYPE]: Request.HEADER_CONTENT_TYPE_X_WWW_FORM_URLENCODED,
     })
 
@@ -53,7 +51,7 @@ export class Client {
     return this.analyzeUrl + this.getProjectHost()
   }
 
-  public async getAnalysisReport(): Promise<ObservatoryScan> {
+  public async getAnalysisReport(): Promise<ObservatoryResult> {
     return Request.get(this.generateApiUrl("analyze"))
   }
 

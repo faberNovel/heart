@@ -1,4 +1,4 @@
-import { Config, ModuleAnalysisInterface, RawResults, Report } from "@fabernovel/heart-core"
+import { Config, ModuleAnalysisInterface, RawResult, Report } from "@fabernovel/heart-core"
 import { Command } from "commander"
 import { createAnalysisCommand } from "../../src/command/AnalysisCommand"
 
@@ -14,7 +14,7 @@ test("Create an analysis command", () => {
     },
   })
 
-  const module: ModuleAnalysisInterface<Config, RawResults> = {
+  const module: ModuleAnalysisInterface<Config, RawResult> = {
     id: "test-analysis-tool",
     name: "Heart Test Analysis Tool",
     service: {

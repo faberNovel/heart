@@ -1,4 +1,4 @@
-import { LighthouseConfig } from "../../src/config/Config"
+import { LighthouseConfig } from "@fabernovel/heart-core"
 
 export const Conf: LighthouseConfig = {
   url: "https://heart.fabernovel.com",

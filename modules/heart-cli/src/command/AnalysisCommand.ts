@@ -1,4 +1,4 @@
-import { Config, ModuleAnalysisInterface, RawResults, validateInput } from "@fabernovel/heart-core"
+import { Config, ModuleAnalysisInterface, RawResult, validateInput } from "@fabernovel/heart-core"
 import { Command } from "commander"
 
 type Options = Partial<{
@@ -10,7 +10,7 @@ type Options = Partial<{
 /**
  * Create a command dedicated to the given analysis module
  */
-export const createAnalysisCommand = <C extends Config, R extends RawResults>(
+export const createAnalysisCommand = <C extends Config, R extends RawResult>(
   module: ModuleAnalysisInterface<C, R>,
   callback: (config: C, threshold?: number) => Promise<void>
 ): Command => {

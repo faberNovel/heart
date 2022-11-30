@@ -1,8 +1,7 @@
-import { readFileSync } from "fs"
+import { GreenITConfig, GreenITResult } from "@fabernovel/heart-core"
 import { createJsonReports, Options, Report } from "greenit-cli/cli-core/analysis"
+import { readFileSync } from "node:fs"
 import puppeteer from "puppeteer"
-import { GreenITConfig } from "../config/Config"
-import { GreenITResult } from "./model/Result"
 
 const DEFAULT_OPTIONS: Options = {
   device: "desktop",

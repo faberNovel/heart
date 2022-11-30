@@ -1,6 +1,6 @@
 import { Report } from "@fabernovel/heart-core"
 import { createJsonReports } from "greenit-cli/cli-core/analysis"
-import path from "path"
+import { join } from "node:path"
 import { GreenITModule } from "../src/GreenITModule"
 import { conf } from "./data/Conf"
 import successResults from "./data/successReport.json"
@@ -14,7 +14,7 @@ describe("Run GreenIT analysis", () => {
 
     mockedCreateJsonReports.mockResolvedValue([
       {
-        path: path.join(__dirname, "./data/successReport.json"),
+        path: join(__dirname, "./data/successReport.json"),
         name: "1.json",
       },
     ])
@@ -46,7 +46,7 @@ describe("Run GreenIT analysis", () => {
   it("should be able to handle a failed analysis", async () => {
     mockedCreateJsonReports.mockResolvedValue([
       {
-        path: path.join(__dirname, "./data/errorReport.json"),
+        path: join(__dirname, "./data/errorReport.json"),
         name: "1.json",
       },
     ])
@@ -75,7 +75,7 @@ describe("Run GreenIT analysis", () => {
 
     mockedCreateJsonReports.mockResolvedValue([
       {
-        path: path.join(__dirname, "./data/successReport.json"),
+        path: join(__dirname, "./data/successReport.json"),
         name: "1.json",
       },
     ])
@@ -112,7 +112,7 @@ describe("Run GreenIT analysis", () => {
 
     mockedCreateJsonReports.mockResolvedValue([
       {
-        path: path.join(__dirname, "./data/successReport.json"),
+        path: join(__dirname, "./data/successReport.json"),
         name: "1.json",
       },
     ])

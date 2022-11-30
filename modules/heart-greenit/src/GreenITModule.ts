@@ -1,7 +1,6 @@
+import type { GreenITConfig, GreenITResult } from "@fabernovel/heart-core"
 import { Module, ModuleAnalysisInterface, ModuleInterface, Report } from "@fabernovel/heart-core"
 import { runAnalysis } from "./api/Client"
-import { GreenITResult } from "./api/model/Result"
-import { GreenITConfig } from "./config/Config"
 
 export class GreenITModule extends Module implements ModuleAnalysisInterface<GreenITConfig, GreenITResult> {
   private threshold?: number

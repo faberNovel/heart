@@ -1,12 +1,4 @@
-import {
-  AnalysisEvents,
-  Module,
-  ModuleInterface,
-  ModuleListenerInterface,
-  RawResults,
-  Report,
-} from "@fabernovel/heart-core"
-import { EventEmitter } from "events"
+import { Module, ModuleInterface, ModuleListenerInterface, RawResult, Report } from "@fabernovel/heart-core"
 import { Client } from "./api/Client"
 
 export class SlackModule extends Module implements ModuleListenerInterface {
@@ -18,16 +10,7 @@ export class SlackModule extends Module implements ModuleListenerInterface {
     this.slackClient = new Client()
   }
 
-  /**
-   * Register the events:
-   * 1. take the events and their handlers from the mapping table
-   * 2. register each event on the event emitter
-   */
-  public registerEvents(eventEmitter: EventEmitter): void {
-    eventEmitter.on(AnalysisEvents.DONE, this.sendReport.bind(this))
-  }
-
-  private sendReport<R extends RawResults>(report: Report<R>): void {
+  public async notifyAnalysisDone<R extends RawResult>(report: Report<R>): Promise<void> {
     let message = `${report.analyzedUrl}: ${report.note}`
 
     if (report.resultUrl) {

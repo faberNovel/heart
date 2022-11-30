@@ -6,6 +6,7 @@ import {
   ModuleAnalysisInterface,
   ModuleInterface,
   ModuleListenerInterface,
+  RawResult,
   Report,
   ThresholdError,
   validateInput,
@@ -47,7 +48,7 @@ export class ExpressApp {
     this.express.set("strict routing", false)
   }
 
-  private createRouteHandler<C extends Config, R extends RawResults>(
+  private createRouteHandler<C extends Config, R extends RawResult>(
     module: ModuleAnalysisInterface<C, R>
   ): express.RequestHandler {
     return (
@@ -65,21 +66,27 @@ export class ExpressApp {
         module
           .startAnalysis(config, threshold)
           .then((report: Report<R>) => {
-            this.eventEmitter.emit(AnalysisEvents.DONE, report)
+            const notifyListenerModulesPromises = this.listenerModules.map((listenerModule) =>
+              listenerModule.notifyAnalysisDone(report)
+            )
 
-            response.status(200).json({
-              analyzedUrl: report.analyzedUrl,
-              date: report.date,
-              rawResults: report.rawResults,
-              service: {
-                name: report.service.name,
-              },
-              note: report.note,
-              normalizedNote: report.normalizedNote,
-              resultUrl: report.resultUrl,
-              threshold: report.threshold ?? null,
-              isThresholdReached: report.isThresholdReached() ?? null,
-            })
+            Promise.all(notifyListenerModulesPromises)
+              .then(() => {
+                response.status(200).json({
+                  analyzedUrl: report.analyzedUrl,
+                  date: report.date,
+                  rawResults: report.rawResults,
+                  service: {
+                    name: report.service.name,
+                  },
+                  note: report.note,
+                  normalizedNote: report.normalizedNote,
+                  resultUrl: report.resultUrl,
+                  threshold: report.threshold ?? null,
+                  isThresholdReached: report.isThresholdReached() ?? null,
+                })
+              })
+              .catch(next)
           })
           .catch(next)
       } catch (error) {
@@ -95,7 +102,7 @@ export class ExpressApp {
     const router = express.Router()
 
     modules
-      .filter((module: ModuleInterface): module is ModuleAnalysisInterface<Config> =>
+      .filter((module: ModuleInterface): module is ModuleAnalysisInterface<Config, RawResult> =>
         isModuleAnalysis(module)
       )
       .forEach((analysisModule) => {

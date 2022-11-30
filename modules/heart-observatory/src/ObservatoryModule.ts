@@ -1,11 +1,17 @@
-import { Helper, Module, ModuleAnalysisInterface, ModuleInterface, Report } from "@fabernovel/heart-core"
-import { ObservatoryScan } from "./api/model/Scan"
+import {
+  Helper,
+  Module,
+  ModuleAnalysisInterface,
+  ModuleInterface,
+  Report,
+  ObservatoryResult,
+  ObservatoryConfig,
+} from "@fabernovel/heart-core"
 import { Client } from "./api/Client"
-import { ObservatoryConfig } from "./config/Config"
 
 export class ObservatoryModule
   extends Module
-  implements ModuleAnalysisInterface<ObservatoryConfig, ObservatoryScan>
+  implements ModuleAnalysisInterface<ObservatoryConfig, ObservatoryResult>
 {
   private readonly TIME_BETWEEN_TRIES = 10000
 
@@ -18,7 +24,10 @@ export class ObservatoryModule
     this.apiClient = new Client()
   }
 
-  public async startAnalysis(conf: ObservatoryConfig, threshold?: number): Promise<Report<ObservatoryScan>> {
+  public async startAnalysis(
+    conf: ObservatoryConfig,
+    threshold?: number
+  ): Promise<Report<ObservatoryResult>> {
     this.threshold = threshold
 
     await this.apiClient.launchAnalysis(conf)
@@ -26,13 +35,13 @@ export class ObservatoryModule
     return this.requestScan()
   }
 
-  private async requestScan(): Promise<Report<ObservatoryScan>> {
+  private async requestScan(): Promise<Report<ObservatoryResult>> {
     const scan = await this.apiClient.getAnalysisReport()
 
     return this.handleRequestScan(scan)
   }
 
-  private async handleRequestScan(scan: ObservatoryScan): Promise<Report<ObservatoryScan>> {
+  private async handleRequestScan(scan: ObservatoryResult): Promise<Report<ObservatoryResult>> {
     switch (scan.state) {
       case "FAILED":
         throw new Error(scan.state)

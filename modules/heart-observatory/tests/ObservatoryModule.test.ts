@@ -1,12 +1,10 @@
-import { Report } from "@fabernovel/heart-core"
-import { ObservatoryScan } from "../src/api/model/Scan"
-import { ObservatoryConfig } from "../src/config/Config"
+import { ObservatoryConfig, ObservatoryResult, Report } from "@fabernovel/heart-core"
 import { ObservatoryModule } from "../src/ObservatoryModule"
 
 const ANALYZE_URL = "www.observatory.mozilla-test/results/"
 const API_URL = "www.observatory.mozilla-test/api/"
 const CONF = { host: "heart.fabernovel.com" }
-const SCAN: ObservatoryScan = {
+const SCAN: ObservatoryResult = {
   end_time: "May 13, 2022 5:58 PM",
   grade: "B",
   hidden: true,

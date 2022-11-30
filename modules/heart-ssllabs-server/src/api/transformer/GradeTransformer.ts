@@ -1,9 +1,9 @@
-import { Grade } from "../enum/Grade"
+import { SsllabsServerGrade } from "@fabernovel/heart-core"
 
 /**
  * @see [Documentation ('grade' property)]{@link https://github.com/ssllabs/ssllabs-scan/blob/master/ssllabs-api-docs-v3.md#endpoint}
  */
-const TRANSFORM_TABLE: { [key in Grade]: number } = {
+const TRANSFORM_TABLE: { [key in SsllabsServerGrade]: number } = {
   "A+": 95, // equal repartition of the A grades (A+, A, A-) between 80 and 100
   A: 90,
   "A-": 85,
@@ -20,11 +20,6 @@ const TRANSFORM_TABLE: { [key in Grade]: number } = {
  * Transform a grade (A+, A, A-, B, C...) into a percentage (number between 0 and 100)
  * @see [Methodology]{@link https://github.com/ssllabs/research/wiki/SSL-Server-Rating-Guide#methodology-overview}
  */
-export class GradeTransformer {
-  /**
-   * Transform a grade into a percentage
-   */
-  public static transform(grade: keyof typeof Grade): number {
-    return TRANSFORM_TABLE[grade]
-  }
+export const transform = (grade: keyof typeof SsllabsServerGrade): number => {
+  return TRANSFORM_TABLE[grade]
 }

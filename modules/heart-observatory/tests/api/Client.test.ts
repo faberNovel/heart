@@ -1,7 +1,5 @@
-import { Request } from "@fabernovel/heart-core"
+import { ObservatoryConfig, ObservatoryResult, Request } from "@fabernovel/heart-core"
 import { Client } from "../../src/api/Client"
-import { ObservatoryScan } from "../../src/api/model/Scan"
-import { ObservatoryConfig } from "../../src/config/Config"
 
 jest.mock("@fabernovel/heart-core")
 const mockedRequest = jest.mocked(Request)
@@ -9,7 +7,7 @@ const mockedRequest = jest.mocked(Request)
 describe("Client", () => {
   const ANALYZE_URL = "www.observatory.mozilla/results"
   const API_URL = "www.observatory.mozilla/api"
-  const SCAN: ObservatoryScan = {
+  const SCAN: ObservatoryResult = {
     end_time: "",
     grade: "B",
     hidden: true,

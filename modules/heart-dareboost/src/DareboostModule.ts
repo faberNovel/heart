@@ -1,16 +1,19 @@
-import { Helper, Module, ModuleAnalysisInterface, ModuleInterface, Report } from "@fabernovel/heart-core"
+import {
+  Config,
+  Helper,
+  Module,
+  ModuleAnalysisInterface,
+  ModuleInterface,
+  Report,
+} from "@fabernovel/heart-core"
 import { Client } from "./api/Client"
 import { DareboostResult } from "./api/model/Result"
-import { DareboostConfig } from "./config/Config"
 
-export class DareboostModule
-  extends Module
-  implements ModuleAnalysisInterface<DareboostConfig, DareboostResult>
-{
+export class DareboostModule extends Module implements ModuleAnalysisInterface<Config, DareboostResult> {
   private readonly MAX_TRIES = 500
   private readonly TIME_BETWEEN_TRIES = 5000
 
-  private conf: DareboostConfig = { url: "" }
+  private conf: Config = { url: "" }
   private apiClient: Client
   private threshold?: number
 
@@ -20,7 +23,7 @@ export class DareboostModule
     this.apiClient = new Client()
   }
 
-  public async startAnalysis(conf: DareboostConfig, threshold?: number): Promise<Report<DareboostResult>> {
+  public async startAnalysis(conf: Config, threshold?: number): Promise<Report<DareboostResult>> {
     this.conf = conf
     this.threshold = threshold
 

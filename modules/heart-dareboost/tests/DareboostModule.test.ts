@@ -1,5 +1,5 @@
 import { Report } from "@fabernovel/heart-core"
-import { DareboostConfig } from "../src/config/Config"
+import { DareboostConfig } from "../src/config/DareboostConfig"
 
 import { DareboostModule } from "../src/DareboostModule"
 

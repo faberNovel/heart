@@ -4,8 +4,8 @@ import {
   ModuleInterface,
   ModuleListenerInterface,
   ModuleServerInterface,
-  Config,
-  RawResults,
+  RawResult,
+  Report,
 } from "@fabernovel/heart-core"
 import { CorsOptions } from "cors"
 import * as ora from "ora"
@@ -15,17 +15,17 @@ export class App {
 
   constructor(private listenerModules: ModuleListenerInterface[]) {}
 
-  public async notifyListenerModules(report: Report): Promise<void[]> {
+  public async notifyListenerModules<R extends RawResult>(report: Report<R>): Promise<void[]> {
     return Promise.all(
       this.listenerModules.map((listenerModule) => listenerModule.notifyAnalysisDone(report))
     )
   }
 
-  public async startAnalysis<C extends Config, R extends RawResults>(
+  public async startAnalysis<C extends Config, R extends RawResult>(
     module: ModuleAnalysisInterface<C, R>,
     conf: C,
     threshold?: number
-  ): Promise<Report> {
+  ): Promise<Report<R>> {
     this.spinner.start("Analysis in progress...")
 
     try {
