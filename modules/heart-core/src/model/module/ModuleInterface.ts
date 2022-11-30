@@ -1,4 +1,4 @@
-import { ServiceInterface } from "../service/ServiceInterface"
+import { Service } from "../service/Service"
 
 export interface ModuleInterface {
   /**
@@ -11,5 +11,5 @@ export interface ModuleInterface {
    */
   name: string
 
-  service: ServiceInterface
+  service: Service
 }

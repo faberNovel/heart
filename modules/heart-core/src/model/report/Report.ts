@@ -1,13 +1,12 @@
 import { RawResults } from "../result/RawResults"
-import { ServiceInterface } from "../service/ServiceInterface"
-
+import { Service } from "../service/Service"
 import { ReportInterface } from "./ReportInterface"
 
-type ReportParams<T extends RawResults> = Pick<
-  ReportInterface<T>,
+type ReportParams<R extends RawResults> = Pick<
+  ReportInterface<R>,
   "analyzedUrl" | "date" | "rawResults" | "note" | "resultUrl" | "service" | "threshold"
 > &
-  Partial<Pick<ReportInterface<T>, "normalizedNote">>
+  Partial<Pick<ReportInterface<R>, "normalizedNote">>
 
 /**
  * Define an analysis report that is shared between every Heart module.
@@ -15,17 +14,17 @@ type ReportParams<T extends RawResults> = Pick<
  * /!\ WARNING /!\
  * Be very careful if you change the Report class structure, as it could have an impact on every Heart module.
  */
-export class Report<T extends RawResults> implements ReportInterface<T> {
+export class Report<R extends RawResults> implements ReportInterface<R> {
   analyzedUrl: string
   date: Date
-  rawResults: T
+  rawResults: R
   note: string
   normalizedNote: number
   resultUrl?: string
-  service: ServiceInterface
+  service: Service
   threshold?: number
 
-  constructor(report: ReportParams<T>) {
+  constructor(report: ReportParams<R>) {
     this.analyzedUrl = report.analyzedUrl
     this.date = report.date
     this.rawResults = report.rawResults
