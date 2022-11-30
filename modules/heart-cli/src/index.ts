@@ -25,7 +25,7 @@ void (async () => {
     // create a command for each module
     modules.forEach((module: ModuleInterface) => {
       if (isModuleAnalysis(module)) {
-        const callback = <T extends Config>(conf: T, threshold?: number) =>
+        const callback = <C extends Config>(conf: C, threshold?: number) =>
           app.startAnalysis(module, conf, threshold)
 
         const analysisCommand = createAnalysisCommand(module, callback)

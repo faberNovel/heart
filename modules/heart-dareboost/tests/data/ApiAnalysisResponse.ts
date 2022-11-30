@@ -1,6 +1,6 @@
-import { AnalysisResponseInterface } from "../../src/api/model/AnalysisResponseInterface"
+import { DareboostAnalyse } from "../../src/api/model/Analyse"
 
-export const ApiAnalysisResponse: AnalysisResponseInterface = {
+export const ApiAnalysisResponse: DareboostAnalyse = {
   status: "",
   message: "",
   reportId: "",

@@ -1,8 +1,8 @@
 import { readFileSync } from "fs"
 import { isAbsolute } from "path"
-import { Config } from "../config/Config"
 import { ConfigError } from "../error/ConfigError"
 import { ThresholdError } from "../error/ThresholdError"
+import { Config } from "../model/config/Config"
 
 /**
  * Validate that the analysis options are correct
@@ -10,12 +10,12 @@ import { ThresholdError } from "../error/ThresholdError"
  * @throws {ThresholdError}
  * @returns The analysis configuration and the threshold
  */
-function validateInput<T extends Config>(
+function validateInput<C extends Config>(
   configFile?: string,
   configInline?: string,
   thresholdInline?: string
-): [T, number?] {
-  const config = parseConfig<T>(configFile, configInline)
+): [C, number?] {
+  const config = parseConfig<C>(configFile, configInline)
   const threshold = undefined === thresholdInline ? undefined : parseThreshold(thresholdInline)
 
   return [config, threshold]

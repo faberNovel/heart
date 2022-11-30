@@ -1,6 +1,7 @@
-import { ServiceInterface } from "../service/ServiceInterface"
+import { RawResults } from "../result/RawResults"
+import { Service } from "../service/Service"
 
-export interface ReportInterface {
+export interface ReportInterface<R extends RawResults> {
   /**
    * URL that is analyzed
    */
@@ -11,6 +12,11 @@ export interface ReportInterface {
    * Could be different from the moment when the analysis is done, because some services have a cache system.
    */
   date: Date
+
+  /**
+   * Raw results send back by the analysis modules
+   */
+  rawResults: R
 
   /**
    * Ranking given by the service
@@ -30,7 +36,7 @@ export interface ReportInterface {
   /**
    * Details about the service that process the analysis
    */
-  service: ServiceInterface
+  service: Service
 
   /**
    * Threshold

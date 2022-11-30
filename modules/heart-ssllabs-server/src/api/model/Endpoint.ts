@@ -3,7 +3,7 @@ import { Grade } from "../enum/Grade"
 /**
  * @see [Documentation]{@link https://github.com/ssllabs/ssllabs-scan/blob/master/ssllabs-api-docs-v3.md#endpoint}
  */
-export interface EndpointInterface {
+export type SsllabsServerEndpoint = {
   ipAddress: string
   serverName: string
   statusMessage: string

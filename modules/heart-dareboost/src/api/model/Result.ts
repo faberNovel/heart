@@ -1,7 +1,9 @@
+import { RawResults } from "@fabernovel/heart-core"
+
 /**
  * @see {@link https://www.dareboost.com/fr/documentation-api#result}
  */
-export interface ReportResponseInterface {
+export type DareboostResult = RawResults & {
   status: number
   message: string
   missing: unknown[]

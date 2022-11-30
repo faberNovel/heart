@@ -6,6 +6,7 @@ import {
   ModuleListenerInterface,
   ModuleServerInterface,
   Config,
+  RawResults,
 } from "@fabernovel/heart-core"
 import { CorsOptions } from "cors"
 import { EventEmitter } from "events"
@@ -22,9 +23,9 @@ export class App {
     this.registerEventsListeners()
   }
 
-  public async startAnalysis<T extends Config>(
-    module: ModuleAnalysisInterface<T>,
-    conf: T,
+  public async startAnalysis<C extends Config, R extends RawResults>(
+    module: ModuleAnalysisInterface<C, R>,
+    conf: C,
     threshold?: number
   ): Promise<void> {
     this.spinner.start("Analysis in progress...")

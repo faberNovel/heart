@@ -38,6 +38,7 @@ describe("Run GreenIT analysis", () => {
     const mockReport = new Report({
       analyzedUrl: successResults.url,
       date: now,
+      rawResults: successResults,
       note: successResults.ecoIndex.toString(),
       service: moduleConfig.service,
       threshold: undefined,
@@ -100,6 +101,7 @@ describe("Run GreenIT analysis", () => {
     const mockReport = new Report({
       analyzedUrl: successResults.url,
       date: now,
+      rawResults: successResults,
       note: successResults.ecoIndex.toString(),
       service: moduleConfig.service,
       threshold: THRESHOLD,
@@ -136,6 +138,7 @@ describe("Run GreenIT analysis", () => {
     const mockReport = new Report({
       analyzedUrl: successResults.url,
       date: now,
+      rawResults: successResults,
       note: successResults.ecoIndex.toString(),
       service: moduleConfig.service,
       threshold: THRESHOLD,

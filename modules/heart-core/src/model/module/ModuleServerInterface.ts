@@ -1,6 +1,5 @@
 import { CorsOptions } from "cors"
 import { Server } from "http"
-
 import { ModuleInterface } from "./ModuleInterface"
 
 /**

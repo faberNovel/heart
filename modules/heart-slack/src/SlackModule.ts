@@ -3,10 +3,10 @@ import {
   Module,
   ModuleInterface,
   ModuleListenerInterface,
+  RawResults,
   Report,
 } from "@fabernovel/heart-core"
 import { EventEmitter } from "events"
-
 import { Client } from "./api/Client"
 
 export class SlackModule extends Module implements ModuleListenerInterface {
@@ -27,7 +27,7 @@ export class SlackModule extends Module implements ModuleListenerInterface {
     eventEmitter.on(AnalysisEvents.DONE, this.sendReport.bind(this))
   }
 
-  private sendReport(report: Report): void {
+  private sendReport<R extends RawResults>(report: Report<R>): void {
     let message = `${report.analyzedUrl}: ${report.note}`
 
     if (report.resultUrl) {

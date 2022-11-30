@@ -1,9 +1,12 @@
 import { Helper, Module, ModuleAnalysisInterface, ModuleInterface, Report } from "@fabernovel/heart-core"
-import { ReportResponseInterface } from "./api/model/ReportResponseInterface"
 import { Client } from "./api/Client"
+import { DareboostResult } from "./api/model/Result"
 import { DareboostConfig } from "./config/Config"
 
-export class DareboostModule extends Module implements ModuleAnalysisInterface<DareboostConfig> {
+export class DareboostModule
+  extends Module
+  implements ModuleAnalysisInterface<DareboostConfig, DareboostResult>
+{
   private readonly MAX_TRIES = 500
   private readonly TIME_BETWEEN_TRIES = 5000
 
@@ -17,33 +20,33 @@ export class DareboostModule extends Module implements ModuleAnalysisInterface<D
     this.apiClient = new Client()
   }
 
-  public async startAnalysis(conf: DareboostConfig, threshold?: number): Promise<Report> {
+  public async startAnalysis(conf: DareboostConfig, threshold?: number): Promise<Report<DareboostResult>> {
     this.conf = conf
     this.threshold = threshold
 
-    const analysisResponse = await this.apiClient.launchAnalysis(this.conf)
+    const analyse = await this.apiClient.launchAnalysis(this.conf)
 
-    return this.requestReport(analysisResponse.reportId)
+    return this.requestReport(analyse.reportId)
   }
 
-  private async requestReport(reportId: string, triesQty = 1): Promise<Report> {
+  private async requestReport(reportId: string, triesQty = 1): Promise<Report<DareboostResult>> {
     if (triesQty > this.MAX_TRIES) {
       throw new Error(
         `The maximum number of tries (${this.MAX_TRIES}) to retrieve the report has been reached.`
       )
     }
 
-    const reportResponse = await this.apiClient.getAnalysisReport(reportId)
+    const result = await this.apiClient.getAnalysisReport(reportId)
 
-    return this.handleResponseStatus(reportResponse, reportId, triesQty)
+    return this.handleResponseStatus(result, reportId, triesQty)
   }
 
   private async handleResponseStatus(
-    reportResponse: ReportResponseInterface,
+    result: DareboostResult,
     reportId: string,
     triesQty: number
-  ): Promise<Report> {
-    switch (reportResponse.status) {
+  ): Promise<Report<DareboostResult>> {
+    switch (result.status) {
       case 202:
         await Helper.timeout(this.TIME_BETWEEN_TRIES)
         return this.requestReport(reportId, ++triesQty)
@@ -51,16 +54,17 @@ export class DareboostModule extends Module implements ModuleAnalysisInterface<D
       case 200:
         return new Report({
           analyzedUrl: this.conf.url,
-          date: new Date(reportResponse.report.date),
+          date: new Date(result.report.date),
+          rawResults: result,
           service: this.service,
-          resultUrl: reportResponse.report.publicReportUrl,
-          note: reportResponse.report.summary.score.toString(),
-          normalizedNote: reportResponse.report.summary.score,
+          resultUrl: result.report.publicReportUrl,
+          note: result.report.summary.score.toString(),
+          normalizedNote: result.report.summary.score,
           threshold: this.threshold,
         })
 
       default:
-        throw new Error(reportResponse.message)
+        throw new Error(result.message)
     }
   }
 }

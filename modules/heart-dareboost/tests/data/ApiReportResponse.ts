@@ -1,6 +1,6 @@
-import { ReportResponseInterface } from "../../src/api/model/ReportResponseInterface"
+import { DareboostResult } from "../../src/api/model/Result"
 
-export const ApiReportResponse: ReportResponseInterface = {
+export const ApiReportResponse: DareboostResult = {
   status: 200,
   message: "",
   missing: [],

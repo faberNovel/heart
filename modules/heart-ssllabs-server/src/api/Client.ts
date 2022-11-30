@@ -1,17 +1,16 @@
 import { Request } from "@fabernovel/heart-core"
 import { stringify } from "querystring"
-
-import { Host } from "./model/Host"
-import { Error, isError } from "./model/Error"
-import { Status } from "./enum/Status"
 import { SsllabsServerConfig } from "../config/Config"
+import { Status } from "./enum/Status"
+import { Error, isError } from "./model/Error"
+import { SsllabsServerHost } from "./model/Host"
 
 export class Client {
   private readonly API_URL = "https://api.ssllabs.com/api/v3"
   private readonly SERVICE_URL = "https://www.ssllabs.com/ssltest/analyze.html?d="
   private conf: SsllabsServerConfig = { host: "" }
 
-  public async launchAnalysis(conf: SsllabsServerConfig): Promise<Host> {
+  public async launchAnalysis(conf: SsllabsServerConfig): Promise<SsllabsServerHost> {
     this.conf = conf
 
     return this.requestApi()
@@ -25,7 +24,7 @@ export class Client {
     return this.SERVICE_URL + this.getProjectUrl()
   }
 
-  public async getAnalysisReport(): Promise<Host> {
+  public async getAnalysisReport(): Promise<SsllabsServerHost> {
     // avoid starting a new analysis instead of requesting the results
     if ("string" === typeof this.conf.startNew) {
       delete this.conf.startNew
@@ -38,8 +37,8 @@ export class Client {
     return `${this.API_URL}${path}?${stringify(this.conf)}`
   }
 
-  private async requestApi(): Promise<Host> {
-    const host = await Request.get<Host | Error>(this.generateApiUrl("/analyze"))
+  private async requestApi(): Promise<SsllabsServerHost> {
+    const host = await Request.get<SsllabsServerHost | Error>(this.generateApiUrl("/analyze"))
 
     if (isError(host)) {
       return Promise.reject({
@@ -54,6 +53,6 @@ export class Client {
       })
     }
 
-    return new Host(host)
+    return host
   }
 }
