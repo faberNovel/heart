@@ -6,14 +6,15 @@ import {
   isModuleListener,
   ModuleAnalysisInterface,
   ModuleInterface,
+  RawResults,
   Report,
   ThresholdError,
   validateInput,
 } from "@fabernovel/heart-core"
+import * as cors from "cors"
 import { CorsOptions } from "cors"
 import { EventEmitter } from "events"
 import * as express from "express"
-import * as cors from "cors"
 import { createJsonError } from "./error/JsonError"
 
 /**
@@ -46,14 +47,16 @@ export class ExpressApp {
     this.express.set("strict routing", false)
   }
 
-  private createRouteHandler<T extends Config>(module: ModuleAnalysisInterface<T>): express.RequestHandler {
+  private createRouteHandler<C extends Config, R extends RawResults>(
+    module: ModuleAnalysisInterface<C, R>
+  ): express.RequestHandler {
     return (
-      request: express.Request<unknown, unknown, T>,
+      request: express.Request<unknown, unknown, C>,
       response: express.Response,
       next: express.NextFunction
     ) => {
       try {
-        const [config, threshold] = validateInput<T>(
+        const [config, threshold] = validateInput<C>(
           undefined,
           JSON.stringify(request.body),
           typeof request.query.threshold === "string" ? request.query.threshold : undefined
@@ -61,12 +64,13 @@ export class ExpressApp {
 
         module
           .startAnalysis(config, threshold)
-          .then((report: Report) => {
+          .then((report: Report<R>) => {
             this.eventEmitter.emit(AnalysisEvents.DONE, report)
 
             response.status(200).json({
               analyzedUrl: report.analyzedUrl,
               date: report.date,
+              rawResults: report.rawResults,
               service: {
                 name: report.service.name,
               },
