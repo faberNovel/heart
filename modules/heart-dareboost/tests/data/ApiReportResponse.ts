@@ -1,4 +1,4 @@
-import { ReportResponseInterface } from "../../src/api/model/ReportResponseInterface"
+import { ReportResponseInterface } from "../../src/api/model/Result"
 
 export const ApiReportResponse: ReportResponseInterface = {
   status: 200,
