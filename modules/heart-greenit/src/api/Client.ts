@@ -1,9 +1,8 @@
 import { readFileSync } from "fs"
 import { createJsonReports, Options, Report } from "greenit-cli/cli-core/analysis"
 import puppeteer from "puppeteer"
-
 import { GreenITConfig } from "../config/Config"
-import { Result } from "./model/Result"
+import { GreenITResult } from "./model/Result"
 
 const DEFAULT_OPTIONS: Options = {
   device: "desktop",
@@ -12,7 +11,7 @@ const DEFAULT_OPTIONS: Options = {
   timeout: 3000,
 }
 
-export async function runAnalysis(conf: GreenITConfig): Promise<Result> {
+export async function runAnalysis(conf: GreenITConfig): Promise<GreenITResult> {
   const browser = await puppeteer.launch({
     headless: true,
     args: [
@@ -60,7 +59,7 @@ export async function runAnalysis(conf: GreenITConfig): Promise<Result> {
   if (0 === reports.length) {
     return Promise.reject("No report has been generated")
   } else {
-    const result = JSON.parse(readFileSync(reports[0].path, { encoding: "utf-8" })) as Result
+    const result = JSON.parse(readFileSync(reports[0].path, { encoding: "utf-8" })) as GreenITResult
 
     return result.success
       ? result

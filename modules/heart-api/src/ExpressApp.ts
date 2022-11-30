@@ -47,14 +47,16 @@ export class ExpressApp {
     this.express.set("strict routing", false)
   }
 
-  private createRouteHandler<T extends Config>(module: ModuleAnalysisInterface<T>): express.RequestHandler {
+  private createRouteHandler<C extends Config, R extends RawResults>(
+    module: ModuleAnalysisInterface<C, R>
+  ): express.RequestHandler {
     return (
-      request: express.Request<unknown, unknown, T>,
+      request: express.Request<unknown, unknown, C>,
       response: express.Response,
       next: express.NextFunction
     ) => {
       try {
-        const [config, threshold] = validateInput<T>(
+        const [config, threshold] = validateInput<C>(
           undefined,
           JSON.stringify(request.body),
           typeof request.query.threshold === "string" ? request.query.threshold : undefined
@@ -62,27 +64,22 @@ export class ExpressApp {
 
         module
           .startAnalysis(config, threshold)
-          .then((report: Report) => {
-            const notifyListenerModulesPromises = this.listenerModules.map((listenerModule) =>
-              listenerModule.notifyAnalysisDone(report)
-            )
+          .then((report: Report<R>) => {
+            this.eventEmitter.emit(AnalysisEvents.DONE, report)
 
-            Promise.all(notifyListenerModulesPromises)
-              .then(() => {
-                response.status(200).json({
-                  analyzedUrl: report.analyzedUrl,
-                  date: report.date,
-                  service: {
-                    name: report.service.name,
-                  },
-                  note: report.note,
-                  normalizedNote: report.normalizedNote,
-                  resultUrl: report.resultUrl,
-                  threshold: report.threshold ?? null,
-                  isThresholdReached: report.isThresholdReached() ?? null,
-                })
-              })
-              .catch(next)
+            response.status(200).json({
+              analyzedUrl: report.analyzedUrl,
+              date: report.date,
+              rawResults: report.rawResults,
+              service: {
+                name: report.service.name,
+              },
+              note: report.note,
+              normalizedNote: report.normalizedNote,
+              resultUrl: report.resultUrl,
+              threshold: report.threshold ?? null,
+              isThresholdReached: report.isThresholdReached() ?? null,
+            })
           })
           .catch(next)
       } catch (error) {

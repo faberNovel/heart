@@ -1,10 +1,12 @@
 import { Helper, Module, ModuleAnalysisInterface, ModuleInterface, Report } from "@fabernovel/heart-core"
-
-import { ScanInterface } from "./api/model/Scan"
+import { ObservatoryScan } from "./api/model/Scan"
 import { Client } from "./api/Client"
 import { ObservatoryConfig } from "./config/Config"
 
-export class ObservatoryModule extends Module implements ModuleAnalysisInterface<ObservatoryConfig> {
+export class ObservatoryModule
+  extends Module
+  implements ModuleAnalysisInterface<ObservatoryConfig, ObservatoryScan>
+{
   private readonly TIME_BETWEEN_TRIES = 10000
 
   private apiClient: Client
@@ -16,7 +18,7 @@ export class ObservatoryModule extends Module implements ModuleAnalysisInterface
     this.apiClient = new Client()
   }
 
-  public async startAnalysis(conf: ObservatoryConfig, threshold?: number): Promise<Report> {
+  public async startAnalysis(conf: ObservatoryConfig, threshold?: number): Promise<Report<ObservatoryScan>> {
     this.threshold = threshold
 
     await this.apiClient.launchAnalysis(conf)
@@ -24,13 +26,13 @@ export class ObservatoryModule extends Module implements ModuleAnalysisInterface
     return this.requestScan()
   }
 
-  private async requestScan(): Promise<Report> {
+  private async requestScan(): Promise<Report<ObservatoryScan>> {
     const scan = await this.apiClient.getAnalysisReport()
 
     return this.handleRequestScan(scan)
   }
 
-  private async handleRequestScan(scan: ScanInterface): Promise<Report> {
+  private async handleRequestScan(scan: ObservatoryScan): Promise<Report<ObservatoryScan>> {
     switch (scan.state) {
       case "FAILED":
         throw new Error(scan.state)
@@ -45,6 +47,7 @@ export class ObservatoryModule extends Module implements ModuleAnalysisInterface
         return new Report({
           analyzedUrl: this.apiClient.getProjectHost(),
           note: scan.grade,
+          rawResults: scan,
           resultUrl: this.apiClient.getAnalyzeUrl(),
           service: this.service,
           date: new Date(scan.end_time),

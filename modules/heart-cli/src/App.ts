@@ -4,7 +4,8 @@ import {
   ModuleInterface,
   ModuleListenerInterface,
   ModuleServerInterface,
-  Report,
+  Config,
+  RawResults,
 } from "@fabernovel/heart-core"
 import { CorsOptions } from "cors"
 import * as ora from "ora"
@@ -20,9 +21,9 @@ export class App {
     )
   }
 
-  public async startAnalysis<T extends Config>(
-    module: ModuleAnalysisInterface<T>,
-    conf: T,
+  public async startAnalysis<C extends Config, R extends RawResults>(
+    module: ModuleAnalysisInterface<C, R>,
+    conf: C,
     threshold?: number
   ): Promise<Report> {
     this.spinner.start("Analysis in progress...")

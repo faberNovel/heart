@@ -1,4 +1,10 @@
-import { Config, ModuleAnalysisInterface, Report } from "@fabernovel/heart-core"
+import {
+  Config,
+  ModuleAnalysisInterface,
+  ModuleListenerInterface,
+  RawResults,
+  Report,
+} from "@fabernovel/heart-core"
 
 import { App } from "../src/App"
 
@@ -6,6 +12,7 @@ test("Displays the results of an analysis", async () => {
   const report = new Report({
     analyzedUrl: "https://heart.fabernovel.com",
     date: new Date(),
+    rawResults: {},
     note: "50",
     normalizedNote: 50,
     service: {
@@ -13,7 +20,7 @@ test("Displays the results of an analysis", async () => {
     },
   })
 
-  const module: ModuleAnalysisInterface<Config> = {
+  const module: ModuleAnalysisInterface<Config, RawResults> = {
     id: "test-analysis-tool",
     name: "Heart Test Analysis Tool",
     service: {

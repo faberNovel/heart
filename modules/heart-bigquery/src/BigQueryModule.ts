@@ -1,4 +1,11 @@
-import { Module, ModuleInterface, ModuleListenerInterface, Report } from "@fabernovel/heart-core"
+import {
+  AnalysisEvents,
+  Module,
+  ModuleInterface,
+  ModuleListenerInterface,
+  RawResults,
+  Report,
+} from "@fabernovel/heart-core"
 import { PartialFailureError } from "@google-cloud/common/build/src/util"
 import { BigQueryClient } from "./api/BigQuery/Client"
 import { RowReport } from "./api/BigQuery/model/RowReport"
@@ -26,5 +33,19 @@ export class BigQueryModule extends Module implements ModuleListenerInterface {
         console.error(error)
       }
     }
+  }
+
+  private storeReport<R extends RawResults>(report: Report<R>) {
+    this.bigqueryClient.table
+      .then((table) => table.insert(new RowReport(report)))
+      .catch((error) => {
+        if (error instanceof PartialFailureError) {
+          error.errors?.forEach((error) => {
+            console.error(error)
+          })
+        } else {
+          console.error(error)
+        }
+      })
   }
 }

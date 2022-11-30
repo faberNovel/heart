@@ -1,7 +1,9 @@
+import { RawResults } from "@fabernovel/heart-core"
+
 /**
  * @see {@link https://github.com/mozilla/http-observatory/blob/master/httpobs/docs/api.md#scan}
  */
-export interface ScanInterface {
+export type ObservatoryScan = RawResults & {
   // timestamp for when the scan completed
   end_time: string
 

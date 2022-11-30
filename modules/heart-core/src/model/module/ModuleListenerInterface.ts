@@ -1,4 +1,4 @@
-import { Report } from "../report/Report"
+import { EventEmitter } from "events"
 import { ModuleInterface } from "./ModuleInterface"
 
 /**

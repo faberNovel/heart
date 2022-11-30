@@ -1,5 +1,6 @@
 import Result from "lighthouse/types/lhr/lhr"
 import { runAnalysis } from "../src/api/Client"
+import { LighthouseResult } from "../src/api/model/Result"
 import { LighthouseModule } from "../src/LighthouseModule"
 import { Conf } from "./data/Conf"
 
@@ -28,7 +29,7 @@ describe("Starts an analysis", () => {
     },
     requestedUrl: Conf.url,
     fetchTime: 1584540399,
-  } as unknown as Result // avoid the declaration of a huuuuuge object
+  } as unknown as LighthouseResult // avoid the declaration of a huuuuuge object
 
   it("should starts an analysis with a valid configuration", async () => {
     // mock the analysis stuff
