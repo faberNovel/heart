@@ -1,11 +1,18 @@
-import { Config, isModuleAnalysis, isModuleServer, ModuleInterface } from "@fabernovel/heart-core"
+import {
+  Config,
+  isModuleAnalysis,
+  isModuleListener,
+  isModuleServer,
+  ModuleInterface,
+  ModuleListenerInterface,
+} from "@fabernovel/heart-core"
 import { Command } from "commander"
+import { CorsOptions } from "cors"
 import { config } from "dotenv"
+import { App } from "./App"
 import { createAnalysisCommand } from "./command/AnalysisCommand"
 import { createServerCommand } from "./command/ServerCommand"
 import { ModuleLoader } from "./module/ModuleLoader"
-import { App } from "./App"
-import { CorsOptions } from "cors"
 
 // set environment variables from a.env file
 // assume that the root path if the one from where the script has been called
@@ -17,7 +24,10 @@ void (async () => {
 
   try {
     const modules = await moduleLoader.load()
-    const app = new App(modules)
+    const listenerModules = modules.filter((module: ModuleInterface): module is ModuleListenerInterface =>
+      isModuleListener(module)
+    )
+    const app = new App(listenerModules)
 
     const program = new Command()
     program.version("3.0.0")
@@ -25,8 +35,12 @@ void (async () => {
     // create a command for each module
     modules.forEach((module: ModuleInterface) => {
       if (isModuleAnalysis(module)) {
-        const callback = <T extends Config>(conf: T, threshold?: number) =>
-          app.startAnalysis(module, conf, threshold)
+        const callback = async <T extends Config>(conf: T, threshold?: number) => {
+          const report = await app.startAnalysis(module, conf, threshold)
+
+          // notify every listener module
+          await app.notifyListenerModules(report)
+        }
 
         const analysisCommand = createAnalysisCommand(module, callback)
 
