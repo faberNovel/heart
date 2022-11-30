@@ -1,26 +1,6 @@
-import { Config, ModuleAnalysisInterface, ModuleListenerInterface, Report } from "@fabernovel/heart-core"
+import { Config, ModuleAnalysisInterface, Report } from "@fabernovel/heart-core"
 
 import { App } from "../src/App"
-
-test("Register events from Listener modules", () => {
-  const module: ModuleListenerInterface = {
-    id: "test-listener",
-    name: "Heart Test Listener",
-    service: {
-      name: "Test Listener",
-    },
-    // eslint-disable-next-line @typescript-eslint/no-empty-function
-    registerEvents: () => {},
-  }
-
-  const registerEventsMock = jest.spyOn(module, "registerEvents")
-
-  new App([module])
-
-  expect(registerEventsMock).toHaveBeenCalled()
-
-  registerEventsMock.mockRestore()
-})
 
 test("Displays the results of an analysis", async () => {
   const report = new Report({
@@ -44,7 +24,7 @@ test("Displays the results of an analysis", async () => {
 
   const startAnalysisMock = jest.spyOn(module, "startAnalysis")
 
-  const app = new App([module])
+  const app = new App([])
   await app.startAnalysis(module, {})
 
   expect(startAnalysisMock).toHaveBeenCalled()
