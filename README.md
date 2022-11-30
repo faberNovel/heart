@@ -28,7 +28,8 @@ _Heart CLI_ is the only _Runner_ module required.
 
 | Name | Purpose | |
 | ------ | ------ | ------ |
-| Heart API | Exposes an HTTP API that starts an analysis when it is requested | [![npm install @fabernovel/heart-api](https://nodei.co/npm/@fabernovel/heart-api.png?mini=true)](https://www.npmjs.com/package/@fabernovel/heart-api) |
+| Heart API | Exposes an HTTP API that starts an analysis when it is requested | [![npm install @fabernovel/heart-api](https://nodei.co/npm/@fabernovel/heart-api.png?mini=true)](https://www.npmjs.com/package/@fabernovel/heart-api) [![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2FfaberNovel%2Fheart.svg?type=shield)](https://app.fossa.com/projects/git%2Bgithub.com%2FfaberNovel%2Fheart?ref=badge_shield)
+|
 | Heart CLI | Control the other modules by using a CLI | [![npm install @fabernovel/heart-cli](https://nodei.co/npm/@fabernovel/heart-cli.png?mini=true)](https://www.npmjs.com/package/@fabernovel/heart-cli) |
 
 ### Analysis
@@ -89,3 +90,7 @@ Following the general installation steps, here is a list of the operations you m
 4. `npx heart lighthouse --inline '{"url":"https://heart.fabernovel.com/"}' --threshold 85`
 
 Note that step 3 shows an example of setting up environment variables using a `.env` file. This is a convenient way offered by _Heart_ to set them, but you can define them in any way you want.
+
+
+## License
+[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2FfaberNovel%2Fheart.svg?type=large)](https://app.fossa.com/projects/git%2Bgithub.com%2FfaberNovel%2Fheart?ref=badge_large)
