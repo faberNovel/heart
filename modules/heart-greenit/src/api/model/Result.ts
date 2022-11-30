@@ -3,7 +3,7 @@ import { RawResults } from "@fabernovel/heart-core"
 /**
  * Short version of the generated JSON result file
  */
-export type Result = RawResults & {
+export type GreenITResult = RawResults & {
   url: string
   ecoIndex: number
   domSize: number

@@ -3,7 +3,7 @@ import { RawResults } from "@fabernovel/heart-core"
 /**
  * @see {@link https://www.dareboost.com/fr/documentation-api#result}
  */
-export type Result = RawResults & {
+export type DareboostResult = RawResults & {
   status: number
   message: string
   missing: unknown[]

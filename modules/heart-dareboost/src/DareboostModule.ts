@@ -1,9 +1,12 @@
 import { Helper, Module, ModuleAnalysisInterface, ModuleInterface, Report } from "@fabernovel/heart-core"
 import { Client } from "./api/Client"
-import { Result } from "./api/model/Result"
+import { DareboostResult } from "./api/model/Result"
 import { DareboostConfig } from "./config/Config"
 
-export class DareboostModule extends Module implements ModuleAnalysisInterface<DareboostConfig, Result> {
+export class DareboostModule
+  extends Module
+  implements ModuleAnalysisInterface<DareboostConfig, DareboostResult>
+{
   private readonly MAX_TRIES = 500
   private readonly TIME_BETWEEN_TRIES = 5000
 
@@ -17,7 +20,7 @@ export class DareboostModule extends Module implements ModuleAnalysisInterface<D
     this.apiClient = new Client()
   }
 
-  public async startAnalysis(conf: DareboostConfig, threshold?: number): Promise<Report<Result>> {
+  public async startAnalysis(conf: DareboostConfig, threshold?: number): Promise<Report<DareboostResult>> {
     this.conf = conf
     this.threshold = threshold
 
@@ -26,7 +29,7 @@ export class DareboostModule extends Module implements ModuleAnalysisInterface<D
     return this.requestReport(analyse.reportId)
   }
 
-  private async requestReport(reportId: string, triesQty = 1): Promise<Report<Result>> {
+  private async requestReport(reportId: string, triesQty = 1): Promise<Report<DareboostResult>> {
     if (triesQty > this.MAX_TRIES) {
       throw new Error(
         `The maximum number of tries (${this.MAX_TRIES}) to retrieve the report has been reached.`
@@ -39,10 +42,10 @@ export class DareboostModule extends Module implements ModuleAnalysisInterface<D
   }
 
   private async handleResponseStatus(
-    result: Result,
+    result: DareboostResult,
     reportId: string,
     triesQty: number
-  ): Promise<Report<Result>> {
+  ): Promise<Report<DareboostResult>> {
     switch (result.status) {
       case 202:
         await Helper.timeout(this.TIME_BETWEEN_TRIES)

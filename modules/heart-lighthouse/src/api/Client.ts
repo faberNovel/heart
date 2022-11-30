@@ -1,8 +1,9 @@
 import { launch } from "chrome-launcher"
 import lighthouse from "lighthouse"
 import { LighthouseConfig } from "../config/Config"
+import { LighthouseResult } from "./model/Result"
 
-export async function runAnalysis(conf: LighthouseConfig): Promise<LH.Result> {
+export async function runAnalysis(conf: LighthouseConfig): Promise<LighthouseResult> {
   const chrome = await launch({ chromeFlags: ["--headless", "--no-sandbox"] })
 
   const runnerResult = await lighthouse(conf.url, { port: chrome.port, output: "json" }, conf.config)
@@ -14,5 +15,5 @@ export async function runAnalysis(conf: LighthouseConfig): Promise<LH.Result> {
 
   await chrome.kill()
 
-  return runnerResult.lhr
+  return { ...runnerResult.lhr } // weird hacky thing
 }

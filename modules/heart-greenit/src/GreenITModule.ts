@@ -1,17 +1,16 @@
 import { Module, ModuleAnalysisInterface, ModuleInterface, Report } from "@fabernovel/heart-core"
-
 import { runAnalysis } from "./api/Client"
-import { Result } from "./api/model/Result"
+import { GreenITResult } from "./api/model/Result"
 import { GreenITConfig } from "./config/Config"
 
-export class GreenITModule extends Module implements ModuleAnalysisInterface<GreenITConfig, Result> {
+export class GreenITModule extends Module implements ModuleAnalysisInterface<GreenITConfig, GreenITResult> {
   private threshold?: number
 
   constructor(module: Omit<ModuleInterface, "id">) {
     super(module)
   }
 
-  public async startAnalysis(conf: GreenITConfig, threshold?: number): Promise<Report<Result>> {
+  public async startAnalysis(conf: GreenITConfig, threshold?: number): Promise<Report<GreenITResult>> {
     this.threshold = threshold
 
     const result = await runAnalysis(conf)
@@ -19,7 +18,7 @@ export class GreenITModule extends Module implements ModuleAnalysisInterface<Gre
     return this.handleResults(result)
   }
 
-  private handleResults(results: Result): Report<Result> {
+  private handleResults(results: GreenITResult): Report<GreenITResult> {
     return new Report({
       analyzedUrl: results.url,
       date: new Date(),
