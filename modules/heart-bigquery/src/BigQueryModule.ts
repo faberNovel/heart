@@ -3,6 +3,7 @@ import {
   Module,
   ModuleInterface,
   ModuleListenerInterface,
+  RawResults,
   Report,
 } from "@fabernovel/heart-core"
 import { PartialFailureError } from "@google-cloud/common/build/src/util"
@@ -28,7 +29,7 @@ export class BigQueryModule extends Module implements ModuleListenerInterface {
     eventEmitter.on(AnalysisEvents.DONE, this.storeReport.bind(this))
   }
 
-  private storeReport(report: Report) {
+  private storeReport<R extends RawResults>(report: Report<R>) {
     this.bigqueryClient.table
       .then((table) => table.insert(new RowReport(report)))
       .catch((error) => {
