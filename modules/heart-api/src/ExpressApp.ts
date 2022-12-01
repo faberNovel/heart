@@ -102,7 +102,7 @@ export class ExpressApp {
         isModuleAnalysis(module)
       )
       .forEach((analysisModule) => {
-        const path = `/${module.id}`
+        const path = `/${analysisModule.id}`
 
         router.post(path, this.createRouteHandler(analysisModule))
       })
