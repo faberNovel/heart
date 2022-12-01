@@ -1,32 +1,30 @@
 import {
-  isModuleListener,
-  AnalysisEvents,
+  Config,
   ModuleAnalysisInterface,
   ModuleInterface,
   ModuleListenerInterface,
   ModuleServerInterface,
-  Config,
+  Report,
 } from "@fabernovel/heart-core"
 import { CorsOptions } from "cors"
-import { EventEmitter } from "events"
 import * as ora from "ora"
 
 export class App {
-  private eventEmitter: EventEmitter
-  private modules: ModuleInterface[]
   private spinner = ora({ spinner: "hearts", interval: 200 })
 
-  constructor(modules: ModuleInterface[]) {
-    this.eventEmitter = new EventEmitter()
-    this.modules = modules
-    this.registerEventsListeners()
+  constructor(private listenerModules: ModuleListenerInterface[]) {}
+
+  public async notifyListenerModules(report: Report): Promise<void[]> {
+    return Promise.all(
+      this.listenerModules.map((listenerModule) => listenerModule.notifyAnalysisDone(report))
+    )
   }
 
   public async startAnalysis<T extends Config>(
     module: ModuleAnalysisInterface<T>,
     conf: T,
     threshold?: number
-  ): Promise<void> {
+  ): Promise<Report> {
     this.spinner.start("Analysis in progress...")
 
     try {
@@ -48,9 +46,7 @@ export class App {
       this.spinner.succeed("Analysis completed.")
       console.info(messageParts.join(". ") + ".")
 
-      this.eventEmitter.emit(AnalysisEvents.DONE, report)
-
-      return Promise.resolve()
+      return report
     } catch (error) {
       this.spinner.fail("Analysis failed.")
 
@@ -71,14 +67,5 @@ export class App {
         console.error(error.message)
         process.exit(1)
       })
-  }
-
-  /**
-   * Register events listeners for listening modules
-   */
-  private registerEventsListeners(): void {
-    this.modules
-      .filter((module: ModuleInterface): module is ModuleListenerInterface => isModuleListener(module))
-      .forEach((module) => module.registerEvents(this.eventEmitter))
   }
 }

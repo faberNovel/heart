@@ -1,16 +1,11 @@
-import { EventEmitter } from "events"
-
+import { Report } from "../report/Report"
 import { ModuleInterface } from "./ModuleInterface"
 
 /**
  * Define an Listener module.
  */
 export interface ModuleListenerInterface extends ModuleInterface {
-  /**
-   * Register events on the given emitter.
-   * Note: this method must be public.
-   */
-  registerEvents(eventEmitter: EventEmitter): void
+  notifyAnalysisDone(report: Report): Promise<void>
 }
 
 /**
@@ -26,5 +21,5 @@ export type ModuleListener = new () => ModuleListenerInterface
 export function isModuleListener(module: ModuleInterface): module is ModuleListenerInterface {
   const m = module as ModuleListenerInterface
 
-  return m !== undefined && m.registerEvents !== undefined && "function" === typeof m.registerEvents
+  return m !== undefined && m.notifyAnalysisDone !== undefined && "function" === typeof m.notifyAnalysisDone
 }

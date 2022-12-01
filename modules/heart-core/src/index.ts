@@ -1,7 +1,6 @@
 import { Config } from "./config/Config"
 import { ConfigError } from "./error/ConfigError"
 import { ThresholdError } from "./error/ThresholdError"
-import { AnalysisEvents } from "./event/AnalysisEvents"
 import { Request } from "./http/Request"
 import { Module } from "./model/module/Module"
 import { ModuleAnalysisInterface, isModuleAnalysis } from "./model/module/ModuleAnalysisInterface"
@@ -18,7 +17,6 @@ const Helper = {
 }
 
 export {
-  AnalysisEvents,
   Config,
   ConfigError,
   Helper,

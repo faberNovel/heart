@@ -1,19 +1,18 @@
 import {
-  AnalysisEvents,
   Config,
   ConfigError,
   isModuleAnalysis,
   isModuleListener,
   ModuleAnalysisInterface,
   ModuleInterface,
+  ModuleListenerInterface,
   Report,
   ThresholdError,
   validateInput,
 } from "@fabernovel/heart-core"
-import { CorsOptions } from "cors"
-import { EventEmitter } from "events"
-import * as express from "express"
 import * as cors from "cors"
+import { CorsOptions } from "cors"
+import * as express from "express"
 import { createJsonError } from "./error/JsonError"
 
 /**
@@ -22,13 +21,15 @@ import { createJsonError } from "./error/JsonError"
 export class ExpressApp {
   // reference to the Express instance
   private _express: express.Application
-  private eventEmitter: EventEmitter
+  private listenerModules: ModuleListenerInterface[]
 
   constructor(modules: ModuleInterface[], corsOptions?: CorsOptions) {
     this._express = express()
     this.configure()
     this.addCommonMiddlewares(corsOptions)
-    this.eventEmitter = new EventEmitter()
+    this.listenerModules = modules.filter((module: ModuleInterface): module is ModuleListenerInterface =>
+      isModuleListener(module)
+    )
     this.init(modules)
     this.addErrorHandlerMiddleware() // The error handler middleware must be added last, after other middlewares and routes declaration
   }
@@ -62,20 +63,26 @@ export class ExpressApp {
         module
           .startAnalysis(config, threshold)
           .then((report: Report) => {
-            this.eventEmitter.emit(AnalysisEvents.DONE, report)
+            const notifyListenerModulesPromises = this.listenerModules.map((listenerModule) =>
+              listenerModule.notifyAnalysisDone(report)
+            )
 
-            response.status(200).json({
-              analyzedUrl: report.analyzedUrl,
-              date: report.date,
-              service: {
-                name: report.service.name,
-              },
-              note: report.note,
-              normalizedNote: report.normalizedNote,
-              resultUrl: report.resultUrl,
-              threshold: report.threshold ?? null,
-              isThresholdReached: report.isThresholdReached() ?? null,
-            })
+            Promise.all(notifyListenerModulesPromises)
+              .then(() => {
+                response.status(200).json({
+                  analyzedUrl: report.analyzedUrl,
+                  date: report.date,
+                  service: {
+                    name: report.service.name,
+                  },
+                  note: report.note,
+                  normalizedNote: report.normalizedNote,
+                  resultUrl: report.resultUrl,
+                  threshold: report.threshold ?? null,
+                  isThresholdReached: report.isThresholdReached() ?? null,
+                })
+              })
+              .catch(next)
           })
           .catch(next)
       } catch (error) {
@@ -85,24 +92,20 @@ export class ExpressApp {
   }
 
   /**
-   * Register:
-   * - events listeners for Listener modules
-   * - routes for Analysis modules
+   * Register routes for the Analysis modules
    */
   private init(modules: ModuleInterface[]): void {
     const router = express.Router()
 
-    modules.forEach((module: ModuleInterface) => {
-      // register events
-      if (isModuleListener(module)) {
-        module.registerEvents(this.eventEmitter)
-        // register routes
-      } else if (isModuleAnalysis(module)) {
-        const path = `/${module.id}`
+    modules
+      .filter((module: ModuleInterface): module is ModuleAnalysisInterface<Config> =>
+        isModuleAnalysis(module)
+      )
+      .forEach((analysisModule) => {
+        const path = `/${analysisModule.id}`
 
-        router.post(path, this.createRouteHandler(module))
-      }
-    })
+        router.post(path, this.createRouteHandler(analysisModule))
+      })
 
     this.express.use("/", router)
   }
