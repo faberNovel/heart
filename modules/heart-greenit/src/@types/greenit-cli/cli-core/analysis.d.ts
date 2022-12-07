@@ -1,6 +1,6 @@
 declare module "greenit-cli/cli-core/analysis" {
   import { SizeNames } from "greenit-cli"
-  import { Browser, LoadEvent } from "puppeteer"
+  import { Browser } from "puppeteer"
 
   interface Action {
     type: "click" | "text" | "select" | "scroll"
@@ -16,7 +16,6 @@ declare module "greenit-cli/cli-core/analysis" {
     actions?: Action[] | { screenshot: string }
     waitForSelector?: string
     waitForXPath?: string
-    waitForNavigation?: LoadEvent | LoadEvent[] | undefined
   }
 
   interface Options {
