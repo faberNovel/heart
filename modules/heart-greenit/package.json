@@ -40,13 +40,12 @@
   "dependencies": {
     "@fabernovel/heart-core": "workspace:^3.3.0",
     "greenit-cli": "github:cnumr/GreenIT-Analysis-cli#a4363a9bcf7630e4a5a4cd264a7da9ec6f34b571",
-    "puppeteer": "^5.5.0",
+    "puppeteer": "^19.4.0",
     "rimraf": "^3.0.2"
   },
   "devDependencies": {
     "@types/jest": "^29.2.4",
     "@types/node": "^14.18.34",
-    "@types/puppeteer": "^5.4.6",
     "@typescript-eslint/eslint-plugin": "^5.45.1",
     "@typescript-eslint/parser": "^5.45.1",
     "eslint": "^8.29.0",
