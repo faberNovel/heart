@@ -71,28 +71,26 @@ importers:
     specifiers:
       '@fabernovel/heart-core': workspace:^3.3.0
       '@types/cors': ^2.8.13
-      '@types/dotenv': ^6.1.1
       '@types/jest': ^29.2.4
       '@types/node': ^14.18.34
       '@typescript-eslint/eslint-plugin': ^5.45.1
       '@typescript-eslint/parser': ^5.45.1
-      commander: ^9.4.0
-      dotenv: ^8.0.0
+      commander: ^9.4.1
+      dotenv: ^16.0.3
       eslint: ^8.29.0
       jest: ^29.3.1
       ora: ^5.4.1
       rimraf: ^3.0.2
       ts-jest: ^29.0.3
-      type-fest: ^2.18.0
+      type-fest: ^3.3.0
       typescript: ^4.9.3
     dependencies:
       '@fabernovel/heart-core': link:../heart-core
-      commander: 9.4.0
-      dotenv: 8.6.0
+      commander: 9.4.1
+      dotenv: 16.0.3
       ora: 5.4.1
     devDependencies:
       '@types/cors': 2.8.13
-      '@types/dotenv': 6.1.1
       '@types/jest': 29.2.4
       '@types/node': 14.18.34
       '@typescript-eslint/eslint-plugin': 5.45.1_tdm6ms4ntwhlpozn7kjqrhum74
@@ -101,7 +99,7 @@ importers:
       jest: 29.3.1_@types+node@14.18.34
       rimraf: 3.0.2
       ts-jest: 29.0.3_4f6uxrzmuwipl5rr3bcogf6k74
-      type-fest: 2.18.1
+      type-fest: 3.3.0
       typescript: 4.9.3
 
   ../../modules/heart-core:
@@ -1277,12 +1275,6 @@ packages:
       '@types/node': 14.18.34
     dev: true
 
-  /@types/dotenv/6.1.1:
-    resolution: {integrity: sha512-ftQl3DtBvqHl9L16tpqqzA4YzCSXZfi7g8cQceTz5rOlYtk/IZbFjAv3mLOQlNIgOaylCQWQoBdDQHPgEBJPHg==}
-    dependencies:
-      '@types/node': 14.18.34
-    dev: true
-
   /@types/express-serve-static-core/4.17.29:
     resolution: {integrity: sha512-uMd++6dMKS32EOuw1Uli3e3BPgdLIXmezcfHv7N4c1s3gkhikBplORPpMq3fuWkxncZN1reb16d5n8yhQ80x7Q==}
     dependencies:
@@ -2154,8 +2146,8 @@ packages:
     dependencies:
       delayed-stream: 1.0.0
 
-  /commander/9.4.0:
-    resolution: {integrity: sha512-sRPT+umqkz90UA8M1yqYfnHlZA7fF6nSphDtxeywPZ49ysjxDQybzk13CL+mXekDRG92skbcqCLVovuCusNmFw==}
+  /commander/9.4.1:
+    resolution: {integrity: sha512-5EEkTNyHNGFPD2H+c/dXXfQZYa/scCKasxWcXJaWnNJ99pnQN9Vnmqow+p+PlFPE63Q6mThaZws1T+HxfpgtPw==}
     engines: {node: ^12.20.0 || >=14}
     dev: false
 
@@ -2461,9 +2453,9 @@ packages:
       is-obj: 2.0.0
     dev: false
 
-  /dotenv/8.6.0:
-    resolution: {integrity: sha512-IrPdXQsk2BbzvCBGBOTmmSH5SodmqZNt4ERAZDmW4CT+tL8VtvinqywuANaFu4bOMWki16nqf0e4oC0QIaDr/g==}
-    engines: {node: '>=10'}
+  /dotenv/16.0.3:
+    resolution: {integrity: sha512-7GO6HghkA5fYG9TYnNxi14/7K9f5occMlp3zXAuSxn7CKCxt9xbNWG7yF8hTCSUchlfWSe3uLmlPfigevRItzQ==}
+    engines: {node: '>=12'}
     dev: false
 
   /dumb-query-selector/3.3.0:
@@ -5406,9 +5398,9 @@ packages:
     engines: {node: '>=10'}
     dev: true
 
-  /type-fest/2.18.1:
-    resolution: {integrity: sha512-UKCINsd4qiATXD6OIlnQw9t1ux/n2ld+Nl0kzPbCONhCaUIS/BhJbNw14w6584HCQWf3frBK8vmWnGZq/sbPHQ==}
-    engines: {node: '>=12.20'}
+  /type-fest/3.3.0:
+    resolution: {integrity: sha512-gezeeOIZyQLGW5uuCeEnXF1aXmtt2afKspXz3YqoOcZ3l/YMJq1pujvgT+cz/Nw1O/7q/kSav5fihJHsC/AOUg==}
+    engines: {node: '>=14.16'}
     dev: true
 
   /type-is/1.6.18:
