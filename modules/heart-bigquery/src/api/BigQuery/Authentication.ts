@@ -21,7 +21,7 @@ export class Authentication {
    */
   public static prepare(): void {
     try {
-      writeFileSync(Authentication.FILENAME, process.env[Authentication.ENVIRONMENT_VARIABLE_NAME])
+      writeFileSync(Authentication.FILENAME, process.env[Authentication.ENVIRONMENT_VARIABLE_NAME] as string)
 
       process.env[Authentication.ENVIRONMENT_VARIABLE_NAME] = `${process.cwd()}/${Authentication.FILENAME}`
     } catch (error) {

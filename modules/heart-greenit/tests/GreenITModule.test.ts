@@ -1,15 +1,12 @@
 import { Report } from "@fabernovel/heart-core"
 import { createJsonReports } from "greenit-cli/cli-core/analysis"
 import path from "path"
-import { mocked } from "jest-mock"
-
 import { GreenITModule } from "../src/GreenITModule"
-
-import successResults from "./data/successReport.json"
 import { conf } from "./data/Conf"
+import successResults from "./data/successReport.json"
 
 jest.mock("greenit-cli/cli-core/analysis")
-const mockedCreateJsonReports = mocked(createJsonReports, true)
+const mockedCreateJsonReports = jest.mocked(createJsonReports)
 
 describe("Run GreenIT analysis", () => {
   it("should be able to launch a successful analysis without thresholds", async () => {
