@@ -1,5 +1,5 @@
 import fetch from "node-fetch"
-import { stringify } from "querystring"
+import { ParsedUrlQueryInput, stringify } from "querystring"
 
 export class Request {
   private static GET = "GET"
@@ -20,7 +20,7 @@ export class Request {
 
   public static async post<T>(
     url: string,
-    body: object = {},
+    body: ParsedUrlQueryInput = {},
     headers: { [index: string]: string } = {}
   ): Promise<T> {
     let bodyString = ""

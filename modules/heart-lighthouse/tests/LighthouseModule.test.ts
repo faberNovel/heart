@@ -1,11 +1,10 @@
-import { mocked } from "jest-mock"
 import Result from "lighthouse/types/lhr/lhr"
 import { runAnalysis } from "../src/api/Client"
 import { LighthouseModule } from "../src/LighthouseModule"
 import { Conf } from "./data/Conf"
 
 jest.mock("../src/api/Client")
-const mockedRunAnalysis = mocked(runAnalysis, true)
+const mockedRunAnalysis = jest.mocked(runAnalysis)
 
 describe("Starts an analysis", () => {
   let module: LighthouseModule

@@ -1,5 +1,4 @@
 import { Request } from "@fabernovel/heart-core"
-
 import { AnalysisResponseInterface } from "./model/AnalysisResponseInterface"
 import { ReportResponseInterface } from "./model/ReportResponseInterface"
 
@@ -12,9 +11,7 @@ export class Client {
   }
 
   public async launchAnalysis(conf: object): Promise<AnalysisResponseInterface> {
-    const options = { ...conf, headers: [{ name: "User-Agent", value: "Dareboost" }] }
-
-    return Request.post(`${this.API_URL}analysis/launch`, { ...this.conf, ...options })
+    return Request.post(`${this.API_URL}analysis/launch`, { ...this.conf, ...conf })
   }
 
   public async getAnalysisReport(reportId: string): Promise<ReportResponseInterface> {
