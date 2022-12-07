@@ -33,7 +33,7 @@
   },
   "dependencies": {
     "@fabernovel/heart-core": "workspace:^3.3.0",
-    "@slack/web-api": "^5.0.1"
+    "@slack/web-api": "^6.8.0"
   },
   "devDependencies": {
     "@types/jest": "^29.2.4",
