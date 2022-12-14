@@ -2,8 +2,8 @@
   "changes": [
     {
       "packageName": "@fabernovel/heart-greenit",
-      "comment": "",
-      "type": "none"
+      "comment": "Change the GreenIT logo",
+      "type": "patch"
     }
   ],
   "packageName": "@fabernovel/heart-greenit"
