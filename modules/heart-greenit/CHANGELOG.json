@@ -2,6 +2,23 @@
   "name": "@fabernovel/heart-greenit",
   "entries": [
     {
+      "version": "3.1.1",
+      "tag": "@fabernovel/heart-greenit_v3.1.1",
+      "date": "Wed, 14 Dec 2022 16:41:26 GMT",
+      "comments": {
+        "none": [
+          {
+            "comment": "Update issues and repository URLs"
+          }
+        ],
+        "patch": [
+          {
+            "comment": "Use the correct logo for the GreenIT module"
+          }
+        ]
+      }
+    },
+    {
       "version": "3.1.0",
       "tag": "@fabernovel/heart-greenit_v3.1.0",
       "date": "Wed, 23 Nov 2022 19:51:43 GMT",

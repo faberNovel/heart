@@ -1,6 +1,13 @@
 # Change Log - @fabernovel/heart-greenit
 
-This log was last generated on Wed, 23 Nov 2022 19:51:43 GMT and should not be manually modified.
+This log was last generated on Wed, 14 Dec 2022 16:41:26 GMT and should not be manually modified.
+
+## 3.1.1
+Wed, 14 Dec 2022 16:41:26 GMT
+
+### Patches
+
+- Use the correct logo for the GreenIT module
 
 ## 3.1.0
 Wed, 23 Nov 2022 19:51:43 GMT
