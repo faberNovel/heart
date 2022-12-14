@@ -1,0 +1,10 @@
+{
+  "changes": [
+    {
+      "packageName": "@fabernovel/heart-lighthouse",
+      "comment": "Fix a bug where Chrome could sometimes timeout in CI",
+      "type": "patch"
+    }
+  ],
+  "packageName": "@fabernovel/heart-lighthouse"
+}
