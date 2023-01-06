@@ -1,14 +1,42 @@
-# Purpose
+# Description
 
-_Heart_ is a command-line tool written in Node.js that centralize the analyse of webpages using different third-party services, like [_Google Lighthouse_](https://pagespeed.web.dev/), [_ecoIndex_](https://www.ecoindex.fr/) or [_Mozilla Observatory_](https://observatory.mozilla.org/).
+_Heart_ is a modular command-line tool written in Node.js that centralize the analyse of webpages using different third-party services, like [_Google Lighthouse_](https://pagespeed.web.dev/), [_ecoIndex_](https://www.ecoindex.fr/) or [_Mozilla Observatory_](https://observatory.mozilla.org/).
 
 Moreover, it can also store the results of these analysis and notify you when they are over.
+
+# Usage
+
+>>>
+I want to:
+- analyze https://heart.fabernovel.com/ using the _Google Lighthouse_ service.
+- be notified on the `#heart` Slack channel when the analysis is over.
+- check if the score reach a minimum of 85.
+>>>
+
+## Standalone
+
+1. Install the modules
+    
+    `npm install @fabernovel/heart-cli @fabernovel/heart-lighthouse @fabernovel/heart-slack`
+
+2. Configure the Slack module
+    
+    `echo SLACK_API_TOKEN=My_Slack_Api_Token >> .env`
+
+3. Analyze the URL
+
+    `npx heart lighthouse --inline '{"url":"https://heart.fabernovel.com/"}' --threshold 85`
+
+## Github Action
+
+If you're using Github, you can simplify the integration of Heart in your CI scripts by using the [Github Action](https://github.com/marketplace/actions/heart-webpages-evaluation).
 
 # Design
 
 _Heart_ has been designed to be as light as possible, which explains its modular structure: you only install what you need.
 
 ## Modules types
+
 
 To do so, _Heart_ is divided in 3 types of modules:
 
@@ -51,41 +79,3 @@ All _Listener_ modules are optional.
 | ------ | ------ | ------ |
 | Heart BigQuery | Stores the results of the analysis into a [Google BigQuery](https://cloud.google.com/bigquery) table | [![npm install @fabernovel/heart-bigquery](https://nodei.co/npm/@fabernovel/heart-bigquery.png?mini=true)](https://www.npmjs.com/package/@fabernovel/heart-bigquery)
 | Heart Slack | Sends the results of the analysis to a [Slack](https://slack.com) channel | [![npm install @fabernovel/heart-slack](https://nodei.co/npm/@fabernovel/heart-slack.png?mini=true)](https://www.npmjs.com/package/@fabernovel/heart-slack) |
-
-## Configuration
-
-Each module has its own configuration, and it can be setup and changed using environment variables (see the _Installation_ section below).
-
-# Installation
-
-Now that you know every concept of _Heart_, let's the installation begin!
-
-## General installation
-
-1. Install an _analysis_ module and _Heart CLI_
-
-2. [Optional] Install any other module you want: another _runner_ module, a _listener_ module...
-
-3. Configure the modules you have just installed (the configuration of each module is detailed in its README file)
-
-4. Start your URLs analysis using one of your runner (the use of each runner is detailed in its README file) :tada: 
-
-## Example
-
->>>
-I want to analyse URLs using the _Google Lighthouse_ service.
-
-I want to be notified on the `#heart` Slack channel when the analysis is over.
-
-I want to check if the score reach a minimum of 85.
->>>
-
-Following the general installation steps, here is a list of the operations you must perform:
-
-1. `npm install @fabernovel/heart-cli @fabernovel/heart-lighthouse @fabernovel/heart-slack`
-
-2. `echo SLACK_API_TOKEN=My_Slack_Api_Token >> .env`
-
-4. `npx heart lighthouse --inline '{"url":"https://heart.fabernovel.com/"}' --threshold 85`
-
-Note that step 3 shows an example of setting up environment variables using a `.env` file. This is a convenient way offered by _Heart_ to set them, but you can define them in any way you want.
