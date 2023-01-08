@@ -403,11 +403,6 @@
       "versionPolicyName": "individualVersion"
     },
     {
-      "packageName": "@fabernovel/heart-dareboost",
-      "projectFolder": "modules/heart-dareboost",
-      "versionPolicyName": "individualVersion"
-    },
-    {
       "packageName": "@fabernovel/heart-lighthouse",
       "projectFolder": "modules/heart-lighthouse",
       "versionPolicyName": "individualVersion"

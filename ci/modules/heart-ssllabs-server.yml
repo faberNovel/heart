@@ -1,5 +1,0 @@
-"🚦 Coverage: Heart SSL Labs Server":
-  extends:
-    - .coverage
-  script:
-    - node common/scripts/install-run-rush.js test --coverage --verbose --to @fabernovel/heart-ssllabs-server
