@@ -4,19 +4,19 @@ _Heart API_ is a _runner_ module of _Heart_, which exposes an HTTP API that star
 
 Note that you must install an _analysis_ module too, to have a minimum viable installation of _Heart_.
 
-Read more about [the purpose, design and general installation of _Heart_](https://gitlab.com/fabernovel/heart/-/blob/master/README.md).
+Read more about [the description and design of _Heart_](https://gitlab.com/fabernovel/heart/-/blob/master/README.md).
 
 # Usage
 
-1. Add the package to your project, _[Heart CLI](https://www.npmjs.com/package/@fabernovel/heart-cli)_ and an _analysis_ module, for example _[Heart GreenIT](https://www.npmjs.com/package/@fabernovel/heart-greenit)_:
+1. Install the package, _[Heart CLI](https://www.npmjs.com/package/@fabernovel/heart-cli)_ and an _analysis_ module, for example _[Heart GreenIT](https://www.npmjs.com/package/@fabernovel/heart-greenit)_
 
-    ```shell
+    ```bash
     npm install @fabernovel/heart-cli @fabernovel/heart-api @fabernovel/heart-greenit
     ```
 
 2. Start the server
 
-    ```shell
+    ```bash
     npx heart api
     ```
 
@@ -34,4 +34,4 @@ Read more about [the purpose, design and general installation of _Heart_](https:
     }
     ```
 
-    The request's body depends of the analysis module; read their README.
+    The analysis configuration set with the request's body follows the JSON format, and depends of the analysis module; read their README.

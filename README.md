@@ -15,17 +15,23 @@ I want to:
 
 ## Standalone
 
-1. Install the modules
+1. Install the packages
     
-    `npm install @fabernovel/heart-cli @fabernovel/heart-lighthouse @fabernovel/heart-slack`
+    ```bash
+    npm install @fabernovel/heart-cli @fabernovel/heart-lighthouse @fabernovel/heart-slack
+    ```
 
 2. Configure the Slack module
     
-    `echo SLACK_API_TOKEN=My_Slack_Api_Token >> .env`
+    ```bash
+    echo SLACK_API_TOKEN=My_Slack_Api_Token >> .env
+    ```
 
-3. Analyze the URL
+3. Start an analysis
 
-    `npx heart lighthouse --inline '{"url":"https://heart.fabernovel.com/"}' --threshold 85`
+    ```bash
+    npx heart lighthouse --inline '{"url":"https://heart.fabernovel.com/"}' --threshold 85
+    ```
 
 ## Github Action
 
