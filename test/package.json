@@ -12,7 +12,6 @@
     "@fabernovel/heart-api": "workspace:^3.2.0",
     "@fabernovel/heart-bigquery": "workspace:^3.3.0",
     "@fabernovel/heart-cli": "workspace:^3.3.0",
-    "@fabernovel/heart-dareboost": "workspace:^3.3.0",
     "@fabernovel/heart-greenit": "workspace:^3.1.1",
     "@fabernovel/heart-lighthouse": "workspace:^3.1.1",
     "@fabernovel/heart-observatory": "workspace:^3.4.0",
