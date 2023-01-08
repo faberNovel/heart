@@ -1,4 +1,4 @@
-# ⚠️ This package is deprecated since the Dareboost service stopped working on January 2023.
+# ⚠️ This package is deprecated since the Dareboost service stopped working in January 2023.
 
 # Heart Dareboost
 
