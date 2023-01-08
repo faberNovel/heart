@@ -1,55 +1,49 @@
-# Heart GreenIT
+# Description
 
 _Heart GreenIT_ is an _analysis_ module of _Heart_, which analyses URLs with _[GreenIT](https://chrome.google.com/webstore/detail/greenit-analysis/mofbfhffeklkbebfclfaiifefjflcpad)_.
 
-Read more about [the purpose, design and general installation of _Heart_](https://gitlab.com/fabernovel/heart/-/blob/master/README.md).
-
-# Package manager
-
-In the following sections, every examples are using NPM as package manager, but you can use any other you prefer: Yarn, pnpm...
-
-# Installation
-
-1. Add the package to your project:
-
-    ```shell
-    npm install @fabernovel/heart-greenit
-    ```
-
-2. Add _[Heart CLI](https://www.npmjs.com/package/@fabernovel/heart-cli)_ if you have not already installed it
-
-    ```shell
-    npm install @fabernovel/heart-cli
-    ```
+Read more about [the description and design of _Heart_](https://gitlab.com/fabernovel/heart/-/blob/master/README.md).
 
 # Usage
 
-## Analysis setup
+## Standalone
 
-The analysis setup must use the JSON format with the following keys:
+1. Install the package and _[Heart CLI](https://www.npmjs.com/package/@fabernovel/heart-cli)_
 
-```json
-{
-    "url": "https://www.fabernovel.com/",
-    // optional - default: 3000
-    "timeout": 1000,
-    // optional - default: 2
-    "retry": 2,
-    // optional - default: "desktop"
-    // possible values: "desktop", "galaxyS9", "galaxyS20", "iPhone8", "iPhone8Plus", "iPhoneX", "iPad"
-    "device": "mobile"
-}
-```
+    ```bash
+    npm install @fabernovel/heart-cli @fabernovel/heart-greenit
+    ```
 
-## Example
+2. Start an analysis
 
-> Using _[Heart CLI](https://www.npmjs.com/package/@fabernovel/heart-cli)_
->
-> You want to analyse the https://www.fabernovel.com URL and check that the rating is at least 90
+    ```bash
+    npx heart greenit --inline '{"url":"https://www.fabernovel.com/"}'
+    ```
 
-```shell
-npx heart greenit --inline '{"url":"https://www.fabernovel.com"}' --threshold 90
-```
+    OR 
+
+    ```bash
+    npx heart greenit --file configuration.json
+    ```
+
+    The analysis configuration follows the JSON format and has the following keys:
+
+    ```json
+    {
+        "url": "https://www.fabernovel.com/",
+        // optional - default: 3000
+        "timeout": 1000,
+        // optional - default: 2
+        "retry": 2,
+        // optional - default: "desktop"
+        // possible values: "desktop", "galaxyS9", "galaxyS20", "iPhone8", "iPhone8Plus", "iPhoneX", "iPad"
+        "device": "galaxyS20"
+    }
+    ```
+
+## Github Action
+
+If you're using Github, you can simplify the integration of Heart in your CI scripts by using the [Github Action](https://github.com/marketplace/actions/heart-webpages-evaluation).
 
 # Disclaimer
 

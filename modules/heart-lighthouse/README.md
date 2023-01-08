@@ -1,63 +1,54 @@
-# Heart Lighthouse
+# Description
 
 _Heart Lighthouse_ is an _analysis_ module of _Heart_, which analyses URLs with _[Google Lighthouse](https://developers.google.com/web/tools/lighthouse/)_.
 
-Read more about [the purpose, design and general installation of _Heart_](https://gitlab.com/fabernovel/heart/-/blob/master/README.md).
-
-# Installation
-
-1. Install _Google Chrome_, as _Google Lighthouse_ relies on it to analyze a web page
-
-2. Add the package to your project:
-
-    ```shell
-    npm install @fabernovel/heart-lighthouse
-    ```
-
-3. Add _[Heart CLI](https://www.npmjs.com/package/@fabernovel/heart-cli)_ if you have not already installed it. It is a peer-dependency of `heart-lighthouse`
-
-    ```shell
-    npm install @fabernovel/heart-cli
-    ```
+Read more about [the description and design of _Heart_](https://gitlab.com/fabernovel/heart/-/blob/master/README.md).
 
 # Usage
 
-## Analysis setup
+## Standalone
 
-The analysis setup must use the JSON format with a `url` key.
+1. Install _Google Chrome_, as _Google Lighthouse_ relies on it to analyze a web page
 
-## Simple
+2. Install the package and _[Heart CLI](https://www.npmjs.com/package/@fabernovel/heart-cli)_
 
-> Using _[Heart CLI](https://www.npmjs.com/package/@fabernovel/heart-cli)_
->
-> You want to analyse the https://heart.fabernovel.com URL and check that the rating is at least 90
+    ```bash
+    npm install @fabernovel/heart-cli @fabernovel/heart-lighthouse
+    ```
 
-```shell
-npx heart lighthouse --inline '{"url":"https://heart.fabernovel.com"}' --threshold 90
-```
+3. Start an analysis
 
-## Advanced
+    ```bash
+    npx heart lighthouse --inline '{"url":"https://heart.fabernovel.com"}'
+    ```
 
-You can change the default _Google Lighthouse_ configuration with the `config` key. Populate it with [the values described in their documentation](https://github.com/GoogleChrome/lighthouse/blob/master/docs/configuration.md#lighthouse-configuration):
+    OR 
 
-`lighthouse.json`:
-```json
-{
-  "url": "https://heart.fabernovel.com",
-  "config": {
-    "extends": "lighthouse:default",
-    "settings": {
-      "onlyAudits": [
-        "first-meaningful-paint",
-        "speed-index",
-        "first-cpu-idle",
-        "interactive"
-      ]
+    ```bash
+    npx heart lighthouse --file configuration.json
+    ```
+
+    The analysis configuration follows the JSON format and has the following keys:
+
+    ```json
+    {
+        "url": "https://www.fabernovel.com/",
+        // optional - customize Google Lighthouse
+        // see https://github.com/GoogleChrome/lighthouse/blob/master/docs/configuration.md#lighthouse-configuration
+        "config": {
+          "extends": "lighthouse:default",
+          "settings": {
+            "onlyAudits": [
+              "first-meaningful-paint",
+              "speed-index",
+              "first-cpu-idle",
+              "interactive"
+            ]
+          }
+        }
     }
-  }
-}
-```
+    ```
 
-```shell
-npx heart lighthouse --file lighthouse.json
-```
+## Github Action
+
+If you're using Github, you can simplify the integration of Heart in your CI scripts by using the [Github Action](https://github.com/marketplace/actions/heart-webpages-evaluation).
