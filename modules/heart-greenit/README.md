@@ -28,7 +28,7 @@ Read more about [the description and design of _Heart_](https://gitlab.com/faber
 
     The analysis configuration follows the JSON format and has the following keys:
 
-    ```json
+    ```jsonc
     {
         "url": "https://www.fabernovel.com/",
         // optional - default: 3000
