@@ -65,10 +65,10 @@ To do so, you have to:
     rush-pnpm exec heart -h
     ```
 
-    Example of a CLI command using the _Heart Dareboost_ module:
+    Example of a CLI command using the _Heart Lighthouse_ module:
 
     ```shell
-    rush-pnpm exec heart dareboost -i '{"url": "https://heart.fabernovel.com/"}'
+    rush-pnpm exec heart lighthouse -i '{"url": "https://heart.fabernovel.com/"}'
     ```
 
 ### [Provide a changelog](.docs/PROVIDE_CHANGELOG.md)
