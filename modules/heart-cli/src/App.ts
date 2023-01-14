@@ -7,6 +7,7 @@ import {
   Report,
 } from "@fabernovel/heart-core"
 import { CorsOptions } from "cors"
+import { exit } from "node:process"
 import * as ora from "ora"
 
 export class App {
@@ -77,7 +78,7 @@ export class App {
       .on("listening", () => console.log(`Server listening on port ${port}`))
       .on("error", (error: NodeJS.ErrnoException) => {
         console.error(error.message)
-        process.exit(1)
+        exit(1)
       })
   }
 }
