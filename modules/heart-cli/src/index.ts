@@ -9,7 +9,7 @@ import {
 import { Command } from "commander"
 import { CorsOptions } from "cors"
 import { config } from "dotenv"
-import { argv, cwd } from "node:process"
+import { argv, cwd, exit } from "node:process"
 import { App } from "./App"
 import { createAnalysisCommand } from "./command/AnalysisCommand"
 import { createServerCommand } from "./command/ServerCommand"
@@ -47,7 +47,9 @@ void (async () => {
 
         program.addCommand(analysisCommand)
       } else if (isModuleServer(module)) {
-        const callback = (port: number, cors?: CorsOptions) => app.startServer(module, modules, port, cors)
+        const callback = async (port: number, cors?: CorsOptions) => {
+          await app.startServer(module, modules, port, cors)
+        }
 
         const serverCommand = createServerCommand(module, callback)
 
@@ -61,10 +63,12 @@ void (async () => {
       })
       .parseAsync(argv)
   } catch (error) {
-    if (error !== undefined) {
+    if (typeof error === "string") {
       console.error(error)
+    } else if (error instanceof Error) {
+      console.error(error.message)
     }
 
-    process.exitCode = 1
+    exit(1)
   }
 })()

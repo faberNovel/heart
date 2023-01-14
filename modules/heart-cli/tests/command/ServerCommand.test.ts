@@ -19,7 +19,7 @@ test("Create a server command", () => {
   const program = new Command()
 
   // eslint-disable-next-line @typescript-eslint/no-empty-function
-  const serverCommand = createServerCommand(module, () => {})
+  const serverCommand = createServerCommand(module, async () => {})
 
   program.addCommand(serverCommand)
   program.parse(["test-server", "--port", optionPort, "--cors", optionCors], { from: "user" })
@@ -28,8 +28,6 @@ test("Create a server command", () => {
 
   const command = program.commands.shift() as Command
   const options = command.opts()
-
-  console.log(options)
 
   expect(command.name()).toBe(module.id)
   expect(Object.keys(options)).toHaveLength(2)

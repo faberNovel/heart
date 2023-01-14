@@ -7,7 +7,6 @@ import {
   Report,
 } from "@fabernovel/heart-core"
 import { CorsOptions } from "cors"
-import { exit } from "node:process"
 import * as ora from "ora"
 
 export class App {
@@ -72,13 +71,18 @@ export class App {
     modules: ModuleInterface[],
     port: number,
     cors?: CorsOptions
-  ): void {
-    module
-      .startServer(modules, port, cors)
-      .on("listening", () => console.log(`Server listening on port ${port}`))
-      .on("error", (error: NodeJS.ErrnoException) => {
-        console.error(error.message)
-        exit(1)
-      })
+  ): Promise<void> {
+    return new Promise((resolve, reject) => {
+      module
+        .startServer(modules, port, cors)
+        .on("listening", () => {
+          console.log(`Server listening on port ${port}`)
+
+          resolve()
+        })
+        .on("error", (error: Error) => {
+          reject(error.message)
+        })
+    })
   }
 }
