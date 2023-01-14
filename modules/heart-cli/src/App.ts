@@ -48,9 +48,21 @@ export class App {
 
       return report
     } catch (error) {
-      this.spinner.fail("Analysis failed.")
+      let reason = ""
 
-      return Promise.reject(error)
+      if (typeof error === "string") {
+        reason = error
+      } else if (error instanceof Error) {
+        reason = error.message
+      }
+
+      if (reason.length > 0) {
+        reason = ` Reason: ${reason}.`
+      }
+
+      this.spinner.fail(`Analysis failed.${reason}`)
+
+      return Promise.reject()
     }
   }
 

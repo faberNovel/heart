@@ -60,7 +60,10 @@ void (async () => {
       })
       .parseAsync(process.argv)
   } catch (error) {
-    console.error(error)
+    if (error !== undefined) {
+      console.error(error)
+    }
+
     process.exit(1)
   }
 })()
