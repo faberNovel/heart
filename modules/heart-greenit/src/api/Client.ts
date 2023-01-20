@@ -62,6 +62,8 @@ export async function runAnalysis(conf: GreenITConfig): Promise<Result> {
   } else {
     const result = JSON.parse(readFileSync(reports[0].path, { encoding: "utf-8" })) as Result
 
-    return result.success ? result : Promise.reject("Error during GreenIT analysis")
+    return result.success
+      ? result
+      : Promise.reject("Error during GreenIT analysis. Increasing the timeout can be a solution")
   }
 }

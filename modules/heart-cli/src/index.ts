@@ -9,6 +9,7 @@ import {
 import { Command } from "commander"
 import { CorsOptions } from "cors"
 import { config } from "dotenv"
+import { argv, cwd, exit } from "node:process"
 import { App } from "./App"
 import { createAnalysisCommand } from "./command/AnalysisCommand"
 import { createServerCommand } from "./command/ServerCommand"
@@ -17,7 +18,7 @@ import { ModuleLoader } from "./module/ModuleLoader"
 // set environment variables from a.env file
 // assume that the root path if the one from where the script has been called
 // /!\ this approach does not follow symlink
-config({ path: `${process.cwd()}/.env` })
+config({ path: `${cwd()}/.env` })
 
 void (async () => {
   const moduleLoader = new ModuleLoader(false)
@@ -58,9 +59,14 @@ void (async () => {
       .on("command:*", () => {
         program.error("Invalid command name.")
       })
-      .parseAsync(process.argv)
+      .parseAsync(argv)
   } catch (error) {
-    console.error(error)
-    process.exit(1)
+    if (typeof error === "string") {
+      console.error(error)
+    } else if (error instanceof Error) {
+      console.error(error.message)
+    }
+
+    exit(1)
   }
 })()

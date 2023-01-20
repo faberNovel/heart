@@ -29,8 +29,6 @@ test("Create a server command", () => {
   const command = program.commands.shift() as Command
   const options = command.opts()
 
-  console.log(options)
-
   expect(command.name()).toBe(module.id)
   expect(Object.keys(options)).toHaveLength(2)
   expect(options).toHaveProperty("port", optionPort)

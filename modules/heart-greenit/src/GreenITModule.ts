@@ -1,5 +1,4 @@
 import { Module, ModuleAnalysisInterface, ModuleInterface, Report } from "@fabernovel/heart-core"
-
 import { runAnalysis } from "./api/Client"
 import { Result } from "./api/model/Result"
 import { GreenITConfig } from "./config/Config"

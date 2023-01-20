@@ -59,7 +59,7 @@ describe("Run GreenIT analysis", () => {
       },
     }
 
-    const errorMessage = "Error during GreenIT analysis"
+    const errorMessage = "Error during GreenIT analysis. Increasing the timeout can be a solution"
     const module = new GreenITModule(moduleConfig)
 
     try {

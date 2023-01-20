@@ -7,6 +7,7 @@ import {
 } from "@fabernovel/heart-core"
 import * as dotenv from "dotenv"
 import { readFileSync } from "fs"
+import { cwd, env } from "node:process"
 import { PackageJson } from "type-fest"
 import { MissingEnvironmentVariables } from "../error/MissingEnvironmentVariables"
 
@@ -16,7 +17,7 @@ export class ModuleLoader {
   private readonly PACKAGE_PREFIX = "@fabernovel/heart-"
   // assume that the root path is the one from where the script has been called
   // /!\ this approach does not follow symlink
-  private readonly ROOT_PATH = process.cwd()
+  private readonly ROOT_PATH = cwd()
   private readonly debug: boolean
 
   constructor(debug = false) {
@@ -78,14 +79,14 @@ export class ModuleLoader {
         // not yet registered in process.env
         // and having a default value in .env.sample file,
         requiredModuleDotenvVariables.forEach(([variableName, defaultValue]) => {
-          if (!process.env[variableName] && defaultValue.length !== 0) {
-            process.env[variableName] = defaultValue
+          if (!env[variableName] && defaultValue.length !== 0) {
+            env[variableName] = defaultValue
           }
         })
 
         // get the environment variables names that are not registered in process.env
         const missingModuleEnvironmentVariables = requiredModuleDotenvVariables
-          .filter(([variableName]) => !process.env[variableName])
+          .filter(([variableName]) => !env[variableName])
           .map(([variableName]) => variableName)
 
         // add the missing module dotenv variables to the missing list

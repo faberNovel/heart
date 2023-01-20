@@ -1,0 +1,10 @@
+{
+  "changes": [
+    {
+      "packageName": "@fabernovel/heart-cli",
+      "comment": "Add the reason of the error if the analysis fails",
+      "type": "patch"
+    }
+  ],
+  "packageName": "@fabernovel/heart-cli"
+}
