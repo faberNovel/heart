@@ -1,0 +1,10 @@
+{
+  "changes": [
+    {
+      "packageName": "@fabernovel/heart-greenit",
+      "comment": "Add a suggestion when the GreenIT Analysis dependency fails with a vague error",
+      "type": "patch"
+    }
+  ],
+  "packageName": "@fabernovel/heart-greenit"
+}

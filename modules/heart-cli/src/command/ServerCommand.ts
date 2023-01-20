@@ -24,7 +24,7 @@ const PORT_REGEX =
  */
 export const createServerCommand = (
   module: ModuleServerInterface,
-  callback: (port: number, corsOptions?: CorsOptions) => Promise<void>
+  callback: (port: number, corsOptions?: CorsOptions) => void
 ): Command => {
   const command = new Command(module.id)
 
@@ -41,10 +41,10 @@ export const createServerCommand = (
       "CORS configuration, as defined in https://www.npmjs.com/package/cors#configuration-options",
       (value: string) => JSON.parse(value) as CorsOptions
     )
-    .action(async (options: Options) => {
+    .action((options: Options) => {
       const { cors, port } = options
 
-      await callback(Number(port), cors)
+      callback(Number(port), cors)
     })
 
   return command

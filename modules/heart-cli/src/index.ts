@@ -47,9 +47,7 @@ void (async () => {
 
         program.addCommand(analysisCommand)
       } else if (isModuleServer(module)) {
-        const callback = async (port: number, cors?: CorsOptions) => {
-          await app.startServer(module, modules, port, cors)
-        }
+        const callback = (port: number, cors?: CorsOptions) => app.startServer(module, modules, port, cors)
 
         const serverCommand = createServerCommand(module, callback)
 

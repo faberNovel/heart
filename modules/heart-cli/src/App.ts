@@ -71,18 +71,13 @@ export class App {
     modules: ModuleInterface[],
     port: number,
     cors?: CorsOptions
-  ): Promise<void> {
-    return new Promise((resolve, reject) => {
-      module
-        .startServer(modules, port, cors)
-        .on("listening", () => {
-          console.log(`Server listening on port ${port}`)
-
-          resolve()
-        })
-        .on("error", (error: Error) => {
-          reject(error.message)
-        })
-    })
+  ): void {
+    module
+      .startServer(modules, port, cors)
+      .on("listening", () => console.log(`Server listening on port ${port}`))
+      .on("error", (error: NodeJS.ErrnoException) => {
+        console.error(error.message)
+        process.exit(1)
+      })
   }
 }
