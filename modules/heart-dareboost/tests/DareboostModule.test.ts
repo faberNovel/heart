@@ -36,7 +36,7 @@ describe("Starts an analysis", () => {
     const expectedReport = new Report({
       analyzedUrl: Conf.url,
       date: new Date(ApiReportResponse.report.date),
-      rawResults: ApiReportResponse,
+      Results: ApiReportResponse,
       note: ApiReportResponse.report.summary.score.toString(),
       resultUrl: ApiReportResponse.report.publicReportUrl,
       service: {
@@ -63,7 +63,7 @@ describe("Starts an analysis", () => {
     const expectedReport = new Report({
       analyzedUrl: Conf.url,
       date: new Date(ApiReportResponse.report.date),
-      rawResults: ApiReportResponse,
+      Results: ApiReportResponse,
       note: ApiReportResponse.report.summary.score.toString(),
       resultUrl: ApiReportResponse.report.publicReportUrl,
       normalizedNote: ApiReportResponse.report.summary.score,
@@ -84,7 +84,7 @@ describe("Starts an analysis", () => {
     const expectedReport = new Report({
       analyzedUrl: Conf.url,
       date: new Date(ApiReportResponse.report.date),
-      rawResults: ApiReportResponse,
+      Results: ApiReportResponse,
       note: ApiReportResponse.report.summary.score.toString(),
       resultUrl: ApiReportResponse.report.publicReportUrl,
       normalizedNote: ApiReportResponse.report.summary.score,

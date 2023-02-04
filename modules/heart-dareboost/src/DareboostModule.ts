@@ -58,7 +58,7 @@ export class DareboostModule extends Module implements ModuleAnalysisInterface<C
         return new Report({
           analyzedUrl: this.conf.url,
           date: new Date(result.report.date),
-          rawResults: result,
+          Results: result,
           service: this.service,
           resultUrl: result.report.publicReportUrl,
           note: result.report.summary.score.toString(),

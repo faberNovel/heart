@@ -1,4 +1,4 @@
-import { Module, ModuleInterface, ModuleListenerInterface, RawResult, Report } from "@fabernovel/heart-core"
+import { Module, ModuleInterface, ModuleListenerInterface, Result, Report } from "@fabernovel/heart-core"
 import { Client } from "./api/Client"
 
 export class SlackModule extends Module implements ModuleListenerInterface {
@@ -10,7 +10,7 @@ export class SlackModule extends Module implements ModuleListenerInterface {
     this.slackClient = new Client()
   }
 
-  public async notifyAnalysisDone<R extends RawResult>(report: Report<R>): Promise<void> {
+  public async notifyAnalysisDone<R extends Result>(report: Report<R>): Promise<void> {
     let message = `${report.analyzedUrl}: ${report.note}`
 
     if (report.resultUrl) {

@@ -6,7 +6,7 @@ import {
   ModuleAnalysisInterface,
   ModuleInterface,
   ModuleListenerInterface,
-  RawResult,
+  Result,
   Report,
   ThresholdError,
   validateInput,
@@ -48,7 +48,7 @@ export class ExpressApp {
     this.express.set("strict routing", false)
   }
 
-  private createRouteHandler<C extends Config, R extends RawResult>(
+  private createRouteHandler<C extends Config, R extends Result>(
     module: ModuleAnalysisInterface<C, R>
   ): express.RequestHandler {
     return (
@@ -75,7 +75,7 @@ export class ExpressApp {
                 response.status(200).json({
                   analyzedUrl: report.analyzedUrl,
                   date: report.date,
-                  rawResults: report.rawResults,
+                  Results: report.Results,
                   service: {
                     name: report.service.name,
                   },
@@ -102,7 +102,7 @@ export class ExpressApp {
     const router = express.Router()
 
     modules
-      .filter((module: ModuleInterface): module is ModuleAnalysisInterface<Config, RawResult> =>
+      .filter((module: ModuleInterface): module is ModuleAnalysisInterface<Config, Result> =>
         isModuleAnalysis(module)
       )
       .forEach((analysisModule) => {

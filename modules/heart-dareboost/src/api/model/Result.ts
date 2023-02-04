@@ -1,9 +1,9 @@
-import { RawResults } from "@fabernovel/heart-core"
+import { Results } from "@fabernovel/heart-core"
 
 /**
  * @see {@link https://www.dareboost.com/fr/documentation-api#result}
  */
-export type DareboostResult = RawResults & {
+export type DareboostResult = Results & {
   status: number
   message: string
   missing: unknown[]

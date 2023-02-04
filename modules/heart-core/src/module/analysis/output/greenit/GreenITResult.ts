@@ -1,9 +1,9 @@
-import { RawResult } from "../RawResult"
+import { Result } from "../Result"
 
 /**
  * Short version of the generated JSON result file
  */
-export type GreenITResult = RawResult & {
+export type GreenITResult = Result & {
   url: string
   ecoIndex: number
   domSize: number

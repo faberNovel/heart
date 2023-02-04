@@ -56,7 +56,7 @@ export class ObservatoryModule
         return new Report({
           analyzedUrl: this.apiClient.getProjectHost(),
           note: scan.grade,
-          rawResults: scan,
+          Results: scan,
           resultUrl: this.apiClient.getAnalyzeUrl(),
           service: this.service,
           date: new Date(scan.end_time),

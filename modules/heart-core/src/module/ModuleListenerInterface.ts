@@ -1,12 +1,12 @@
 import { Report } from "../report/Report"
-import { RawResult } from "./output/RawResult"
+import { Result } from "./analysis/output/Result"
 import { ModuleInterface } from "./ModuleInterface"
 
 /**
  * Define an Listener module.
  */
 export interface ModuleListenerInterface extends ModuleInterface {
-  notifyAnalysisDone<R extends RawResult>(report: Report<R>): Promise<void>
+  notifyAnalysisDone<R extends Result>(report: Report<R>): Promise<void>
 }
 
 /**

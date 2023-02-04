@@ -2,7 +2,7 @@ import { readFileSync } from "fs"
 import { isAbsolute } from "path"
 import { ConfigError } from "../error/ConfigError"
 import { ThresholdError } from "../error/ThresholdError"
-import { Config } from "../module/input/Config"
+import { Config } from "../module/analysis/input/Config"
 
 /**
  * Validate that the analysis options are correct

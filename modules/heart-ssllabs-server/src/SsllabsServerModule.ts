@@ -67,7 +67,7 @@ export class SsllabsServerModule
         return new Report({
           analyzedUrl: this.apiClient.getProjectUrl(),
           date: new Date(host.startTime),
-          rawResults: host,
+          Results: host,
           note: note.toString(),
           normalizedNote: note,
           resultUrl: this.apiClient.getAnalyzeUrl(),

@@ -1,7 +1,7 @@
-import { RawResult } from "../module/output/RawResult"
+import { Result } from "../module/analysis/output/Result"
 import { Service } from "../service/Service"
 
-export interface ReportInterface<R extends RawResult> {
+export interface ReportInterface<R extends Result> {
   /**
    * URL that is analyzed
    */
@@ -16,7 +16,7 @@ export interface ReportInterface<R extends RawResult> {
   /**
    * Raw results send back by the analysis modules
    */
-  rawResults: R
+  Results: R
 
   /**
    * Ranking given by the service

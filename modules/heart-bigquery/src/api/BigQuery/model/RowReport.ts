@@ -1,4 +1,4 @@
-import { RawResult, Report } from "@fabernovel/heart-core"
+import { Result, Report } from "@fabernovel/heart-core"
 import { BigQueryDatetime } from "@google-cloud/bigquery"
 import { RecordRanking } from "./RecordRanking"
 import { RecordService } from "./RecordService"
@@ -8,7 +8,7 @@ import { RecordUrl } from "./RecordUrl"
 /**
  * Representation of a Report object in BigQuery
  */
-export class RowReport<R extends RawResult> {
+export class RowReport<R extends Result> {
   public date: BigQueryDatetime
   public ranking: RecordRanking
   public service: RecordService

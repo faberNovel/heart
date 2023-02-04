@@ -57,7 +57,7 @@ describe("Starts an analysis", () => {
     const expectedReport = new Report({
       analyzedUrl: "heart.fabernovel.com",
       date: report.date,
-      rawResults: SCAN,
+      Results: SCAN,
       note: SCAN.grade,
       resultUrl: ANALYZE_URL + "heart.fabernovel.com",
       normalizedNote: SCAN.score > 100 ? 100 : SCAN.score,
@@ -83,7 +83,7 @@ describe("Starts an analysis", () => {
     const expectedReport = new Report({
       analyzedUrl: "heart.fabernovel.com",
       date: report.date,
-      rawResults: SCAN,
+      Results: SCAN,
       note: SCAN.grade,
       resultUrl: ANALYZE_URL + "heart.fabernovel.com",
       normalizedNote: SCAN.score > 100 ? 100 : SCAN.score,
@@ -103,7 +103,7 @@ describe("Starts an analysis", () => {
     const expectedReport = new Report({
       analyzedUrl: "heart.fabernovel.com",
       date: report.date,
-      rawResults: SCAN,
+      Results: SCAN,
       note: SCAN.grade,
       resultUrl: ANALYZE_URL + "heart.fabernovel.com",
       normalizedNote: SCAN.score > 100 ? 100 : SCAN.score,

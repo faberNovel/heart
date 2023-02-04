@@ -33,7 +33,7 @@ export class LighthouseModule
     return new Report({
       analyzedUrl: result.requestedUrl,
       date: new Date(result.fetchTime),
-      rawResults: result,
+      Results: result,
       service: this.service,
       note: score.toString(),
       normalizedNote: score,

@@ -1,9 +1,9 @@
-import { RawResult } from "../RawResult"
+import { Result } from "../Result"
 
 /**
  * @see {@link https://github.com/mozilla/http-observatory/blob/master/httpobs/docs/api.md#scan}
  */
-export type ObservatoryResult = RawResult & {
+export type ObservatoryResult = Result & {
   // timestamp for when the scan completed
   end_time: string
 

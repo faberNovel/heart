@@ -21,7 +21,7 @@ export class GreenITModule extends Module implements ModuleAnalysisInterface<Gre
     return new Report({
       analyzedUrl: results.url,
       date: new Date(),
-      rawResults: results,
+      Results: results,
       note: results.ecoIndex.toString(),
       service: this.service,
       threshold: this.threshold,
