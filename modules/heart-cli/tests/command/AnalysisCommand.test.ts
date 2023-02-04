@@ -6,7 +6,7 @@ test("Create an analysis command", () => {
   const report = new Report({
     analyzedUrl: "https://heart.fabernovel.com",
     date: new Date(),
-    Results: {},
+    result: {},
     note: "50",
     normalizedNote: 50,
     service: {

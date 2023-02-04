@@ -14,9 +14,10 @@ export interface ReportInterface<R extends Result> {
   date: Date
 
   /**
-   * Raw results send back by the analysis modules
+   * Result send back by the analysis modules.
+   * These data are raw and untouched yet.
    */
-  Results: R
+  result: R
 
   /**
    * Ranking given by the service

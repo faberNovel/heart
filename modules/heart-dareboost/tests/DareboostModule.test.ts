@@ -1,8 +1,5 @@
 import { Report } from "@fabernovel/heart-core"
-import { DareboostConfig } from "../src/config/DareboostConfig"
-
 import { DareboostModule } from "../src/DareboostModule"
-
 import { ApiAnalysisResponse } from "./data/ApiAnalysisResponse"
 import { ApiReportResponse } from "./data/ApiReportResponse"
 import { Conf } from "./data/Conf"
@@ -36,7 +33,7 @@ describe("Starts an analysis", () => {
     const expectedReport = new Report({
       analyzedUrl: Conf.url,
       date: new Date(ApiReportResponse.report.date),
-      Results: ApiReportResponse,
+      result: ApiReportResponse,
       note: ApiReportResponse.report.summary.score.toString(),
       resultUrl: ApiReportResponse.report.publicReportUrl,
       service: {
@@ -63,7 +60,7 @@ describe("Starts an analysis", () => {
     const expectedReport = new Report({
       analyzedUrl: Conf.url,
       date: new Date(ApiReportResponse.report.date),
-      Results: ApiReportResponse,
+      result: ApiReportResponse,
       note: ApiReportResponse.report.summary.score.toString(),
       resultUrl: ApiReportResponse.report.publicReportUrl,
       normalizedNote: ApiReportResponse.report.summary.score,
@@ -84,7 +81,7 @@ describe("Starts an analysis", () => {
     const expectedReport = new Report({
       analyzedUrl: Conf.url,
       date: new Date(ApiReportResponse.report.date),
-      Results: ApiReportResponse,
+      result: ApiReportResponse,
       note: ApiReportResponse.report.summary.score.toString(),
       resultUrl: ApiReportResponse.report.publicReportUrl,
       normalizedNote: ApiReportResponse.report.summary.score,

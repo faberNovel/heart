@@ -105,6 +105,7 @@ importers:
   ../../modules/heart-core:
     specifiers:
       '@types/cors': ^2.8.13
+      '@types/har-format': ^1.2.10
       '@types/jest': ^29.2.4
       '@types/node': ^14.18.34
       '@types/node-fetch': ^2.3.7
@@ -121,6 +122,7 @@ importers:
       node-fetch: 2.6.7
     devDependencies:
       '@types/cors': 2.8.13
+      '@types/har-format': 1.2.10
       '@types/jest': 29.2.4
       '@types/node': 14.18.34
       '@types/node-fetch': 2.6.2
@@ -1259,6 +1261,10 @@ packages:
     resolution: {integrity: sha512-anKkLmZZ+xm4p8JWBf4hElkM4XR+EZeA2M9BAkkTldmcyDY4mbdIJnRghDJH3Ov5ooY7/UAoENtmdMSkaAd7Cw==}
     dependencies:
       '@types/node': 14.18.34
+    dev: true
+
+  /@types/har-format/1.2.10:
+    resolution: {integrity: sha512-o0J30wqycjF5miWDKYKKzzOU1ZTLuA42HZ4HE7/zqTOc/jTLdQ5NhYWvsRQo45Nfi1KHoRdNhteSI4BAxTF1Pg==}
     dev: true
 
   /@types/http-cache-semantics/4.0.1:

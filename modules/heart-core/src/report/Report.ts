@@ -4,7 +4,7 @@ import { ReportInterface } from "./ReportInterface"
 
 type ReportParams<R extends Result> = Pick<
   ReportInterface<R>,
-  "analyzedUrl" | "date" | "Results" | "note" | "resultUrl" | "service" | "threshold"
+  "analyzedUrl" | "date" | "result" | "note" | "resultUrl" | "service" | "threshold"
 > &
   Partial<Pick<ReportInterface<R>, "normalizedNote">>
 
@@ -17,7 +17,7 @@ type ReportParams<R extends Result> = Pick<
 export class Report<R extends Result> implements ReportInterface<R> {
   analyzedUrl: string
   date: Date
-  Results: R
+  result: R
   note: string
   normalizedNote: number
   resultUrl?: string
@@ -27,7 +27,7 @@ export class Report<R extends Result> implements ReportInterface<R> {
   constructor(report: ReportParams<R>) {
     this.analyzedUrl = report.analyzedUrl
     this.date = report.date
-    this.Results = report.Results
+    this.result = report.result
     this.note = report.note
     this.normalizedNote = report.normalizedNote ?? Number(this.note) ?? 0
     this.resultUrl = report.resultUrl

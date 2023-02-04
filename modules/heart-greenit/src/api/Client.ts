@@ -10,7 +10,7 @@ const DEFAULT_OPTIONS: Options = {
   timeout: 3000,
 }
 
-export async function runAnalysis(conf: GreenITConfig): Promise<GreenITResult> {
+export async function requestResult(conf: GreenITConfig): Promise<GreenITResult> {
   const browser = await puppeteer.launch({
     headless: true,
     args: [

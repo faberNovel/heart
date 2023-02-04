@@ -75,7 +75,7 @@ export class ExpressApp {
                 response.status(200).json({
                   analyzedUrl: report.analyzedUrl,
                   date: report.date,
-                  Results: report.Results,
+                  result: report.result,
                   service: {
                     name: report.service.name,
                   },

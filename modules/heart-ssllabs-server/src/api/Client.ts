@@ -26,7 +26,7 @@ export class Client {
     return this.SERVICE_URL + this.getProjectUrl()
   }
 
-  public async getAnalysisReport(): Promise<SsllabsServerResult> {
+  public async getResult(): Promise<SsllabsServerResult> {
     // avoid starting a new analysis instead of requesting the results
     if ("string" === typeof this.conf.startNew) {
       delete this.conf.startNew

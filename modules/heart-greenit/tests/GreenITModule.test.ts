@@ -3,7 +3,7 @@ import { createJsonReports } from "greenit-cli/cli-core/analysis"
 import { join } from "node:path"
 import { GreenITModule } from "../src/GreenITModule"
 import { conf } from "./data/Conf"
-import successResults from "./data/successReport.json"
+import successResult from "./data/successReport.json"
 
 jest.mock("greenit-cli/cli-core/analysis")
 const mockedCreateJsonReports = jest.mocked(createJsonReports)
@@ -33,10 +33,10 @@ describe("Run GreenIT analysis", () => {
     analysisReport.date = now
 
     const mockReport = new Report({
-      analyzedUrl: successResults.url,
+      analyzedUrl: successResult.url,
       date: now,
-      Results: successResults,
-      note: successResults.ecoIndex.toString(),
+      result: successResult,
+      note: successResult.ecoIndex.toString(),
       service: moduleConfig.service,
       threshold: undefined,
     })
@@ -96,10 +96,10 @@ describe("Run GreenIT analysis", () => {
     analysisReport.date = now
 
     const mockReport = new Report({
-      analyzedUrl: successResults.url,
+      analyzedUrl: successResult.url,
       date: now,
-      Results: successResults,
-      note: successResults.ecoIndex.toString(),
+      result: successResult,
+      note: successResult.ecoIndex.toString(),
       service: moduleConfig.service,
       threshold: THRESHOLD,
     })
@@ -133,10 +133,10 @@ describe("Run GreenIT analysis", () => {
     analysisReport.date = now
 
     const mockReport = new Report({
-      analyzedUrl: successResults.url,
+      analyzedUrl: successResult.url,
       date: now,
-      Results: successResults,
-      note: successResults.ecoIndex.toString(),
+      result: successResult,
+      note: successResult.ecoIndex.toString(),
       service: moduleConfig.service,
       threshold: THRESHOLD,
     })

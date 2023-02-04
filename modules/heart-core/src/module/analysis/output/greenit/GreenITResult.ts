@@ -1,3 +1,4 @@
+import { Entry } from "har-format"
 import { Result } from "../Result"
 
 /**
@@ -18,6 +19,15 @@ export type GreenITResult = Result & {
   inlineStyleSheetsNumber: number
   emptySrcTagNumber: number
   inlineJsScriptsNumber: number
+  imagesResizedInBrowser: Array<{
+    src: string
+    clientWidth: number
+    clientHeight: number
+    naturalWidth: number
+    naturalHeight: number
+  }>
+  entries: Array<Entry>
+  dataEntries: Array<Entry>
   bestPractices: {
     AddExpiresOrCacheControlHeaders: {
       detailComment: string

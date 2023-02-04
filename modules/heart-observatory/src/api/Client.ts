@@ -51,7 +51,7 @@ export class Client {
     return this.analyzeUrl + this.getProjectHost()
   }
 
-  public async getAnalysisReport(): Promise<ObservatoryResult> {
+  public async getResult(): Promise<ObservatoryResult> {
     return Request.get(this.generateApiUrl("analyze"))
   }
 

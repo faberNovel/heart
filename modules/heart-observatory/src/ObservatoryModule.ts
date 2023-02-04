@@ -32,40 +32,40 @@ export class ObservatoryModule
 
     await this.apiClient.launchAnalysis(conf)
 
-    return this.requestScan()
+    return this.requestResult()
   }
 
-  private async requestScan(): Promise<Report<ObservatoryResult>> {
-    const scan = await this.apiClient.getAnalysisReport()
+  private async requestResult(): Promise<Report<ObservatoryResult>> {
+    const result = await this.apiClient.getResult()
 
-    return this.handleRequestScan(scan)
+    return this.handleResult(result)
   }
 
-  private async handleRequestScan(scan: ObservatoryResult): Promise<Report<ObservatoryResult>> {
-    switch (scan.state) {
+  private async handleResult(result: ObservatoryResult): Promise<Report<ObservatoryResult>> {
+    switch (result.state) {
       case "FAILED":
-        throw new Error(scan.state)
+        throw new Error(result.state)
 
       case "PENDING":
       case "STARTING":
       case "RUNNING":
         await Helper.timeout(this.TIME_BETWEEN_TRIES)
-        return this.requestScan()
+        return this.requestResult()
 
       case "FINISHED":
         return new Report({
           analyzedUrl: this.apiClient.getProjectHost(),
-          note: scan.grade,
-          Results: scan,
+          note: result.grade,
+          result: result,
           resultUrl: this.apiClient.getAnalyzeUrl(),
           service: this.service,
-          date: new Date(scan.end_time),
-          normalizedNote: scan.score > 100 ? 100 : scan.score,
+          date: new Date(result.end_time),
+          normalizedNote: Math.min(result.score, 100),
           threshold: this.threshold,
         })
 
       default:
-        throw new Error(scan.state)
+        throw new Error(result.state)
     }
   }
 }

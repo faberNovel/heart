@@ -1,10 +1,10 @@
 import { LighthouseResult } from "@fabernovel/heart-core"
-import { runAnalysis } from "../src/api/Client"
+import { requestResult } from "../src/api/Client"
 import { LighthouseModule } from "../src/LighthouseModule"
 import { Conf } from "./data/Conf"
 
 jest.mock("../src/api/Client")
-const mockedRunAnalysis = jest.mocked(runAnalysis)
+const mockedRequestResult = jest.mocked(requestResult)
 
 describe("Starts an analysis", () => {
   let module: LighthouseModule
@@ -32,7 +32,7 @@ describe("Starts an analysis", () => {
 
   it("should starts an analysis with a valid configuration", async () => {
     // mock the analysis stuff
-    mockedRunAnalysis.mockResolvedValue(RESULT)
+    mockedRequestResult.mockResolvedValue(RESULT)
 
     const report = await module.startAnalysis(Conf)
 
@@ -55,7 +55,7 @@ describe("Starts an analysis", () => {
     const THRESHOLD = 80
 
     //mock the analysis stuff
-    mockedRunAnalysis.mockResolvedValue(RESULT)
+    mockedRequestResult.mockResolvedValue(RESULT)
 
     const report = await module.startAnalysis(Conf, THRESHOLD)
 

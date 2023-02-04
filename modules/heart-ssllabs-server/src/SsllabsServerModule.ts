@@ -7,9 +7,10 @@ import {
   SsllabsServerResult,
   SsllabsServerStatus,
   SsllabsServerConfig,
+  SsllabsServerEndpoint,
 } from "@fabernovel/heart-core"
-import { getAveragePercentage } from "./api/calculation/GetAveragePercentage"
 import { Client } from "./api/Client"
+import { transform } from "./transformer/GradeTransformer"
 
 export class SsllabsServerModule
   extends Module
@@ -33,41 +34,46 @@ export class SsllabsServerModule
     this.threshold = threshold
     await this.apiClient.launchAnalysis(conf)
 
-    return this.requestReport()
+    return this.requestResult()
   }
 
-  private async requestReport(triesQty = 1): Promise<Report<SsllabsServerResult>> {
-    if (triesQty > SsllabsServerModule.MAX_TRIES) {
-      throw new Error(
-        `The maximum number of tries (${SsllabsServerModule.MAX_TRIES}) to retrieve the report has been reached.`
-      )
+  /**
+   * Retrieve the average endpoint percentage
+   */
+  private computeNote(endpoints: SsllabsServerEndpoint[]): number {
+    const grades = endpoints.map((endpoint: SsllabsServerEndpoint) => transform(endpoint.grade))
+
+    if (0 === grades.length) {
+      return 0
     }
 
-    const host = await this.apiClient.getAnalysisReport()
+    const sumGrades = grades.reduce(
+      (previousValue: number, currentValue: number) => previousValue + currentValue
+    )
 
-    return this.handleRequestScan(host, triesQty)
+    return sumGrades / grades.length
   }
 
-  private async handleRequestScan(
-    host: SsllabsServerResult,
+  private async handleResult(
+    result: SsllabsServerResult,
     triesQty: number
   ): Promise<Report<SsllabsServerResult>> {
-    switch (host.status) {
+    switch (result.status) {
       case SsllabsServerStatus.ERROR:
-        throw new Error(`${host.status}: ${host.statusMessage}`)
+        throw new Error(`${result.status}: ${result.statusMessage}`)
 
       case SsllabsServerStatus.DNS:
       case SsllabsServerStatus.IN_PROGRESS:
         await Helper.timeout(SsllabsServerModule.TIME_BETWEEN_TRIES)
-        return this.requestReport(++triesQty)
+        return this.requestResult(++triesQty)
 
       case SsllabsServerStatus.READY: {
-        const note = getAveragePercentage(host.endpoints)
+        const note = this.computeNote(result.endpoints)
 
         return new Report({
           analyzedUrl: this.apiClient.getProjectUrl(),
-          date: new Date(host.startTime),
-          Results: host,
+          date: new Date(result.startTime),
+          result: result,
           note: note.toString(),
           normalizedNote: note,
           resultUrl: this.apiClient.getAnalyzeUrl(),
@@ -77,7 +83,19 @@ export class SsllabsServerModule
       }
 
       default:
-        throw new Error(host.statusMessage)
+        throw new Error(result.statusMessage)
     }
+  }
+
+  private async requestResult(triesQty = 1): Promise<Report<SsllabsServerResult>> {
+    if (triesQty > SsllabsServerModule.MAX_TRIES) {
+      throw new Error(
+        `The maximum number of tries (${SsllabsServerModule.MAX_TRIES}) to retrieve the report has been reached.`
+      )
+    }
+
+    const result = await this.apiClient.getResult()
+
+    return this.handleResult(result, triesQty)
   }
 }
