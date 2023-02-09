@@ -26,7 +26,7 @@ test("Create a server command", () => {
 
   expect(program.commands).toHaveLength(1)
 
-  const command = program.commands.shift() as Command
+  const command = program.commands[0]
   const options = command.opts()
 
   expect(command.name()).toBe(module.id)
