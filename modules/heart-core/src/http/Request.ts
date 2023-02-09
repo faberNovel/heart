@@ -12,10 +12,12 @@ export class Request {
   }
 
   public static async get<T>(url: string, headers: { [index: string]: string } = {}): Promise<T> {
-    return fetch(url, {
+    const response = await fetch(url, {
       method: Request.GET,
       headers: { ...Request.BASE_HEADER, ...headers },
-    }).then((res) => res.json() as Promise<T>)
+    })
+
+    return response.json() as Promise<T>
   }
 
   public static async post<T>(
@@ -37,10 +39,12 @@ export class Request {
         return Promise.reject({ error: "invalid-header", message: "Unsupported header Content-Type" })
     }
 
-    return fetch(url, {
+    const response = await fetch(url, {
       method: Request.POST,
       body: bodyString,
       headers,
-    }).then((res) => res.json() as Promise<T>)
+    })
+
+    return response.json() as Promise<T>
   }
 }

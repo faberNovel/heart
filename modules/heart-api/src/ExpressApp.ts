@@ -6,6 +6,7 @@ import {
   ModuleAnalysisInterface,
   ModuleInterface,
   ModuleListenerInterface,
+  Result,
   Report,
   ThresholdError,
   validateInput,
@@ -47,14 +48,16 @@ export class ExpressApp {
     this.express.set("strict routing", false)
   }
 
-  private createRouteHandler<T extends Config>(module: ModuleAnalysisInterface<T>): express.RequestHandler {
+  private createRouteHandler<C extends Config, R extends Result>(
+    module: ModuleAnalysisInterface<C, R>
+  ): express.RequestHandler {
     return (
-      request: express.Request<unknown, unknown, T>,
+      request: express.Request<unknown, unknown, C>,
       response: express.Response,
       next: express.NextFunction
     ) => {
       try {
-        const [config, threshold] = validateInput<T>(
+        const [config, threshold] = validateInput<C>(
           undefined,
           JSON.stringify(request.body),
           typeof request.query.threshold === "string" ? request.query.threshold : undefined
@@ -62,7 +65,7 @@ export class ExpressApp {
 
         module
           .startAnalysis(config, threshold)
-          .then((report: Report) => {
+          .then((report: Report<R>) => {
             const notifyListenerModulesPromises = this.listenerModules.map((listenerModule) =>
               listenerModule.notifyAnalysisDone(report)
             )
@@ -72,6 +75,7 @@ export class ExpressApp {
                 response.status(200).json({
                   analyzedUrl: report.analyzedUrl,
                   date: report.date,
+                  result: report.result,
                   service: {
                     name: report.service.name,
                   },
@@ -98,7 +102,7 @@ export class ExpressApp {
     const router = express.Router()
 
     modules
-      .filter((module: ModuleInterface): module is ModuleAnalysisInterface<Config> =>
+      .filter((module: ModuleInterface): module is ModuleAnalysisInterface<Config, Result> =>
         isModuleAnalysis(module)
       )
       .forEach((analysisModule) => {

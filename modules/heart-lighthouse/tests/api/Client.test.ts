@@ -2,13 +2,12 @@ import childProcess from "child_process"
 import * as chromeLauncher from "chrome-launcher"
 import lighthouse from "lighthouse"
 import { RunnerResult } from "lighthouse/types/externs"
-import { runAnalysis } from "../../src/api/Client"
+import { requestResult } from "../../src/api/Client"
 import { Conf } from "../data/Conf"
 
+jest.mock("child_process")
 jest.mock("chrome-launcher")
 jest.mock("lighthouse")
-jest.mock("chrome-launcher")
-jest.mock("child_process")
 const mockedLighthouse = jest.mocked(lighthouse)
 const mockChromeLauncherLaunch = jest.mocked(chromeLauncher.launch)
 mockChromeLauncherLaunch.mockResolvedValue({
@@ -35,7 +34,7 @@ describe("Run an analysis", () => {
     // mock chrome-launcher and lighthouse modules methods
     mockedLighthouse.mockResolvedValue(RUNNER_RESULT)
 
-    const results = await runAnalysis(Conf)
+    const results = await requestResult(Conf)
     expect(results).toStrictEqual(RUNNER_RESULT.lhr)
   })
 })

@@ -1,4 +1,4 @@
-import { Config, ModuleAnalysisInterface, Report } from "@fabernovel/heart-core"
+import { Config, ModuleAnalysisInterface, Result, Report } from "@fabernovel/heart-core"
 import { Command } from "commander"
 import { createAnalysisCommand } from "../../src/command/AnalysisCommand"
 
@@ -6,6 +6,7 @@ test("Create an analysis command", () => {
   const report = new Report({
     analyzedUrl: "https://heart.fabernovel.com",
     date: new Date(),
+    result: {},
     note: "50",
     normalizedNote: 50,
     service: {
@@ -13,7 +14,7 @@ test("Create an analysis command", () => {
     },
   })
 
-  const module: ModuleAnalysisInterface<Config> = {
+  const module: ModuleAnalysisInterface<Config, Result> = {
     id: "test-analysis-tool",
     name: "Heart Test Analysis Tool",
     service: {

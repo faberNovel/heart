@@ -1,8 +1,8 @@
 import { launch } from "chrome-launcher"
 import lighthouse from "lighthouse"
-import { LighthouseConfig } from "../config/Config"
+import type { LighthouseConfig, LighthouseResult } from "@fabernovel/heart-core"
 
-export async function runAnalysis(conf: LighthouseConfig): Promise<LH.Result> {
+export async function requestResult(conf: LighthouseConfig): Promise<LighthouseResult> {
   const chrome = await launch({
     chromeFlags: [
       "--headless",
@@ -23,5 +23,5 @@ export async function runAnalysis(conf: LighthouseConfig): Promise<LH.Result> {
 
   await chrome.kill()
 
-  return runnerResult.lhr
+  return { ...runnerResult.lhr } // weird hacky thing
 }

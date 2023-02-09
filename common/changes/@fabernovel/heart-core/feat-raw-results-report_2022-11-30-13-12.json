@@ -1,0 +1,10 @@
+{
+  "changes": [
+    {
+      "packageName": "@fabernovel/heart-core",
+      "comment": "The report can now store the raw results of the analysis modules",
+      "type": "minor"
+    }
+  ],
+  "packageName": "@fabernovel/heart-core"
+}

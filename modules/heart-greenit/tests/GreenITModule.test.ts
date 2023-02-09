@@ -1,20 +1,18 @@
 import { Report } from "@fabernovel/heart-core"
 import { createJsonReports } from "greenit-cli/cli-core/analysis"
-import path from "path"
+import { join } from "node:path"
 import { GreenITModule } from "../src/GreenITModule"
 import { conf } from "./data/Conf"
-import successResults from "./data/successReport.json"
+import successResult from "./data/successReport.json"
 
 jest.mock("greenit-cli/cli-core/analysis")
 const mockedCreateJsonReports = jest.mocked(createJsonReports)
 
 describe("Run GreenIT analysis", () => {
   it("should be able to launch a successful analysis without thresholds", async () => {
-    const now = new Date()
-
     mockedCreateJsonReports.mockResolvedValue([
       {
-        path: path.join(__dirname, "./data/successReport.json"),
+        path: join(__dirname, "./data/successReport.json"),
         name: "1.json",
       },
     ])
@@ -30,12 +28,15 @@ describe("Run GreenIT analysis", () => {
 
     const module = new GreenITModule(moduleConfig)
     const analysisReport = await module.startAnalysis(conf)
-    analysisReport.date = now
+
+    const [date, time] = successResult.date.split(" ")
+    const [day, month, year] = date.split("/")
 
     const mockReport = new Report({
-      analyzedUrl: successResults.url,
-      date: now,
-      note: successResults.ecoIndex.toString(),
+      analyzedUrl: successResult.url,
+      date: new Date(`${year}-${month}-${day}T${time}`),
+      result: successResult,
+      note: successResult.ecoIndex.toString(),
       service: moduleConfig.service,
       threshold: undefined,
     })
@@ -45,7 +46,7 @@ describe("Run GreenIT analysis", () => {
   it("should be able to handle a failed analysis", async () => {
     mockedCreateJsonReports.mockResolvedValue([
       {
-        path: path.join(__dirname, "./data/errorReport.json"),
+        path: join(__dirname, "./data/errorReport.json"),
         name: "1.json",
       },
     ])
@@ -74,7 +75,7 @@ describe("Run GreenIT analysis", () => {
 
     mockedCreateJsonReports.mockResolvedValue([
       {
-        path: path.join(__dirname, "./data/successReport.json"),
+        path: join(__dirname, "./data/successReport.json"),
         name: "1.json",
       },
     ])
@@ -95,9 +96,10 @@ describe("Run GreenIT analysis", () => {
     analysisReport.date = now
 
     const mockReport = new Report({
-      analyzedUrl: successResults.url,
+      analyzedUrl: successResult.url,
       date: now,
-      note: successResults.ecoIndex.toString(),
+      result: successResult,
+      note: successResult.ecoIndex.toString(),
       service: moduleConfig.service,
       threshold: THRESHOLD,
     })
@@ -110,7 +112,7 @@ describe("Run GreenIT analysis", () => {
 
     mockedCreateJsonReports.mockResolvedValue([
       {
-        path: path.join(__dirname, "./data/successReport.json"),
+        path: join(__dirname, "./data/successReport.json"),
         name: "1.json",
       },
     ])
@@ -131,9 +133,10 @@ describe("Run GreenIT analysis", () => {
     analysisReport.date = now
 
     const mockReport = new Report({
-      analyzedUrl: successResults.url,
+      analyzedUrl: successResult.url,
       date: now,
-      note: successResults.ecoIndex.toString(),
+      result: successResult,
+      note: successResult.ecoIndex.toString(),
       service: moduleConfig.service,
       threshold: THRESHOLD,
     })

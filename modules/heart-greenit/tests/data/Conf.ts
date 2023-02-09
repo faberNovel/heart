@@ -1,4 +1,4 @@
-import { GreenITConfig } from "../../src/config/Config"
+import { GreenITConfig } from "@fabernovel/heart-core"
 
 export const conf: GreenITConfig = {
   url: "https://fabernovel.com",

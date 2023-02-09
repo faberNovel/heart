@@ -4,6 +4,7 @@ import {
   ModuleInterface,
   ModuleListenerInterface,
   ModuleServerInterface,
+  Result,
   Report,
 } from "@fabernovel/heart-core"
 import { CorsOptions } from "cors"
@@ -14,17 +15,17 @@ export class App {
 
   constructor(private listenerModules: ModuleListenerInterface[]) {}
 
-  public async notifyListenerModules(report: Report): Promise<void[]> {
+  public async notifyListenerModules<R extends Result>(report: Report<R>): Promise<void[]> {
     return Promise.all(
       this.listenerModules.map((listenerModule) => listenerModule.notifyAnalysisDone(report))
     )
   }
 
-  public async startAnalysis<T extends Config>(
-    module: ModuleAnalysisInterface<T>,
-    conf: T,
+  public async startAnalysis<C extends Config, R extends Result>(
+    module: ModuleAnalysisInterface<C, R>,
+    conf: C,
     threshold?: number
-  ): Promise<Report> {
+  ): Promise<Report<R>> {
     this.spinner.start("Analysis in progress...")
 
     try {

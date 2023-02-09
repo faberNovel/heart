@@ -1,12 +1,10 @@
-import { Report } from "@fabernovel/heart-core"
-import { ScanInterface } from "../src/api/model/Scan"
-import { ObservatoryConfig } from "../src/config/Config"
+import { ObservatoryConfig, ObservatoryResult, Report } from "@fabernovel/heart-core"
 import { ObservatoryModule } from "../src/ObservatoryModule"
 
 const ANALYZE_URL = "www.observatory.mozilla-test/results/"
 const API_URL = "www.observatory.mozilla-test/api/"
 const CONF = { host: "heart.fabernovel.com" }
-const SCAN: ScanInterface = {
+const SCAN: ObservatoryResult = {
   end_time: "May 13, 2022 5:58 PM",
   grade: "B",
   hidden: true,
@@ -21,7 +19,7 @@ const SCAN: ScanInterface = {
   tests_quantity: 12,
 }
 
-const mockGetAnalysisReport = jest.fn().mockResolvedValue(SCAN)
+const mockGetResult = jest.fn().mockResolvedValue(SCAN)
 const mockGetAnalyzeUrl = jest.fn().mockReturnValue(ANALYZE_URL + CONF.host)
 const mockGetProjectHost = jest.fn().mockReturnValue(CONF.host)
 const mockLaunchAnalysis = jest.fn().mockResolvedValue(SCAN)
@@ -29,7 +27,7 @@ jest.mock("../src/api/Client", () => {
   return {
     Client: jest.fn().mockImplementation(() => {
       return {
-        getAnalysisReport: mockGetAnalysisReport,
+        getResult: mockGetResult,
         getAnalyzeUrl: mockGetAnalyzeUrl,
         getProjectHost: mockGetProjectHost,
         launchAnalysis: mockLaunchAnalysis,
@@ -59,6 +57,7 @@ describe("Starts an analysis", () => {
     const expectedReport = new Report({
       analyzedUrl: "heart.fabernovel.com",
       date: report.date,
+      result: SCAN,
       note: SCAN.grade,
       resultUrl: ANALYZE_URL + "heart.fabernovel.com",
       normalizedNote: SCAN.score > 100 ? 100 : SCAN.score,
@@ -84,6 +83,7 @@ describe("Starts an analysis", () => {
     const expectedReport = new Report({
       analyzedUrl: "heart.fabernovel.com",
       date: report.date,
+      result: SCAN,
       note: SCAN.grade,
       resultUrl: ANALYZE_URL + "heart.fabernovel.com",
       normalizedNote: SCAN.score > 100 ? 100 : SCAN.score,
@@ -103,6 +103,7 @@ describe("Starts an analysis", () => {
     const expectedReport = new Report({
       analyzedUrl: "heart.fabernovel.com",
       date: report.date,
+      result: SCAN,
       note: SCAN.grade,
       resultUrl: ANALYZE_URL + "heart.fabernovel.com",
       normalizedNote: SCAN.score > 100 ? 100 : SCAN.score,

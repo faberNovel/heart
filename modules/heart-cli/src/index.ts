@@ -36,7 +36,7 @@ void (async () => {
     // create a command for each module
     modules.forEach((module: ModuleInterface) => {
       if (isModuleAnalysis(module)) {
-        const callback = async <T extends Config>(conf: T, threshold?: number) => {
+        const callback = async <C extends Config>(conf: C, threshold?: number) => {
           const report = await app.startAnalysis(module, conf, threshold)
 
           // notify every listener module

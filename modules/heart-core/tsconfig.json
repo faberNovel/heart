@@ -4,8 +4,11 @@
   "extends": "../tsconfig.json",
 
   "compilerOptions": {
-    "lib": ["es5", "es2015", "esnext.asynciterable"]
+    /**
+     * Because of node-fetch
+     */
+    "esModuleInterop": true
   },
 
-  "include": ["src/**/*.ts", "tests/**/*.ts"]
+  "include": ["src/**/*.ts", "tests/**/*.ts", "./node_modules/lighthouse/types/**/*.d.ts"]
 }
