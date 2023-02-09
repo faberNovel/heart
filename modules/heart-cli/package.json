@@ -36,22 +36,22 @@
   },
   "dependencies": {
     "@fabernovel/heart-core": "workspace:^3.3.0",
-    "commander": "^9.4.1",
+    "commander": "^10.0.0",
     "dotenv": "^16.0.3",
     "ora": "^5.4.1"
   },
   "devDependencies": {
     "@types/cors": "^2.8.13",
-    "@types/jest": "^29.2.4",
+    "@types/jest": "^29.4.0",
     "@types/node": "^14.18.34",
-    "@typescript-eslint/eslint-plugin": "^5.45.1",
-    "@typescript-eslint/parser": "^5.45.1",
-    "eslint": "^8.29.0",
-    "jest": "^29.3.1",
-    "rimraf": "^3.0.2",
-    "ts-jest": "^29.0.3",
-    "type-fest": "^3.3.0",
-    "typescript": "^4.9.3"
+    "@typescript-eslint/eslint-plugin": "^5.51.0",
+    "@typescript-eslint/parser": "^5.51.0",
+    "eslint": "^8.33.0",
+    "jest": "^29.4.2",
+    "rimraf": "^4.1.2",
+    "ts-jest": "^29.0.5",
+    "type-fest": "^3.5.7",
+    "typescript": "^4.9.5"
   },
   "engines": {
     "node": ">=14.17.0"

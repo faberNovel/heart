@@ -1,0 +1,10 @@
+{
+  "changes": [
+    {
+      "packageName": "@fabernovel/heart-bigquery",
+      "comment": "",
+      "type": "none"
+    }
+  ],
+  "packageName": "@fabernovel/heart-bigquery"
+}
