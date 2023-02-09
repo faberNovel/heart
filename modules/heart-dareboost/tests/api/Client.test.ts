@@ -1,13 +1,13 @@
 import { Request } from "@fabernovel/heart-core"
 import { Client } from "../../src/api/Client"
-import { DareboostAnalyse } from "../../src/api/model/Analyse"
-import { DareboostResult } from "../../src/api/model/Result"
+import { AnalysisResponseInterface } from "../../src/api/model/AnalysisResponseInterface"
+import { ReportResponseInterface } from "../../src/api/model/ReportResponseInterface"
 
 jest.mock("@fabernovel/heart-core")
 const mockedRequest = jest.mocked(Request)
 
 describe("Launch analysis", () => {
-  const ANALYSIS: DareboostAnalyse = {
+  const ANALYSIS: AnalysisResponseInterface = {
     status: "",
     message: "",
     reportId: "",
@@ -25,7 +25,7 @@ describe("Launch analysis", () => {
 })
 
 describe("Get anaysis report", () => {
-  const REPORT: DareboostResult = {
+  const REPORT: ReportResponseInterface = {
     status: 0,
     message: "",
     missing: [],

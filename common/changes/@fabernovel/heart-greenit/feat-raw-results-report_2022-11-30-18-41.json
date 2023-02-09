@@ -2,8 +2,8 @@
   "changes": [
     {
       "packageName": "@fabernovel/heart-greenit",
-      "comment": "",
-      "type": "none"
+      "comment": "The date on which the results were aggregated is now correct",
+      "type": "patch"
     }
   ],
   "packageName": "@fabernovel/heart-greenit"

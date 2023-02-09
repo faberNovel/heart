@@ -10,8 +10,6 @@ const mockedCreateJsonReports = jest.mocked(createJsonReports)
 
 describe("Run GreenIT analysis", () => {
   it("should be able to launch a successful analysis without thresholds", async () => {
-    const now = new Date()
-
     mockedCreateJsonReports.mockResolvedValue([
       {
         path: join(__dirname, "./data/successReport.json"),
@@ -30,11 +28,13 @@ describe("Run GreenIT analysis", () => {
 
     const module = new GreenITModule(moduleConfig)
     const analysisReport = await module.startAnalysis(conf)
-    analysisReport.date = now
+
+    const [date, time] = successResult.date.split(" ")
+    const [day, month, year] = date.split("/")
 
     const mockReport = new Report({
       analyzedUrl: successResult.url,
-      date: now,
+      date: new Date(`${year}-${month}-${day}T${time}`),
       result: successResult,
       note: successResult.ecoIndex.toString(),
       service: moduleConfig.service,
