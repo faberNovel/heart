@@ -18,9 +18,12 @@ export class GreenITModule extends Module implements ModuleAnalysisInterface<Gre
   }
 
   private handleResult(result: GreenITResult): Report<GreenITResult> {
+    const [date, time] = result.date.split(" ")
+    const [day, month, year] = date.split("/")
+
     return new Report({
       analyzedUrl: result.url,
-      date: new Date(),
+      date: new Date(`${year}-${month}-${day}T${time}`),
       result: result,
       note: result.ecoIndex.toString(),
       service: this.service,
