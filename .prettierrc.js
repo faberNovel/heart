@@ -2,8 +2,5 @@
 module.exports = {
   printWidth: 110,
   semi: false,
-  plugins: [
-    "./common/autoinstallers/rush-prettier/node_modules/prettier-plugin-packagejson",
-    "./common/autoinstallers/rush-prettier/node_modules/@prettier/plugin-pug",
-  ],
+  plugins: ["./common/autoinstallers/rush-prettier/node_modules/prettier-plugin-packagejson"],
 }
