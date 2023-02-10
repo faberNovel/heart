@@ -1,4 +1,4 @@
-import LHResult from "lighthouse/types/lhr/lhr"
-import { Result } from "../Result"
+import { Result } from "lighthouse"
+import { Result as R } from "../Result.js"
 
-export type LighthouseResult = Result & LHResult
+export type LighthouseResult = R & Result

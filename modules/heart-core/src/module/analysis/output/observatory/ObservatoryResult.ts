@@ -1,4 +1,4 @@
-import { Result } from "../Result"
+import { Result } from "../Result.js"
 
 /**
  * @see {@link https://github.com/mozilla/http-observatory/blob/master/httpobs/docs/api.md#scan}

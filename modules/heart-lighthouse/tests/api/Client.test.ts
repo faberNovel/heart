@@ -1,9 +1,8 @@
 import childProcess from "child_process"
 import * as chromeLauncher from "chrome-launcher"
-import lighthouse from "lighthouse"
-import { RunnerResult } from "lighthouse/types/externs"
-import { requestResult } from "../../src/api/Client"
-import { Conf } from "../data/Conf"
+import lighthouse, { RunnerResult } from "lighthouse"
+import { requestResult } from "../../src/api/Client.js"
+import { Conf } from "../data/Conf.js"
 
 jest.mock("child_process")
 jest.mock("chrome-launcher")

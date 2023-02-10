@@ -1,7 +1,7 @@
 import { LighthouseResult } from "@fabernovel/heart-core"
-import { requestResult } from "../src/api/Client"
-import { LighthouseModule } from "../src/LighthouseModule"
-import { Conf } from "./data/Conf"
+import { requestResult } from "../src/api/Client.js"
+import { LighthouseModule } from "../src/LighthouseModule.js"
+import { Conf } from "./data/Conf.js"
 
 jest.mock("../src/api/Client")
 const mockedRequestResult = jest.mocked(requestResult)

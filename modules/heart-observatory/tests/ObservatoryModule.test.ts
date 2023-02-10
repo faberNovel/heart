@@ -1,5 +1,5 @@
 import { ObservatoryConfig, ObservatoryResult, Report } from "@fabernovel/heart-core"
-import { ObservatoryModule } from "../src/ObservatoryModule"
+import { ObservatoryModule } from "../src/ObservatoryModule.js"
 
 const ANALYZE_URL = "www.observatory.mozilla-test/results/"
 const API_URL = "www.observatory.mozilla-test/api/"

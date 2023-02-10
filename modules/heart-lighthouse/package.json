@@ -16,6 +16,7 @@
     "Thomas Giovannini",
     "Bastien Gatellier <bastien.gatellier@fabernovel.com>"
   ],
+  "type": "module",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
   "directories": {
@@ -34,7 +35,7 @@
   "dependencies": {
     "@fabernovel/heart-core": "workspace:^3.3.0",
     "chrome-launcher": "^0.15.1",
-    "lighthouse": "^9.6.7"
+    "lighthouse": "^10.0.0"
   },
   "devDependencies": {
     "@types/jest": "^29.4.0",

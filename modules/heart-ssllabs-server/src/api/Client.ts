@@ -5,7 +5,7 @@ import {
   SsllabsServerStatus,
 } from "@fabernovel/heart-core"
 import { stringify } from "querystring"
-import { isSsllabsServerError, SsllabsServerError } from "./Error"
+import { isSsllabsServerError, SsllabsServerError } from "./Error.js"
 
 export class Client {
   private readonly API_URL = "https://api.ssllabs.com/api/v3"

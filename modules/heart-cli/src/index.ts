@@ -10,10 +10,10 @@ import { Command } from "commander"
 import { CorsOptions } from "cors"
 import { config } from "dotenv"
 import { argv, cwd, exit } from "node:process"
-import { App } from "./App"
-import { createAnalysisCommand } from "./command/AnalysisCommand"
-import { createServerCommand } from "./command/ServerCommand"
-import { ModuleLoader } from "./module/ModuleLoader"
+import { App } from "./App.js"
+import { createAnalysisCommand } from "./command/AnalysisCommand.js"
+import { createServerCommand } from "./command/ServerCommand.js"
+import { ModuleLoader } from "./module/ModuleLoader.js"
 
 // set environment variables from a.env file
 // assume that the root path if the one from where the script has been called

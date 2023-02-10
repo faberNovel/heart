@@ -1,8 +1,8 @@
 import { Report } from "@fabernovel/heart-core"
 import { createJsonReports } from "greenit-cli/cli-core/analysis"
 import { join } from "node:path"
-import { GreenITModule } from "../src/GreenITModule"
-import { conf } from "./data/Conf"
+import { GreenITModule } from "../src/GreenITModule.js"
+import { conf } from "./data/Conf.js"
 import successResult from "./data/successReport.json"
 
 jest.mock("greenit-cli/cli-core/analysis")

@@ -9,8 +9,8 @@ import {
   SsllabsServerConfig,
   SsllabsServerEndpoint,
 } from "@fabernovel/heart-core"
-import { Client } from "./api/Client"
-import { transform } from "./transformer/GradeTransformer"
+import { Client } from "./api/Client.js"
+import { transform } from "./transformer/GradeTransformer.js"
 
 export class SsllabsServerModule
   extends Module

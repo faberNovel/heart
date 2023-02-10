@@ -1,4 +1,4 @@
-import { Config } from "../Config"
+import { Config } from "../Config.js"
 
 /**
  * @see {@link https://github.com/mozilla/http-observatory/blob/master/httpobs/docs/api.md#invoke-assessment}

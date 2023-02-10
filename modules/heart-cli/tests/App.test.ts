@@ -1,5 +1,5 @@
 import { Config, ModuleAnalysisInterface, Result, Report } from "@fabernovel/heart-core"
-import { App } from "../src/App"
+import { App } from "../src/App.js"
 
 test("Displays the results of an analysis", async () => {
   const report = new Report({

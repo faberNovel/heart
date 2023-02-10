@@ -6,15 +6,14 @@ import {
   ModuleAnalysisInterface,
   ModuleInterface,
   ModuleListenerInterface,
-  Result,
   Report,
+  Result,
   ThresholdError,
   validateInput,
 } from "@fabernovel/heart-core"
-import * as cors from "cors"
-import { CorsOptions } from "cors"
-import * as express from "express"
-import { createJsonError } from "./error/JsonError"
+import cors, { CorsOptions } from "cors"
+import express from "express"
+import { createJsonError } from "./error/JsonError.js"
 
 /**
  * Creates and configures an ExpressJS application.

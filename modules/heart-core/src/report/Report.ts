@@ -1,6 +1,6 @@
-import { Result } from "../module/analysis/output/Result"
-import { Service } from "../service/Service"
-import { ReportInterface } from "./ReportInterface"
+import { Result } from "../module/analysis/output/Result.js"
+import { Service } from "../service/Service.js"
+import { ReportInterface } from "./ReportInterface.js"
 
 type ReportParams<R extends Result> = Pick<
   ReportInterface<R>,

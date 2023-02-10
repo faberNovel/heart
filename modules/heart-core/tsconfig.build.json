@@ -7,5 +7,5 @@
     "outDir": "lib"
   },
 
-  "include": ["src/**/*.ts", "./node_modules/lighthouse/types/**/*.d.ts"]
+  "include": ["src/**/*.ts"]
 }

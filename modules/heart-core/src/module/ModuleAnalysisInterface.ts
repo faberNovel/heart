@@ -1,7 +1,7 @@
-import { Report } from "../report/Report"
-import { Config } from "./analysis/input/Config"
-import { ModuleInterface } from "./ModuleInterface"
-import { Result } from "./analysis/output/Result"
+import { Report } from "../report/Report.js"
+import { Config } from "./analysis/input/Config.js"
+import { ModuleInterface } from "./ModuleInterface.js"
+import { Result } from "./analysis/output/Result.js"
 
 /**
  * Define an Analysis module.

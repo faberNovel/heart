@@ -1,7 +1,7 @@
 import * as fs from "fs"
 import { PathLike } from "fs"
 import * as path from "path"
-import { validateInput } from "../../src/validation/InputValidation"
+import { validateInput } from "../../src/validation/InputValidation.js"
 
 const MOCK_FILE_INFO: Record<string, string> = {
   "existingConfig.json": '{"url": "https://www.heart.fabernovel.com"}',

@@ -1,5 +1,5 @@
-import { Service } from "../service/Service"
-import { ModuleInterface } from "./ModuleInterface"
+import { Service } from "../service/Service.js"
+import { ModuleInterface } from "./ModuleInterface.js"
 
 export abstract class Module implements ModuleInterface {
   id = ""

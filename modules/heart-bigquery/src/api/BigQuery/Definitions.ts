@@ -1,4 +1,4 @@
-import { TableMetadata } from "@google-cloud/bigquery/build/src/table"
+import { TableMetadata } from "@google-cloud/bigquery"
 
 export class Definitions {
   public static readonly DATASET: { ID: string } = {

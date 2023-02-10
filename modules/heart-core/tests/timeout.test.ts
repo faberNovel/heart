@@ -1,4 +1,4 @@
-import { timeout } from "../src/time/timeout"
+import { timeout } from "../src/time/timeout.js"
 
 jest.useFakeTimers()
 jest.spyOn(global, "setTimeout")

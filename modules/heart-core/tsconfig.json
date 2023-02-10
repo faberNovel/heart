@@ -10,5 +10,5 @@
     "esModuleInterop": true
   },
 
-  "include": ["src/**/*.ts", "tests/**/*.ts", "./node_modules/lighthouse/types/**/*.d.ts"]
+  "include": ["src/**/*.ts", "tests/**/*.ts"]
 }

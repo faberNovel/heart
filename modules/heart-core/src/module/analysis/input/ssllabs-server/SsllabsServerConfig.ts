@@ -1,4 +1,4 @@
-import { Config } from "../Config"
+import { Config } from "../Config.js"
 
 /**
  * @see {@link https://github.com/ssllabs/ssllabs-scan/blob/master/ssllabs-api-docs-v3.md#invoke-assessment-and-check-progress}

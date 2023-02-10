@@ -6,8 +6,8 @@ import {
   ModuleInterface,
   Report,
 } from "@fabernovel/heart-core"
-import { requestResult } from "./api/Client"
-import { compute } from "./scoring/compute"
+import { requestResult } from "./api/Client.js"
+import { compute } from "./scoring/compute.js"
 
 export class LighthouseModule
   extends Module
@@ -31,7 +31,7 @@ export class LighthouseModule
     const score = compute(result.categories, 1)
 
     return new Report({
-      analyzedUrl: result.requestedUrl,
+      analyzedUrl: result.requestedUrl as string,
       date: new Date(result.fetchTime),
       result: result,
       service: this.service,

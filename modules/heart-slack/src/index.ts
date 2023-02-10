@@ -1,4 +1,4 @@
-import { SlackModule } from "./SlackModule"
+import { SlackModule } from "./SlackModule.js"
 
 export default new SlackModule({
   name: "Heart Slack",

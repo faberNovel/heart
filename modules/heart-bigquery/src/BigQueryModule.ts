@@ -1,7 +1,7 @@
 import { Module, ModuleInterface, ModuleListenerInterface, Result, Report } from "@fabernovel/heart-core"
-import { PartialFailureError } from "@google-cloud/common/build/src/util"
-import { BigQueryClient } from "./api/BigQuery/Client"
-import { RowReport } from "./api/BigQuery/model/RowReport"
+import { PartialFailureError } from "@google-cloud/common/build/src/util.js"
+import { BigQueryClient } from "./api/BigQuery/Client.js"
+import { RowReport } from "./api/BigQuery/model/RowReport.js"
 
 export class BigQueryModule extends Module implements ModuleListenerInterface {
   private bigqueryClient: BigQueryClient

@@ -9,7 +9,7 @@ import * as dotenv from "dotenv"
 import { readFileSync } from "fs"
 import { cwd, env } from "node:process"
 import { PackageJson } from "type-fest"
-import { MissingEnvironmentVariables } from "../error/MissingEnvironmentVariables"
+import { MissingEnvironmentVariables } from "../error/MissingEnvironmentVariables.js"
 
 export class ModuleLoader {
   // file that contains the list of required environment variables

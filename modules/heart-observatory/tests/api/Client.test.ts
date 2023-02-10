@@ -1,5 +1,5 @@
 import { ObservatoryConfig, ObservatoryResult, Request } from "@fabernovel/heart-core"
-import { Client } from "../../src/api/Client"
+import { Client } from "../../src/api/Client.js"
 
 jest.mock("@fabernovel/heart-core")
 const mockedRequest = jest.mocked(Request)
