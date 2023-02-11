@@ -19,7 +19,7 @@
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
   "bin": {
-    "heart": "bin/heart"
+    "heart": "bin/heart.js"
   },
   "directories": {
     "lib": "lib"
@@ -55,6 +55,6 @@
     "typescript": "^4.9.5"
   },
   "engines": {
-    "node": ">=14.17.0"
+    "node": "^18.0.0"
   }
 }
