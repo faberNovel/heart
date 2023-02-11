@@ -3,7 +3,7 @@ import { createJsonReports } from "greenit-cli/cli-core/analysis"
 import { join } from "node:path"
 import { GreenITModule } from "../src/GreenITModule.js"
 import { conf } from "./data/Conf.js"
-import successResult from "./data/successReport.json"
+import successResult from "./data/successReport.json" assert { type: "json" }
 
 jest.mock("greenit-cli/cli-core/analysis")
 const mockedCreateJsonReports = jest.mocked(createJsonReports)

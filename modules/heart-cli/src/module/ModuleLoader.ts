@@ -102,28 +102,29 @@ export class ModuleLoader {
    * List the Heart modules root path, according to the modules defined in package.json that follows the given pattern.
    */
   private async getPaths(pattern: RegExp, packageJsonPath: string): Promise<string[]> {
-    const packageJson = (await import(packageJsonPath).catch((error) => {
+    const moduleIndex = (await import(packageJsonPath, { assert: { type: "json" } }).catch((error) => {
       if (this.debug) {
         console.error(`package.json not found in ${this.ROOT_PATH}`)
       }
 
       throw error
-    })) as PackageJson
+    })) as ModuleIndex<PackageJson>
+    const packageJson = moduleIndex.default
 
     // list the modules according to the given pattern
     // look into the 'dependencies' and 'devDependencies' keys
     const modulesNames: string[] = []
 
-    if (undefined !== packageJson["dependencies"]) {
-      Object.keys(packageJson["dependencies"])
+    if (undefined !== packageJson.dependencies) {
+      Object.keys(packageJson.dependencies)
         // add the module name to the list if it is not already there and matches the pattern
         .filter((moduleName) => -1 === modulesNames.indexOf(moduleName) && pattern.test(moduleName))
         .forEach((moduleName: string) => {
           modulesNames.push(moduleName)
         })
     }
-    if (undefined !== packageJson["devDependencies"]) {
-      Object.keys(packageJson["devDependencies"])
+    if (undefined !== packageJson.devDependencies) {
+      Object.keys(packageJson.devDependencies)
         // add the module name to the list if it is not already there and matches the pattern
         .filter((moduleName) => -1 === modulesNames.indexOf(moduleName) && pattern.test(moduleName))
         .forEach((moduleName: string) => {
@@ -159,14 +160,16 @@ export class ModuleLoader {
           console.log("Loading module %s...", modulePath)
         }
 
-        const packageJson = (await import(`${modulePath}package.json`)) as Omit<
-          PackageJson,
-          "name" | "main"
-        > & {
-          name: NonNullable<PackageJson["name"]>
-          main: NonNullable<PackageJson["main"]>
-        }
-        const pkg = (await import(modulePath + packageJson.main)) as ModuleIndex
+        const moduleIndex = (await import(`${modulePath}package.json`, {
+          assert: { type: "json" },
+        })) as ModuleIndex<
+          Omit<PackageJson, "name" | "main"> & {
+            name: NonNullable<PackageJson["name"]>
+            main: NonNullable<PackageJson["main"]>
+          }
+        >
+        const packageJson = moduleIndex.default
+        const pkg = (await import(modulePath + packageJson.main)) as ModuleIndex<ModuleInterface>
         const module = pkg.default
 
         // only keep the modules that are compatible

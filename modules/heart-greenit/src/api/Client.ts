@@ -1,5 +1,5 @@
 import { GreenITConfig, GreenITResult } from "@fabernovel/heart-core"
-import { createJsonReports, Options, Report } from "greenit-cli/cli-core/analysis"
+import { createJsonReports, Options, Report } from "greenit-cli/cli-core/analysis.js"
 import { readFileSync } from "node:fs"
 import puppeteer from "puppeteer"
 
