@@ -1,5 +1,5 @@
 import { Report } from "@fabernovel/heart-core"
-import { createJsonReports } from "greenit-cli/cli-core/analysis"
+import { createJsonReports } from "greenit-cli/cli-core/analysis.js"
 import { join } from "node:path"
 import { GreenITModule } from "../src/GreenITModule.js"
 import { conf } from "./data/Conf.js"
