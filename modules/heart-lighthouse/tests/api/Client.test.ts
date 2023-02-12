@@ -1,21 +1,29 @@
 import { jest } from "@jest/globals"
-import childProcess from "child_process"
-import * as chromeLauncher from "chrome-launcher"
-import lighthouse, { RunnerResult } from "lighthouse"
-import { requestResult } from "../../src/api/Client.js"
+import { LaunchedChrome } from "chrome-launcher"
+import { RunnerResult } from "lighthouse"
 import { Conf } from "../data/Conf.js"
 
-jest.mock("child_process")
-jest.mock("chrome-launcher")
-jest.mock("lighthouse")
+jest.unstable_mockModule("lighthouse", () => ({
+  default: jest.fn(),
+}))
+const lighthouse = (await import("lighthouse")).default
 const mockedLighthouse = jest.mocked(lighthouse)
-const mockChromeLauncherLaunch = jest.mocked(chromeLauncher.launch)
-mockChromeLauncherLaunch.mockResolvedValue({
-  pid: 1111,
-  port: 1234,
-  process: childProcess.spawn("ls"),
-  kill: () => Promise.resolve(),
-})
+
+jest.unstable_mockModule("node:child_process", () => ({
+  spawn: jest.fn(),
+}))
+const { spawn } = await import("node:child_process")
+
+jest.unstable_mockModule("chrome-launcher", () => ({
+  launch: jest.fn<() => Promise<LaunchedChrome>>().mockResolvedValue({
+    pid: 1111,
+    port: 1234,
+    process: spawn("ls"),
+    kill: () => Promise.resolve(),
+  }),
+}))
+await import("chrome-launcher")
+const { requestResult } = await import("../../src/api/Client.js")
 
 describe("Run an analysis", () => {
   const RUNNER_RESULT = {

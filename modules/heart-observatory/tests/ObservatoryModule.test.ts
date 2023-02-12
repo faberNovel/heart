@@ -1,11 +1,9 @@
 import { ObservatoryConfig, ObservatoryResult, Report } from "@fabernovel/heart-core"
 import { jest } from "@jest/globals"
-import { ObservatoryModule } from "../src/ObservatoryModule.js"
 
 const ANALYZE_URL = "www.observatory.mozilla-test/results/"
-const API_URL = "www.observatory.mozilla-test/api/"
-const CONF = { host: "heart.fabernovel.com" }
-const SCAN: ObservatoryResult = {
+const CONF: ObservatoryConfig = { host: "heart.fabernovel.com" }
+const RESULT: ObservatoryResult = {
   end_time: "May 13, 2022 5:58 PM",
   grade: "B",
   hidden: true,
@@ -20,36 +18,27 @@ const SCAN: ObservatoryResult = {
   tests_quantity: 12,
 }
 
-const mockGetResult = jest.fn().mockResolvedValue(SCAN)
-const mockGetAnalyzeUrl = jest.fn().mockReturnValue(ANALYZE_URL + CONF.host)
-const mockGetProjectHost = jest.fn().mockReturnValue(CONF.host)
-const mockLaunchAnalysis = jest.fn().mockResolvedValue(SCAN)
-jest.mock("../src/api/Client", () => {
+jest.unstable_mockModule("../src/api/Client.js", () => {
   return {
     Client: jest.fn().mockImplementation(() => {
       return {
-        getResult: mockGetResult,
-        getAnalyzeUrl: mockGetAnalyzeUrl,
-        getProjectHost: mockGetProjectHost,
-        launchAnalysis: mockLaunchAnalysis,
+        getResult: () => Promise.resolve(RESULT),
+        getAnalyzeUrl: () => ANALYZE_URL + CONF.host,
+        getProjectHost: () => CONF.host,
+        launchAnalysis: () => Promise.resolve(RESULT),
       }
     }),
   }
 })
+await import("../src/api/Client.js")
+const { ObservatoryModule } = await import("../src/ObservatoryModule.js")
 
 describe("Starts an analysis", () => {
-  let module: ObservatoryModule
-
-  beforeEach(() => {
-    process.env.OBSERVATORY_ANALYZE_URL = ANALYZE_URL
-    process.env.OBSERVATORY_API_URL = API_URL
-
-    module = new ObservatoryModule({
-      name: "Heart Observatory Test",
-      service: {
-        name: "Observatory Test",
-      },
-    })
+  const module = new ObservatoryModule({
+    name: "Heart Observatory Test",
+    service: {
+      name: "Observatory Test",
+    },
   })
 
   it("Should start an analysis with a valid configuration without a threshold", async () => {
@@ -58,10 +47,10 @@ describe("Starts an analysis", () => {
     const expectedReport = new Report({
       analyzedUrl: "heart.fabernovel.com",
       date: report.date,
-      result: SCAN,
-      note: SCAN.grade,
+      result: RESULT,
+      note: RESULT.grade,
       resultUrl: ANALYZE_URL + "heart.fabernovel.com",
-      normalizedNote: SCAN.score > 100 ? 100 : SCAN.score,
+      normalizedNote: RESULT.score > 100 ? 100 : RESULT.score,
       service: {
         name: "Observatory Test",
       },
@@ -84,10 +73,10 @@ describe("Starts an analysis", () => {
     const expectedReport = new Report({
       analyzedUrl: "heart.fabernovel.com",
       date: report.date,
-      result: SCAN,
-      note: SCAN.grade,
+      result: RESULT,
+      note: RESULT.grade,
       resultUrl: ANALYZE_URL + "heart.fabernovel.com",
-      normalizedNote: SCAN.score > 100 ? 100 : SCAN.score,
+      normalizedNote: RESULT.score > 100 ? 100 : RESULT.score,
       service: {
         name: "Observatory Test",
       },
@@ -104,10 +93,10 @@ describe("Starts an analysis", () => {
     const expectedReport = new Report({
       analyzedUrl: "heart.fabernovel.com",
       date: report.date,
-      result: SCAN,
-      note: SCAN.grade,
+      result: RESULT,
+      note: RESULT.grade,
       resultUrl: ANALYZE_URL + "heart.fabernovel.com",
-      normalizedNote: SCAN.score > 100 ? 100 : SCAN.score,
+      normalizedNote: RESULT.score > 100 ? 100 : RESULT.score,
       threshold: THRESHOLD,
       service: {
         name: "Observatory Test",

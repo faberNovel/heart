@@ -4,6 +4,7 @@
   "extends": "./tsconfig.json",
 
   "compilerOptions": {
+    "esModuleInterop": false,
     "outDir": "lib"
   },
 

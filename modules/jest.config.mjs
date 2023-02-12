@@ -1,6 +1,7 @@
 /*
  * For a detailed explanation regarding each configuration property, visit:
  * https://jestjs.io/docs/configuration
+ * https://kulshekhar.github.io/ts-jest/docs/guides/esm-support
  */
 
 export default {

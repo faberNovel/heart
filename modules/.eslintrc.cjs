@@ -1,4 +1,4 @@
 module.exports = {
   root: true,
-  ignorePatterns: ["lib", ".eslintrc.js", "jest.config.js"],
+  ignorePatterns: ["coverage", "lib", ".eslintrc.cjs", "jest.config.mjs"],
 }
