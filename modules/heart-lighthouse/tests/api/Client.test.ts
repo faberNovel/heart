@@ -1,3 +1,4 @@
+import { jest } from "@jest/globals"
 import childProcess from "child_process"
 import * as chromeLauncher from "chrome-launcher"
 import lighthouse, { RunnerResult } from "lighthouse"

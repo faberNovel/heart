@@ -19,7 +19,7 @@
 
     "module": "ESNext",
     "moduleResolution": "nodenext",
-    "target": "ES6",
+    "target": "ESNext",
 
     /**
      * Disabled because of puppeteer-core bug in TypeScript file definition with ESM

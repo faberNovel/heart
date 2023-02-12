@@ -1,16 +1,21 @@
 import { Report } from "@fabernovel/heart-core"
-import { createJsonReports } from "greenit-cli/cli-core/analysis.js"
-import { join } from "node:path"
+import { jest } from "@jest/globals"
+import { createRequire } from "node:module"
+import { dirname, join } from "node:path"
+import { fileURLToPath } from "node:url"
 import { GreenITModule } from "../src/GreenITModule.js"
 import { conf } from "./data/Conf.js"
 import successResult from "./data/successReport.json" assert { type: "json" }
 
+const __dirname = dirname(fileURLToPath(import.meta.url))
+const require = createRequire(import.meta.url)
+
 jest.mock("greenit-cli/cli-core/analysis")
-const mockedCreateJsonReports = jest.mocked(createJsonReports)
+const { createJsonReports } = require("greenit-cli/cli-core/analysis")
 
 describe("Run GreenIT analysis", () => {
   it("should be able to launch a successful analysis without thresholds", async () => {
-    mockedCreateJsonReports.mockResolvedValue([
+    createJsonReports.mockResolvedValue([
       {
         path: join(__dirname, "./data/successReport.json"),
         name: "1.json",
@@ -44,7 +49,7 @@ describe("Run GreenIT analysis", () => {
   })
 
   it("should be able to handle a failed analysis", async () => {
-    mockedCreateJsonReports.mockResolvedValue([
+    createJsonReports.mockResolvedValue([
       {
         path: join(__dirname, "./data/errorReport.json"),
         name: "1.json",
@@ -73,7 +78,7 @@ describe("Run GreenIT analysis", () => {
   it("should be able to launch a successful analysis with thresholds", async () => {
     const now = new Date()
 
-    mockedCreateJsonReports.mockResolvedValue([
+    createJsonReports.mockResolvedValue([
       {
         path: join(__dirname, "./data/successReport.json"),
         name: "1.json",
@@ -110,7 +115,7 @@ describe("Run GreenIT analysis", () => {
   it("Should return false when results do not match thresholds objectives", async () => {
     const now = new Date()
 
-    mockedCreateJsonReports.mockResolvedValue([
+    createJsonReports.mockResolvedValue([
       {
         path: join(__dirname, "./data/successReport.json"),
         name: "1.json",

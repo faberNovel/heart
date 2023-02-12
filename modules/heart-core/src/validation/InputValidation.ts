@@ -1,5 +1,5 @@
-import { readFileSync } from "fs"
-import { isAbsolute } from "path"
+import { readFileSync } from "node:fs"
+import { isAbsolute } from "node:path"
 import { ConfigError } from "../error/ConfigError.js"
 import { ThresholdError } from "../error/ThresholdError.js"
 import { Config } from "../module/analysis/input/Config.js"

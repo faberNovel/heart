@@ -1,4 +1,5 @@
 import { LighthouseResult } from "@fabernovel/heart-core"
+import { jest } from "@jest/globals"
 import { requestResult } from "../src/api/Client.js"
 import { LighthouseModule } from "../src/LighthouseModule.js"
 import { Conf } from "./data/Conf.js"

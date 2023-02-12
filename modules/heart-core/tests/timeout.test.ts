@@ -1,3 +1,4 @@
+import { jest } from "@jest/globals"
 import { timeout } from "../src/time/timeout.js"
 
 jest.useFakeTimers()
