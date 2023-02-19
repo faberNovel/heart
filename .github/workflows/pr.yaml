@@ -5,7 +5,33 @@ on:
     types: [opened, synchronize, reopened]
 
 jobs:
-  install:
+  syntax_changelog:
+    name: Syntax & changelog
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 2
+
+      - uses: actions/setup-node@v3
+        with:
+          node-version-file: .nvmrc
+
+      - name: Install
+        run: node common/scripts/install-run-rush.js install
+
+      - name: 🏗 Build
+        run: node common/scripts/install-run-rush.js rebuild
+
+      - name: 📝 Verify missing changelogs
+        run: node common/scripts/install-run-rush.js change --target-branch origin/$GITHUB_BASE_REF --verify -v
+
+      - name: 💅 Lint
+        run: node common/scripts/install-run-rush.js lint
+
+  test:
+    name: Test
     runs-on: ubuntu-latest
     strategy:
       matrix:
@@ -18,32 +44,13 @@ jobs:
 
       - uses: actions/setup-node@v3
         with:
-          node-version-file: ${{ matrix.node_version }}
+          node-version: ${{ matrix.node_version }}
 
       - name: Install
         run: node common/scripts/install-run-rush.js install
 
-  build:
-    runs-on: ubuntu-latest
-    needs: install
-    if: ${{ matrix.node_version == 18 }} # Do these operations only for a single version of Node.js
-
-    steps:
       - name: 🏗 Build
         run: node common/scripts/install-run-rush.js rebuild
 
-      - if: ${{ matrix.node_version == 18 }}
-        name: 📝 Verify missing changelogs
-        run: node common/scripts/install-run-rush.js change --target-branch origin/$GITHUB_BASE_REF --verify -v
-
-      - if: ${{ matrix.node_version == 18 }}
-        name: 💅 Lint
-        run: node common/scripts/install-run-rush.js lint
-
-  test:
-    runs-on: ubuntu-latest
-    needs: install
-
-    steps:
       - name: 🐛 Test
         run: node common/scripts/install-run-rush.js test
