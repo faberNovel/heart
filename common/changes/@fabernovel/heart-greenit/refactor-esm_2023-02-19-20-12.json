@@ -3,7 +3,7 @@
     {
       "packageName": "@fabernovel/heart-greenit",
       "comment": "Move to ES modules mechanism",
-      "type": "none"
+      "type": "major"
     }
   ],
   "packageName": "@fabernovel/heart-greenit"
