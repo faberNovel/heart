@@ -384,52 +384,52 @@
     },
     {
       "packageName": "@fabernovel/heart-api",
-      "projectFolder": "modules/heart-api",
+      "projectFolder": "modules/api",
       "versionPolicyName": "nextMajor"
     },
     {
       "packageName": "@fabernovel/heart-bigquery",
-      "projectFolder": "modules/heart-bigquery",
+      "projectFolder": "modules/bigquery",
       "versionPolicyName": "nextMajor"
     },
     {
       "packageName": "@fabernovel/heart-cli",
-      "projectFolder": "modules/heart-cli",
+      "projectFolder": "modules/cli",
       "versionPolicyName": "nextMajor"
     },
     {
-      "packageName": "@fabernovel/heart-core",
-      "projectFolder": "modules/heart-core",
+      "packageName": "@fabernovel/heart-common",
+      "projectFolder": "modules/common",
       "versionPolicyName": "nextMajor"
     },
     {
       "packageName": "@fabernovel/heart-greenit",
-      "projectFolder": "modules/heart-greenit",
+      "projectFolder": "modules/greenit",
       "versionPolicyName": "nextMajor"
     },
     {
       "packageName": "@fabernovel/heart-lighthouse",
-      "projectFolder": "modules/heart-lighthouse",
+      "projectFolder": "modules/lighthouse",
       "versionPolicyName": "nextMajor"
     },
     {
       "packageName": "@fabernovel/heart-moduletpl",
-      "projectFolder": "modules/heart-moduletpl",
+      "projectFolder": "modules/moduletpl",
       "shouldPublish": false
     },
     {
       "packageName": "@fabernovel/heart-observatory",
-      "projectFolder": "modules/heart-observatory",
+      "projectFolder": "modules/observatory",
       "versionPolicyName": "nextMajor"
     },
     {
       "packageName": "@fabernovel/heart-slack",
-      "projectFolder": "modules/heart-slack",
+      "projectFolder": "modules/slack",
       "versionPolicyName": "nextMajor"
     },
     {
       "packageName": "@fabernovel/heart-ssllabs-server",
-      "projectFolder": "modules/heart-ssllabs-server",
+      "projectFolder": "modules/ssllabs-server",
       "versionPolicyName": "nextMajor"
     }
   ]
