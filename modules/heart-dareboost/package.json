@@ -29,7 +29,7 @@
     "build:watch": "npm run build --watch",
     "lint": "eslint .",
     "prepublishOnly": "npm run build",
-    "test": "jest --silent"
+    "test": "jest"
   },
   "dependencies": {
     "@fabernovel/heart-core": "workspace:^3.3.0"
