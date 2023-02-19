@@ -1,0 +1,10 @@
+{
+  "changes": [
+    {
+      "packageName": "@fabernovel/heart-lighthouse",
+      "comment": "Node.js 18 LTS is now required: the previous Node.js version used (14) reached end-of-life",
+      "type": "major"
+    }
+  ],
+  "packageName": "@fabernovel/heart-lighthouse"
+}
