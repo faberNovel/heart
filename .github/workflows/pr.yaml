@@ -5,8 +5,8 @@ on:
     types: [opened, synchronize, reopened]
 
 jobs:
-  pull-request:
-    name: Pull request
+  syntax_changelog:
+    name: Syntax & changelog
     runs-on: ubuntu-latest
 
     steps:
@@ -29,6 +29,28 @@ jobs:
 
       - name: 💅 Lint
         run: node common/scripts/install-run-rush.js lint
+
+  test:
+    name: Test
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node_version: [18, 19]
+
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 2
+
+      - uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node_version }}
+
+      - name: Install
+        run: node common/scripts/install-run-rush.js install
+
+      - name: 🏗 Build
+        run: node common/scripts/install-run-rush.js rebuild
 
       - name: 🐛 Test
         run: node common/scripts/install-run-rush.js test
