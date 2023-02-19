@@ -27,7 +27,7 @@
     "build:watch": "npm run build --watch",
     "lint": "eslint .",
     "prepublishOnly": "npm run build",
-    "test": "NODE_OPTIONS='--experimental-vm-modules' jest --silent --passWithNoTests"
+    "test": "NODE_OPTIONS='--experimental-vm-modules' jest --passWithNoTests"
   },
   "dependencies": {
     "@fabernovel/heart-core": "workspace:^3.3.0"
