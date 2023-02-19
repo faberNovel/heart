@@ -6,7 +6,7 @@ import {
   ModuleInterface,
 } from "@fabernovel/heart-common"
 import * as dotenv from "dotenv"
-import { readFileSync } from "fs"
+import { readFileSync } from "node:fs"
 import { cwd, env } from "node:process"
 import { PackageJson } from "type-fest"
 import { MissingEnvironmentVariables } from "../error/MissingEnvironmentVariables.js"
@@ -32,11 +32,11 @@ export class ModuleLoader {
    */
   public async load(): Promise<ModuleInterface[]> {
     try {
-      // retrieve the paths of @fabernovel/heart-* modules, except heart-cli and heart-core.
-      // (Heart Core must not be installed as an npm package, but who knows ¯\_(ツ)_/¯)
+      // retrieve the paths of @fabernovel/heart-* modules, except heart-cli and heart-common.
+      // (Heart Common must not be installed as an npm package, but who knows ¯\_(ツ)_/¯)
       // paths are guessed according to the content of the package.json
       const modulesPaths = await this.getPaths(
-        new RegExp(`^${this.PACKAGE_PREFIX}(?!cli|core)`),
+        new RegExp(`^${this.PACKAGE_PREFIX}(?!cli|common)`),
         `${this.ROOT_PATH}/package.json`
       )
 
