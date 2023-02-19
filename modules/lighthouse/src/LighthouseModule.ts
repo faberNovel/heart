@@ -5,7 +5,7 @@ import {
   ModuleAnalysisInterface,
   ModuleInterface,
   Report,
-} from "@fabernovel/heart-core"
+} from "@fabernovel/heart-common"
 import { requestResult } from "./api/Client.js"
 import { compute } from "./scoring/compute.js"
 

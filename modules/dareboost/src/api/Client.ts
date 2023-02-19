@@ -1,4 +1,4 @@
-import { Request } from "@fabernovel/heart-core"
+import { Request } from "@fabernovel/heart-common"
 import { AnalysisResponseInterface } from "./model/AnalysisResponseInterface"
 import { ReportResponseInterface } from "./model/ReportResponseInterface"
 

@@ -1,6 +1,6 @@
 import { launch } from "chrome-launcher"
 import lighthouse from "lighthouse"
-import type { LighthouseConfig, LighthouseResult } from "@fabernovel/heart-core"
+import type { LighthouseConfig, LighthouseResult } from "@fabernovel/heart-common"
 
 export async function requestResult(conf: LighthouseConfig): Promise<LighthouseResult> {
   const chrome = await launch({

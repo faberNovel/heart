@@ -4,7 +4,7 @@ import {
   isModuleServer,
   ModuleIndex,
   ModuleInterface,
-} from "@fabernovel/heart-core"
+} from "@fabernovel/heart-common"
 import * as dotenv from "dotenv"
 import { readFileSync } from "fs"
 import { cwd, env } from "node:process"

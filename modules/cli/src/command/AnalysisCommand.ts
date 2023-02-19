@@ -1,4 +1,4 @@
-import { Config, ModuleAnalysisInterface, Result, validateInput } from "@fabernovel/heart-core"
+import { Config, ModuleAnalysisInterface, Result, validateInput } from "@fabernovel/heart-common"
 import { Command } from "commander"
 
 type Options = Partial<{

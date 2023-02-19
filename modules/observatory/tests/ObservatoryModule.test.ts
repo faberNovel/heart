@@ -1,4 +1,4 @@
-import { ObservatoryConfig, ObservatoryResult, Report } from "@fabernovel/heart-core"
+import { ObservatoryConfig, ObservatoryResult, Report } from "@fabernovel/heart-common"
 import { jest } from "@jest/globals"
 
 const ANALYZE_URL = "www.observatory.mozilla-test/results/"

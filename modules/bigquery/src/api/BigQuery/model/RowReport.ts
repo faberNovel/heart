@@ -1,4 +1,4 @@
-import { Result, Report } from "@fabernovel/heart-core"
+import { Result, Report } from "@fabernovel/heart-common"
 import { BigQueryDatetime } from "@google-cloud/bigquery"
 import { RecordRanking } from "./RecordRanking.js"
 import { RecordService } from "./RecordService.js"

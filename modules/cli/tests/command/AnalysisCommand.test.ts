@@ -1,4 +1,4 @@
-import { Config, ModuleAnalysisInterface, Result, Report } from "@fabernovel/heart-core"
+import { Config, ModuleAnalysisInterface, Result, Report } from "@fabernovel/heart-common"
 import { Command } from "commander"
 import { createAnalysisCommand } from "../../src/command/AnalysisCommand.js"
 

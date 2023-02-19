@@ -6,7 +6,7 @@ import {
   ModuleServerInterface,
   Result,
   Report,
-} from "@fabernovel/heart-core"
+} from "@fabernovel/heart-common"
 import { CorsOptions } from "cors"
 import ora from "ora"
 

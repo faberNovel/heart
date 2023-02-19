@@ -1,4 +1,4 @@
-import { Report } from "@fabernovel/heart-core"
+import { Report } from "@fabernovel/heart-common"
 import { DareboostConfig } from "../src/config/Config"
 
 import { DareboostModule } from "../src/DareboostModule"

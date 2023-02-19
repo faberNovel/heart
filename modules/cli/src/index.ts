@@ -5,7 +5,7 @@ import {
   isModuleServer,
   ModuleInterface,
   ModuleListenerInterface,
-} from "@fabernovel/heart-core"
+} from "@fabernovel/heart-common"
 import { Command } from "commander"
 import { CorsOptions } from "cors"
 import { config } from "dotenv"

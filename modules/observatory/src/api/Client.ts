@@ -1,4 +1,4 @@
-import { Request, ObservatoryConfig, ObservatoryResult } from "@fabernovel/heart-core"
+import { Request, ObservatoryConfig, ObservatoryResult } from "@fabernovel/heart-common"
 import { Error, isError } from "./Error.js"
 
 export class Client {

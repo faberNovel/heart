@@ -1,4 +1,4 @@
-import { ObservatoryConfig, ObservatoryResult } from "@fabernovel/heart-core"
+import { ObservatoryConfig, ObservatoryResult } from "@fabernovel/heart-common"
 import { jest } from "@jest/globals"
 
 const ANALYZE_URL = "www.observatory.mozilla/results"
@@ -18,13 +18,13 @@ const RESULT: ObservatoryResult = {
   tests_quantity: 12,
 }
 
-jest.unstable_mockModule("@fabernovel/heart-core", () => ({
+jest.unstable_mockModule("@fabernovel/heart-common", () => ({
   Request: {
     get: () => Promise.resolve(RESULT),
     post: () => Promise.resolve(RESULT),
   },
 }))
-await import("@fabernovel/heart-core")
+await import("@fabernovel/heart-common")
 const { Client } = await import("../../src/api/Client.js")
 
 describe("Client", () => {

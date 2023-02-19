@@ -1,9 +1,9 @@
-import { Request } from "@fabernovel/heart-core"
+import { Request } from "@fabernovel/heart-common"
 import { Client } from "../../src/api/Client"
 import { AnalysisResponseInterface } from "../../src/api/model/AnalysisResponseInterface"
 import { ReportResponseInterface } from "../../src/api/model/ReportResponseInterface"
 
-jest.mock("@fabernovel/heart-core")
+jest.mock("@fabernovel/heart-common")
 const mockedRequest = jest.mocked(Request)
 
 describe("Launch analysis", () => {

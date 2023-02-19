@@ -1,4 +1,4 @@
-import { LighthouseResult } from "@fabernovel/heart-core"
+import { LighthouseResult } from "@fabernovel/heart-common"
 import { jest } from "@jest/globals"
 import { Conf } from "./data/Conf.js"
 

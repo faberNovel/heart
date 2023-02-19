@@ -3,7 +3,7 @@ import {
   SsllabsServerConfig,
   SsllabsServerResult,
   SsllabsServerStatus,
-} from "@fabernovel/heart-core"
+} from "@fabernovel/heart-common"
 import { stringify } from "querystring"
 import { isSsllabsServerError, SsllabsServerError } from "./Error.js"
 

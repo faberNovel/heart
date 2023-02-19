@@ -1,4 +1,4 @@
-import { ModuleServerInterface } from "@fabernovel/heart-core"
+import { ModuleServerInterface } from "@fabernovel/heart-common"
 import { Command } from "commander"
 import { CorsOptions } from "cors"
 

@@ -1,4 +1,4 @@
-import { Config } from "@fabernovel/heart-core"
+import { Config } from "@fabernovel/heart-common"
 
 export type DareboostConfig = Config & {
   url: string

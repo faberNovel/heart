@@ -1,4 +1,4 @@
-import { SsllabsServerGrade } from "@fabernovel/heart-core"
+import { SsllabsServerGrade } from "@fabernovel/heart-common"
 
 /**
  * @see [Documentation ('grade' property)]{@link https://github.com/ssllabs/ssllabs-scan/blob/master/ssllabs-api-docs-v3.md#endpoint}

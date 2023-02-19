@@ -8,7 +8,7 @@ import {
   SsllabsServerStatus,
   SsllabsServerConfig,
   SsllabsServerEndpoint,
-} from "@fabernovel/heart-core"
+} from "@fabernovel/heart-common"
 import { Client } from "./api/Client.js"
 import { transform } from "./transformer/GradeTransformer.js"
 

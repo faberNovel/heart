@@ -1,4 +1,4 @@
-import { Module, ModuleInterface, ModuleListenerInterface, Result, Report } from "@fabernovel/heart-core"
+import { Module, ModuleInterface, ModuleListenerInterface, Result, Report } from "@fabernovel/heart-common"
 import { Client } from "./api/Client.js"
 
 export class SlackModule extends Module implements ModuleListenerInterface {

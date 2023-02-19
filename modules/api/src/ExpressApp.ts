@@ -10,7 +10,7 @@ import {
   Result,
   ThresholdError,
   validateInput,
-} from "@fabernovel/heart-core"
+} from "@fabernovel/heart-common"
 import cors, { CorsOptions } from "cors"
 import express from "express"
 import { createJsonError } from "./error/JsonError.js"

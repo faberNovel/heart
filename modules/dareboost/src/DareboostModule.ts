@@ -1,4 +1,4 @@
-import { Helper, Module, ModuleAnalysisInterface, ModuleInterface, Report } from "@fabernovel/heart-core"
+import { Helper, Module, ModuleAnalysisInterface, ModuleInterface, Report } from "@fabernovel/heart-common"
 import { ReportResponseInterface } from "./api/model/ReportResponseInterface"
 import { Client } from "./api/Client"
 import { DareboostConfig } from "./config/Config"
