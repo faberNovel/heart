@@ -8,7 +8,7 @@ import {
   Report,
 } from "@fabernovel/heart-core"
 import { CorsOptions } from "cors"
-import * as ora from "ora"
+import ora from "ora"
 
 export class App {
   private spinner = ora({ spinner: "hearts", interval: 200 })

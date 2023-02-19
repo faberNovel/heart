@@ -1,6 +1,6 @@
-import { Report } from "../report/Report"
-import { Result } from "./analysis/output/Result"
-import { ModuleInterface } from "./ModuleInterface"
+import { Report } from "../report/Report.js"
+import { Result } from "./analysis/output/Result.js"
+import { ModuleInterface } from "./ModuleInterface.js"
 
 /**
  * Define an Listener module.

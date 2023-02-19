@@ -1,5 +1,5 @@
-import { Result } from "../module/analysis/output/Result"
-import { Service } from "../service/Service"
+import { Result } from "../module/analysis/output/Result.js"
+import { Service } from "../service/Service.js"
 
 export interface ReportInterface<R extends Result> {
   /**

@@ -1,6 +1,6 @@
 import { Config, ModuleAnalysisInterface, Result, Report } from "@fabernovel/heart-core"
 import { Command } from "commander"
-import { createAnalysisCommand } from "../../src/command/AnalysisCommand"
+import { createAnalysisCommand } from "../../src/command/AnalysisCommand.js"
 
 test("Create an analysis command", () => {
   const report = new Report({

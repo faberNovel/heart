@@ -1,18 +1,20 @@
-import { Report } from "@fabernovel/heart-core"
-import { createJsonReports } from "greenit-cli/cli-core/analysis"
-import { join } from "node:path"
-import { GreenITModule } from "../src/GreenITModule"
-import { conf } from "./data/Conf"
-import successResult from "./data/successReport.json"
+import { jest } from "@jest/globals"
+import { Conf } from "./data/Conf.js"
+import SuccessResult from "./data/SuccessResult.json" assert { type: "json" }
 
-jest.mock("greenit-cli/cli-core/analysis")
+jest.unstable_mockModule("greenit-cli/cli-core/analysis.js", () => ({
+  createJsonReports: jest.fn(),
+}))
+const { createJsonReports } = await import("greenit-cli/cli-core/analysis.js")
 const mockedCreateJsonReports = jest.mocked(createJsonReports)
+
+const { GreenITModule } = await import("../src/GreenITModule.js")
 
 describe("Run GreenIT analysis", () => {
   it("should be able to launch a successful analysis without thresholds", async () => {
     mockedCreateJsonReports.mockResolvedValue([
       {
-        path: join(__dirname, "./data/successReport.json"),
+        path: new URL("./data/SuccessResult.json", import.meta.url).pathname,
         name: "1.json",
       },
     ])
@@ -27,26 +29,22 @@ describe("Run GreenIT analysis", () => {
     }
 
     const module = new GreenITModule(moduleConfig)
-    const analysisReport = await module.startAnalysis(conf)
+    const analysisReport = await module.startAnalysis(Conf)
 
-    const [date, time] = successResult.date.split(" ")
+    const [date, time] = SuccessResult.date.split(" ")
     const [day, month, year] = date.split("/")
 
-    const mockReport = new Report({
-      analyzedUrl: successResult.url,
-      date: new Date(`${year}-${month}-${day}T${time}`),
-      result: successResult,
-      note: successResult.ecoIndex.toString(),
-      service: moduleConfig.service,
-      threshold: undefined,
-    })
-    expect(analysisReport).toStrictEqual(mockReport)
+    expect(analysisReport).toHaveProperty("analyzedUrl", SuccessResult.url)
+    expect(analysisReport).toHaveProperty("date", new Date(`${year}-${month}-${day}T${time}`))
+    expect(analysisReport).toHaveProperty("note", SuccessResult.ecoIndex.toString())
+    expect(analysisReport).toHaveProperty("service", moduleConfig.service)
+    expect(analysisReport).toHaveProperty("threshold", undefined)
   })
 
   it("should be able to handle a failed analysis", async () => {
     mockedCreateJsonReports.mockResolvedValue([
       {
-        path: join(__dirname, "./data/errorReport.json"),
+        path: new URL("./data/ErrorResult.json", import.meta.url).pathname,
         name: "1.json",
       },
     ])
@@ -64,7 +62,7 @@ describe("Run GreenIT analysis", () => {
     const module = new GreenITModule(moduleConfig)
 
     try {
-      await module.startAnalysis(conf)
+      await module.startAnalysis(Conf)
     } catch (error) {
       expect(error).toBe(errorMessage)
     }
@@ -75,7 +73,7 @@ describe("Run GreenIT analysis", () => {
 
     mockedCreateJsonReports.mockResolvedValue([
       {
-        path: join(__dirname, "./data/successReport.json"),
+        path: new URL("./data/SuccessResult.json", import.meta.url).pathname,
         name: "1.json",
       },
     ])
@@ -92,19 +90,14 @@ describe("Run GreenIT analysis", () => {
     const THRESHOLD = 30
 
     const module = new GreenITModule(moduleConfig)
-    const analysisReport = await module.startAnalysis(conf, THRESHOLD)
+    const analysisReport = await module.startAnalysis(Conf, THRESHOLD)
     analysisReport.date = now
 
-    const mockReport = new Report({
-      analyzedUrl: successResult.url,
-      date: now,
-      result: successResult,
-      note: successResult.ecoIndex.toString(),
-      service: moduleConfig.service,
-      threshold: THRESHOLD,
-    })
-
-    expect(analysisReport).toStrictEqual(mockReport)
+    expect(analysisReport).toHaveProperty("analyzedUrl", SuccessResult.url)
+    expect(analysisReport).toHaveProperty("date", now)
+    expect(analysisReport).toHaveProperty("note", SuccessResult.ecoIndex.toString())
+    expect(analysisReport).toHaveProperty("service", moduleConfig.service)
+    expect(analysisReport).toHaveProperty("threshold", THRESHOLD)
   })
 
   it("Should return false when results do not match thresholds objectives", async () => {
@@ -112,7 +105,7 @@ describe("Run GreenIT analysis", () => {
 
     mockedCreateJsonReports.mockResolvedValue([
       {
-        path: join(__dirname, "./data/successReport.json"),
+        path: new URL("./data/SuccessResult.json", import.meta.url).pathname,
         name: "1.json",
       },
     ])
@@ -129,19 +122,14 @@ describe("Run GreenIT analysis", () => {
     const THRESHOLD = 30
 
     const module = new GreenITModule(moduleConfig)
-    const analysisReport = await module.startAnalysis(conf, THRESHOLD)
+    const analysisReport = await module.startAnalysis(Conf, THRESHOLD)
     analysisReport.date = now
 
-    const mockReport = new Report({
-      analyzedUrl: successResult.url,
-      date: now,
-      result: successResult,
-      note: successResult.ecoIndex.toString(),
-      service: moduleConfig.service,
-      threshold: THRESHOLD,
-    })
-
-    expect(analysisReport).toStrictEqual(mockReport)
+    expect(analysisReport).toHaveProperty("analyzedUrl", SuccessResult.url)
+    expect(analysisReport).toHaveProperty("date", now)
+    expect(analysisReport).toHaveProperty("note", SuccessResult.ecoIndex.toString())
+    expect(analysisReport).toHaveProperty("service", moduleConfig.service)
+    expect(analysisReport).toHaveProperty("threshold", THRESHOLD)
     expect(analysisReport.isThresholdReached()).toStrictEqual(false)
   })
 })

@@ -1,9 +1,9 @@
 import { Result, Report } from "@fabernovel/heart-core"
 import { BigQueryDatetime } from "@google-cloud/bigquery"
-import { RecordRanking } from "./RecordRanking"
-import { RecordService } from "./RecordService"
-import { RecordThreshold } from "./RecordThreshold"
-import { RecordUrl } from "./RecordUrl"
+import { RecordRanking } from "./RecordRanking.js"
+import { RecordService } from "./RecordService.js"
+import { RecordThreshold } from "./RecordThreshold.js"
+import { RecordUrl } from "./RecordUrl.js"
 
 /**
  * Representation of a Report object in BigQuery

@@ -1,34 +1,34 @@
 import { LighthouseResult } from "@fabernovel/heart-core"
-import { requestResult } from "../src/api/Client"
-import { LighthouseModule } from "../src/LighthouseModule"
-import { Conf } from "./data/Conf"
+import { jest } from "@jest/globals"
+import { Conf } from "./data/Conf.js"
 
-jest.mock("../src/api/Client")
+const RESULT = {
+  categories: {
+    category1: { score: 0.95 },
+    category2: { score: 0.9 },
+    category3: { score: 0.95 },
+    category4: { score: 0.9 },
+    category5: { score: 0.8 },
+  },
+  requestedUrl: Conf.url,
+  fetchTime: 1584540399,
+} as unknown as LighthouseResult // avoid the declaration of a huuuuuge object
+
+jest.unstable_mockModule("../src/api/Client.js", () => ({
+  requestResult: jest.fn<() => Promise<LighthouseResult>>().mockResolvedValue(RESULT),
+}))
+const { requestResult } = await import("../src/api/Client.js")
 const mockedRequestResult = jest.mocked(requestResult)
 
+const { LighthouseModule } = await import("../src/LighthouseModule.js")
+
 describe("Starts an analysis", () => {
-  let module: LighthouseModule
-
-  beforeEach(() => {
-    module = new LighthouseModule({
-      name: "Heart Lighthouse Test",
-      service: {
-        name: "Lighthouse Test",
-      },
-    })
-  })
-
-  const RESULT = {
-    categories: {
-      category1: { score: 0.95 },
-      category2: { score: 0.9 },
-      category3: { score: 0.95 },
-      category4: { score: 0.9 },
-      category5: { score: 0.8 },
+  const module = new LighthouseModule({
+    name: "Heart Lighthouse Test",
+    service: {
+      name: "Lighthouse Test",
     },
-    requestedUrl: Conf.url,
-    fetchTime: 1584540399,
-  } as unknown as LighthouseResult // avoid the declaration of a huuuuuge object
+  })
 
   it("should starts an analysis with a valid configuration", async () => {
     // mock the analysis stuff

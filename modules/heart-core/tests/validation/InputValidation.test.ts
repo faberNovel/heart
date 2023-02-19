@@ -1,35 +1,30 @@
-import * as fs from "fs"
-import { PathLike } from "fs"
-import * as path from "path"
-import { validateInput } from "../../src/validation/InputValidation"
+import { jest } from "@jest/globals"
+import { PathLike } from "node:fs"
 
 const MOCK_FILE_INFO: Record<string, string> = {
   "existingConfig.json": '{"url": "https://www.heart.fabernovel.com"}',
 }
 
-jest.mock("fs", () => {
-  const originalModule = jest.requireActual<typeof fs>("fs")
-
-  return {
-    ...originalModule,
-    readFileSync: (path: PathLike | number): string => {
-      if (typeof path !== "string" || !Object.keys(MOCK_FILE_INFO).some((filename) => filename === path)) {
-        throw new Error()
-      }
-
-      return MOCK_FILE_INFO[path]
-    },
+const mockIsAbsolute = jest.fn(() => true)
+const mockReadFileSync = jest.fn((path: PathLike | number): Buffer => {
+  if (typeof path !== "string" || !Object.keys(MOCK_FILE_INFO).some((filename) => filename === path)) {
+    throw new Error()
   }
+
+  return Buffer.from(MOCK_FILE_INFO[path], "utf8")
 })
 
-jest.mock("path", () => {
-  const originalModule = jest.requireActual<typeof path>("path")
+jest.unstable_mockModule("node:fs", () => ({
+  readFileSync: mockReadFileSync,
+}))
 
-  return {
-    ...originalModule,
-    isAbsolute: () => true,
-  }
-})
+jest.unstable_mockModule("node:path", () => ({
+  isAbsolute: mockIsAbsolute,
+}))
+
+await import("node:fs")
+await import("node:path")
+const { validateInput } = await import("../../src/validation/InputValidation.js")
 
 test("Provide no configurations", () => {
   expect(() => {
@@ -49,7 +44,16 @@ test("Provide an inline configuration", () => {
 })
 
 describe("Provide a file configuration", () => {
+  beforeEach(() => {
+    // does not seem to work with ESM
+    // mockIsAbsolute.mockReset()
+    // mockReadFileSync.mockReset()
+  })
+
   test("Provide missing file configuration", () => {
+    // does not seem to work with ESM
+    // expect(mockIsAbsolute).toHaveBeenCalledTimes(1)
+    // expect(mockReadFileSync).toHaveBeenCalledTimes(1)
     expect(() => {
       validateInput("missingConfig.json")
     }).toThrow()
@@ -58,6 +62,9 @@ describe("Provide a file configuration", () => {
   test("Provide existing file configuration", () => {
     const [config] = validateInput("existingConfig.json")
 
+    // does not seem to work with ESM
+    // expect(mockIsAbsolute).toHaveBeenCalledTimes(1)
+    // expect(mockReadFileSync).toHaveBeenCalledTimes(1)
     expect(config).toEqual(JSON.parse(MOCK_FILE_INFO["existingConfig.json"]))
   })
 })

@@ -15,6 +15,7 @@
   "contributors": [
     "Bastien Gatellier <bastien.gatellier@fabernovel.com>"
   ],
+  "type": "module",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
   "directories": {
@@ -28,7 +29,7 @@
     "build:watch": "npm run build --watch",
     "lint": "eslint .",
     "prepublishOnly": "npm run build",
-    "test": "jest --silent --passWithNoTests"
+    "test": "NODE_OPTIONS='--experimental-vm-modules' jest --silent --passWithNoTests"
   },
   "dependencies": {
     "@fabernovel/heart-core": "workspace:^3.3.0",
@@ -36,10 +37,11 @@
     "express": "^4.18.2"
   },
   "devDependencies": {
+    "@jest/globals": "^29.4.2",
     "@types/cors": "^2.8.13",
     "@types/express": "^4.17.17",
     "@types/jest": "^29.4.0",
-    "@types/node": "^14.18.34",
+    "@types/node": "^18.13.0",
     "@typescript-eslint/eslint-plugin": "^5.51.0",
     "@typescript-eslint/parser": "^5.51.0",
     "eslint": "^8.33.0",
@@ -52,6 +54,6 @@
     "@fabernovel/heart-cli": "^3.3.0"
   },
   "engines": {
-    "node": ">=14.17.0"
+    "node": "^18.0.0"
   }
 }

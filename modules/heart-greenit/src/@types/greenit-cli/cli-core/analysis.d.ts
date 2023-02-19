@@ -1,4 +1,4 @@
-declare module "greenit-cli/cli-core/analysis" {
+declare module "greenit-cli/cli-core/analysis.js" {
   import { SizeNames } from "greenit-cli"
   import { Browser } from "puppeteer"
 

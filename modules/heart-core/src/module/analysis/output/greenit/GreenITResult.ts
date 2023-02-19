@@ -1,5 +1,5 @@
 import { Entry } from "har-format"
-import { Result } from "../Result"
+import { Result } from "../Result.js"
 
 /**
  * Short version of the generated JSON result file

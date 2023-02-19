@@ -1,6 +1,6 @@
 import { CorsOptions } from "cors"
 import { Server } from "http"
-import { ModuleInterface } from "./ModuleInterface"
+import { ModuleInterface } from "./ModuleInterface.js"
 
 /**
  * Define a Server module.

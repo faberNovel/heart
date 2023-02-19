@@ -7,7 +7,7 @@ import {
   ObservatoryResult,
   ObservatoryConfig,
 } from "@fabernovel/heart-core"
-import { Client } from "./api/Client"
+import { Client } from "./api/Client.js"
 
 export class ObservatoryModule
   extends Module

@@ -1,5 +1,3 @@
-import { Module } from "./Module"
-
-export type ModuleIndex = {
-  default: Module
+export type ModuleIndex<T> = {
+  default: T
 }

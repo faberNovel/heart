@@ -1,4 +1,4 @@
-import { Config } from "../Config"
+import { Config } from "../Config.js"
 
 type SizeNames = "desktop" | "galaxyS9" | "galaxyS20" | "iPhone8" | "iPhone8Plus" | "iPhoneX" | "iPad"
 

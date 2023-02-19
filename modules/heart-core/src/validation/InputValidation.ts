@@ -1,8 +1,8 @@
-import { readFileSync } from "fs"
-import { isAbsolute } from "path"
-import { ConfigError } from "../error/ConfigError"
-import { ThresholdError } from "../error/ThresholdError"
-import { Config } from "../module/analysis/input/Config"
+import { readFileSync } from "node:fs"
+import { isAbsolute } from "node:path"
+import { ConfigError } from "../error/ConfigError.js"
+import { ThresholdError } from "../error/ThresholdError.js"
+import { Config } from "../module/analysis/input/Config.js"
 
 /**
  * Validate that the analysis options are correct

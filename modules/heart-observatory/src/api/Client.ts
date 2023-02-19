@@ -1,5 +1,5 @@
 import { Request, ObservatoryConfig, ObservatoryResult } from "@fabernovel/heart-core"
-import { Error, isError } from "./Error"
+import { Error, isError } from "./Error.js"
 
 export class Client {
   private analyzeUrl: string

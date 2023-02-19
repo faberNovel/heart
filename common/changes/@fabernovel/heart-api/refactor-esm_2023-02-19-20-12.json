@@ -1,0 +1,10 @@
+{
+  "changes": [
+    {
+      "packageName": "@fabernovel/heart-api",
+      "comment": "Move to ES modules mechanism",
+      "type": "major"
+    }
+  ],
+  "packageName": "@fabernovel/heart-api"
+}

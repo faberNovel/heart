@@ -17,11 +17,12 @@
 
     "declaration": true,
 
-    "module": "commonjs",
-    "target": "es6",
+    "module": "ESNext",
+    "moduleResolution": "nodenext",
+    "target": "ESNext",
 
     /**
-     * Disabled because of lighthouse poor TypeScript file definition
+     * Disabled because of puppeteer-core bug in TypeScript file definition with ESM
      */
     "skipLibCheck": true
   },

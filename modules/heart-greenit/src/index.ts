@@ -1,4 +1,4 @@
-import { GreenITModule } from "./GreenITModule"
+import { GreenITModule } from "./GreenITModule.js"
 
 export default new GreenITModule({
   name: "Heart GreenIT",

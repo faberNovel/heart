@@ -1,8 +1,6 @@
-import { BigQuery, Dataset } from "@google-cloud/bigquery"
-import { Table } from "@google-cloud/bigquery/build/src/table"
-
-import { Authentication } from "./Authentication"
-import { Definitions } from "./Definitions"
+import { BigQuery, Dataset, Table } from "@google-cloud/bigquery"
+import { Authentication } from "./Authentication.js"
+import { Definitions } from "./Definitions.js"
 
 export class BigQueryClient {
   private _table: Promise<Table>

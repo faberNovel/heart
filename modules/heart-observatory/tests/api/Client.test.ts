@@ -1,33 +1,35 @@
-import { ObservatoryConfig, ObservatoryResult, Request } from "@fabernovel/heart-core"
-import { Client } from "../../src/api/Client"
+import { ObservatoryConfig, ObservatoryResult } from "@fabernovel/heart-core"
+import { jest } from "@jest/globals"
 
-jest.mock("@fabernovel/heart-core")
-const mockedRequest = jest.mocked(Request)
+const ANALYZE_URL = "www.observatory.mozilla/results"
+const API_URL = "www.observatory.mozilla/api"
+const RESULT: ObservatoryResult = {
+  end_time: "",
+  grade: "B",
+  hidden: true,
+  response_headers: {},
+  scan_id: 1,
+  score: 95,
+  likelihood_indicator: "",
+  start_time: "",
+  state: "FINISHED",
+  tests_failed: 3,
+  tests_passed: 4,
+  tests_quantity: 12,
+}
+
+jest.unstable_mockModule("@fabernovel/heart-core", () => ({
+  Request: {
+    get: () => Promise.resolve(RESULT),
+    post: () => Promise.resolve(RESULT),
+  },
+}))
+await import("@fabernovel/heart-core")
+const { Client } = await import("../../src/api/Client.js")
 
 describe("Client", () => {
-  const ANALYZE_URL = "www.observatory.mozilla/results"
-  const API_URL = "www.observatory.mozilla/api"
-  const SCAN: ObservatoryResult = {
-    end_time: "",
-    grade: "B",
-    hidden: true,
-    response_headers: {},
-    scan_id: 1,
-    score: 95,
-    likelihood_indicator: "",
-    start_time: "",
-    state: "FINISHED",
-    tests_failed: 3,
-    tests_passed: 4,
-    tests_quantity: 12,
-  }
-
-  beforeEach(() => {
-    process.env.OBSERVATORY_ANALYZE_URL = ANALYZE_URL
-    process.env.OBSERVATORY_API_URL = API_URL
-    mockedRequest.get.mockResolvedValue(SCAN)
-    mockedRequest.post.mockResolvedValue(SCAN)
-  })
+  process.env.OBSERVATORY_ANALYZE_URL = ANALYZE_URL
+  process.env.OBSERVATORY_API_URL = API_URL
 
   test("Analyze with valid configuration", async () => {
     const CONF = { host: "www.website.test" }
@@ -36,7 +38,7 @@ describe("Client", () => {
 
     const scan = await client.launchAnalysis(CONF)
 
-    expect(scan).toStrictEqual(SCAN)
+    expect(scan).toStrictEqual(RESULT)
     expect(client.getProjectHost()).toBe(CONF.host)
     expect(client.getAnalyzeUrl()).toBe(ANALYZE_URL + CONF.host)
   })
