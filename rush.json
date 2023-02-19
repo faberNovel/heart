@@ -385,32 +385,32 @@
     {
       "packageName": "@fabernovel/heart-api",
       "projectFolder": "modules/heart-api",
-      "versionPolicyName": "individualVersion"
+      "versionPolicyName": "nextMajor"
     },
     {
       "packageName": "@fabernovel/heart-bigquery",
       "projectFolder": "modules/heart-bigquery",
-      "versionPolicyName": "individualVersion"
+      "versionPolicyName": "nextMajor"
     },
     {
       "packageName": "@fabernovel/heart-cli",
       "projectFolder": "modules/heart-cli",
-      "versionPolicyName": "individualVersion"
+      "versionPolicyName": "nextMajor"
     },
     {
       "packageName": "@fabernovel/heart-core",
       "projectFolder": "modules/heart-core",
-      "versionPolicyName": "individualVersion"
+      "versionPolicyName": "nextMajor"
+    },
+    {
+      "packageName": "@fabernovel/heart-greenit",
+      "projectFolder": "modules/heart-greenit",
+      "versionPolicyName": "nextMajor"
     },
     {
       "packageName": "@fabernovel/heart-lighthouse",
       "projectFolder": "modules/heart-lighthouse",
-      "versionPolicyName": "individualVersion"
-    },
-    {
-      "packageName": "@fabernovel/heart-observatory",
-      "projectFolder": "modules/heart-observatory",
-      "versionPolicyName": "individualVersion"
+      "versionPolicyName": "nextMajor"
     },
     {
       "packageName": "@fabernovel/heart-moduletpl",
@@ -418,19 +418,19 @@
       "shouldPublish": false
     },
     {
+      "packageName": "@fabernovel/heart-observatory",
+      "projectFolder": "modules/heart-observatory",
+      "versionPolicyName": "nextMajor"
+    },
+    {
       "packageName": "@fabernovel/heart-slack",
       "projectFolder": "modules/heart-slack",
-      "versionPolicyName": "individualVersion"
+      "versionPolicyName": "nextMajor"
     },
     {
       "packageName": "@fabernovel/heart-ssllabs-server",
       "projectFolder": "modules/heart-ssllabs-server",
-      "versionPolicyName": "individualVersion"
-    },
-    {
-      "packageName": "@fabernovel/heart-greenit",
-      "projectFolder": "modules/heart-greenit",
-      "versionPolicyName": "individualVersion"
+      "versionPolicyName": "nextMajor"
     }
   ]
 }
