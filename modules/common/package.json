@@ -1,6 +1,6 @@
 {
-  "name": "@fabernovel/heart-core",
-  "version": "3.3.0",
+  "name": "@fabernovel/heart-common",
+  "version": "4.0.0-alpha.1",
   "description": "Centralize helpful code needed by every Heart modules",
   "homepage": "https://heart.fabernovel.com",
   "bugs": {
