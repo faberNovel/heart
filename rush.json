@@ -398,8 +398,8 @@
       "versionPolicyName": "nextMajor"
     },
     {
-      "packageName": "@fabernovel/heart-core",
-      "projectFolder": "modules/core",
+      "packageName": "@fabernovel/heart-common",
+      "projectFolder": "modules/common",
       "versionPolicyName": "nextMajor"
     },
     {
