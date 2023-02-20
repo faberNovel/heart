@@ -4,7 +4,7 @@ import * as http from "http"
 import { ExpressApp } from "./ExpressApp.js"
 
 export class ApiModule extends Module implements ModuleServerInterface {
-  constructor(module: Omit<ModuleInterface, "id">) {
+  constructor(module: Pick<ModuleInterface, "name" | "service">) {
     super(module)
   }
 

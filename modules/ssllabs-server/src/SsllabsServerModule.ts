@@ -21,7 +21,7 @@ export class SsllabsServerModule
   private apiClient: Client
   private threshold?: number
 
-  constructor(module: Omit<ModuleInterface, "id">) {
+  constructor(module: Pick<ModuleInterface, "name" | "service">) {
     super(module)
 
     this.apiClient = new Client()

@@ -5,7 +5,7 @@ import { requestResult } from "./api/Client.js"
 export class GreenITModule extends Module implements ModuleAnalysisInterface<GreenITConfig, GreenITResult> {
   private threshold?: number
 
-  constructor(module: Omit<ModuleInterface, "id">) {
+  constructor(module: Pick<ModuleInterface, "name" | "service">) {
     super(module)
   }
 

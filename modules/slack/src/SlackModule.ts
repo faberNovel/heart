@@ -4,7 +4,7 @@ import { Client } from "./api/Client.js"
 export class SlackModule extends Module implements ModuleListenerInterface {
   private slackClient: Client
 
-  constructor(module: Omit<ModuleInterface, "id">) {
+  constructor(module: Pick<ModuleInterface, "name" | "service">) {
     super(module)
 
     this.slackClient = new Client()

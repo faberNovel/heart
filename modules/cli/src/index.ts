@@ -10,12 +10,12 @@ import { Command } from "commander"
 import { CorsOptions } from "cors"
 import { config } from "dotenv"
 import { argv, cwd, exit } from "node:process"
-import { App } from "./App.js"
+import { notifyListenerModules, startAnalysis, startServer } from "./App.js"
 import { createAnalysisCommand } from "./command/AnalysisCommand.js"
 import { createServerCommand } from "./command/ServerCommand.js"
 import { ModuleLoader } from "./module/ModuleLoader.js"
 
-// set environment variables from a.env file
+// set environment variables from a .env file
 // assume that the root path if the one from where the script has been called
 // /!\ this approach does not follow symlink
 config({ path: `${cwd()}/.env` })
@@ -24,34 +24,40 @@ void (async () => {
   const moduleLoader = new ModuleLoader(false)
 
   try {
-    const modules = await moduleLoader.load()
+    const modulesMap = await moduleLoader.load()
+    const modules = Array.from(modulesMap.values())
     const listenerModules = modules.filter((module: ModuleInterface): module is ModuleListenerInterface =>
       isModuleListener(module)
     )
-    const app = new App(listenerModules)
 
     const program = new Command()
     program.version("3.0.0")
 
-    // create a command for each module
-    modules.forEach((module: ModuleInterface) => {
+    modulesMap.forEach((module: ModuleInterface, modulePath: string) => {
       if (isModuleAnalysis(module)) {
         const callback = async <C extends Config>(conf: C, threshold?: number) => {
-          const report = await app.startAnalysis(module, conf, threshold)
+          moduleLoader.loadEnvironmentVariables(modulePath)
+
+          const report = await startAnalysis(module, conf, threshold)
 
           // notify every listener module
-          await app.notifyListenerModules(report)
+          await notifyListenerModules(listenerModules, report)
         }
 
         const analysisCommand = createAnalysisCommand(module, callback)
 
         program.addCommand(analysisCommand)
       } else if (isModuleServer(module)) {
-        const callback = (port: number, cors?: CorsOptions) => app.startServer(module, modules, port, cors)
+        const callback = (port: number, cors?: CorsOptions) => {
+          moduleLoader.loadEnvironmentVariables(modulePath)
+          startServer(module, modules, port, cors)
+        }
 
         const serverCommand = createServerCommand(module, callback)
 
         program.addCommand(serverCommand)
+      } else if (isModuleListener(module)) {
+        moduleLoader.loadEnvironmentVariables(modulePath)
       }
     })
 

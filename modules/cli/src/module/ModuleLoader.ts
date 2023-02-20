@@ -5,16 +5,17 @@ import {
   ModuleIndex,
   ModuleInterface,
 } from "@fabernovel/heart-common"
-import * as dotenv from "dotenv"
+import dotenv from "dotenv"
 import { readFileSync } from "node:fs"
 import { cwd, env } from "node:process"
 import { PackageJson } from "type-fest"
 import { MissingEnvironmentVariables } from "../error/MissingEnvironmentVariables.js"
 
+// file that contains the list of required environment variables
+const PACKAGE_PREFIX = "@fabernovel/heart-"
+const ENVIRONMENT_VARIABLE_MODEL = ".env.sample"
+
 export class ModuleLoader {
-  // file that contains the list of required environment variables
-  private readonly ENVIRONMENT_VARIABLE_MODEL = ".env.sample"
-  private readonly PACKAGE_PREFIX = "@fabernovel/heart-"
   // assume that the root path is the one from where the script has been called
   // /!\ this approach does not follow symlink
   private readonly ROOT_PATH = cwd()
@@ -25,77 +26,66 @@ export class ModuleLoader {
   }
 
   /**
-   * Load the installed Heart modules:
+   * Load the installed modules:
    * 1. get the absolute paths of the installed Heart modules
-   * 2. checks that no environment variables is missing
-   * 3. loads the modules
+   * 2. loads the modules
    */
-  public async load(): Promise<ModuleInterface[]> {
+  public async load(): Promise<Map<string, ModuleInterface>> {
     try {
       // retrieve the paths of @fabernovel/heart-* modules, except heart-cli and heart-common.
       // (Heart Common must not be installed as an npm package, but who knows ¯\_(ツ)_/¯)
       // paths are guessed according to the content of the package.json
       const modulesPaths = await this.getPaths(
-        new RegExp(`^${this.PACKAGE_PREFIX}(?!cli|common)`),
+        new RegExp(`^${PACKAGE_PREFIX}(?!cli|common)`),
         `${this.ROOT_PATH}/package.json`
       )
 
-      if (modulesPaths.length > 0) {
-        if (this.debug) {
-          console.log("Checking missing environment variables...")
-        }
+      const modules = await this.loadModules(modulesPaths)
 
-        // check if environment variables are missing,
-        // according to the .env.sample of the loaded modules
-        const missingEnvironmentVariables = this.loadEnvironmentVariables(modulesPaths)
-
-        if (missingEnvironmentVariables.length > 0) {
-          throw new MissingEnvironmentVariables(missingEnvironmentVariables)
-        }
-      }
-
-      return this.loadModules(modulesPaths)
+      // as modulesPaths and modules are ordered identically, we could use the index to construct the Map()
+      return new Map(modulesPaths.map((modulePath, i) => [modulePath, modules[i]]))
     } catch (error) {
       return Promise.reject(error)
     }
   }
 
   /**
-   * Load environment variables for the given loaded modules.
+   * Load environment variables
    *
    * @returns The environment variables names that are missing
+   * @throws MissingEnvironmentVariables
    */
-  private loadEnvironmentVariables(modulesPaths: string[]): string[] {
+  public loadEnvironmentVariables(modulePath: string): void {
     const missingEnvironmentVariables: string[] = []
 
-    modulesPaths.forEach((modulePath: string) => {
-      try {
-        // load the .env.sample file from the module
-        const requiredModuleDotenvVariables = Object.entries(
-          dotenv.parse(readFileSync(modulePath + this.ENVIRONMENT_VARIABLE_MODEL, "utf8"))
-        )
+    try {
+      // load the .env.sample file from the module
+      const requiredModuleDotenvVariables = Object.entries(
+        dotenv.parse(readFileSync(modulePath + ENVIRONMENT_VARIABLE_MODEL, "utf8"))
+      )
 
-        // set variables if
-        // not yet registered in process.env
-        // and having a default value in .env.sample file,
-        requiredModuleDotenvVariables.forEach(([variableName, defaultValue]) => {
-          if (!env[variableName] && defaultValue.length !== 0) {
-            env[variableName] = defaultValue
-          }
-        })
+      // set variables if
+      // not yet registered in process.env
+      // and having a default value in .env.sample file,
+      requiredModuleDotenvVariables.forEach(([variableName, defaultValue]) => {
+        if (!env[variableName] && defaultValue.length !== 0) {
+          env[variableName] = defaultValue
+        }
+      })
 
-        // get the environment variables names that are not registered in process.env
-        const missingModuleEnvironmentVariables = requiredModuleDotenvVariables
-          .filter(([variableName]) => !env[variableName])
-          .map(([variableName]) => variableName)
+      // get the environment variables names that are not registered in process.env
+      const missingModuleEnvironmentVariables = requiredModuleDotenvVariables
+        .filter(([variableName]) => !env[variableName])
+        .map(([variableName]) => variableName)
 
-        // add the missing module dotenv variables to the missing list
-        missingEnvironmentVariables.push(...missingModuleEnvironmentVariables)
-        // eslint-disable-next-line no-empty
-      } catch (error) {}
-    })
+      // add the missing module dotenv variables to the missing list
+      missingEnvironmentVariables.push(...missingModuleEnvironmentVariables)
+      // eslint-disable-next-line no-empty
+    } catch (error) {}
 
-    return missingEnvironmentVariables
+    if (missingEnvironmentVariables.length > 0) {
+      throw new MissingEnvironmentVariables(missingEnvironmentVariables)
+    }
   }
 
   /**
@@ -144,6 +134,7 @@ export class ModuleLoader {
 
   /**
    * Load a list of modules according to their path.
+   * Preserve the order in the returned array.
    */
   private async loadModules(modulesPaths: string[]): Promise<ModuleInterface[]> {
     const promises = []
@@ -175,11 +166,11 @@ export class ModuleLoader {
         // only keep the modules that are compatible
         if (isModuleAnalysis(module) || isModuleListener(module) || isModuleServer(module)) {
           // guess the module id from the package name: take the string after the characters "@fabernovel/heart-"
-          const matches = new RegExp(`^${this.PACKAGE_PREFIX}(.+)$`).exec(packageJson.name)
+          const matches = new RegExp(`^${PACKAGE_PREFIX}(.+)$`).exec(packageJson.name)
 
           if (null === matches) {
             console.error(
-              `${packageJson.name} module not loaded because the name does not start with ${this.PACKAGE_PREFIX}.`
+              `${packageJson.name} module not loaded because the name does not start with ${PACKAGE_PREFIX}.`
             )
           } else {
             module.id = matches[1]
