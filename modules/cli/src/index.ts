@@ -13,7 +13,7 @@ import { argv, cwd, exit } from "node:process"
 import { notifyListenerModules, startAnalysis, startServer } from "./App.js"
 import { createAnalysisCommand } from "./command/AnalysisCommand.js"
 import { createServerCommand } from "./command/ServerCommand.js"
-import { ModuleLoader } from "./module/ModuleLoader.js"
+import { load, loadEnvironmentVariables } from "./module/ModuleLoader.js"
 
 // set environment variables from a .env file
 // assume that the root path if the one from where the script has been called
@@ -21,10 +21,8 @@ import { ModuleLoader } from "./module/ModuleLoader.js"
 config({ path: `${cwd()}/.env` })
 
 void (async () => {
-  const moduleLoader = new ModuleLoader(false)
-
   try {
-    const modulesMap = await moduleLoader.load()
+    const modulesMap = await load()
     const modules = Array.from(modulesMap.values())
     const listenerModules = modules.filter((module: ModuleInterface): module is ModuleListenerInterface =>
       isModuleListener(module)
@@ -36,7 +34,7 @@ void (async () => {
     modulesMap.forEach((module: ModuleInterface, modulePath: string) => {
       if (isModuleAnalysis(module)) {
         const callback = async <C extends Config>(conf: C, threshold?: number) => {
-          moduleLoader.loadEnvironmentVariables(modulePath)
+          loadEnvironmentVariables(modulePath)
 
           const report = await startAnalysis(module, conf, threshold)
 
@@ -49,7 +47,7 @@ void (async () => {
         program.addCommand(analysisCommand)
       } else if (isModuleServer(module)) {
         const callback = (port: number, cors?: CorsOptions) => {
-          moduleLoader.loadEnvironmentVariables(modulePath)
+          loadEnvironmentVariables(modulePath)
           startServer(module, modules, port, cors)
         }
 
@@ -57,7 +55,7 @@ void (async () => {
 
         program.addCommand(serverCommand)
       } else if (isModuleListener(module)) {
-        moduleLoader.loadEnvironmentVariables(modulePath)
+        loadEnvironmentVariables(modulePath)
       }
     })
 
