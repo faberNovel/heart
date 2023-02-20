@@ -9,7 +9,7 @@
   "repository": {
     "type": "git",
     "url": "https://github.com/faberNovel/heart.git",
-    "directory": "modules/heart-moduletpl"
+    "directory": "modules/moduletpl"
   },
   "license": "MIT",
   "contributors": [],
