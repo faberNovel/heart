@@ -9,7 +9,7 @@
   "repository": {
     "type": "git",
     "url": "git@gitlab.com:fabernovel/heart.git",
-    "directory": "modules/heart-core"
+    "directory": "modules/core"
   },
   "license": "MIT",
   "contributors": [

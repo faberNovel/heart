@@ -15,7 +15,7 @@ export class LighthouseModule
 {
   private threshold?: number
 
-  constructor(module: Omit<ModuleInterface, "id">) {
+  constructor(module: Pick<ModuleInterface, "name" | "service">) {
     super(module)
   }
 

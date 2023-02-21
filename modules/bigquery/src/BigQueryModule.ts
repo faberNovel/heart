@@ -6,7 +6,7 @@ import { RowReport } from "./api/BigQuery/model/RowReport.js"
 export class BigQueryModule extends Module implements ModuleListenerInterface {
   private bigqueryClient: BigQueryClient
 
-  constructor(module: Omit<ModuleInterface, "id">) {
+  constructor(module: Pick<ModuleInterface, "name" | "service">) {
     super(module)
 
     this.bigqueryClient = new BigQueryClient()

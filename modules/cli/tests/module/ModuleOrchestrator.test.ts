@@ -1,6 +1,6 @@
 import { Config, ModuleAnalysisInterface, Report, Result } from "@fabernovel/heart-common"
 import { jest } from "@jest/globals"
-import { App } from "../src/App.js"
+import { startAnalysis } from "../../src/module/ModuleOrchestrator.js"
 
 test("Displays the results of an analysis", async () => {
   const report = new Report({
@@ -25,8 +25,7 @@ test("Displays the results of an analysis", async () => {
 
   const startAnalysisMock = jest.spyOn(module, "startAnalysis")
 
-  const app = new App([])
-  await app.startAnalysis(module, {})
+  await startAnalysis(module, {})
 
   expect(startAnalysisMock).toHaveBeenCalled()
 

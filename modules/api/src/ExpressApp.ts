@@ -1,10 +1,7 @@
 import {
   Config,
   ConfigError,
-  isModuleAnalysis,
-  isModuleListener,
   ModuleAnalysisInterface,
-  ModuleInterface,
   ModuleListenerInterface,
   Report,
   Result,
@@ -23,14 +20,16 @@ export class ExpressApp {
   private _express: express.Application
   private listenerModules: ModuleListenerInterface[]
 
-  constructor(modules: ModuleInterface[], corsOptions?: CorsOptions) {
+  constructor(
+    analysisModules: ModuleAnalysisInterface<Config, Result>[],
+    listenerModules: ModuleListenerInterface[],
+    corsOptions?: CorsOptions
+  ) {
     this._express = express()
     this.configure()
     this.addCommonMiddlewares(corsOptions)
-    this.listenerModules = modules.filter((module: ModuleInterface): module is ModuleListenerInterface =>
-      isModuleListener(module)
-    )
-    this.init(modules)
+    this.listenerModules = listenerModules
+    this.init(analysisModules)
     this.addErrorHandlerMiddleware() // The error handler middleware must be added last, after other middlewares and routes declaration
   }
 
@@ -97,18 +96,14 @@ export class ExpressApp {
   /**
    * Register routes for the Analysis modules
    */
-  private init(modules: ModuleInterface[]): void {
+  private init(analysisModules: ModuleAnalysisInterface<Config, Result>[]): void {
     const router = express.Router()
 
-    modules
-      .filter((module: ModuleInterface): module is ModuleAnalysisInterface<Config, Result> =>
-        isModuleAnalysis(module)
-      )
-      .forEach((analysisModule) => {
-        const path = `/${analysisModule.id}`
+    analysisModules.forEach((analysisModule) => {
+      const path = `/${analysisModule.id}`
 
-        router.post(path, this.createRouteHandler(analysisModule))
-      })
+      router.post(path, this.createRouteHandler(analysisModule))
+    })
 
     this.express.use("/", router)
   }

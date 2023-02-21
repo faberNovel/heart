@@ -3,56 +3,77 @@ import {
   isModuleAnalysis,
   isModuleListener,
   isModuleServer,
-  ModuleInterface,
+  ModuleAnalysisInterface,
   ModuleListenerInterface,
+  ModuleServerInterface,
+  Result,
 } from "@fabernovel/heart-common"
 import { Command } from "commander"
 import { CorsOptions } from "cors"
 import { config } from "dotenv"
 import { argv, cwd, exit } from "node:process"
-import { App } from "./App.js"
+import { notifyListenerModules, startAnalysis, startServer } from "./module/ModuleOrchestrator.js"
 import { createAnalysisCommand } from "./command/AnalysisCommand.js"
 import { createServerCommand } from "./command/ServerCommand.js"
-import { ModuleLoader } from "./module/ModuleLoader.js"
+import { load, loadEnvironmentVariables } from "./module/ModuleLoader.js"
 
-// set environment variables from a.env file
+// set environment variables from a .env file
 // assume that the root path if the one from where the script has been called
 // /!\ this approach does not follow symlink
 config({ path: `${cwd()}/.env` })
 
 void (async () => {
-  const moduleLoader = new ModuleLoader(false)
-
   try {
-    const modules = await moduleLoader.load()
-    const listenerModules = modules.filter((module: ModuleInterface): module is ModuleListenerInterface =>
-      isModuleListener(module)
-    )
-    const app = new App(listenerModules)
+    const modulesMap = await load()
+
+    const analysisModulesMap = new Map<string, ModuleAnalysisInterface<Config, Result>>()
+    const listenerModulesMap = new Map<string, ModuleListenerInterface>()
+    const serverModulesMap = new Map<string, ModuleServerInterface>()
+
+    for (const [modulePath, module] of modulesMap) {
+      if (isModuleAnalysis(module)) {
+        analysisModulesMap.set(modulePath, module)
+      } else if (isModuleListener(module)) {
+        listenerModulesMap.set(modulePath, module)
+      } else if (isModuleServer(module)) {
+        serverModulesMap.set(modulePath, module)
+      }
+    }
 
     const program = new Command()
     program.version("3.0.0")
 
-    // create a command for each module
-    modules.forEach((module: ModuleInterface) => {
-      if (isModuleAnalysis(module)) {
-        const callback = async <C extends Config>(conf: C, threshold?: number) => {
-          const report = await app.startAnalysis(module, conf, threshold)
+    // analysis modules: create a command for each of them
+    analysisModulesMap.forEach((analysisModule, modulePath) => {
+      const callback = async <C extends Config>(conf: C, threshold?: number) => {
+        loadEnvironmentVariables(modulePath)
 
-          // notify every listener module
-          await app.notifyListenerModules(report)
-        }
+        const report = await startAnalysis(analysisModule, conf, threshold)
 
-        const analysisCommand = createAnalysisCommand(module, callback)
-
-        program.addCommand(analysisCommand)
-      } else if (isModuleServer(module)) {
-        const callback = (port: number, cors?: CorsOptions) => app.startServer(module, modules, port, cors)
-
-        const serverCommand = createServerCommand(module, callback)
-
-        program.addCommand(serverCommand)
+        // notify every listener module
+        await notifyListenerModules(listenerModulesMap.values(), report)
       }
+
+      const analysisCommand = createAnalysisCommand(analysisModule, callback)
+
+      program.addCommand(analysisCommand)
+    })
+
+    // server modules: create a command for each of them
+    serverModulesMap.forEach((serverModule, modulePath: string) => {
+      const callback = (port: number, cors?: CorsOptions) => {
+        loadEnvironmentVariables(modulePath)
+        startServer(serverModule, analysisModulesMap.values(), listenerModulesMap.values(), port, cors)
+      }
+
+      const serverCommand = createServerCommand(serverModule, callback)
+
+      program.addCommand(serverCommand)
+    })
+
+    // listener modules: load and validate environment variables
+    listenerModulesMap.forEach((_, modulePath) => {
+      loadEnvironmentVariables(modulePath)
     })
 
     await program

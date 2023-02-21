@@ -1,0 +1,10 @@
+{
+  "changes": [
+    {
+      "packageName": "@fabernovel/heart-cli",
+      "comment": "Environment variables for analysis modules are verified and loaded only for the analysis module used in the CLI",
+      "type": "major"
+    }
+  ],
+  "packageName": "@fabernovel/heart-cli"
+}
