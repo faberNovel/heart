@@ -1,12 +1,19 @@
 import { CorsOptions } from "cors"
 import { Server } from "http"
+import { Config, ModuleListenerInterface, Result } from "../index.js"
+import { ModuleAnalysisInterface } from "./ModuleAnalysisInterface.js"
 import { ModuleInterface } from "./ModuleInterface.js"
 
 /**
  * Define a Server module.
  */
 export interface ModuleServerInterface extends ModuleInterface {
-  startServer: (modules: ModuleInterface[], port: number, cors?: CorsOptions) => Server
+  startServer: (
+    analysisModules: ModuleAnalysisInterface<Config, Result>[],
+    listenerModules: ModuleListenerInterface[],
+    port: number,
+    cors?: CorsOptions
+  ) => Server
 }
 
 /**

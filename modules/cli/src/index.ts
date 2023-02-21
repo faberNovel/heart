@@ -3,8 +3,10 @@ import {
   isModuleAnalysis,
   isModuleListener,
   isModuleServer,
-  ModuleInterface,
+  ModuleAnalysisInterface,
   ModuleListenerInterface,
+  ModuleServerInterface,
+  Result,
 } from "@fabernovel/heart-common"
 import { Command } from "commander"
 import { CorsOptions } from "cors"
@@ -23,40 +25,55 @@ config({ path: `${cwd()}/.env` })
 void (async () => {
   try {
     const modulesMap = await load()
-    const modules = Array.from(modulesMap.values())
-    const listenerModules = modules.filter((module: ModuleInterface): module is ModuleListenerInterface =>
-      isModuleListener(module)
-    )
+
+    const analysisModulesMap = new Map<string, ModuleAnalysisInterface<Config, Result>>()
+    const listenerModulesMap = new Map<string, ModuleListenerInterface>()
+    const serverModulesMap = new Map<string, ModuleServerInterface>()
+
+    for (const [modulePath, module] of modulesMap) {
+      if (isModuleAnalysis(module)) {
+        analysisModulesMap.set(modulePath, module)
+      } else if (isModuleListener(module)) {
+        listenerModulesMap.set(modulePath, module)
+      } else if (isModuleServer(module)) {
+        serverModulesMap.set(modulePath, module)
+      }
+    }
 
     const program = new Command()
     program.version("3.0.0")
 
-    modulesMap.forEach((module: ModuleInterface, modulePath: string) => {
-      if (isModuleAnalysis(module)) {
-        const callback = async <C extends Config>(conf: C, threshold?: number) => {
-          loadEnvironmentVariables(modulePath)
-
-          const report = await startAnalysis(module, conf, threshold)
-
-          // notify every listener module
-          await notifyListenerModules(listenerModules, report)
-        }
-
-        const analysisCommand = createAnalysisCommand(module, callback)
-
-        program.addCommand(analysisCommand)
-      } else if (isModuleServer(module)) {
-        const callback = (port: number, cors?: CorsOptions) => {
-          loadEnvironmentVariables(modulePath)
-          startServer(module, modules, port, cors)
-        }
-
-        const serverCommand = createServerCommand(module, callback)
-
-        program.addCommand(serverCommand)
-      } else if (isModuleListener(module)) {
+    // analysis modules: create a command for each of them
+    analysisModulesMap.forEach((analysisModule, modulePath) => {
+      const callback = async <C extends Config>(conf: C, threshold?: number) => {
         loadEnvironmentVariables(modulePath)
+
+        const report = await startAnalysis(analysisModule, conf, threshold)
+
+        // notify every listener module
+        await notifyListenerModules(listenerModulesMap.values(), report)
       }
+
+      const analysisCommand = createAnalysisCommand(analysisModule, callback)
+
+      program.addCommand(analysisCommand)
+    })
+
+    // server modules: create a command for each of them
+    serverModulesMap.forEach((serverModule, modulePath: string) => {
+      const callback = (port: number, cors?: CorsOptions) => {
+        loadEnvironmentVariables(modulePath)
+        startServer(serverModule, analysisModulesMap.values(), listenerModulesMap.values(), port, cors)
+      }
+
+      const serverCommand = createServerCommand(serverModule, callback)
+
+      program.addCommand(serverCommand)
+    })
+
+    // listener modules: load and validate environment variables
+    listenerModulesMap.forEach((_, modulePath) => {
+      loadEnvironmentVariables(modulePath)
     })
 
     await program

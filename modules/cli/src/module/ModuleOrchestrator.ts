@@ -1,7 +1,6 @@
 import {
   Config,
   ModuleAnalysisInterface,
-  ModuleInterface,
   ModuleListenerInterface,
   ModuleServerInterface,
   Result,
@@ -11,10 +10,12 @@ import { CorsOptions } from "cors"
 import ora from "ora"
 
 export async function notifyListenerModules<R extends Result>(
-  listenerModules: ModuleListenerInterface[],
+  listenerModules: IterableIterator<ModuleListenerInterface>,
   report: Report<R>
 ): Promise<void[]> {
-  return Promise.all(listenerModules.map((listenerModule) => listenerModule.notifyAnalysisDone(report)))
+  const promises = Array.from(listenerModules, (listenerModule) => listenerModule.notifyAnalysisDone(report))
+
+  return Promise.all(promises)
 }
 
 export async function startAnalysis<C extends Config, R extends Result>(
@@ -67,12 +68,13 @@ export async function startAnalysis<C extends Config, R extends Result>(
 
 export function startServer(
   module: ModuleServerInterface,
-  modules: ModuleInterface[],
+  analysisModules: IterableIterator<ModuleAnalysisInterface<Config, Result>>,
+  listenerModules: IterableIterator<ModuleListenerInterface>,
   port: number,
   cors?: CorsOptions
 ): void {
   module
-    .startServer(modules, port, cors)
+    .startServer(Array.from(analysisModules), Array.from(listenerModules), port, cors)
     .on("listening", () => console.log(`Server listening on port ${port}`))
     .on("error", (error: NodeJS.ErrnoException) => {
       console.error(error.message)
