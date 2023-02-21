@@ -25,9 +25,6 @@ const ROOT_PATH = cwd()
  */
 export async function load(debug = false): Promise<Map<string, ModuleInterface>> {
   try {
-    // retrieve the paths of @fabernovel/heart-* modules, except heart-cli and heart-common.
-    // (Heart Common must not be installed as an npm package, but who knows ¯\_(ツ)_/¯)
-    // paths are guessed according to the content of the package.json
     const modulesPaths = await getPaths(debug)
 
     const modules = await loadModules(modulesPaths, debug)
@@ -79,7 +76,9 @@ export function loadEnvironmentVariables(modulePath: string): void {
 }
 
 /**
- * List the Heart modules root path, according to the modules defined in package.json that follows the given pattern.
+ * Retrieve the paths of @fabernovel/heart-* modules, except heart-cli and heart-common.
+ * (Heart Common must not be installed as an npm package, but who knows ¯\_(ツ)_/¯)
+ * paths are guessed according to the content of the package.json
  */
 async function getPaths(debug = false): Promise<string[]> {
   const pattern = new RegExp(`^${PACKAGE_PREFIX}(?!cli|common)`)

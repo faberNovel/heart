@@ -1,6 +1,6 @@
 import { Config, ModuleAnalysisInterface, Report, Result } from "@fabernovel/heart-common"
 import { jest } from "@jest/globals"
-import { App } from "../src/App.js"
+import { App } from "../src/module/ModuleOrchestrator.js"
 
 test("Displays the results of an analysis", async () => {
   const report = new Report({
