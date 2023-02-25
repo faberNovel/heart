@@ -2,13 +2,13 @@ import { Config } from "@fabernovel/heart-common"
 import { Command } from "commander"
 import { CorsOptions } from "cors"
 import { config } from "dotenv"
+import { readFileSync } from "node:fs"
 import { argv, cwd, exit } from "node:process"
-import { notifyListenerModules, startAnalysis, startServer } from "./module/ModuleOrchestrator.js"
+import { PackageJson } from "type-fest"
 import { createAnalysisCommand } from "./command/AnalysisCommand.js"
 import { createServerCommand } from "./command/ServerCommand.js"
 import { load, loadEnvironmentVariables } from "./module/ModuleLoader.js"
-import { readFileSync } from "node:fs"
-import { PackageJson } from "type-fest"
+import { notifyListenerModules, startAnalysis, startServer } from "./module/ModuleOrchestrator.js"
 
 // set environment variables from a .env file
 // assume that the root path if the one from where the script has been called

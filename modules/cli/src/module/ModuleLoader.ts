@@ -44,6 +44,8 @@ export async function load(debug = false): Promise<LoadedModules> {
     const listenerModulesMap = new Map<string, ModuleListenerInterface>()
     const serverModulesMap = new Map<string, ModuleServerInterface>()
 
+    // as modulesPaths and modules are ordered identically,
+    // we could use the index to construct the Map objects
     modulesPaths.forEach((modulePath, index) => {
       const module = modules[index]
 

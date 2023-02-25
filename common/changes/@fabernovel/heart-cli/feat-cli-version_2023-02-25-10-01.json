@@ -1,0 +1,10 @@
+{
+  "changes": [
+    {
+      "packageName": "@fabernovel/heart-cli",
+      "comment": "The version of the CLI (heart -V) now matches the module version set in package.json",
+      "type": "patch"
+    }
+  ],
+  "packageName": "@fabernovel/heart-cli"
+}
