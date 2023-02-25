@@ -1,47 +1,39 @@
-import {
-  Config,
-  isModuleAnalysis,
-  isModuleListener,
-  isModuleServer,
-  ModuleAnalysisInterface,
-  ModuleListenerInterface,
-  ModuleServerInterface,
-  Result,
-} from "@fabernovel/heart-common"
+import { Config } from "@fabernovel/heart-common"
 import { Command } from "commander"
 import { CorsOptions } from "cors"
 import { config } from "dotenv"
+import { readFileSync } from "node:fs"
 import { argv, cwd, exit } from "node:process"
-import { notifyListenerModules, startAnalysis, startServer } from "./module/ModuleOrchestrator.js"
+import { PackageJson } from "type-fest"
 import { createAnalysisCommand } from "./command/AnalysisCommand.js"
 import { createServerCommand } from "./command/ServerCommand.js"
 import { load, loadEnvironmentVariables } from "./module/ModuleLoader.js"
+import { notifyListenerModules, startAnalysis, startServer } from "./module/ModuleOrchestrator.js"
 
 // set environment variables from a .env file
 // assume that the root path if the one from where the script has been called
 // /!\ this approach does not follow symlink
 config({ path: `${cwd()}/.env` })
 
+/**
+ * Create the Commander Command object.
+ * Set the command version to match the one defined in the package.json file.
+ */
+function createCommand(): Command {
+  const cmd = new Command()
+
+  const packageJsonUrl = new URL("../package.json", import.meta.url)
+  const packageJson = JSON.parse(readFileSync(packageJsonUrl, "utf8")) as PackageJson
+
+  cmd.version(packageJson.version ?? "")
+
+  return cmd
+}
+
 void (async () => {
   try {
-    const modulesMap = await load()
-
-    const analysisModulesMap = new Map<string, ModuleAnalysisInterface<Config, Result>>()
-    const listenerModulesMap = new Map<string, ModuleListenerInterface>()
-    const serverModulesMap = new Map<string, ModuleServerInterface>()
-
-    for (const [modulePath, module] of modulesMap) {
-      if (isModuleAnalysis(module)) {
-        analysisModulesMap.set(modulePath, module)
-      } else if (isModuleListener(module)) {
-        listenerModulesMap.set(modulePath, module)
-      } else if (isModuleServer(module)) {
-        serverModulesMap.set(modulePath, module)
-      }
-    }
-
-    const program = new Command()
-    program.version("3.0.0")
+    const cmd = createCommand()
+    const [analysisModulesMap, listenerModulesMap, serverModulesMap] = await load()
 
     // analysis modules: create a command for each of them
     analysisModulesMap.forEach((analysisModule, modulePath) => {
@@ -56,7 +48,7 @@ void (async () => {
 
       const analysisCommand = createAnalysisCommand(analysisModule, callback)
 
-      program.addCommand(analysisCommand)
+      cmd.addCommand(analysisCommand)
     })
 
     // server modules: create a command for each of them
@@ -68,7 +60,7 @@ void (async () => {
 
       const serverCommand = createServerCommand(serverModule, callback)
 
-      program.addCommand(serverCommand)
+      cmd.addCommand(serverCommand)
     })
 
     // listener modules: load and validate environment variables
@@ -76,9 +68,9 @@ void (async () => {
       loadEnvironmentVariables(modulePath)
     })
 
-    await program
+    await cmd
       .on("command:*", () => {
-        program.error("Invalid command name.")
+        cmd.error("Invalid command name.")
       })
       .parseAsync(argv)
   } catch (error) {
