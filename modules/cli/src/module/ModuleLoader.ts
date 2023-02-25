@@ -1,15 +1,26 @@
 import {
+  Config,
   isModuleAnalysis,
   isModuleListener,
   isModuleServer,
+  ModuleAnalysisInterface,
   ModuleIndex,
   ModuleInterface,
+  ModuleListenerInterface,
+  ModuleServerInterface,
+  Result,
 } from "@fabernovel/heart-common"
 import dotenv from "dotenv"
 import { readFileSync } from "node:fs"
 import { cwd, env } from "node:process"
 import { PackageJson } from "type-fest"
 import { MissingEnvironmentVariables } from "../error/MissingEnvironmentVariables.js"
+
+type LoadedModules = [
+  Map<string, ModuleAnalysisInterface<Config, Result>>,
+  Map<string, ModuleListenerInterface>,
+  Map<string, ModuleServerInterface>
+]
 
 // file that contains the list of required environment variables
 const PACKAGE_PREFIX = "@fabernovel/heart-"
@@ -23,14 +34,29 @@ const ROOT_PATH = cwd()
  * 1. get the absolute paths of the installed Heart modules
  * 2. loads the modules
  */
-export async function load(debug = false): Promise<Map<string, ModuleInterface>> {
+export async function load(debug = false): Promise<LoadedModules> {
   try {
     const modulesPaths = await getPaths(debug)
 
     const modules = await loadModules(modulesPaths, debug)
 
-    // as modulesPaths and modules are ordered identically, we could use the index to construct the Map()
-    return new Map(modulesPaths.map((modulePath, i) => [modulePath, modules[i]]))
+    const analysisModulesMap = new Map<string, ModuleAnalysisInterface<Config, Result>>()
+    const listenerModulesMap = new Map<string, ModuleListenerInterface>()
+    const serverModulesMap = new Map<string, ModuleServerInterface>()
+
+    modulesPaths.forEach((modulePath, index) => {
+      const module = modules[index]
+
+      if (isModuleAnalysis(module)) {
+        analysisModulesMap.set(modulePath, module)
+      } else if (isModuleListener(module)) {
+        listenerModulesMap.set(modulePath, module)
+      } else if (isModuleServer(module)) {
+        serverModulesMap.set(modulePath, module)
+      }
+    })
+
+    return [analysisModulesMap, listenerModulesMap, serverModulesMap]
   } catch (error) {
     return Promise.reject(error)
   }

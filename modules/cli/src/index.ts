@@ -1,13 +1,4 @@
-import {
-  Config,
-  isModuleAnalysis,
-  isModuleListener,
-  isModuleServer,
-  ModuleAnalysisInterface,
-  ModuleListenerInterface,
-  ModuleServerInterface,
-  Result,
-} from "@fabernovel/heart-common"
+import { Config } from "@fabernovel/heart-common"
 import { Command } from "commander"
 import { CorsOptions } from "cors"
 import { config } from "dotenv"
@@ -24,21 +15,7 @@ config({ path: `${cwd()}/.env` })
 
 void (async () => {
   try {
-    const modulesMap = await load()
-
-    const analysisModulesMap = new Map<string, ModuleAnalysisInterface<Config, Result>>()
-    const listenerModulesMap = new Map<string, ModuleListenerInterface>()
-    const serverModulesMap = new Map<string, ModuleServerInterface>()
-
-    for (const [modulePath, module] of modulesMap) {
-      if (isModuleAnalysis(module)) {
-        analysisModulesMap.set(modulePath, module)
-      } else if (isModuleListener(module)) {
-        listenerModulesMap.set(modulePath, module)
-      } else if (isModuleServer(module)) {
-        serverModulesMap.set(modulePath, module)
-      }
-    }
+    const [analysisModulesMap, listenerModulesMap, serverModulesMap] = await load()
 
     const program = new Command()
     program.version("3.0.0")
