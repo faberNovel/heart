@@ -34,8 +34,8 @@
   },
   "dependencies": {
     "@fabernovel/heart-common": "workspace:^4.0.0-alpha.1",
-    "chrome-launcher": "^0.15.1",
-    "lighthouse": "^10.0.0"
+    "lighthouse": "^10.0.0",
+    "puppeteer": "^19.6.3"
   },
   "devDependencies": {
     "@jest/globals": "^29.4.2",
