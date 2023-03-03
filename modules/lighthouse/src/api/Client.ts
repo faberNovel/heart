@@ -28,5 +28,5 @@ export async function requestResult(conf: LighthouseConfig): Promise<LighthouseR
 
   await browser.close()
 
-  return { ...runnerResult.lhr } // weird hacky thing
+  return { ...runnerResult.lhr } // hacky thing to fix weird typing error
 }
