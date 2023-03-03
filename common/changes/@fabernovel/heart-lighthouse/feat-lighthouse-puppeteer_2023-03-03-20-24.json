@@ -1,0 +1,10 @@
+{
+  "changes": [
+    {
+      "packageName": "@fabernovel/heart-lighthouse",
+      "comment": "The module embed the Google Chrome browser",
+      "type": "minor"
+    }
+  ],
+  "packageName": "@fabernovel/heart-lighthouse"
+}
