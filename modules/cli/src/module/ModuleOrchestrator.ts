@@ -12,7 +12,7 @@ import ora from "ora"
 export async function notifyListenerModules<R extends Result>(
   listenerModules: IterableIterator<ModuleListenerInterface>,
   report: Report<R>
-): Promise<void[]> {
+): Promise<unknown[]> {
   const promises = Array.from(listenerModules, (listenerModule) => listenerModule.notifyAnalysisDone(report))
 
   return Promise.all(promises)
@@ -31,7 +31,7 @@ export async function startAnalysis<C extends Config, R extends Result>(
     const report = await module.startAnalysis(conf, threshold)
 
     const reportName = report.service ? `[${report.service.name}] ` : ""
-    const messageParts = [`${reportName}${report.analyzedUrl}: ${report.note}`]
+    const messageParts = [`${reportName}${report.analyzedUrl}: ${report.note} (${report.normalizedNote}/100)`]
 
     if (report.resultUrl) {
       messageParts.push(`View full report: ${report.resultUrl}`)

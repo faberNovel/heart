@@ -12,11 +12,11 @@ export class BigQueryModule extends Module implements ModuleListenerInterface {
     this.bigqueryClient = new BigQueryClient()
   }
 
-  public async notifyAnalysisDone<R extends Result>(report: Report<R>): Promise<void> {
+  public async notifyAnalysisDone<R extends Result>(report: Report<R>): Promise<unknown> {
     try {
       const table = await this.bigqueryClient.table
 
-      await table.insert(new RowReport(report))
+      return table.insert(new RowReport(report))
     } catch (error) {
       if (error instanceof PartialFailureError) {
         error.errors?.forEach((error) => {
@@ -25,6 +25,8 @@ export class BigQueryModule extends Module implements ModuleListenerInterface {
       } else {
         console.error(error)
       }
+
+      return Promise.reject()
     }
   }
 }

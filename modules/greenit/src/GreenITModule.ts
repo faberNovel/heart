@@ -1,5 +1,7 @@
 import type { GreenITConfig, GreenITResult } from "@fabernovel/heart-common"
 import { Module, ModuleAnalysisInterface, ModuleInterface, Report } from "@fabernovel/heart-common"
+import { writeFileSync } from "node:fs"
+import { cwd } from "node:process"
 import { requestResult } from "./api/Client.js"
 
 export class GreenITModule extends Module implements ModuleAnalysisInterface<GreenITConfig, GreenITResult> {
@@ -21,11 +23,14 @@ export class GreenITModule extends Module implements ModuleAnalysisInterface<Gre
     const [date, time] = result.date.split(" ")
     const [day, month, year] = date.split("/")
 
+    writeFileSync(cwd() + "/result.json", JSON.stringify(result))
+
     return new Report({
       analyzedUrl: result.url,
       date: new Date(`${year}-${month}-${day}T${time}`),
       result: result,
-      note: result.ecoIndex.toString(),
+      note: result.grade,
+      normalizedNote: result.ecoIndex,
       service: this.service,
       threshold: this.threshold,
     })
