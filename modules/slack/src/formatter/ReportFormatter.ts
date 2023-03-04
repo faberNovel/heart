@@ -1,14 +1,89 @@
-import { GreenITResult, Report, Result } from "@fabernovel/heart-common"
+import { GreenITResult, LighthouseResult, Report, Result } from "@fabernovel/heart-common"
 import { Block, KnownBlock } from "@slack/web-api"
-import { formatGreenITReport } from "./GreenITReportFormatter.js"
+import { formatGreenITStatistics } from "./GreenITStatisticsFormatter.js"
+import { formatLighthouseStatistics } from "./LighthouseStatisticsFormatter.js"
 
-export const formatBlock = (report: Report<Result>): Array<KnownBlock | Block> => {
+export const formatBlocks = (report: Report<Result>): Array<KnownBlock | Block> => {
+  const blocks: Array<KnownBlock | Block> = [
+    {
+      type: "header",
+      text: {
+        type: "plain_text",
+        text: report.analyzedUrl,
+      },
+    },
+    {
+      type: "divider",
+    },
+    {
+      type: "section",
+      accessory: {
+        type: "image",
+        image_url: report.service.logo ?? "",
+        alt_text: report.service.name,
+      },
+      fields: [
+        {
+          type: "mrkdwn",
+          text: "*Note*",
+        },
+        {
+          type: "plain_text",
+          text: `${report.note} (${report.normalizedNote}/100)`,
+        },
+        {
+          type: "mrkdwn",
+          text: "*Threshold*",
+        },
+        {
+          type: "mrkdwn",
+          text: report.isThresholdReached() === true ? ":white_check_mark: Reached" : ":warning: Not reached",
+        },
+      ],
+    },
+  ]
+
   switch (report.service.name) {
     case "GreenIT Analysis":
-      return formatGreenITReport(report as unknown as Report<GreenITResult>)
+      blocks.push(
+        {
+          type: "header",
+          text: {
+            type: "plain_text",
+            text: "Statistics",
+          },
+        },
+        {
+          type: "divider",
+        },
+        {
+          type: "section",
+          fields: formatGreenITStatistics(report as unknown as Report<GreenITResult>),
+        }
+      )
+      break
+    case "Google Lighthouse":
+      blocks.push(
+        {
+          type: "header",
+          text: {
+            type: "plain_text",
+            text: "Statistics",
+          },
+        },
+        {
+          type: "divider",
+        },
+        {
+          type: "section",
+          fields: formatLighthouseStatistics(report as unknown as Report<LighthouseResult>),
+        }
+      )
+      break
     default:
-      return []
   }
+
+  return blocks
 }
 
 export const formatText = (report: Report<Result>): string => {
