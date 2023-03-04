@@ -1,0 +1,10 @@
+{
+  "changes": [
+    {
+      "packageName": "@fabernovel/heart-slack",
+      "comment": "Add the main numbers send back by the GreenIT module",
+      "type": "minor"
+    }
+  ],
+  "packageName": "@fabernovel/heart-slack"
+}
