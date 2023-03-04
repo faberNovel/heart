@@ -1,6 +1,7 @@
 import { Module, ModuleInterface, ModuleListenerInterface, Report, Result } from "@fabernovel/heart-common"
 import { Client } from "./api/Client.js"
-import { formatBlocks, formatText } from "./formatter/ReportFormatter.js"
+import { formatBlocks } from "./formatter/BlocksFormatter.js"
+import { formatText } from "./formatter/TextFormatter.js"
 
 export class SlackModule extends Module implements ModuleListenerInterface {
   private slackClient: Client

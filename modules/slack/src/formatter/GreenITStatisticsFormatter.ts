@@ -29,7 +29,7 @@ export const formatGreenITStatistics = (
       text: "*Network requests*",
     },
     {
-      type: "mrkdwn",
+      type: "plain_text",
       text: report.result.nbRequest.toString(),
     },
   ]

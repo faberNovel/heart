@@ -6,8 +6,6 @@ import {
   ModuleInterface,
   Report,
 } from "@fabernovel/heart-common"
-import { writeFileSync } from "fs"
-import { cwd } from "process"
 import { requestResult } from "./api/Client.js"
 import { compute } from "./scoring/compute.js"
 
@@ -31,8 +29,6 @@ export class LighthouseModule
 
   private handleResult(result: LighthouseResult): Report<LighthouseResult> {
     const score = compute(result.categories, 1)
-
-    writeFileSync(cwd() + "/lighthouse.json", JSON.stringify(result))
 
     return new Report({
       analyzedUrl: result.requestedUrl as string,
