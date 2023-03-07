@@ -1,10 +1,8 @@
 import { GreenITResult, LighthouseResult, ObservatoryResult, Report, Result } from "@fabernovel/heart-common"
-import { Block, KnownBlock, MrkdwnElement, PlainTextElement } from "@slack/web-api"
-import { formatGreenITStatistics } from "./GreenITStatisticsFormatter.js"
-import { formatLighthouseStatistics } from "./LighthouseStatisticsFormatter.js"
-import { formatObservatoryStatistics } from "./ObservatoryStatisticsFormatter.js"
-
-const ITEMS_PER_BLOCK = 10
+import { Block, DividerBlock, KnownBlock, MrkdwnElement, SectionBlock } from "@slack/web-api"
+import { formatGreenITBlocks } from "./GreenITStatisticsFormatter.js"
+import { formatLighthouseBlocks } from "./LighthouseStatisticsFormatter.js"
+import { formatObservatoryBlocks } from "./ObservatoryStatisticsFormatter.js"
 
 const isReportSupportedForStatistics = (
   report: Report<Result>
@@ -14,30 +12,15 @@ const isReportSupportedForStatistics = (
   return supportedServiceNames.indexOf(report.service.name) !== -1
 }
 
-const createHeaderBlocks = (report: Report<Result>) => {
-  const fields = new Array<PlainTextElement | MrkdwnElement>(
-    {
-      type: "mrkdwn",
-      text: "*Note*",
-    },
-    {
-      type: "plain_text",
-      text: `${report.note} (${report.normalizedNote}/100)`,
-    }
-  )
-
-  if (report.isThresholdReached() !== undefined) {
-    fields.push(
-      {
-        type: "mrkdwn",
-        text: "*Threshold*",
-      },
-      {
-        type: "mrkdwn",
-        text: report.isThresholdReached() === true ? ":white_check_mark: Reached" : ":warning: Not reached",
-      }
-    )
-  }
+const createBlocks = (
+  report: Report<Result>,
+  metricsBlocks: MrkdwnElement[] = [],
+  advicesBlocks: Array<DividerBlock | SectionBlock> = []
+) => {
+  metricsBlocks.unshift({
+    type: "mrkdwn",
+    text: `*Overall*: ${report.note} (${report.normalizedNote}/100)`,
+  })
 
   const blocks: Array<KnownBlock | Block> = [
     {
@@ -57,76 +40,77 @@ const createHeaderBlocks = (report: Report<Result>) => {
         image_url: report.service.logo ?? "",
         alt_text: report.service.name,
       },
-      fields: fields,
+      fields: metricsBlocks,
     },
   ]
 
-  if (report.resultUrl !== undefined) {
+  if (report.isThresholdReached() !== undefined) {
     blocks.push({
-      type: "actions",
+      type: "context",
       elements: [
         {
-          type: "button",
-          text: {
-            type: "plain_text",
-            text: "View results",
-          },
-          url: report.resultUrl,
+          type: "mrkdwn",
+          text: report.isThresholdReached()
+            ? `:white_check_mark: Threshold (${report.threshold as number}) reached`
+            : `:warning: Threshold (${report.threshold as number}) not reached`,
         },
       ],
     })
   }
 
-  return blocks
-}
-
-const createStatisticsBlocks = (report: Report<Result>) => {
-  const statistics = new Array<KnownBlock | Block>(
-    {
-      type: "header",
-      text: {
-        type: "plain_text",
-        text: "Statistics & advices",
+  if (advicesBlocks.length > 0) {
+    advicesBlocks.unshift(
+      {
+        type: "divider",
       },
-    },
-    {
-      type: "divider",
-    }
-  )
+      {
+        type: "section",
+        text: {
+          type: "mrkdwn",
+          text: "*Advices*",
+        },
+      }
+    )
 
-  let fields = new Array<PlainTextElement | MrkdwnElement>()
-
-  if (report.service.name === "Google Lighthouse") {
-    fields = formatLighthouseStatistics(report as unknown as Report<LighthouseResult>)
-  } else if (report.service.name === "GreenIT Analysis") {
-    fields = formatGreenITStatistics(report as unknown as Report<GreenITResult>)
-  } else if (report.service.name === "Mozilla Observatory") {
-    fields = formatObservatoryStatistics(report as unknown as Report<ObservatoryResult>)
+    blocks.push(...advicesBlocks)
   }
 
-  for (let i = 0; i < Math.ceil(fields.length / ITEMS_PER_BLOCK); i++) {
-    const start = i * ITEMS_PER_BLOCK
-    const end = start + ITEMS_PER_BLOCK
+  // if (report.resultUrl !== undefined) {
+  //   blocks.push({
+  //     type: "actions",
+  //     elements: [
+  //       {
+  //         type: "button",
+  //         text: {
+  //           type: "plain_text",
+  //           text: "View results",
+  //         },
+  //         url: report.resultUrl,
+  //       },
+  //     ],
+  //   })
+  // }
 
-    const slice = fields.slice(start, end)
-
-    statistics.push({
-      type: "section",
-      fields: slice,
-    })
-  }
-
-  return statistics
+  return blocks
 }
 
 export const formatBlocks = (report: Report<Result>): Array<KnownBlock | Block> => {
-  const blocks = createHeaderBlocks(report)
-
   if (isReportSupportedForStatistics(report)) {
-    const statisticsBlocks = createStatisticsBlocks(report)
+    let metricsBlocks = new Array<MrkdwnElement>()
+    let advicesBlocks = new Array<SectionBlock>()
 
-    blocks.push(...statisticsBlocks)
+    if (report.service.name === "Google Lighthouse") {
+      ;[metricsBlocks, advicesBlocks] = formatLighthouseBlocks(report as unknown as Report<LighthouseResult>)
+    } else if (report.service.name === "GreenIT Analysis") {
+      ;[metricsBlocks, advicesBlocks] = formatGreenITBlocks(report as unknown as Report<GreenITResult>)
+    } else if (report.service.name === "Mozilla Observatory") {
+      ;[metricsBlocks, advicesBlocks] = formatObservatoryBlocks(
+        report as unknown as Report<ObservatoryResult>
+      )
+    }
+
+    return createBlocks(report, metricsBlocks, advicesBlocks)
+  } else {
+    return createBlocks(report)
   }
-
-  return blocks
 }

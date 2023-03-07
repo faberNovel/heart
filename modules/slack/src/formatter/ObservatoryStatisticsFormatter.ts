@@ -1,25 +1,16 @@
 import { ObservatoryResult, Report } from "@fabernovel/heart-common"
-import { MrkdwnElement, PlainTextElement } from "@slack/web-api"
+import { MrkdwnElement, SectionBlock } from "@slack/web-api"
 
-export const formatObservatoryStatistics = (
+export const formatObservatoryBlocks = (
   report: Report<ObservatoryResult>
-): Array<PlainTextElement | MrkdwnElement> => {
-  const fields = new Array<PlainTextElement | MrkdwnElement>()
+): [MrkdwnElement[], SectionBlock[]] => {
+  const advicesBlocks: SectionBlock[] = Object.values(report.result).map((category) => ({
+    type: "section",
+    text: {
+      type: "plain_text",
+      text: (category.pass ? ":white_check_mark:" : ":x:") + " " + category.score_description,
+    },
+  }))
 
-  for (const categoryId in report.result) {
-    const category = report.result[categoryId]
-
-    fields.push(
-      {
-        type: "mrkdwn",
-        text: `*${category.name}*`,
-      },
-      {
-        type: "mrkdwn",
-        text: (category.pass ? ":white_check_mark:" : ":x:") + " " + category.score_description,
-      }
-    )
-  }
-
-  return fields
+  return [[], advicesBlocks]
 }

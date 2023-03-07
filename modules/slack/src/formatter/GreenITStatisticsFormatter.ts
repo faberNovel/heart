@@ -1,36 +1,25 @@
 import { GreenITResult, Report } from "@fabernovel/heart-common"
-import { MrkdwnElement, PlainTextElement } from "@slack/web-api"
+import { MrkdwnElement, SectionBlock } from "@slack/web-api"
 
 /**
  * Formatting layout is inspired by https://www.ecoindex.fr/
+ * @returns An array with the metrics and advices blocks (in that order)
  */
-export const formatGreenITStatistics = (
-  report: Report<GreenITResult>
-): Array<PlainTextElement | MrkdwnElement> => {
-  return [
+export const formatGreenITBlocks = (report: Report<GreenITResult>): [MrkdwnElement[], SectionBlock[]] => {
+  const metricsBlocks: MrkdwnElement[] = [
     {
       type: "mrkdwn",
-      text: "*Page weight*",
-    },
-    {
-      type: "plain_text",
-      text: `${(report.result.responsesSize / 1000000).toFixed(2)} Mo`,
+      text: `*Page weight*: ${(report.result.responsesSize / 1000000).toFixed(2)} Mo`,
     },
     {
       type: "mrkdwn",
-      text: "*Page complexity (DOM elements)*",
-    },
-    {
-      type: "plain_text",
-      text: report.result.domSize.toString(),
+      text: `*DOM elements*: ${report.result.domSize}`,
     },
     {
       type: "mrkdwn",
-      text: "*Network requests*",
-    },
-    {
-      type: "plain_text",
-      text: report.result.nbRequest.toString(),
+      text: `*Network requests*: ${report.result.nbRequest}`,
     },
   ]
+
+  return [metricsBlocks, []]
 }
