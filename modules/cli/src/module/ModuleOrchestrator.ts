@@ -31,7 +31,7 @@ export async function startAnalysis<C extends Config, R extends Result>(
     const report = await module.startAnalysis(conf, threshold)
 
     const reportName = report.service ? `[${report.service.name}] ` : ""
-    const messageParts = [`${reportName}${report.analyzedUrl}: ${report.note} (${report.normalizedNote}/100)`]
+    const messageParts = [`${reportName}${report.analyzedUrl}: ${report.displayNote()}`]
 
     if (report.resultUrl) {
       messageParts.push(`View full report: ${report.resultUrl}`)

@@ -44,5 +44,7 @@ export interface ReportInterface<R extends Result> {
    */
   threshold?: number
 
+  displayNote(): string
+
   isThresholdReached(): boolean | undefined
 }
