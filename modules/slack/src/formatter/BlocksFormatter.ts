@@ -1,5 +1,14 @@
 import { GreenITResult, LighthouseResult, ObservatoryResult, Report, Result } from "@fabernovel/heart-common"
-import { Block, DividerBlock, KnownBlock, MrkdwnElement, SectionBlock } from "@slack/web-api"
+import {
+  Block,
+  DividerBlock,
+  HeaderBlock,
+  ImageElement,
+  KnownBlock,
+  MrkdwnElement,
+  PlainTextElement,
+  SectionBlock,
+} from "@slack/web-api"
 import { formatGreenITBlocks } from "./GreenITStatisticsFormatter.js"
 import { formatLighthouseBlocks } from "./LighthouseStatisticsFormatter.js"
 import { formatObservatoryBlocks } from "./ObservatoryStatisticsFormatter.js"
@@ -15,7 +24,7 @@ const isReportSupportedForStatistics = (
 const createBlocks = (
   report: Report<Result>,
   metricsBlocks: MrkdwnElement[] = [],
-  advicesBlocks: Array<DividerBlock | SectionBlock> = []
+  advicesBlocks: Array<DividerBlock | HeaderBlock | SectionBlock> = []
 ) => {
   metricsBlocks.unshift({
     type: "mrkdwn",
@@ -44,52 +53,47 @@ const createBlocks = (
     },
   ]
 
-  if (report.isThresholdReached() !== undefined) {
+  if (report.resultUrl !== undefined || report.isThresholdReached() !== undefined) {
+    const elements = new Array<ImageElement | PlainTextElement | MrkdwnElement>()
+
+    if (report.isThresholdReached() !== undefined) {
+      elements.push({
+        type: "mrkdwn",
+        text: report.isThresholdReached()
+          ? `:white_check_mark: Threshold (${report.threshold as number}) reached`
+          : `:warning: Threshold (${report.threshold as number}) not reached`,
+      })
+    }
+
+    if (report.resultUrl !== undefined) {
+      elements.push({
+        type: "mrkdwn",
+        text: `<${report.resultUrl}|View full report>`,
+      })
+    }
+
     blocks.push({
       type: "context",
-      elements: [
-        {
-          type: "mrkdwn",
-          text: report.isThresholdReached()
-            ? `:white_check_mark: Threshold (${report.threshold as number}) reached`
-            : `:warning: Threshold (${report.threshold as number}) not reached`,
-        },
-      ],
+      elements: elements,
     })
   }
 
   if (advicesBlocks.length > 0) {
     advicesBlocks.unshift(
       {
-        type: "divider",
+        type: "header",
+        text: {
+          type: "plain_text",
+          text: "Advices",
+        },
       },
       {
-        type: "section",
-        text: {
-          type: "mrkdwn",
-          text: "*Advices*",
-        },
+        type: "divider",
       }
     )
 
     blocks.push(...advicesBlocks)
   }
-
-  // if (report.resultUrl !== undefined) {
-  //   blocks.push({
-  //     type: "actions",
-  //     elements: [
-  //       {
-  //         type: "button",
-  //         text: {
-  //           type: "plain_text",
-  //           text: "View results",
-  //         },
-  //         url: report.resultUrl,
-  //       },
-  //     ],
-  //   })
-  // }
 
   return blocks
 }
