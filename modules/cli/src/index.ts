@@ -2,7 +2,7 @@ import { Config } from "@fabernovel/heart-common"
 import { Command } from "commander"
 import { CorsOptions } from "cors"
 import { config } from "dotenv"
-import { readFileSync, writeFileSync } from "node:fs"
+import { readFileSync } from "node:fs"
 import { argv, cwd, exit } from "node:process"
 import { PackageJson } from "type-fest"
 import { createAnalysisCommand } from "./command/AnalysisCommand.js"
@@ -41,8 +41,6 @@ void (async () => {
         loadEnvironmentVariables(modulePath)
 
         const report = await startAnalysis(analysisModule, conf, threshold)
-
-        writeFileSync(cwd() + `/${report.service.name}.json`, JSON.stringify(report.result))
 
         // notify every listener module
         await notifyListenerModules(listenerModulesMap.values(), report)
