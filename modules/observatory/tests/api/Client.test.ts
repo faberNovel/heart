@@ -4,18 +4,18 @@ import { jest } from "@jest/globals"
 const ANALYZE_URL = "www.observatory.mozilla/results"
 const API_URL = "www.observatory.mozilla/api"
 const RESULT: ObservatoryResult = {
-  end_time: "",
-  grade: "B",
-  hidden: true,
-  response_headers: {},
-  scan_id: 1,
-  score: 95,
-  likelihood_indicator: "",
-  start_time: "",
-  state: "FINISHED",
-  tests_failed: 3,
-  tests_passed: 4,
-  tests_quantity: 12,
+  "content-security-policy": {
+    expectation: "csp-implemented-with-no-unsafe",
+    name: "content-security-policy",
+    output: {
+      data: {},
+    },
+    pass: false,
+    result: "csp-implemented-with-unsafe-inline-in-style-src-only",
+    score_description:
+      "Content Security Policy (CSP) implemented with unsafe-inline inside style-src directive",
+    score_modifier: -5,
+  },
 }
 
 jest.unstable_mockModule("@fabernovel/heart-common", () => ({
@@ -36,10 +36,9 @@ describe("Client", () => {
 
     const client = new Client()
 
-    const scan = await client.launchAnalysis(CONF)
+    const scan = await client.triggerAnalysis(CONF)
 
     expect(scan).toStrictEqual(RESULT)
-    expect(client.getProjectHost()).toBe(CONF.host)
     expect(client.getAnalyzeUrl()).toBe(ANALYZE_URL + CONF.host)
   })
 
@@ -49,7 +48,7 @@ describe("Client", () => {
     const client = new Client()
 
     try {
-      await client.launchAnalysis(CONF)
+      await client.triggerAnalysis(CONF)
     } catch (e) {
       expect(e).toHaveProperty("error")
     }

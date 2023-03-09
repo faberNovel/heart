@@ -13,7 +13,7 @@ export const formatLighthouseBlocks = (
     "cumulative-layout-shift",
   ].map((auditKey) => ({
     type: "mrkdwn",
-    text: `*${report.result.audits[auditKey].title}*: ${report.result.audits[auditKey].displayValue}`,
+    text: `*${report.result.audits[auditKey].title}*: ${report.result.audits[auditKey].displayValue ?? ""}`,
   }))
 
   const audits = Object.values(report.result.audits)
