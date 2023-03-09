@@ -13,6 +13,9 @@ import { formatGreenITBlocks } from "./GreenITStatisticsFormatter.js"
 import { formatLighthouseBlocks } from "./LighthouseStatisticsFormatter.js"
 import { formatObservatoryBlocks } from "./ObservatoryStatisticsFormatter.js"
 
+// maximum number of characters in a text block
+export const MAX_TEXT_BLOCK_LENGTH = 3000
+
 const isReportSupportedForStatistics = (
   report: Report<Result>
 ): report is Report<LighthouseResult> | Report<GreenITResult> | Report<ObservatoryResult> => {
