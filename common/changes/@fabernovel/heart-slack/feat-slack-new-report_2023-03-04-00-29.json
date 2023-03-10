@@ -2,8 +2,8 @@
   "changes": [
     {
       "packageName": "@fabernovel/heart-slack",
-      "comment": "Add the main numbers send back by the GreenIT module",
-      "type": "minor"
+      "comment": "Add the main numbers and some advices send back by the analysis modules",
+      "type": "major"
     }
   ],
   "packageName": "@fabernovel/heart-slack"
