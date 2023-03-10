@@ -103,20 +103,21 @@ const createBlocks = (
 
 export const formatBlocks = (report: Report<Result>): Array<KnownBlock | Block> => {
   if (isReportSupportedForStatistics(report)) {
-    let metricsBlocks = new Array<MrkdwnElement>()
-    let advicesBlocks = new Array<SectionBlock>()
-
     if (report.service.name === "Google Lighthouse") {
-      ;[metricsBlocks, advicesBlocks] = formatLighthouseBlocks(report as unknown as Report<LighthouseResult>)
+      const [metricsBlocks, advicesBlocks] = formatLighthouseBlocks(
+        report as unknown as Report<LighthouseResult>
+      )
+      return createBlocks(report, metricsBlocks, advicesBlocks)
     } else if (report.service.name === "GreenIT Analysis") {
-      ;[metricsBlocks, advicesBlocks] = formatGreenITBlocks(report as unknown as Report<GreenITResult>)
-    } else if (report.service.name === "Mozilla Observatory") {
-      ;[metricsBlocks, advicesBlocks] = formatObservatoryBlocks(
+      const [metricsBlocks, advicesBlocks] = formatGreenITBlocks(report as unknown as Report<GreenITResult>)
+      return createBlocks(report, metricsBlocks, advicesBlocks)
+    } else {
+      // Mozilla Observatory
+      const [metricsBlocks, advicesBlocks] = formatObservatoryBlocks(
         report as unknown as Report<ObservatoryResult>
       )
+      return createBlocks(report, metricsBlocks, advicesBlocks)
     }
-
-    return createBlocks(report, metricsBlocks, advicesBlocks)
   } else {
     return createBlocks(report)
   }
