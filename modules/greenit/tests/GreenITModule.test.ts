@@ -36,7 +36,8 @@ describe("Run GreenIT analysis", () => {
 
     expect(analysisReport).toHaveProperty("analyzedUrl", SuccessResult.url)
     expect(analysisReport).toHaveProperty("date", new Date(`${year}-${month}-${day}T${time}`))
-    expect(analysisReport).toHaveProperty("note", SuccessResult.ecoIndex.toString())
+    expect(analysisReport).toHaveProperty("note", SuccessResult.grade)
+    expect(analysisReport).toHaveProperty("normalizedNote", SuccessResult.ecoIndex)
     expect(analysisReport).toHaveProperty("service", moduleConfig.service)
     expect(analysisReport).toHaveProperty("threshold", undefined)
   })
@@ -95,7 +96,8 @@ describe("Run GreenIT analysis", () => {
 
     expect(analysisReport).toHaveProperty("analyzedUrl", SuccessResult.url)
     expect(analysisReport).toHaveProperty("date", now)
-    expect(analysisReport).toHaveProperty("note", SuccessResult.ecoIndex.toString())
+    expect(analysisReport).toHaveProperty("note", SuccessResult.grade)
+    expect(analysisReport).toHaveProperty("normalizedNote", SuccessResult.ecoIndex)
     expect(analysisReport).toHaveProperty("service", moduleConfig.service)
     expect(analysisReport).toHaveProperty("threshold", THRESHOLD)
   })
@@ -127,7 +129,8 @@ describe("Run GreenIT analysis", () => {
 
     expect(analysisReport).toHaveProperty("analyzedUrl", SuccessResult.url)
     expect(analysisReport).toHaveProperty("date", now)
-    expect(analysisReport).toHaveProperty("note", SuccessResult.ecoIndex.toString())
+    expect(analysisReport).toHaveProperty("note", SuccessResult.grade)
+    expect(analysisReport).toHaveProperty("normalizedNote", SuccessResult.ecoIndex)
     expect(analysisReport).toHaveProperty("service", moduleConfig.service)
     expect(analysisReport).toHaveProperty("threshold", THRESHOLD)
     expect(analysisReport.isThresholdReached()).toStrictEqual(false)

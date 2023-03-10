@@ -25,7 +25,8 @@ export class GreenITModule extends Module implements ModuleAnalysisInterface<Gre
       analyzedUrl: result.url,
       date: new Date(`${year}-${month}-${day}T${time}`),
       result: result,
-      note: result.ecoIndex.toString(),
+      note: result.grade,
+      normalizedNote: result.ecoIndex,
       service: this.service,
       threshold: this.threshold,
     })

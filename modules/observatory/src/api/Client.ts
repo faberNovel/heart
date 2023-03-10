@@ -1,17 +1,34 @@
-import { Request, ObservatoryConfig, ObservatoryResult } from "@fabernovel/heart-common"
+import { ObservatoryConfig, ObservatoryResult, Request } from "@fabernovel/heart-common"
+import { env } from "node:process"
 import { Error, isError } from "./Error.js"
+import { Scan } from "./model/Scan.js"
 
 export class Client {
-  private analyzeUrl: string
-  private apiUrl: string
+  private analyzeUrl?: string
+  private apiUrl?: string
   private host = ""
 
-  constructor() {
-    this.analyzeUrl = process.env.OBSERVATORY_ANALYZE_URL as string
-    this.apiUrl = process.env.OBSERVATORY_API_URL as string
+  public getAnalyzeUrl(): string {
+    return (this.analyzeUrl ?? "") + this.host
   }
 
-  public async launchAnalysis(conf: ObservatoryConfig): Promise<ObservatoryResult> {
+  /**
+   * Get the summary of the analysis
+   */
+  public async requestScan(): Promise<Scan> {
+    return Request.get(`${this.apiUrl ?? ""}analyze?host=${this.host}`)
+  }
+
+  /**
+   * Get detailed results about the tests run
+   */
+  public async requestTests(scan: Scan): Promise<ObservatoryResult> {
+    return Request.get(`${this.apiUrl ?? ""}getScanResults?scan=${scan.scan_id}`)
+  }
+
+  public async triggerAnalysis(conf: ObservatoryConfig): Promise<Scan> {
+    this.analyzeUrl = env.OBSERVATORY_ANALYZE_URL
+    this.apiUrl = env.OBSERVATORY_API_URL
     this.host = conf.host
 
     if (undefined === this.host) {
@@ -21,7 +38,7 @@ export class Client {
       })
     }
 
-    const scan = await Request.post<ObservatoryResult | Error>(this.generateApiUrl("analyze"), conf, {
+    const scan = await Request.post<Scan | Error>(`${this.apiUrl ?? ""}analyze?host=${this.host}`, conf, {
       [Request.HEADER_CONTENT_TYPE]: Request.HEADER_CONTENT_TYPE_X_WWW_FORM_URLENCODED,
     })
 
@@ -41,21 +58,5 @@ export class Client {
     }
 
     return scan
-  }
-
-  public getProjectHost(): string {
-    return this.host
-  }
-
-  public getAnalyzeUrl(): string {
-    return this.analyzeUrl + this.getProjectHost()
-  }
-
-  public async getResult(): Promise<ObservatoryResult> {
-    return Request.get(this.generateApiUrl("analyze"))
-  }
-
-  private generateApiUrl(path: string): string {
-    return `${this.apiUrl}${path}?host=${this.getProjectHost()}`
   }
 }

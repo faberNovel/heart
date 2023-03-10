@@ -44,13 +44,13 @@ export type GreenITResult = Result & {
       comment: string
     }
     DontResizeImageInBrowser: {
-      imgAnalysed: unknown
+      imgAnalysed: object
       detailComment: string
       imagesResizedInBrowserNumber: number
       complianceLevel: string
       comment: string
     }
-    EmptySrcTag: unknown
+    EmptySrcTag: object
     ExternalizeCss: { complianceLevel: string; comment: string }
     ExternalizeJs: { complianceLevel: string; comment: string }
     HttpError: { comment: string }
@@ -59,7 +59,7 @@ export type GreenITResult = Result & {
       comment: string
     }
     ImageDownloadedNotDisplayed: {
-      imgAnalysed: unknown
+      imgAnalysed: object
       comment: string
     }
     JsValidate: {
@@ -69,21 +69,21 @@ export type GreenITResult = Result & {
       complianceLevel: string
       comment: string
     }
-    MaxCookiesLength: unknown
-    MinifiedCss: unknown
+    MaxCookiesLength: object
+    MinifiedCss: object
     MinifiedJs: {
       totalJsSize: number
       minifiedJsSize: number
       complianceLevel: string
       comment: string
     }
-    NoCookieForStaticRessources: unknown
+    NoCookieForStaticRessources: object
     NoRedirect: { comment: string }
-    OptimizeBitmapImages: unknown
-    OptimizeSvg: unknown
-    Plugins: unknown
+    OptimizeBitmapImages: object
+    OptimizeSvg: object
+    Plugins: object
     PrintStyleSheet: { complianceLevel: string; comment: string }
-    SocialNetworkButton: unknown
+    SocialNetworkButton: object
     StyleSheets: {
       detailComment: string
     }

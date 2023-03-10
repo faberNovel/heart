@@ -35,6 +35,12 @@ export class Report<R extends Result> implements ReportInterface<R> {
     this.threshold = report.threshold
   }
 
+  displayNote(): string {
+    return this.normalizedNote.toString() === this.note
+      ? `${this.note}/100`
+      : `${this.note} (${this.normalizedNote}/100)`
+  }
+
   isThresholdReached(): boolean | undefined {
     return this.threshold ? this.normalizedNote >= this.threshold : undefined
   }

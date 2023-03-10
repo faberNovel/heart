@@ -1,5 +1,7 @@
-import { Module, ModuleInterface, ModuleListenerInterface, Result, Report } from "@fabernovel/heart-common"
+import { Module, ModuleInterface, ModuleListenerInterface, Report, Result } from "@fabernovel/heart-common"
 import { Client } from "./api/Client.js"
+import { formatBlocks } from "./formatter/BlocksFormatter.js"
+import { formatText } from "./formatter/TextFormatter.js"
 
 export class SlackModule extends Module implements ModuleListenerInterface {
   private slackClient: Client
@@ -10,23 +12,12 @@ export class SlackModule extends Module implements ModuleListenerInterface {
     this.slackClient = new Client()
   }
 
-  public async notifyAnalysisDone<R extends Result>(report: Report<R>): Promise<void> {
-    let message = `${report.analyzedUrl}: ${report.note}`
-
-    if (report.resultUrl) {
-      message += `. <${report.resultUrl}|view full report>`
-    }
-
-    if (report.isThresholdReached() === true) {
-      message += "\n:white_check_mark: Your threshold is reached."
-    } else if (report.isThresholdReached() === false) {
-      message += "\n:warning: Your threshold is not reached."
-    }
-
-    await this.slackClient.postMessage({
-      text: message,
-      icon_url: report.service ? report.service.logo : undefined,
-      username: report.service ? report.service.name : undefined,
+  public async notifyAnalysisDone<R extends Result>(report: Report<R>): Promise<unknown> {
+    return this.slackClient.postMessage({
+      blocks: formatBlocks(report),
+      text: formatText(report),
+      icon_url: report.service.logo,
+      username: report.service.name,
     })
   }
 }

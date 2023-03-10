@@ -2,70 +2,64 @@ import {
   Helper,
   Module,
   ModuleAnalysisInterface,
-  ModuleInterface,
   Report,
   ObservatoryResult,
   ObservatoryConfig,
 } from "@fabernovel/heart-common"
 import { Client } from "./api/Client.js"
+import { Scan } from "./api/model/Scan.js"
+
+const TIME_BETWEEN_TRIES = 10000
 
 export class ObservatoryModule
   extends Module
   implements ModuleAnalysisInterface<ObservatoryConfig, ObservatoryResult>
 {
-  private readonly TIME_BETWEEN_TRIES = 10000
-
-  private apiClient: Client
-  private threshold?: number
-
-  constructor(module: Pick<ModuleInterface, "name" | "service">) {
-    super(module)
-
-    this.apiClient = new Client()
-  }
+  #client = new Client()
 
   public async startAnalysis(
     conf: ObservatoryConfig,
     threshold?: number
   ): Promise<Report<ObservatoryResult>> {
-    this.threshold = threshold
+    const scan = await this.#client.triggerAnalysis(conf)
 
-    await this.apiClient.launchAnalysis(conf)
+    const finishedScan = await this.requestFinishedScan(scan)
 
-    return this.requestResult()
+    const result = await this.#client.requestTests(finishedScan)
+
+    return new Report({
+      analyzedUrl: conf.host,
+      note: finishedScan.grade,
+      result: result,
+      resultUrl: this.#client.getAnalyzeUrl(),
+      service: this.service,
+      date: new Date(finishedScan.end_time),
+      normalizedNote: Math.min(finishedScan.score, 100),
+      threshold: threshold,
+    })
   }
 
-  private async requestResult(): Promise<Report<ObservatoryResult>> {
-    const result = await this.apiClient.getResult()
-
-    return this.handleResult(result)
-  }
-
-  private async handleResult(result: ObservatoryResult): Promise<Report<ObservatoryResult>> {
-    switch (result.state) {
-      case "FAILED":
-        throw new Error(result.state)
-
+  /**
+   * Request the Scan until its state goes to "FINISHED"
+   */
+  private async requestFinishedScan(scan: Scan): Promise<Scan> {
+    switch (scan.state) {
       case "PENDING":
       case "STARTING":
-      case "RUNNING":
-        await Helper.timeout(this.TIME_BETWEEN_TRIES)
-        return this.requestResult()
+      case "RUNNING": {
+        // wait a bit before a new request (the scanning operation takes several seconds)
+        await Helper.timeout(TIME_BETWEEN_TRIES)
+        const newScan = await this.#client.requestScan()
+
+        return this.requestFinishedScan(newScan)
+      }
 
       case "FINISHED":
-        return new Report({
-          analyzedUrl: this.apiClient.getProjectHost(),
-          note: result.grade,
-          result: result,
-          resultUrl: this.apiClient.getAnalyzeUrl(),
-          service: this.service,
-          date: new Date(result.end_time),
-          normalizedNote: Math.min(result.score, 100),
-          threshold: this.threshold,
-        })
+        return scan
 
+      case "FAILED":
       default:
-        throw new Error(result.state)
+        throw new Error(scan.state)
     }
   }
 }

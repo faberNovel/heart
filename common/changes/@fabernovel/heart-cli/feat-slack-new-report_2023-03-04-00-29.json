@@ -1,0 +1,10 @@
+{
+  "changes": [
+    {
+      "packageName": "@fabernovel/heart-cli",
+      "comment": "Displays both the note and normalized note once the analysis is done",
+      "type": "minor"
+    }
+  ],
+  "packageName": "@fabernovel/heart-cli"
+}

@@ -1,42 +1,37 @@
 import { Result } from "../Result.js"
 
 /**
- * @see {@link https://github.com/mozilla/http-observatory/blob/master/httpobs/docs/api.md#scan}
+ * @see {@link https://github.com/mozilla/http-observatory/blob/master/httpobs/docs/api.md#tests}
  */
 export type ObservatoryResult = Result & {
-  // timestamp for when the scan completed
-  end_time: string
+  [key: string]: {
+    // the expectation for a test result going in
+    expectation: string
 
-  // final grade assessed upon a completed scan
-  grade: string
+    // the name of the test; this should be the same as the parent object's name
+    name: string
 
-  // whether the scan results are unlisted on the recent results page
-  hidden: boolean
+    // artifacts related to the test; these can vary widely between tests and are not guaranteed to be stable over time.
+    output: {
+      // generally as close to the raw output of the test as is possible. For example, in the strict-transport-security test, output -> data contains the raw Strict-Transport-Security header
+      data: {
+        [key: string]: string[]
+      }
 
-  // the entirety of the HTTP response headers
-  response_headers: object
+      // ???? other values under output have keys that vary; for example, the strict-transport-security test has a includeSubDomains key that is either set to True or False. Similarly, the redirection test contains a route key that contains an array of the URLs that were redirected to. See example below for more available keys.
+      [key: string]: object
+    }
 
-  // unique ID number assigned to the scan
-  scan_id: number
+    // whether the test passed or failed; a test that meets or exceeds the expectation will be marked as passed
+    pass: boolean
 
-  // final score assessed upon a completed (FINISHED) scan
-  score: number
+    // result of the test
+    result: string
 
-  // Mozilla risk likelihod indicator that is the equivalent of the grade (https://wiki.mozilla.org/Security/Standard_Levels)
-  likelihood_indicator: string
+    // short description describing what result means
+    score_description: string
 
-  // timestamp for when the scan was first requested
-  start_time: string
-
-  // the current state of the scan (https://github.com/mozilla/http-observatory/blob/master/httpobs/docs/api.md#scanner-state)
-  state: "ABORTED" | "FAILED" | "FINISHED" | "PENDING" | "STARTING" | "RUNNING"
-
-  // the number of subtests that were assigned a fail result
-  tests_failed: number
-
-  // the number of subtests that were assigned a passing result
-  tests_passed: number
-
-  // the total number of tests available and assessed at the time of the scan
-  tests_quantity: number
+    // how much the result of the test affected the final score; should range between +5 and -50
+    score_modifier: number
+  }
 }

@@ -1,9 +1,10 @@
 import { ObservatoryConfig, ObservatoryResult, Report } from "@fabernovel/heart-common"
 import { jest } from "@jest/globals"
+import { Scan } from "../src/api/model/Scan.js"
 
 const ANALYZE_URL = "www.observatory.mozilla-test/results/"
 const CONF: ObservatoryConfig = { host: "heart.fabernovel.com" }
-const RESULT: ObservatoryResult = {
+const SCAN: Scan = {
   end_time: "May 13, 2022 5:58 PM",
   grade: "B",
   hidden: true,
@@ -17,15 +18,29 @@ const RESULT: ObservatoryResult = {
   tests_passed: 4,
   tests_quantity: 12,
 }
+const RESULT: ObservatoryResult = {
+  "content-security-policy": {
+    expectation: "csp-implemented-with-no-unsafe",
+    name: "content-security-policy",
+    output: {
+      data: {},
+    },
+    pass: false,
+    result: "csp-implemented-with-unsafe-inline-in-style-src-only",
+    score_description:
+      "Content Security Policy (CSP) implemented with unsafe-inline inside style-src directive",
+    score_modifier: -5,
+  },
+}
 
 jest.unstable_mockModule("../src/api/Client.js", () => {
   return {
     Client: jest.fn().mockImplementation(() => {
       return {
-        getResult: () => Promise.resolve(RESULT),
         getAnalyzeUrl: () => ANALYZE_URL + CONF.host,
-        getProjectHost: () => CONF.host,
-        launchAnalysis: () => Promise.resolve(RESULT),
+        requestScan: () => Promise.resolve(SCAN),
+        requestTests: () => Promise.resolve(RESULT),
+        triggerAnalysis: () => Promise.resolve(SCAN),
       }
     }),
   }
@@ -48,9 +63,9 @@ describe("Starts an analysis", () => {
       analyzedUrl: "heart.fabernovel.com",
       date: report.date,
       result: RESULT,
-      note: RESULT.grade,
+      note: SCAN.grade,
       resultUrl: ANALYZE_URL + "heart.fabernovel.com",
-      normalizedNote: RESULT.score > 100 ? 100 : RESULT.score,
+      normalizedNote: SCAN.score > 100 ? 100 : SCAN.score,
       service: {
         name: "Observatory Test",
       },
@@ -74,9 +89,9 @@ describe("Starts an analysis", () => {
       analyzedUrl: "heart.fabernovel.com",
       date: report.date,
       result: RESULT,
-      note: RESULT.grade,
+      note: SCAN.grade,
       resultUrl: ANALYZE_URL + "heart.fabernovel.com",
-      normalizedNote: RESULT.score > 100 ? 100 : RESULT.score,
+      normalizedNote: SCAN.score > 100 ? 100 : SCAN.score,
       service: {
         name: "Observatory Test",
       },
@@ -94,9 +109,9 @@ describe("Starts an analysis", () => {
       analyzedUrl: "heart.fabernovel.com",
       date: report.date,
       result: RESULT,
-      note: RESULT.grade,
+      note: SCAN.grade,
       resultUrl: ANALYZE_URL + "heart.fabernovel.com",
-      normalizedNote: RESULT.score > 100 ? 100 : RESULT.score,
+      normalizedNote: SCAN.score > 100 ? 100 : SCAN.score,
       threshold: THRESHOLD,
       service: {
         name: "Observatory Test",

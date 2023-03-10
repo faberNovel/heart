@@ -1,4 +1,4 @@
-import { WebAPICallResult, WebClient } from "@slack/web-api"
+import { Block, KnownBlock, WebAPICallResult, WebClient } from "@slack/web-api"
 
 /**
  * Simple Slack client:
@@ -16,6 +16,7 @@ export class Client {
   }
 
   public async postMessage(options: {
+    blocks: (KnownBlock | Block)[]
     text: string
     icon_url?: string
     username?: string
