@@ -4,7 +4,6 @@ import {
   ModuleAnalysisInterface,
   ModuleInterface,
   SsllabsServerReport,
-  SsllabsServerResult,
   SsllabsServerStatus,
   SsllabsServerConfig,
 } from "@fabernovel/heart-common"
@@ -12,7 +11,7 @@ import { Client } from "./api/Client.js"
 
 export class SsllabsServerModule
   extends Module
-  implements ModuleAnalysisInterface<SsllabsServerConfig, SsllabsServerResult>
+  implements ModuleAnalysisInterface<SsllabsServerConfig, SsllabsServerReport>
 {
   private static readonly MAX_TRIES = 100
   private static readonly TIME_BETWEEN_TRIES = 10000 // 10 seconds
@@ -27,12 +26,16 @@ export class SsllabsServerModule
 
   public async startAnalysis(conf: SsllabsServerConfig, threshold?: number): Promise<SsllabsServerReport> {
     this.threshold = threshold
+
     await this.apiClient.launchAnalysis(conf)
 
     return this.requestResult()
   }
 
-  private async handleResult(result: SsllabsServerResult, triesQty: number): Promise<SsllabsServerReport> {
+  private async handleResult(
+    result: SsllabsServerReport["result"],
+    triesQty: number
+  ): Promise<SsllabsServerReport> {
     switch (result.status) {
       case SsllabsServerStatus.ERROR:
         throw new Error(`${result.status}: ${result.statusMessage}`)

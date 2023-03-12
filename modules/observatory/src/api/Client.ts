@@ -1,4 +1,4 @@
-import { ObservatoryConfig, ObservatoryResult, Request } from "@fabernovel/heart-common"
+import { ObservatoryConfig, ObservatoryReport, Request } from "@fabernovel/heart-common"
 import { env } from "node:process"
 import { Error, isError } from "./Error.js"
 
@@ -14,18 +14,20 @@ export class Client {
   /**
    * Get the summary of the analysis
    */
-  public async requestScan(): Promise<ObservatoryResult["scan"]> {
+  public async requestScan(): Promise<ObservatoryReport["result"]["scan"]> {
     return Request.get(`${this.apiUrl ?? ""}analyze?host=${this.host}`)
   }
 
   /**
    * Get detailed results about the tests run
    */
-  public async requestTests(scan: ObservatoryResult["scan"]): Promise<ObservatoryResult["tests"]> {
+  public async requestTests(
+    scan: ObservatoryReport["result"]["scan"]
+  ): Promise<ObservatoryReport["result"]["tests"]> {
     return Request.get(`${this.apiUrl ?? ""}getScanResults?scan=${scan.scan_id}`)
   }
 
-  public async triggerAnalysis(conf: ObservatoryConfig): Promise<ObservatoryResult["scan"]> {
+  public async triggerAnalysis(conf: ObservatoryConfig): Promise<ObservatoryReport["result"]["scan"]> {
     this.analyzeUrl = env.OBSERVATORY_ANALYZE_URL
     this.apiUrl = env.OBSERVATORY_API_URL
     this.host = conf.host
@@ -37,7 +39,7 @@ export class Client {
       })
     }
 
-    const scan = await Request.post<ObservatoryResult["scan"] | Error>(
+    const scan = await Request.post<ObservatoryReport["result"]["scan"] | Error>(
       `${this.apiUrl ?? ""}analyze?host=${this.host}`,
       conf,
       {

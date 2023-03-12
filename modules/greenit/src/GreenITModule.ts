@@ -1,8 +1,8 @@
-import type { GreenITConfig, GreenITResult } from "@fabernovel/heart-common"
+import type { GreenITConfig } from "@fabernovel/heart-common"
 import { Module, ModuleAnalysisInterface, ModuleInterface, GreenITReport } from "@fabernovel/heart-common"
 import { requestResult } from "./api/Client.js"
 
-export class GreenITModule extends Module implements ModuleAnalysisInterface<GreenITConfig, GreenITResult> {
+export class GreenITModule extends Module implements ModuleAnalysisInterface<GreenITConfig, GreenITReport> {
   private threshold?: number
 
   constructor(module: Pick<ModuleInterface, "name" | "service">) {
@@ -17,7 +17,7 @@ export class GreenITModule extends Module implements ModuleAnalysisInterface<Gre
     return this.handleResult(result)
   }
 
-  private handleResult(result: GreenITResult): GreenITReport {
+  private handleResult(result: GreenITReport["result"]): GreenITReport {
     const [date, time] = result.date.split(" ")
     const [day, month, year] = date.split("/")
 

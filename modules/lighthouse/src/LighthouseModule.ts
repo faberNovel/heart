@@ -1,16 +1,15 @@
 import {
   LighthouseConfig,
-  LighthouseResult,
+  LighthouseReport,
   Module,
   ModuleAnalysisInterface,
   ModuleInterface,
-  LighthouseReport,
 } from "@fabernovel/heart-common"
 import { requestResult } from "./api/Client.js"
 
 export class LighthouseModule
   extends Module
-  implements ModuleAnalysisInterface<LighthouseConfig, LighthouseResult>
+  implements ModuleAnalysisInterface<LighthouseConfig, LighthouseReport>
 {
   private threshold?: number
 
@@ -26,7 +25,7 @@ export class LighthouseModule
     return this.handleResult(result)
   }
 
-  private handleResult(result: LighthouseResult): LighthouseReport {
+  private handleResult(result: LighthouseReport["result"]): LighthouseReport {
     return new LighthouseReport({
       analyzedUrl: result.requestedUrl as string,
       date: new Date(result.fetchTime),

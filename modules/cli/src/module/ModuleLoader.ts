@@ -1,3 +1,4 @@
+import { GenericReport } from "@fabernovel/heart-common"
 import {
   Config,
   isModuleAnalysis,
@@ -17,7 +18,7 @@ import { PackageJson } from "type-fest"
 import { MissingEnvironmentVariables } from "../error/MissingEnvironmentVariables.js"
 
 type LoadedModules = [
-  Map<string, ModuleAnalysisInterface<Config, Result>>,
+  Map<string, ModuleAnalysisInterface<Config, GenericReport<Result>>>,
   Map<string, ModuleListenerInterface>,
   Map<string, ModuleServerInterface>
 ]
@@ -40,7 +41,7 @@ export async function load(debug = false): Promise<LoadedModules> {
 
     const modules = await loadModules(modulesPaths, debug)
 
-    const analysisModulesMap = new Map<string, ModuleAnalysisInterface<Config, Result>>()
+    const analysisModulesMap = new Map<string, ModuleAnalysisInterface<Config, GenericReport<Result>>>()
     const listenerModulesMap = new Map<string, ModuleListenerInterface>()
     const serverModulesMap = new Map<string, ModuleServerInterface>()
 
