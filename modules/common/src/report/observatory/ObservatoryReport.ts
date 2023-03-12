@@ -1,6 +1,6 @@
-import { ObservatoryResult } from "../../index.js"
 import { Service } from "../../service/Service.js"
 import { GenericReport, ReportArguments } from "../Report.js"
+import { ObservatoryResult } from "./ObservatoryResult.js"
 
 export class ObservatoryReport implements GenericReport<ObservatoryResult> {
   #analyzedUrl: string
@@ -27,15 +27,11 @@ export class ObservatoryReport implements GenericReport<ObservatoryResult> {
   }
 
   get grade(): string {
-    return this.#result.grade
-  }
-
-  get isThresholdReached(): boolean | undefined {
-    return this.#threshold !== undefined ? this.normalizedGrade >= this.#threshold : undefined
+    return this.#result.scan.grade
   }
 
   get normalizedGrade(): number {
-    return this.#result.score
+    return this.#result.scan.score
   }
 
   get result(): ObservatoryResult {
@@ -52,5 +48,15 @@ export class ObservatoryReport implements GenericReport<ObservatoryResult> {
 
   get threshold(): number | undefined {
     return this.#threshold
+  }
+
+  displayNote(): string {
+    return this.normalizedGrade.toString() === this.grade
+      ? `${this.grade}/100`
+      : `${this.grade} (${this.normalizedGrade}/100`
+  }
+
+  isThresholdReached(): boolean | undefined {
+    return this.threshold !== undefined ? this.normalizedGrade >= this.threshold : undefined
   }
 }

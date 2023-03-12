@@ -1,7 +1,7 @@
-import { Report, Result } from "@fabernovel/heart-common"
+import { GenericReport, Result } from "@fabernovel/heart-common"
 
-export const formatText = (report: Report<Result>): string => {
-  let text = `${report.analyzedUrl}: ${report.note} (${report.normalizedNote}/100)`
+export const formatText = (report: GenericReport<Result>): string => {
+  let text = `${report.analyzedUrl}: ${report.displayNote()}`
 
   if (report.resultUrl) {
     text += `. <${report.resultUrl}|view full report>`

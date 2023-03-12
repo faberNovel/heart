@@ -20,6 +20,6 @@ export class RowReport<R extends Result> {
     this.ranking = new RecordRanking(report.grade, Math.round(report.normalizedGrade))
     this.service = new RecordService(report.service.name)
     this.url = new RecordUrl(report.analyzedUrl, report.resultUrl)
-    this.threshold = new RecordThreshold(report.threshold, report.isThresholdReached)
+    this.threshold = new RecordThreshold(report.threshold, report.isThresholdReached())
   }
 }

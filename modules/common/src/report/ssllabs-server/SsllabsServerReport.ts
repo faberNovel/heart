@@ -1,6 +1,8 @@
-import { SsllabsServerEndpoint, SsllabsServerGrade, SsllabsServerResult } from "../../index.js"
 import { Service } from "../../service/Service.js"
 import { GenericReport, ReportArguments } from "../Report.js"
+import { SsllabsServerGrade } from "./enum/SsllabsServerGrade.js"
+import { SsllabsServerEndpoint } from "./model/SsllabsServerEndpoint.js"
+import { SsllabsServerResult } from "./model/SsllabsServerResult.js"
 
 /**
  * @see [Documentation ('grade' property)]{@link https://github.com/ssllabs/ssllabs-scan/blob/master/ssllabs-api-docs-v3.md#endpoint}
@@ -75,10 +77,6 @@ export class SsllabsServerReport implements GenericReport<SsllabsServerResult> {
     return this.#grade
   }
 
-  get isThresholdReached(): boolean | undefined {
-    return this.#threshold !== undefined ? this.normalizedGrade >= this.#threshold : undefined
-  }
-
   get normalizedGrade(): number {
     return this.#normalizedGrade
   }
@@ -97,5 +95,15 @@ export class SsllabsServerReport implements GenericReport<SsllabsServerResult> {
 
   get threshold(): number | undefined {
     return this.#threshold
+  }
+
+  displayNote(): string {
+    return this.normalizedGrade.toString() === this.grade
+      ? `${this.grade}/100`
+      : `${this.grade} (${this.normalizedGrade}/100`
+  }
+
+  isThresholdReached(): boolean | undefined {
+    return this.threshold !== undefined ? this.normalizedGrade >= this.threshold : undefined
   }
 }

@@ -1,6 +1,6 @@
 import { GenericReport } from "../report/Report.js"
-import { Config } from "./analysis/input/Config.js"
-import { Result } from "./analysis/output/Result.js"
+import { Config } from "./config/Config.js"
+import { Result } from "../report/Result.js"
 import { ModuleInterface } from "./ModuleInterface.js"
 
 /**

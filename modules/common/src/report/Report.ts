@@ -45,12 +45,14 @@ export default interface Report extends ReportBase {
    */
   get grade(): string
 
-  get isThresholdReached(): boolean | undefined
-
   /**
    * Normalized grade: a number equivalent to the grade
    */
   get normalizedGrade(): number
+
+  displayNote(): string
+
+  isThresholdReached(): boolean | undefined
 }
 
 export interface ReportArguments<A> extends ReportBase, ValueHolder<A> {}

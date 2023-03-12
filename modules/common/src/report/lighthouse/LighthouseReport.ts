@@ -1,7 +1,7 @@
 import { Result } from "lighthouse"
-import { LighthouseResult } from "../../index.js"
 import { Service } from "../../service/Service.js"
 import { GenericReport, ReportArguments } from "../Report.js"
+import { LighthouseResult } from "./LighthouseResult.js"
 
 const compute = (categories: Record<string, Result.Category>, fractionDigits?: number): number => {
   const avgScore = computeCategories(categories)
@@ -76,10 +76,6 @@ export class LighthouseReport implements GenericReport<LighthouseResult> {
     return this.#grade
   }
 
-  get isThresholdReached(): boolean | undefined {
-    return this.#threshold !== undefined ? this.normalizedGrade >= this.#threshold : undefined
-  }
-
   get normalizedGrade(): number {
     return this.#normalizedGrade
   }
@@ -98,5 +94,15 @@ export class LighthouseReport implements GenericReport<LighthouseResult> {
 
   get threshold(): number | undefined {
     return this.#threshold
+  }
+
+  displayNote(): string {
+    return this.normalizedGrade.toString() === this.grade
+      ? `${this.grade}/100`
+      : `${this.grade} (${this.normalizedGrade}/100`
+  }
+
+  isThresholdReached(): boolean | undefined {
+    return this.threshold !== undefined ? this.normalizedGrade >= this.threshold : undefined
   }
 }

@@ -1,4 +1,10 @@
-import { GreenITResult, LighthouseResult, ObservatoryResult, Report, Result } from "@fabernovel/heart-common"
+import {
+  GenericReport,
+  GreenITReport,
+  LighthouseReport,
+  ObservatoryReport,
+  Result,
+} from "@fabernovel/heart-common"
 import {
   Block,
   DividerBlock,
@@ -16,16 +22,8 @@ import { formatObservatoryBlocks } from "./ObservatoryStatisticsFormatter.js"
 // maximum number of characters in a text block
 export const MAX_TEXT_BLOCK_LENGTH = 3000
 
-const isReportSupportedForStatistics = (
-  report: Report<Result>
-): report is Report<LighthouseResult> | Report<GreenITResult> | Report<ObservatoryResult> => {
-  const supportedServiceNames = ["Google Lighthouse", "GreenIT Analysis", "Mozilla Observatory"]
-
-  return supportedServiceNames.indexOf(report.service.name) !== -1
-}
-
 const createBlocks = (
-  report: Report<Result>,
+  report: GenericReport<Result>,
   metricsBlocks: MrkdwnElement[] = [],
   advicesBlocks: Array<DividerBlock | HeaderBlock | SectionBlock> = []
 ) => {
@@ -101,23 +99,16 @@ const createBlocks = (
   return blocks
 }
 
-export const formatBlocks = (report: Report<Result>): Array<KnownBlock | Block> => {
-  if (isReportSupportedForStatistics(report)) {
-    if (report.service.name === "Google Lighthouse") {
-      const [metricsBlocks, advicesBlocks] = formatLighthouseBlocks(
-        report as unknown as Report<LighthouseResult>
-      )
-      return createBlocks(report, metricsBlocks, advicesBlocks)
-    } else if (report.service.name === "GreenIT Analysis") {
-      const [metricsBlocks, advicesBlocks] = formatGreenITBlocks(report as unknown as Report<GreenITResult>)
-      return createBlocks(report, metricsBlocks, advicesBlocks)
-    } else {
-      // Mozilla Observatory
-      const [metricsBlocks, advicesBlocks] = formatObservatoryBlocks(
-        report as unknown as Report<ObservatoryResult>
-      )
-      return createBlocks(report, metricsBlocks, advicesBlocks)
-    }
+export const formatBlocks = (report: GenericReport<Result>): Array<KnownBlock | Block> => {
+  if (report instanceof LighthouseReport) {
+    const [metricsBlocks, advicesBlocks] = formatLighthouseBlocks(report)
+    return createBlocks(report, metricsBlocks, advicesBlocks)
+  } else if (report instanceof GreenITReport) {
+    const [metricsBlocks, advicesBlocks] = formatGreenITBlocks(report)
+    return createBlocks(report, metricsBlocks, advicesBlocks)
+  } else if (report instanceof ObservatoryReport) {
+    const [metricsBlocks, advicesBlocks] = formatObservatoryBlocks(report)
+    return createBlocks(report, metricsBlocks, advicesBlocks)
   } else {
     return createBlocks(report)
   }

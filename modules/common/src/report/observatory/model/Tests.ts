@@ -1,9 +1,7 @@
-import { Result } from "../Result.js"
-
 /**
  * @see {@link https://github.com/mozilla/http-observatory/blob/master/httpobs/docs/api.md#tests}
  */
-export type ObservatoryResult = Result & {
+export type Tests = {
   [key: string]: {
     // the expectation for a test result going in
     expectation: string

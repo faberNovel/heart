@@ -2,12 +2,11 @@ import {
   Helper,
   Module,
   ModuleAnalysisInterface,
-  GenericReport,
+  ObservatoryReport,
   ObservatoryResult,
   ObservatoryConfig,
 } from "@fabernovel/heart-common"
 import { Client } from "./api/Client.js"
-import { Scan } from "./api/model/Scan.js"
 
 const TIME_BETWEEN_TRIES = 10000
 
@@ -17,22 +16,22 @@ export class ObservatoryModule
 {
   #client = new Client()
 
-  public async startAnalysis(
-    conf: ObservatoryConfig,
-    threshold?: number
-  ): Promise<ObservatoryReport> {
+  public async startAnalysis(conf: ObservatoryConfig, threshold?: number): Promise<ObservatoryReport> {
     const scan = await this.#client.triggerAnalysis(conf)
 
     const finishedScan = await this.requestFinishedScan(scan)
 
-    const result = await this.#client.requestTests(finishedScan)
+    const tests = await this.#client.requestTests(finishedScan)
 
     return new ObservatoryReport({
       analyzedUrl: conf.host,
-      result: result,
+      date: new Date(finishedScan.end_time),
+      result: {
+        scan: finishedScan,
+        tests,
+      },
       resultUrl: this.#client.getAnalyzeUrl(),
       service: this.service,
-      date: new Date(finishedScan.end_time),
       threshold: threshold,
     })
   }
@@ -40,7 +39,7 @@ export class ObservatoryModule
   /**
    * Request the Scan until its state goes to "FINISHED"
    */
-  private async requestFinishedScan(scan: Scan): Promise<Scan> {
+  private async requestFinishedScan(scan: ObservatoryResult["scan"]): Promise<ObservatoryResult["scan"]> {
     switch (scan.state) {
       case "PENDING":
       case "STARTING":

@@ -1,6 +1,6 @@
 import { ObservatoryConfig, ObservatoryResult, Report } from "@fabernovel/heart-common"
 import { jest } from "@jest/globals"
-import { Scan } from "../src/api/model/Scan.js"
+import { Scan } from "@fabernovel/heart-common/src/report/observatory/Scan.js"
 
 const ANALYZE_URL = "www.observatory.mozilla-test/results/"
 const CONF: ObservatoryConfig = { host: "heart.fabernovel.com" }

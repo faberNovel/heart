@@ -37,9 +37,9 @@ export async function startAnalysis<C extends Config, R extends Result>(
       messageParts.push(`View full report: ${report.resultUrl}`)
     }
 
-    if (report.isThresholdReached === true) {
+    if (report.isThresholdReached() === true) {
       messageParts.push("Your threshold is reached")
-    } else if (report.isThresholdReached === false) {
+    } else if (report.isThresholdReached() === false) {
       messageParts.push("Your threshold is not reached")
     }
 

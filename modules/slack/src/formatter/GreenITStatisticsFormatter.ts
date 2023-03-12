@@ -1,4 +1,4 @@
-import { GreenITResult, Report } from "@fabernovel/heart-common"
+import { GreenITReport } from "@fabernovel/heart-common"
 import { MrkdwnElement, SectionBlock } from "@slack/web-api"
 import { MAX_TEXT_BLOCK_LENGTH } from "./BlocksFormatter.js"
 
@@ -11,7 +11,7 @@ type Practice = {
  * Formatting layout is inspired by https://www.ecoindex.fr/
  * @returns An array with the metrics and advices blocks (in that order)
  */
-export const formatGreenITBlocks = (report: Report<GreenITResult>): [MrkdwnElement[], SectionBlock[]] => {
+export const formatGreenITBlocks = (report: GreenITReport): [MrkdwnElement[], SectionBlock[]] => {
   const metricsBlocks: MrkdwnElement[] = [
     {
       type: "mrkdwn",

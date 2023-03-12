@@ -1,6 +1,6 @@
-import { GreenITResult } from "../../index.js"
 import { Service } from "../../service/Service.js"
 import { GenericReport, ReportArguments } from "../Report.js"
+import { GreenITResult } from "./GreenITResult.js"
 
 export class GreenITReport implements GenericReport<GreenITResult> {
   #analyzedUrl: string
@@ -30,10 +30,6 @@ export class GreenITReport implements GenericReport<GreenITResult> {
     return this.#result.grade
   }
 
-  get isThresholdReached(): boolean | undefined {
-    return this.#threshold !== undefined ? this.normalizedGrade >= this.#threshold : undefined
-  }
-
   get normalizedGrade(): number {
     return this.#result.ecoIndex
   }
@@ -52,5 +48,15 @@ export class GreenITReport implements GenericReport<GreenITResult> {
 
   get threshold(): number | undefined {
     return this.#threshold
+  }
+
+  displayNote(): string {
+    return this.normalizedGrade.toString() === this.grade
+      ? `${this.grade}/100`
+      : `${this.grade} (${this.normalizedGrade}/100`
+  }
+
+  isThresholdReached(): boolean | undefined {
+    return this.threshold !== undefined ? this.normalizedGrade >= this.threshold : undefined
   }
 }
