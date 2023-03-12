@@ -1,3 +1,4 @@
+import { GenericReport } from "@fabernovel/heart-common"
 import { Config, ModuleAnalysisInterface, Result, validateInput } from "@fabernovel/heart-common"
 import { Command } from "commander"
 
@@ -10,7 +11,7 @@ type Options = Partial<{
 /**
  * Create a command dedicated to the given analysis module
  */
-export const createAnalysisCommand = <C extends Config, R extends Result>(
+export const createAnalysisCommand = <C extends Config, R extends GenericReport<Result>>(
   module: ModuleAnalysisInterface<C, R>,
   callback: (config: C, threshold?: number) => Promise<void>
 ): Command => {

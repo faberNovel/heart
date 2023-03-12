@@ -1,4 +1,4 @@
-import type { LighthouseConfig, LighthouseResult } from "@fabernovel/heart-common"
+import type { LighthouseConfig, LighthouseReport } from "@fabernovel/heart-common"
 import lighthouse from "lighthouse"
 import puppeteer from "puppeteer"
 
@@ -6,7 +6,7 @@ import puppeteer from "puppeteer"
  *
  * @link https://github.com/GoogleChrome/lighthouse/blob/main/docs/puppeteer.md#option-2-launch-chrome-with-lighthousechrome-launcher-and-handoff-to-puppeteer
  */
-export async function requestResult(conf: LighthouseConfig): Promise<LighthouseResult> {
+export async function requestResult(conf: LighthouseConfig): Promise<LighthouseReport["result"]> {
   const browser = await puppeteer.launch({
     defaultViewport: null,
     args: [

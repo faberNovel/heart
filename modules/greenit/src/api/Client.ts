@@ -1,4 +1,4 @@
-import { GreenITConfig, GreenITResult } from "@fabernovel/heart-common"
+import { GreenITConfig, GreenITReport } from "@fabernovel/heart-common"
 import { createJsonReports, Options, Report } from "greenit-cli/cli-core/analysis.js"
 import { readFileSync } from "node:fs"
 import puppeteer from "puppeteer"
@@ -10,7 +10,7 @@ const DEFAULT_OPTIONS: Options = {
   timeout: 3000,
 }
 
-export async function requestResult(conf: GreenITConfig): Promise<GreenITResult> {
+export async function requestResult(conf: GreenITConfig): Promise<GreenITReport["result"]> {
   const browser = await puppeteer.launch({
     headless: true,
     args: [
@@ -58,7 +58,7 @@ export async function requestResult(conf: GreenITConfig): Promise<GreenITResult>
   if (0 === reports.length) {
     return Promise.reject("No report has been generated")
   } else {
-    const result = JSON.parse(readFileSync(reports[0].path, { encoding: "utf-8" })) as GreenITResult
+    const result = JSON.parse(readFileSync(reports[0].path, { encoding: "utf-8" })) as GreenITReport["result"]
 
     return result.success
       ? result

@@ -1,26 +1,30 @@
-import { Report } from "../report/Report.js"
-import { Config } from "./analysis/input/Config.js"
+import { Config } from "./config/Config.js"
+import { Result } from "../report/Result.js"
 import { ModuleInterface } from "./ModuleInterface.js"
-import { Result } from "./analysis/output/Result.js"
+import { GenericReport } from "../index.js"
 
 /**
  * Define an Analysis module.
  */
-export interface ModuleAnalysisInterface<C extends Config, R extends Result> extends ModuleInterface {
-  startAnalysis: (conf: C, thresholds?: number) => Promise<Report<R>>
+export interface ModuleAnalysisInterface<C extends Config, R extends GenericReport<Result>>
+  extends ModuleInterface {
+  startAnalysis: (conf: C, thresholds?: number) => Promise<R>
 }
 
 /**
  * Constructor interface signature
  * @see {@link https://www.typescriptlang.org/docs/handbook/interfaces.html#difference-between-the-static-and-instance-sides-of-classes}
  */
-export type ModuleAnalysis<C extends Config, R extends Result> = new () => ModuleAnalysisInterface<C, R>
+export type ModuleAnalysis<
+  C extends Config,
+  R extends GenericReport<Result>
+> = new () => ModuleAnalysisInterface<C, R>
 
 /**
  * Checks if a module is an Analysis one.
  * @see {@link https://www.typescriptlang.org/docs/handbook/advanced-types.html#user-defined-type-guards | User-Defined Type Guards}
  */
-export function isModuleAnalysis<C extends Config, R extends Result>(
+export function isModuleAnalysis<C extends Config, R extends GenericReport<Result>>(
   module: ModuleInterface
 ): module is ModuleAnalysisInterface<C, R> {
   const m = module as ModuleAnalysisInterface<C, R>

@@ -1,7 +1,6 @@
-import { ObservatoryConfig, ObservatoryResult, Request } from "@fabernovel/heart-common"
+import { ObservatoryConfig, ObservatoryReport, Request } from "@fabernovel/heart-common"
 import { env } from "node:process"
 import { Error, isError } from "./Error.js"
-import { Scan } from "./model/Scan.js"
 
 export class Client {
   private analyzeUrl?: string
@@ -15,18 +14,20 @@ export class Client {
   /**
    * Get the summary of the analysis
    */
-  public async requestScan(): Promise<Scan> {
+  public async requestScan(): Promise<ObservatoryReport["result"]["scan"]> {
     return Request.get(`${this.apiUrl ?? ""}analyze?host=${this.host}`)
   }
 
   /**
    * Get detailed results about the tests run
    */
-  public async requestTests(scan: Scan): Promise<ObservatoryResult> {
+  public async requestTests(
+    scan: ObservatoryReport["result"]["scan"]
+  ): Promise<ObservatoryReport["result"]["tests"]> {
     return Request.get(`${this.apiUrl ?? ""}getScanResults?scan=${scan.scan_id}`)
   }
 
-  public async triggerAnalysis(conf: ObservatoryConfig): Promise<Scan> {
+  public async triggerAnalysis(conf: ObservatoryConfig): Promise<ObservatoryReport["result"]["scan"]> {
     this.analyzeUrl = env.OBSERVATORY_ANALYZE_URL
     this.apiUrl = env.OBSERVATORY_API_URL
     this.host = conf.host
@@ -38,9 +39,13 @@ export class Client {
       })
     }
 
-    const scan = await Request.post<Scan | Error>(`${this.apiUrl ?? ""}analyze?host=${this.host}`, conf, {
-      [Request.HEADER_CONTENT_TYPE]: Request.HEADER_CONTENT_TYPE_X_WWW_FORM_URLENCODED,
-    })
+    const scan = await Request.post<ObservatoryReport["result"]["scan"] | Error>(
+      `${this.apiUrl ?? ""}analyze?host=${this.host}`,
+      conf,
+      {
+        [Request.HEADER_CONTENT_TYPE]: Request.HEADER_CONTENT_TYPE_X_WWW_FORM_URLENCODED,
+      }
+    )
 
     // Observatory API is unconventional, and does not take advantage of http verbs :/
     if (isError(scan)) {

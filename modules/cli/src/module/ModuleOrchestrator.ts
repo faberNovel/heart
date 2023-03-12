@@ -1,28 +1,28 @@
 import {
   Config,
+  GenericReport,
   ModuleAnalysisInterface,
   ModuleListenerInterface,
   ModuleServerInterface,
   Result,
-  Report,
 } from "@fabernovel/heart-common"
 import { CorsOptions } from "cors"
 import ora from "ora"
 
-export async function notifyListenerModules<R extends Result>(
+export async function notifyListenerModules<R extends GenericReport<Result>>(
   listenerModules: IterableIterator<ModuleListenerInterface>,
-  report: Report<R>
+  report: R
 ): Promise<unknown[]> {
   const promises = Array.from(listenerModules, (listenerModule) => listenerModule.notifyAnalysisDone(report))
 
   return Promise.all(promises)
 }
 
-export async function startAnalysis<C extends Config, R extends Result>(
+export async function startAnalysis<C extends Config, R extends GenericReport<Result>>(
   module: ModuleAnalysisInterface<C, R>,
   conf: C,
   threshold?: number
-): Promise<Report<R>> {
+): Promise<R> {
   const spinner = ora({ spinner: "hearts", interval: 200 })
 
   spinner.start("Analysis in progress...")
@@ -31,7 +31,7 @@ export async function startAnalysis<C extends Config, R extends Result>(
     const report = await module.startAnalysis(conf, threshold)
 
     const reportName = report.service ? `[${report.service.name}] ` : ""
-    const messageParts = [`${reportName}${report.analyzedUrl}: ${report.displayNote()}`]
+    const messageParts = [`${reportName}${report.analyzedUrl}: ${report.displayGrade()}`]
 
     if (report.resultUrl) {
       messageParts.push(`View full report: ${report.resultUrl}`)
@@ -68,7 +68,7 @@ export async function startAnalysis<C extends Config, R extends Result>(
 
 export function startServer(
   module: ModuleServerInterface,
-  analysisModules: IterableIterator<ModuleAnalysisInterface<Config, Result>>,
+  analysisModules: IterableIterator<ModuleAnalysisInterface<Config, GenericReport<Result>>>,
   listenerModules: IterableIterator<ModuleListenerInterface>,
   port: number,
   cors?: CorsOptions

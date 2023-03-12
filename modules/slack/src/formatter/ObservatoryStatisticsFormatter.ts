@@ -1,10 +1,8 @@
-import { ObservatoryResult, Report } from "@fabernovel/heart-common"
+import { ObservatoryReport } from "@fabernovel/heart-common"
 import { MrkdwnElement, SectionBlock } from "@slack/web-api"
 
-export const formatObservatoryBlocks = (
-  report: Report<ObservatoryResult>
-): [MrkdwnElement[], SectionBlock[]] => {
-  const advicesBlocks: SectionBlock[] = Object.values(report.result).map((category) => ({
+export const formatObservatoryBlocks = (report: ObservatoryReport): [MrkdwnElement[], SectionBlock[]] => {
+  const advicesBlocks: SectionBlock[] = Object.values(report.result.tests).map((category) => ({
     type: "section",
     text: {
       type: "plain_text",

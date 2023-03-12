@@ -1,4 +1,4 @@
-import { Result, Report } from "@fabernovel/heart-common"
+import { Result, GenericReport } from "@fabernovel/heart-common"
 import { BigQueryDatetime } from "@google-cloud/bigquery"
 import { RecordRanking } from "./RecordRanking.js"
 import { RecordService } from "./RecordService.js"
@@ -15,9 +15,9 @@ export class RowReport<R extends Result> {
   public url: RecordUrl
   public threshold: RecordThreshold
 
-  constructor(report: Report<R>) {
+  constructor(report: GenericReport<R>) {
     this.date = new BigQueryDatetime(report.date.toISOString())
-    this.ranking = new RecordRanking(report.note, Math.round(report.normalizedNote))
+    this.ranking = new RecordRanking(report.grade, Math.round(report.normalizedGrade))
     this.service = new RecordService(report.service.name)
     this.url = new RecordUrl(report.analyzedUrl, report.resultUrl)
     this.threshold = new RecordThreshold(report.threshold, report.isThresholdReached())

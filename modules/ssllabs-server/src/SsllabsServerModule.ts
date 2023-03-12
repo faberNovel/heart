@@ -2,62 +2,33 @@ import {
   Helper,
   Module,
   ModuleAnalysisInterface,
-  ModuleInterface,
-  Report,
-  SsllabsServerResult,
+  SsllabsServerReport,
   SsllabsServerStatus,
   SsllabsServerConfig,
-  SsllabsServerEndpoint,
 } from "@fabernovel/heart-common"
 import { Client } from "./api/Client.js"
-import { transform } from "./transformer/GradeTransformer.js"
 
 export class SsllabsServerModule
   extends Module
-  implements ModuleAnalysisInterface<SsllabsServerConfig, SsllabsServerResult>
+  implements ModuleAnalysisInterface<SsllabsServerConfig, SsllabsServerReport>
 {
   private static readonly MAX_TRIES = 100
   private static readonly TIME_BETWEEN_TRIES = 10000 // 10 seconds
-  private apiClient: Client
+  private apiClient = new Client()
   private threshold?: number
 
-  constructor(module: Pick<ModuleInterface, "name" | "service">) {
-    super(module)
-
-    this.apiClient = new Client()
-  }
-
-  public async startAnalysis(
-    conf: SsllabsServerConfig,
-    threshold?: number
-  ): Promise<Report<SsllabsServerResult>> {
+  public async startAnalysis(conf: SsllabsServerConfig, threshold?: number): Promise<SsllabsServerReport> {
     this.threshold = threshold
+
     await this.apiClient.launchAnalysis(conf)
 
     return this.requestResult()
   }
 
-  /**
-   * Retrieve the average endpoint percentage
-   */
-  private computeNote(endpoints: SsllabsServerEndpoint[]): number {
-    const grades = endpoints.map((endpoint: SsllabsServerEndpoint) => transform(endpoint.grade))
-
-    if (0 === grades.length) {
-      return 0
-    }
-
-    const sumGrades = grades.reduce(
-      (previousValue: number, currentValue: number) => previousValue + currentValue
-    )
-
-    return sumGrades / grades.length
-  }
-
   private async handleResult(
-    result: SsllabsServerResult,
+    result: SsllabsServerReport["result"],
     triesQty: number
-  ): Promise<Report<SsllabsServerResult>> {
+  ): Promise<SsllabsServerReport> {
     switch (result.status) {
       case SsllabsServerStatus.ERROR:
         throw new Error(`${result.status}: ${result.statusMessage}`)
@@ -67,27 +38,22 @@ export class SsllabsServerModule
         await Helper.timeout(SsllabsServerModule.TIME_BETWEEN_TRIES)
         return this.requestResult(++triesQty)
 
-      case SsllabsServerStatus.READY: {
-        const note = this.computeNote(result.endpoints)
-
-        return new Report({
+      case SsllabsServerStatus.READY:
+        return new SsllabsServerReport({
           analyzedUrl: this.apiClient.getProjectUrl(),
           date: new Date(result.startTime),
           result: result,
-          note: note.toString(),
-          normalizedNote: note,
           resultUrl: this.apiClient.getAnalyzeUrl(),
           service: this.service,
           threshold: this.threshold,
         })
-      }
 
       default:
         throw new Error(result.statusMessage)
     }
   }
 
-  private async requestResult(triesQty = 1): Promise<Report<SsllabsServerResult>> {
+  private async requestResult(triesQty = 1): Promise<SsllabsServerReport> {
     if (triesQty > SsllabsServerModule.MAX_TRIES) {
       throw new Error(
         `The maximum number of tries (${SsllabsServerModule.MAX_TRIES}) to retrieve the report has been reached.`

@@ -2,7 +2,7 @@ import { readFileSync } from "node:fs"
 import { isAbsolute } from "node:path"
 import { ConfigError } from "../error/ConfigError.js"
 import { ThresholdError } from "../error/ThresholdError.js"
-import { Config } from "../module/analysis/input/Config.js"
+import { Config } from "../module/config/Config.js"
 
 /**
  * Validate that the analysis options are correct

@@ -1,9 +1,9 @@
 import {
   Config,
   ConfigError,
+  GenericReport,
   ModuleAnalysisInterface,
   ModuleListenerInterface,
-  Report,
   Result,
   ThresholdError,
   validateInput,
@@ -21,7 +21,7 @@ export class ExpressApp {
   private listenerModules: ModuleListenerInterface[]
 
   constructor(
-    analysisModules: ModuleAnalysisInterface<Config, Result>[],
+    analysisModules: ModuleAnalysisInterface<Config, GenericReport<Result>>[],
     listenerModules: ModuleListenerInterface[],
     corsOptions?: CorsOptions
   ) {
@@ -46,7 +46,7 @@ export class ExpressApp {
     this.express.set("strict routing", false)
   }
 
-  private createRouteHandler<C extends Config, R extends Result>(
+  private createRouteHandler<C extends Config, R extends GenericReport<Result>>(
     module: ModuleAnalysisInterface<C, R>
   ): express.RequestHandler {
     return (
@@ -63,7 +63,7 @@ export class ExpressApp {
 
         module
           .startAnalysis(config, threshold)
-          .then((report: Report<R>) => {
+          .then((report: GenericReport<Result>) => {
             const notifyListenerModulesPromises = this.listenerModules.map((listenerModule) =>
               listenerModule.notifyAnalysisDone(report)
             )
@@ -77,8 +77,8 @@ export class ExpressApp {
                   service: {
                     name: report.service.name,
                   },
-                  note: report.note,
-                  normalizedNote: report.normalizedNote,
+                  grade: report.grade,
+                  normalizedGrade: report.normalizedGrade,
                   resultUrl: report.resultUrl,
                   threshold: report.threshold ?? null,
                   isThresholdReached: report.isThresholdReached() ?? null,
@@ -96,7 +96,7 @@ export class ExpressApp {
   /**
    * Register routes for the Analysis modules
    */
-  private init(analysisModules: ModuleAnalysisInterface<Config, Result>[]): void {
+  private init(analysisModules: ModuleAnalysisInterface<Config, GenericReport<Result>>[]): void {
     const router = express.Router()
 
     analysisModules.forEach((analysisModule) => {

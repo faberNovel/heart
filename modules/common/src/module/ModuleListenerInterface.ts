@@ -1,12 +1,12 @@
-import { Report } from "../report/Report.js"
-import { Result } from "./analysis/output/Result.js"
+import { GenericReport } from "../report/Report.js"
+import { Result } from "../report/Result.js"
 import { ModuleInterface } from "./ModuleInterface.js"
 
 /**
  * Define an Listener module.
  */
 export interface ModuleListenerInterface extends ModuleInterface {
-  notifyAnalysisDone<R extends Result>(report: Report<R>): Promise<unknown>
+  notifyAnalysisDone(report: GenericReport<Result>): Promise<unknown>
 }
 
 /**

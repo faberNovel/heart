@@ -7,7 +7,7 @@ importers:
 
   ../../modules/api:
     specifiers:
-      '@fabernovel/heart-common': workspace:^4.0.0-alpha.1
+      '@fabernovel/heart-common': workspace:^4.0.0-alpha.2
       '@jest/globals': ^29.5.0
       '@types/cors': ^2.8.13
       '@types/express': ^4.17.17
@@ -42,7 +42,7 @@ importers:
 
   ../../modules/bigquery:
     specifiers:
-      '@fabernovel/heart-common': workspace:^4.0.0-alpha.1
+      '@fabernovel/heart-common': workspace:^4.0.0-alpha.2
       '@google-cloud/bigquery': ^6.1.0
       '@google-cloud/common': 4.0.3
       '@jest/globals': ^29.5.0
@@ -73,7 +73,7 @@ importers:
 
   ../../modules/cli:
     specifiers:
-      '@fabernovel/heart-common': workspace:^4.0.0-alpha.1
+      '@fabernovel/heart-common': workspace:^4.0.0-alpha.2
       '@jest/globals': ^29.5.0
       '@types/cors': ^2.8.13
       '@types/jest': ^29.4.0
@@ -143,7 +143,7 @@ importers:
 
   ../../modules/greenit:
     specifiers:
-      '@fabernovel/heart-common': workspace:^4.0.0-alpha.1
+      '@fabernovel/heart-common': workspace:^4.0.0-alpha.2
       '@jest/globals': ^29.5.0
       '@types/jest': ^29.4.0
       '@types/node': ^18.15.0
@@ -174,7 +174,7 @@ importers:
 
   ../../modules/lighthouse:
     specifiers:
-      '@fabernovel/heart-common': workspace:^4.0.0-alpha.1
+      '@fabernovel/heart-common': workspace:^4.0.0-alpha.2
       '@jest/globals': ^29.5.0
       '@types/jest': ^29.4.0
       '@types/node': ^18.15.0
@@ -205,7 +205,7 @@ importers:
 
   ../../modules/moduletpl:
     specifiers:
-      '@fabernovel/heart-common': workspace:^4.0.0-alpha.1
+      '@fabernovel/heart-common': workspace:^4.0.0-alpha.2
       '@jest/globals': ^29.5.0
       '@types/jest': ^29.4.0
       '@types/node': ^18.15.0
@@ -232,7 +232,7 @@ importers:
 
   ../../modules/observatory:
     specifiers:
-      '@fabernovel/heart-common': workspace:^4.0.0-alpha.1
+      '@fabernovel/heart-common': workspace:^4.0.0-alpha.2
       '@jest/globals': ^29.5.0
       '@types/jest': ^29.4.0
       '@types/node': ^18.15.0
@@ -259,7 +259,7 @@ importers:
 
   ../../modules/slack:
     specifiers:
-      '@fabernovel/heart-common': workspace:^4.0.0-alpha.1
+      '@fabernovel/heart-common': workspace:^4.0.0-alpha.2
       '@jest/globals': ^29.5.0
       '@slack/web-api': ^6.8.1
       '@types/jest': ^29.4.0
@@ -288,7 +288,7 @@ importers:
 
   ../../modules/ssllabs-server:
     specifiers:
-      '@fabernovel/heart-common': workspace:^4.0.0-alpha.1
+      '@fabernovel/heart-common': workspace:^4.0.0-alpha.2
       '@jest/globals': ^29.5.0
       '@types/jest': ^29.4.0
       '@types/node': ^18.15.0
@@ -315,15 +315,15 @@ importers:
 
   ../../test:
     specifiers:
-      '@fabernovel/heart-api': workspace:^4.0.0-alpha.1
-      '@fabernovel/heart-bigquery': workspace:^4.0.0-alpha.1
-      '@fabernovel/heart-cli': workspace:^4.0.0-alpha.1
-      '@fabernovel/heart-common': workspace:^4.0.0-alpha.1
-      '@fabernovel/heart-greenit': workspace:^4.0.0-alpha.1
-      '@fabernovel/heart-lighthouse': workspace:^4.0.0-alpha.1
-      '@fabernovel/heart-observatory': workspace:^4.0.0-alpha.1
-      '@fabernovel/heart-slack': workspace:^4.0.0-alpha.1
-      '@fabernovel/heart-ssllabs-server': workspace:^4.0.0-alpha.1
+      '@fabernovel/heart-api': workspace:^4.0.0-alpha.2
+      '@fabernovel/heart-bigquery': workspace:^4.0.0-alpha.2
+      '@fabernovel/heart-cli': workspace:^4.0.0-alpha.2
+      '@fabernovel/heart-common': workspace:^4.0.0-alpha.2
+      '@fabernovel/heart-greenit': workspace:^4.0.0-alpha.2
+      '@fabernovel/heart-lighthouse': workspace:^4.0.0-alpha.2
+      '@fabernovel/heart-observatory': workspace:^4.0.0-alpha.2
+      '@fabernovel/heart-slack': workspace:^4.0.0-alpha.2
+      '@fabernovel/heart-ssllabs-server': workspace:^4.0.0-alpha.2
     dependencies:
       '@fabernovel/heart-api': link:../modules/api
       '@fabernovel/heart-bigquery': link:../modules/bigquery

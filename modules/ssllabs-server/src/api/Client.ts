@@ -1,7 +1,7 @@
 import {
   Request,
   SsllabsServerConfig,
-  SsllabsServerResult,
+  SsllabsServerReport,
   SsllabsServerStatus,
 } from "@fabernovel/heart-common"
 import { stringify } from "querystring"
@@ -12,7 +12,7 @@ export class Client {
   private readonly SERVICE_URL = "https://www.ssllabs.com/ssltest/analyze.html?d="
   private conf: SsllabsServerConfig = { host: "" }
 
-  public async launchAnalysis(conf: SsllabsServerConfig): Promise<SsllabsServerResult> {
+  public async launchAnalysis(conf: SsllabsServerConfig): Promise<SsllabsServerReport["result"]> {
     this.conf = conf
 
     return this.requestApi()
@@ -26,7 +26,7 @@ export class Client {
     return this.SERVICE_URL + this.getProjectUrl()
   }
 
-  public async getResult(): Promise<SsllabsServerResult> {
+  public async getResult(): Promise<SsllabsServerReport["result"]> {
     // avoid starting a new analysis instead of requesting the results
     if ("string" === typeof this.conf.startNew) {
       delete this.conf.startNew
@@ -39,8 +39,10 @@ export class Client {
     return `${this.API_URL}${path}?${stringify(this.conf)}`
   }
 
-  private async requestApi(): Promise<SsllabsServerResult> {
-    const host = await Request.get<SsllabsServerResult | SsllabsServerError>(this.generateApiUrl("/analyze"))
+  private async requestApi(): Promise<SsllabsServerReport["result"]> {
+    const host = await Request.get<SsllabsServerReport["result"] | SsllabsServerError>(
+      this.generateApiUrl("/analyze")
+    )
 
     if (isSsllabsServerError(host)) {
       return Promise.reject({

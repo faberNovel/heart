@@ -1,6 +1,6 @@
 {
   "name": "@fabernovel/heart-test",
-  "version": "3.0.0",
+  "version": "4.0.0-alpha.2",
   "private": true,
   "scripts": {
     "build": "",
@@ -9,16 +9,16 @@
     "test": ""
   },
   "dependencies": {
-    "@fabernovel/heart-api": "workspace:^4.0.0-alpha.1",
-    "@fabernovel/heart-bigquery": "workspace:^4.0.0-alpha.1",
-    "@fabernovel/heart-cli": "workspace:^4.0.0-alpha.1",
-    "@fabernovel/heart-greenit": "workspace:^4.0.0-alpha.1",
-    "@fabernovel/heart-lighthouse": "workspace:^4.0.0-alpha.1",
-    "@fabernovel/heart-observatory": "workspace:^4.0.0-alpha.1",
-    "@fabernovel/heart-slack": "workspace:^4.0.0-alpha.1",
-    "@fabernovel/heart-ssllabs-server": "workspace:^4.0.0-alpha.1"
+    "@fabernovel/heart-api": "workspace:^4.0.0-alpha.2",
+    "@fabernovel/heart-bigquery": "workspace:^4.0.0-alpha.2",
+    "@fabernovel/heart-cli": "workspace:^4.0.0-alpha.2",
+    "@fabernovel/heart-greenit": "workspace:^4.0.0-alpha.2",
+    "@fabernovel/heart-lighthouse": "workspace:^4.0.0-alpha.2",
+    "@fabernovel/heart-observatory": "workspace:^4.0.0-alpha.2",
+    "@fabernovel/heart-slack": "workspace:^4.0.0-alpha.2",
+    "@fabernovel/heart-ssllabs-server": "workspace:^4.0.0-alpha.2"
   },
   "devDependencies": {
-    "@fabernovel/heart-common": "workspace:^4.0.0-alpha.1"
+    "@fabernovel/heart-common": "workspace:^4.0.0-alpha.2"
   }
 }

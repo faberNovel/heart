@@ -36,8 +36,8 @@ describe("Run GreenIT analysis", () => {
 
     expect(analysisReport).toHaveProperty("analyzedUrl", SuccessResult.url)
     expect(analysisReport).toHaveProperty("date", new Date(`${year}-${month}-${day}T${time}`))
-    expect(analysisReport).toHaveProperty("note", SuccessResult.grade)
-    expect(analysisReport).toHaveProperty("normalizedNote", SuccessResult.ecoIndex)
+    expect(analysisReport).toHaveProperty("grade", SuccessResult.grade)
+    expect(analysisReport).toHaveProperty("normalizedGrade", SuccessResult.ecoIndex)
     expect(analysisReport).toHaveProperty("service", moduleConfig.service)
     expect(analysisReport).toHaveProperty("threshold", undefined)
   })
@@ -70,8 +70,6 @@ describe("Run GreenIT analysis", () => {
   })
 
   it("should be able to launch a successful analysis with thresholds", async () => {
-    const now = new Date()
-
     mockedCreateJsonReports.mockResolvedValue([
       {
         path: new URL("./data/SuccessResult.json", import.meta.url).pathname,
@@ -92,19 +90,16 @@ describe("Run GreenIT analysis", () => {
 
     const module = new GreenITModule(moduleConfig)
     const analysisReport = await module.startAnalysis(Conf, THRESHOLD)
-    analysisReport.date = now
 
     expect(analysisReport).toHaveProperty("analyzedUrl", SuccessResult.url)
-    expect(analysisReport).toHaveProperty("date", now)
-    expect(analysisReport).toHaveProperty("note", SuccessResult.grade)
-    expect(analysisReport).toHaveProperty("normalizedNote", SuccessResult.ecoIndex)
+    expect(analysisReport).toHaveProperty("date")
+    expect(analysisReport).toHaveProperty("grade", SuccessResult.grade)
+    expect(analysisReport).toHaveProperty("normalizedGrade", SuccessResult.ecoIndex)
     expect(analysisReport).toHaveProperty("service", moduleConfig.service)
     expect(analysisReport).toHaveProperty("threshold", THRESHOLD)
   })
 
   it("Should return false when results do not match thresholds objectives", async () => {
-    const now = new Date()
-
     mockedCreateJsonReports.mockResolvedValue([
       {
         path: new URL("./data/SuccessResult.json", import.meta.url).pathname,
@@ -125,12 +120,11 @@ describe("Run GreenIT analysis", () => {
 
     const module = new GreenITModule(moduleConfig)
     const analysisReport = await module.startAnalysis(Conf, THRESHOLD)
-    analysisReport.date = now
 
     expect(analysisReport).toHaveProperty("analyzedUrl", SuccessResult.url)
-    expect(analysisReport).toHaveProperty("date", now)
-    expect(analysisReport).toHaveProperty("note", SuccessResult.grade)
-    expect(analysisReport).toHaveProperty("normalizedNote", SuccessResult.ecoIndex)
+    expect(analysisReport).toHaveProperty("date")
+    expect(analysisReport).toHaveProperty("grade", SuccessResult.grade)
+    expect(analysisReport).toHaveProperty("normalizedGrade", SuccessResult.ecoIndex)
     expect(analysisReport).toHaveProperty("service", moduleConfig.service)
     expect(analysisReport).toHaveProperty("threshold", THRESHOLD)
     expect(analysisReport.isThresholdReached()).toStrictEqual(false)
