@@ -1,12 +1,59 @@
-import { Result } from "../module/analysis/output/Result.js"
 import { Service } from "../service/Service.js"
-import { ReportInterface } from "./ReportInterface.js"
 
-type ReportParams<R extends Result> = Pick<
-  ReportInterface<R>,
-  "analyzedUrl" | "date" | "result" | "note" | "resultUrl" | "service" | "threshold"
-> &
-  Partial<Pick<ReportInterface<R>, "normalizedNote">>
+/**
+ * Define an analysis report that is shared between every Heart module.
+ */
+interface ReportBase {
+  /**
+   * URL that is analyzed
+   */
+  analyzedUrl: string
+
+  /**
+   * Date of the analyze.
+   * Could be different from the moment when the analysis is done, because some services have a cache system.
+   */
+  date: Date
+
+  /**
+   * URL where the analysis results are accessible
+   */
+  resultUrl: string | undefined
+
+  /**
+   * Details about the service that process the analysis
+   * Optional because some Heart modules do not sollicitate a third-party service (Heart API for example)
+   */
+  service: Service
+
+  /**
+   * Threshold
+   */
+  threshold: number | undefined
+}
+
+interface ValueHolder<A> {
+  /**
+   * Report value
+   */
+  result: A
+}
+
+export default interface Report extends ReportBase {
+  /**
+   * Grade given by the service (often a letter)
+   */
+  get grade(): string
+
+  get isThresholdReached(): boolean | undefined
+
+  /**
+   * Normalized grade: a number equivalent to the grade
+   */
+  get normalizedGrade(): number
+}
+
+export interface ReportArguments<A> extends ReportBase, ValueHolder<A> {}
 
 /**
  * Define an analysis report that is shared between every Heart module.
@@ -14,34 +61,4 @@ type ReportParams<R extends Result> = Pick<
  * /!\ WARNING /!\
  * Be very careful if you change the Report class structure, as it could have an impact on every Heart module.
  */
-export class Report<R extends Result> implements ReportInterface<R> {
-  analyzedUrl: string
-  date: Date
-  result: R
-  note: string
-  normalizedNote: number
-  resultUrl?: string
-  service: Service
-  threshold?: number
-
-  constructor(report: ReportParams<R>) {
-    this.analyzedUrl = report.analyzedUrl
-    this.date = report.date
-    this.result = report.result
-    this.note = report.note
-    this.normalizedNote = report.normalizedNote ?? Number(this.note) ?? 0
-    this.resultUrl = report.resultUrl
-    this.service = report.service
-    this.threshold = report.threshold
-  }
-
-  displayNote(): string {
-    return this.normalizedNote.toString() === this.note
-      ? `${this.note}/100`
-      : `${this.note} (${this.normalizedNote}/100)`
-  }
-
-  isThresholdReached(): boolean | undefined {
-    return this.threshold ? this.normalizedNote >= this.threshold : undefined
-  }
-}
+export interface GenericReport<A> extends Report, ValueHolder<A> {}

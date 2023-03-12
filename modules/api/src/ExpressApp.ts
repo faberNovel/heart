@@ -1,9 +1,9 @@
 import {
   Config,
   ConfigError,
+  GenericReport,
   ModuleAnalysisInterface,
   ModuleListenerInterface,
-  Report,
   Result,
   ThresholdError,
   validateInput,
@@ -63,7 +63,7 @@ export class ExpressApp {
 
         module
           .startAnalysis(config, threshold)
-          .then((report: Report<R>) => {
+          .then((report: GenericReport<R>) => {
             const notifyListenerModulesPromises = this.listenerModules.map((listenerModule) =>
               listenerModule.notifyAnalysisDone(report)
             )
@@ -77,11 +77,11 @@ export class ExpressApp {
                   service: {
                     name: report.service.name,
                   },
-                  note: report.note,
-                  normalizedNote: report.normalizedNote,
+                  grade: report.grade,
+                  normalizedGrade: report.normalizedGrade,
                   resultUrl: report.resultUrl,
                   threshold: report.threshold ?? null,
-                  isThresholdReached: report.isThresholdReached() ?? null,
+                  isThresholdReached: report.isThresholdReached ?? null,
                 })
               })
               .catch(next)

@@ -4,10 +4,9 @@ import {
   Module,
   ModuleAnalysisInterface,
   ModuleInterface,
-  Report,
+  LighthouseReport,
 } from "@fabernovel/heart-common"
 import { requestResult } from "./api/Client.js"
-import { compute } from "./scoring/compute.js"
 
 export class LighthouseModule
   extends Module
@@ -19,7 +18,7 @@ export class LighthouseModule
     super(module)
   }
 
-  public async startAnalysis(conf: LighthouseConfig, threshold?: number): Promise<Report<LighthouseResult>> {
+  public async startAnalysis(conf: LighthouseConfig, threshold?: number): Promise<LighthouseReport> {
     this.threshold = threshold
 
     const result = await requestResult(conf)
@@ -27,16 +26,13 @@ export class LighthouseModule
     return this.handleResult(result)
   }
 
-  private handleResult(result: LighthouseResult): Report<LighthouseResult> {
-    const score = compute(result.categories, 1)
-
-    return new Report({
+  private handleResult(result: LighthouseResult): LighthouseReport {
+    return new LighthouseReport({
       analyzedUrl: result.requestedUrl as string,
       date: new Date(result.fetchTime),
       result: result,
+      resultUrl: undefined,
       service: this.service,
-      note: score.toString(),
-      normalizedNote: score,
       threshold: this.threshold,
     })
   }

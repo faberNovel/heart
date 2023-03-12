@@ -1,13 +1,13 @@
-import { Report } from "../report/Report.js"
+import { GenericReport } from "../report/Report.js"
 import { Config } from "./analysis/input/Config.js"
-import { ModuleInterface } from "./ModuleInterface.js"
 import { Result } from "./analysis/output/Result.js"
+import { ModuleInterface } from "./ModuleInterface.js"
 
 /**
  * Define an Analysis module.
  */
 export interface ModuleAnalysisInterface<C extends Config, R extends Result> extends ModuleInterface {
-  startAnalysis: (conf: C, thresholds?: number) => Promise<Report<R>>
+  startAnalysis: (conf: C, thresholds?: number) => Promise<GenericReport<R>>
 }
 
 /**

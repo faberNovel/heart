@@ -1,17 +1,17 @@
 import {
   Config,
+  GenericReport,
   ModuleAnalysisInterface,
   ModuleListenerInterface,
   ModuleServerInterface,
   Result,
-  Report,
 } from "@fabernovel/heart-common"
 import { CorsOptions } from "cors"
 import ora from "ora"
 
 export async function notifyListenerModules<R extends Result>(
   listenerModules: IterableIterator<ModuleListenerInterface>,
-  report: Report<R>
+  report: GenericReport<R>
 ): Promise<unknown[]> {
   const promises = Array.from(listenerModules, (listenerModule) => listenerModule.notifyAnalysisDone(report))
 
@@ -22,7 +22,7 @@ export async function startAnalysis<C extends Config, R extends Result>(
   module: ModuleAnalysisInterface<C, R>,
   conf: C,
   threshold?: number
-): Promise<Report<R>> {
+): Promise<GenericReport<R>> {
   const spinner = ora({ spinner: "hearts", interval: 200 })
 
   spinner.start("Analysis in progress...")
@@ -37,9 +37,9 @@ export async function startAnalysis<C extends Config, R extends Result>(
       messageParts.push(`View full report: ${report.resultUrl}`)
     }
 
-    if (report.isThresholdReached() === true) {
+    if (report.isThresholdReached === true) {
       messageParts.push("Your threshold is reached")
-    } else if (report.isThresholdReached() === false) {
+    } else if (report.isThresholdReached === false) {
       messageParts.push("Your threshold is not reached")
     }
 

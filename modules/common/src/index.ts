@@ -20,9 +20,13 @@ import { SsllabsServerGrade } from "./module/analysis/output/ssllabs-server/enum
 import { SsllabsServerStatus } from "./module/analysis/output/ssllabs-server/enum/SsllabsServerStatus.js"
 import type { SsllabsServerEndpoint } from "./module/analysis/output/ssllabs-server/model/SsllabsServerEndpoint.js"
 import type { SsllabsServerResult } from "./module/analysis/output/ssllabs-server/model/SsllabsServerResult.js"
-import { Report } from "./report/Report.js"
+import { GenericReport } from "./report/Report.js"
 import { timeout } from "./time/timeout.js"
 import { validateInput } from "./validation/InputValidation.js"
+import { GreenITReport } from "./report/analysis/GreenITReport.js"
+import { LighthouseReport } from "./report/analysis/LighthouseReport.js"
+import { ObservatoryReport } from "./report/analysis/ObservatoryReport.js"
+import { SsllabsServerReport } from "./report/analysis/SsllabsServerReport.js"
 
 const Helper = {
   timeout,
@@ -39,7 +43,13 @@ export {
   ModuleInterface,
   ModuleListenerInterface,
   ModuleServerInterface,
-  Report,
+
+  // Reports
+  GenericReport,
+  GreenITReport,
+  LighthouseReport,
+  ObservatoryReport,
+  SsllabsServerReport,
   Request,
   ThresholdError,
   validateInput,

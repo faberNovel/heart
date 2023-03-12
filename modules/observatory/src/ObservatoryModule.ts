@@ -2,7 +2,7 @@ import {
   Helper,
   Module,
   ModuleAnalysisInterface,
-  Report,
+  GenericReport,
   ObservatoryResult,
   ObservatoryConfig,
 } from "@fabernovel/heart-common"
@@ -20,21 +20,19 @@ export class ObservatoryModule
   public async startAnalysis(
     conf: ObservatoryConfig,
     threshold?: number
-  ): Promise<Report<ObservatoryResult>> {
+  ): Promise<ObservatoryReport> {
     const scan = await this.#client.triggerAnalysis(conf)
 
     const finishedScan = await this.requestFinishedScan(scan)
 
     const result = await this.#client.requestTests(finishedScan)
 
-    return new Report({
+    return new ObservatoryReport({
       analyzedUrl: conf.host,
-      note: finishedScan.grade,
       result: result,
       resultUrl: this.#client.getAnalyzeUrl(),
       service: this.service,
       date: new Date(finishedScan.end_time),
-      normalizedNote: Math.min(finishedScan.score, 100),
       threshold: threshold,
     })
   }
