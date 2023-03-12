@@ -81,7 +81,7 @@ export class ExpressApp {
                   normalizedGrade: report.normalizedGrade,
                   resultUrl: report.resultUrl,
                   threshold: report.threshold ?? null,
-                  isThresholdReached: report.isThresholdReached ?? null,
+                  isThresholdReached: report.isThresholdReached() ?? null,
                 })
               })
               .catch(next)
