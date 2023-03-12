@@ -1,0 +1,10 @@
+{
+  "changes": [
+    {
+      "packageName": "@fabernovel/heart-api",
+      "comment": "Fix the JSON response to always show every properties (make the undefined properties null)",
+      "type": "major"
+    }
+  ],
+  "packageName": "@fabernovel/heart-api"
+}

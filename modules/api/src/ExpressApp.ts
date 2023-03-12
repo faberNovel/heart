@@ -73,15 +73,16 @@ export class ExpressApp {
                 response.status(200).json({
                   analyzedUrl: report.analyzedUrl,
                   date: report.date,
+                  grade: report.grade,
+                  isThresholdReached: report.isThresholdReached() ?? null,
+                  normalizedGrade: report.normalizedGrade,
                   result: report.result,
+                  resultUrl: report.resultUrl ?? null,
                   service: {
                     name: report.service.name,
+                    logo: report.service.logo ?? null,
                   },
-                  grade: report.grade,
-                  normalizedGrade: report.normalizedGrade,
-                  resultUrl: report.resultUrl,
                   threshold: report.threshold ?? null,
-                  isThresholdReached: report.isThresholdReached() ?? null,
                 })
               })
               .catch(next)
