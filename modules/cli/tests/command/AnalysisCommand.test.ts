@@ -1,14 +1,21 @@
-import { Config, ModuleAnalysisInterface, Result, Report } from "@fabernovel/heart-common"
+import {
+  Config,
+  GreenITReport,
+  GreenITResult,
+  ModuleAnalysisInterface,
+  Result,
+} from "@fabernovel/heart-common"
 import { Command } from "commander"
 import { createAnalysisCommand } from "../../src/command/AnalysisCommand.js"
 
 test("Create an analysis command", () => {
-  const report = new Report({
+  const report = new GreenITReport({
     analyzedUrl: "https://heart.fabernovel.com",
     date: new Date(),
-    result: {},
-    note: "50",
-    normalizedNote: 50,
+    result: {
+      grade: "B",
+      ecoIndex: 50,
+    } as unknown as GreenITResult,
     service: {
       name: "Heart CLI",
     },

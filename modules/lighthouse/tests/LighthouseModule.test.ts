@@ -38,8 +38,8 @@ describe("Starts an analysis", () => {
 
     expect(report.analyzedUrl).toStrictEqual(Conf.url)
     expect(report).toHaveProperty("date")
-    expect(report).toHaveProperty("note")
-    expect(report).toHaveProperty("normalizedNote")
+    expect(report).toHaveProperty("grade")
+    expect(report).toHaveProperty("normalizedGrade")
   })
 
   it("should starts an analysis with an invalid configuration", async () => {

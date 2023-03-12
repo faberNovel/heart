@@ -1,22 +1,9 @@
-import { ObservatoryConfig, ObservatoryResult } from "@fabernovel/heart-common"
+import { ObservatoryConfig } from "@fabernovel/heart-common"
 import { jest } from "@jest/globals"
+import { RESULT } from "../data/Result.js"
 
 const ANALYZE_URL = "www.observatory.mozilla/results"
 const API_URL = "www.observatory.mozilla/api"
-const RESULT: ObservatoryResult = {
-  "content-security-policy": {
-    expectation: "csp-implemented-with-no-unsafe",
-    name: "content-security-policy",
-    output: {
-      data: {},
-    },
-    pass: false,
-    result: "csp-implemented-with-unsafe-inline-in-style-src-only",
-    score_description:
-      "Content Security Policy (CSP) implemented with unsafe-inline inside style-src directive",
-    score_modifier: -5,
-  },
-}
 
 jest.unstable_mockModule("@fabernovel/heart-common", () => ({
   Request: {

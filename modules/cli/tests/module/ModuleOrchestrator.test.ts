@@ -1,14 +1,21 @@
-import { Config, ModuleAnalysisInterface, Report, Result } from "@fabernovel/heart-common"
+import {
+  Config,
+  ModuleAnalysisInterface,
+  Result,
+  GreenITReport,
+  GreenITResult,
+} from "@fabernovel/heart-common"
 import { jest } from "@jest/globals"
 import { startAnalysis } from "../../src/module/ModuleOrchestrator.js"
 
 test("Displays the results of an analysis", async () => {
-  const report = new Report({
+  const report = new GreenITReport({
     analyzedUrl: "https://heart.fabernovel.com",
     date: new Date(),
-    result: {},
-    note: "50",
-    normalizedNote: 50,
+    result: {
+      grade: "B",
+      ecoIndex: 50,
+    } as unknown as GreenITResult,
     service: {
       name: "Heart CLI",
     },
