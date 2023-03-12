@@ -28,7 +28,7 @@ export class ObservatoryModule
       date: new Date(finishedScan.end_time),
       result: {
         scan: finishedScan,
-        tests,
+        tests: tests,
       },
       resultUrl: this.#client.getAnalyzeUrl(),
       service: this.service,

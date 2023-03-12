@@ -18,7 +18,7 @@ interface ReportBase {
   /**
    * URL where the analysis results are accessible
    */
-  resultUrl: string | undefined
+  resultUrl?: string
 
   /**
    * Details about the service that process the analysis
@@ -29,7 +29,7 @@ interface ReportBase {
   /**
    * Threshold
    */
-  threshold: number | undefined
+  threshold?: number
 }
 
 interface ValueHolder<A> {

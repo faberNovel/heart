@@ -10,12 +10,13 @@ export class GreenITReport implements GenericReport<GreenITResult> {
   #service: Service
   #threshold: number | undefined
 
-  constructor({ analyzedUrl, date, result, service, resultUrl }: ReportArguments<GreenITResult>) {
+  constructor({ analyzedUrl, date, result, resultUrl, service, threshold }: ReportArguments<GreenITResult>) {
     this.#analyzedUrl = analyzedUrl
     this.#date = date
     this.#result = result
-    this.#service = service
     this.#resultUrl = resultUrl
+    this.#service = service
+    this.#threshold = threshold
   }
 
   get analyzedUrl(): string {

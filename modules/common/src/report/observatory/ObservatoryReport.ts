@@ -10,12 +10,20 @@ export class ObservatoryReport implements GenericReport<ObservatoryResult> {
   #service: Service
   #threshold: number | undefined
 
-  constructor({ analyzedUrl, date, result, service, resultUrl }: ReportArguments<ObservatoryResult>) {
+  constructor({
+    analyzedUrl,
+    date,
+    result,
+    resultUrl,
+    service,
+    threshold,
+  }: ReportArguments<ObservatoryResult>) {
     this.#analyzedUrl = analyzedUrl
     this.#date = date
     this.#result = result
-    this.#service = service
     this.#resultUrl = resultUrl
+    this.#service = service
+    this.#threshold = threshold
   }
 
   get analyzedUrl(): string {

@@ -54,12 +54,20 @@ export class SsllabsServerReport implements GenericReport<SsllabsServerResult> {
   #service: Service
   #threshold: number | undefined
 
-  constructor({ analyzedUrl, date, result, service, resultUrl }: ReportArguments<SsllabsServerResult>) {
+  constructor({
+    analyzedUrl,
+    date,
+    result,
+    resultUrl,
+    service,
+    threshold,
+  }: ReportArguments<SsllabsServerResult>) {
     this.#analyzedUrl = analyzedUrl
     this.#date = date
     this.#result = result
-    this.#service = service
     this.#resultUrl = resultUrl
+    this.#service = service
+    this.#threshold = threshold
 
     this.#normalizedGrade = computeEndpoints(this.#result.endpoints)
     this.#grade = this.#normalizedGrade.toString()

@@ -53,12 +53,20 @@ export class LighthouseReport implements GenericReport<LighthouseResult> {
   #service: Service
   #threshold: number | undefined
 
-  constructor({ analyzedUrl, date, result, service, resultUrl }: ReportArguments<LighthouseResult>) {
+  constructor({
+    analyzedUrl,
+    date,
+    result,
+    resultUrl,
+    service,
+    threshold,
+  }: ReportArguments<LighthouseResult>) {
     this.#analyzedUrl = analyzedUrl
     this.#date = date
     this.#result = result
-    this.#service = service
     this.#resultUrl = resultUrl
+    this.#service = service
+    this.#threshold = threshold
 
     this.#normalizedGrade = compute(this.#result.categories)
     this.#grade = this.#normalizedGrade.toString()

@@ -31,7 +31,6 @@ export class LighthouseModule
       analyzedUrl: result.requestedUrl as string,
       date: new Date(result.fetchTime),
       result: result,
-      resultUrl: undefined,
       service: this.service,
       threshold: this.threshold,
     })
