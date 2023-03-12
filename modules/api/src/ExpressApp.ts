@@ -80,6 +80,7 @@ export class ExpressApp {
                   resultUrl: report.resultUrl ?? null,
                   service: {
                     name: report.service.name,
+                    logo: report.service.logo ?? null,
                   },
                   threshold: report.threshold ?? null,
                 })
