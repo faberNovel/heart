@@ -1,4 +1,4 @@
-import { LighthouseResult } from "@fabernovel/heart-common"
+import { LighthouseReport } from "@fabernovel/heart-common"
 import { jest } from "@jest/globals"
 import { Conf } from "./data/Conf.js"
 
@@ -12,10 +12,10 @@ const RESULT = {
   },
   requestedUrl: Conf.url,
   fetchTime: 1584540399,
-} as unknown as LighthouseResult // avoid the declaration of a huuuuuge object
+} as unknown as LighthouseReport["result"] // avoid the declaration of a huuuuuge object
 
 jest.unstable_mockModule("../src/api/Client.js", () => ({
-  requestResult: jest.fn<() => Promise<LighthouseResult>>().mockResolvedValue(RESULT),
+  requestResult: jest.fn<() => Promise<LighthouseReport["result"]>>().mockResolvedValue(RESULT),
 }))
 const { requestResult } = await import("../src/api/Client.js")
 const mockedRequestResult = jest.mocked(requestResult)

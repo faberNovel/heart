@@ -1,10 +1,4 @@
-import {
-  Config,
-  GreenITReport,
-  GreenITResult,
-  ModuleAnalysisInterface,
-  Result,
-} from "@fabernovel/heart-common"
+import { Config, GreenITReport, ModuleAnalysisInterface } from "@fabernovel/heart-common"
 import { Command } from "commander"
 import { createAnalysisCommand } from "../../src/command/AnalysisCommand.js"
 
@@ -15,13 +9,13 @@ test("Create an analysis command", () => {
     result: {
       grade: "B",
       ecoIndex: 50,
-    } as unknown as GreenITResult,
+    } as unknown as GreenITReport["result"],
     service: {
       name: "Heart CLI",
     },
   })
 
-  const module: ModuleAnalysisInterface<Config, Result> = {
+  const module: ModuleAnalysisInterface<Config, GreenITReport> = {
     id: "test-analysis-tool",
     name: "Heart Test Analysis Tool",
     service: {
