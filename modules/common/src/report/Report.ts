@@ -50,7 +50,7 @@ export default interface Report extends ReportBase {
    */
   get normalizedGrade(): number
 
-  displayNote(): string
+  displayGrade(): string
 
   isThresholdReached(): boolean | undefined
 }

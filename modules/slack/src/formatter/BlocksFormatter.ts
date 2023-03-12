@@ -29,7 +29,7 @@ const createBlocks = (
 ) => {
   metricsBlocks.unshift({
     type: "mrkdwn",
-    text: "*Overall*: " + report.displayNote(),
+    text: "*Overall*: " + report.displayGrade(),
   })
 
   const blocks: Array<KnownBlock | Block> = [

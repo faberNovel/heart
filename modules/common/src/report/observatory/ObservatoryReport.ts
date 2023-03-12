@@ -58,10 +58,10 @@ export class ObservatoryReport implements GenericReport<ObservatoryResult> {
     return this.#threshold
   }
 
-  displayNote(): string {
+  displayGrade(): string {
     return this.normalizedGrade.toString() === this.grade
       ? `${this.grade}/100`
-      : `${this.grade} (${this.normalizedGrade}/100`
+      : `${this.grade} (${this.normalizedGrade}/100)`
   }
 
   isThresholdReached(): boolean | undefined {
