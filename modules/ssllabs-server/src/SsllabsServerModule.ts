@@ -2,7 +2,6 @@ import {
   Helper,
   Module,
   ModuleAnalysisInterface,
-  ModuleInterface,
   SsllabsServerReport,
   SsllabsServerStatus,
   SsllabsServerConfig,
@@ -15,14 +14,8 @@ export class SsllabsServerModule
 {
   private static readonly MAX_TRIES = 100
   private static readonly TIME_BETWEEN_TRIES = 10000 // 10 seconds
-  private apiClient: Client
+  private apiClient = new Client()
   private threshold?: number
-
-  constructor(module: Pick<ModuleInterface, "name" | "service">) {
-    super(module)
-
-    this.apiClient = new Client()
-  }
 
   public async startAnalysis(conf: SsllabsServerConfig, threshold?: number): Promise<SsllabsServerReport> {
     this.threshold = threshold

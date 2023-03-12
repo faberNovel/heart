@@ -1,6 +1,6 @@
-import { ObservatoryResult } from "@fabernovel/heart-common"
+import { ObservatoryReport } from "@fabernovel/heart-common"
 
-export const RESULT: ObservatoryResult = {
+export const RESULT: ObservatoryReport["result"] = {
   scan: {
     end_time: "May 13, 2022 5:58 PM",
     grade: "B",

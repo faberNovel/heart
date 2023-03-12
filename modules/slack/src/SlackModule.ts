@@ -1,24 +1,12 @@
-import {
-  Module,
-  ModuleInterface,
-  ModuleListenerInterface,
-  Result,
-  GenericReport,
-} from "@fabernovel/heart-common"
+import { Module, ModuleListenerInterface, Result, GenericReport } from "@fabernovel/heart-common"
 import { Client } from "./api/Client.js"
 import { formatBlocks } from "./formatter/BlocksFormatter.js"
 import { formatText } from "./formatter/TextFormatter.js"
 
 export class SlackModule extends Module implements ModuleListenerInterface {
-  private slackClient: Client
+  private slackClient = new Client()
 
-  constructor(module: Pick<ModuleInterface, "name" | "service">) {
-    super(module)
-
-    this.slackClient = new Client()
-  }
-
-  public async notifyAnalysisDone<R extends Result>(report: GenericReport<R>): Promise<unknown> {
+  public async notifyAnalysisDone(report: GenericReport<Result>): Promise<unknown> {
     return this.slackClient.postMessage({
       blocks: formatBlocks(report),
       text: formatText(report),

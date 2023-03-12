@@ -1,22 +1,10 @@
-import {
-  GenericReport,
-  Module,
-  ModuleInterface,
-  ModuleListenerInterface,
-  Result,
-} from "@fabernovel/heart-common"
+import { GenericReport, Module, ModuleListenerInterface, Result } from "@fabernovel/heart-common"
 import { PartialFailureError } from "@google-cloud/common/build/src/util.js"
 import { BigQueryClient } from "./api/BigQuery/Client.js"
 import { RowReport } from "./api/BigQuery/model/RowReport.js"
 
 export class BigQueryModule extends Module implements ModuleListenerInterface {
-  private bigqueryClient: BigQueryClient
-
-  constructor(module: Pick<ModuleInterface, "name" | "service">) {
-    super(module)
-
-    this.bigqueryClient = new BigQueryClient()
-  }
+  private bigqueryClient = new BigQueryClient()
 
   public async notifyAnalysisDone<R extends Result>(report: GenericReport<R>): Promise<unknown> {
     try {

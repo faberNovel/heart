@@ -1,10 +1,4 @@
-import {
-  LighthouseConfig,
-  LighthouseReport,
-  Module,
-  ModuleAnalysisInterface,
-  ModuleInterface,
-} from "@fabernovel/heart-common"
+import { LighthouseConfig, LighthouseReport, Module, ModuleAnalysisInterface } from "@fabernovel/heart-common"
 import { requestResult } from "./api/Client.js"
 
 export class LighthouseModule
@@ -12,10 +6,6 @@ export class LighthouseModule
   implements ModuleAnalysisInterface<LighthouseConfig, LighthouseReport>
 {
   private threshold?: number
-
-  constructor(module: Pick<ModuleInterface, "name" | "service">) {
-    super(module)
-  }
 
   public async startAnalysis(conf: LighthouseConfig, threshold?: number): Promise<LighthouseReport> {
     this.threshold = threshold

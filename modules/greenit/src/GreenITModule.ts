@@ -1,13 +1,9 @@
 import type { GreenITConfig } from "@fabernovel/heart-common"
-import { Module, ModuleAnalysisInterface, ModuleInterface, GreenITReport } from "@fabernovel/heart-common"
+import { Module, ModuleAnalysisInterface, GreenITReport } from "@fabernovel/heart-common"
 import { requestResult } from "./api/Client.js"
 
 export class GreenITModule extends Module implements ModuleAnalysisInterface<GreenITConfig, GreenITReport> {
   private threshold?: number
-
-  constructor(module: Pick<ModuleInterface, "name" | "service">) {
-    super(module)
-  }
 
   public async startAnalysis(conf: GreenITConfig, threshold?: number): Promise<GreenITReport> {
     this.threshold = threshold

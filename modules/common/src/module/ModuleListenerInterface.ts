@@ -6,7 +6,7 @@ import { ModuleInterface } from "./ModuleInterface.js"
  * Define an Listener module.
  */
 export interface ModuleListenerInterface extends ModuleInterface {
-  notifyAnalysisDone<R extends Result>(report: GenericReport<R>): Promise<unknown>
+  notifyAnalysisDone(report: GenericReport<Result>): Promise<unknown>
 }
 
 /**
