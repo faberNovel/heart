@@ -8,8 +8,8 @@
   },
   "repository": {
     "type": "git",
-    "url": "git@gitlab.com:fabernovel/heart.git",
-    "directory": "modules/core"
+    "url": "https://github.com/faberNovel/heart.git",
+    "directory": "modules/common"
   },
   "license": "MIT",
   "contributors": [
