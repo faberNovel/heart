@@ -4,7 +4,7 @@ _Heart CLI_ is the control module of _Heart_. It allows every other module to wo
 
 Note that you must install an _analysis_ module too, to have a minimum viable installation of _Heart_.
 
-Read more about [the description and design of _Heart_](https://gitlab.com/fabernovel/heart/-/blob/master/README.md).
+Read more about [the description and design of _Heart_](https://github.com/faberNovel/heart#readme).
 
 # Usage
 

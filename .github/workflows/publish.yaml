@@ -36,8 +36,8 @@ on:
         required: true
 
 env:
-  # Force the master branch to be deployed, whatever the input is: avoid the publication of WIP code from other branches
-  SOURCE_BRANCH: master
+  # Force the main branch to be deployed, whatever the input is: avoid the publication of WIP code from other branches
+  SOURCE_BRANCH: main
   TARGET_BRANCH: release/${{ github.run_id }}
 
 jobs:

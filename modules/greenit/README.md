@@ -2,7 +2,7 @@
 
 _Heart GreenIT_ is an _analysis_ module of _Heart_, which analyses URLs with _[GreenIT](https://chrome.google.com/webstore/detail/greenit-analysis/mofbfhffeklkbebfclfaiifefjflcpad)_.
 
-Read more about [the description and design of _Heart_](https://gitlab.com/fabernovel/heart/-/blob/master/README.md).
+Read more about [the description and design of _Heart_](https://github.com/faberNovel/heart#readme).
 
 # Usage
 

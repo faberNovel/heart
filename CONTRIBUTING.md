@@ -27,7 +27,7 @@ Before making a new contribution, please check [the issues](https://github.com/f
 
 ### Create a _Pull Request_
 
-1. Create a branch for your enhancement from the `master` branch and push it to the remote
+1. Create a branch for your enhancement from the `main` branch and push it to the remote
 2. [Create a Pull Request from the GitHub interface](https://github.com/faberNovel/heart/compare) and select your branch
 
 ### [Setup your local environment](.docs/SETUP_LOCAL_ENVIRONMENT.md)
