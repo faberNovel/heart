@@ -4,7 +4,7 @@ _Heart Slack_ is a _listener_ module of _Heart_, which reacts to the end of an a
 
 Note that you must install an _analysis_ module too, to have a minimum viable installation of _Heart_.
 
-Read more about [the description and design of _Heart_](https://gitlab.com/fabernovel/heart/-/blob/master/README.md).
+Read more about [the description and design of _Heart_](https://github.com/faberNovel/heart#readme).
 
 
 # Usage
