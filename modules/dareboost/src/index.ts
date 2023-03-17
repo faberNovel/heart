@@ -4,6 +4,6 @@ export default new DareboostModule({
   name: "Heart Dareboost",
   service: {
     name: "Dareboost",
-    logo: "https://raw.githubusercontent.com/faberNovel/heart/master/assets/images/logos/Dareboost.png?v=20221126",
+    logo: "https://raw.githubusercontent.com/faberNovel/heart/main/assets/images/logos/Dareboost.png?v=20221126",
   },
 })
