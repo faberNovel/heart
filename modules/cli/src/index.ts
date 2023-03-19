@@ -1,4 +1,4 @@
-import { Config } from "@fabernovel/heart-common"
+import { Config, ModuleListenerInterface } from "@fabernovel/heart-common"
 import { Command } from "commander"
 import { CorsOptions } from "cors"
 import { config } from "dotenv"
@@ -34,28 +34,33 @@ void (async () => {
   try {
     const cmd = createCommand()
     const [analysisModulesMap, listenerModulesMap, serverModulesMap] = await load()
+    const listenerModules = Array.from(listenerModulesMap.values()).map((listenerModule) => listenerModule)
 
     // analysis modules: create a command for each of them
     analysisModulesMap.forEach((analysisModule, modulePath) => {
-      const callback = async <C extends Config>(conf: C, threshold?: number) => {
+      const callback = async <C extends Config>(
+        conf: C,
+        threshold: number | undefined,
+        listenerModulesFiltered: ModuleListenerInterface[]
+      ) => {
         loadEnvironmentVariables(modulePath)
 
         const report = await startAnalysis(analysisModule, conf, threshold)
 
-        // notify every listener module
-        await notifyListenerModules(listenerModulesMap.values(), report)
+        // notify filtered listener modules
+        await notifyListenerModules(listenerModulesFiltered, report)
       }
 
-      const analysisCommand = createAnalysisSubcommand(analysisModule, callback)
+      const analysisCommand = createAnalysisSubcommand(analysisModule, listenerModules, callback)
 
       cmd.addCommand(analysisCommand)
     })
 
     // server modules: create a command for each of them
     serverModulesMap.forEach((serverModule, modulePath: string) => {
-      const callback = (port: number, cors?: CorsOptions) => {
+      const callback = (port: number, cors: CorsOptions | undefined) => {
         loadEnvironmentVariables(modulePath)
-        startServer(serverModule, analysisModulesMap.values(), listenerModulesMap.values(), port, cors)
+        startServer(serverModule, analysisModulesMap.values(), listenerModules, port, cors)
       }
 
       const serverCommand = createServerSubcommand(serverModule, callback)

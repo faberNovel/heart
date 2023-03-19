@@ -1,7 +1,7 @@
 import { ModuleServerInterface } from "@fabernovel/heart-common"
 import { Command } from "commander"
 import { createServer } from "http"
-import { createServerCommand } from "../../src/command/ServerCommand.js"
+import { createServerSubcommand } from "../../src/command/ServerCommand.js"
 
 test("Create a server command", () => {
   const module: ModuleServerInterface = {
@@ -19,7 +19,7 @@ test("Create a server command", () => {
   const program = new Command()
 
   // eslint-disable-next-line @typescript-eslint/no-empty-function
-  const serverCommand = createServerCommand(module, () => {})
+  const serverCommand = createServerSubcommand(module, () => {})
 
   program.addCommand(serverCommand)
   program.parse(["test-server", "--port", optionPort, "--cors", optionCors], { from: "user" })

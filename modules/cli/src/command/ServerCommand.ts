@@ -1,14 +1,11 @@
 import { ModuleServerInterface } from "@fabernovel/heart-common"
 import { Command } from "commander"
 import { CorsOptions } from "cors"
-import { BaseOptions, createBaseSubcommand } from "./BaseCommand.js"
 
 type ServerOptions = {
   port: string
   cors?: CorsOptions
 }
-
-type Options = BaseOptions & ServerOptions
 
 // the keys are used to create the options names:
 // - options long names: keys names
@@ -27,11 +24,12 @@ const PORT_REGEX =
  */
 export const createServerSubcommand = (
   module: ModuleServerInterface,
-  callback: (port: number, corsOptions?: CorsOptions) => void
+  callback: (port: number, corsOptions: CorsOptions | undefined) => void
 ): Command => {
-  const subcommand = createBaseSubcommand(module.id, `Starts the ${module.name} server`)
+  const subcommand = new Command(module.id)
 
   subcommand
+    .description(`Starts the ${module.name} server`)
     .option(
       `-${SERVER_OPTIONS.port[0]}, --${SERVER_OPTIONS.port} [${SERVER_OPTIONS.port}]`,
       "Port that the server is listening to",
@@ -43,8 +41,7 @@ export const createServerSubcommand = (
       "CORS configuration, as defined in https://www.npmjs.com/package/cors#configuration-options",
       (value: string) => JSON.parse(value) as CorsOptions
     )
-    .action((options: Options) => {
-      console.log(options)
+    .action((options: ServerOptions) => {
       const { cors, port } = options
 
       callback(Number(port), cors)
