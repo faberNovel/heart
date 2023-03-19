@@ -28,18 +28,25 @@ const { validateInput } = await import("../../src/validation/InputValidation.js"
 
 test("Provide no configurations", () => {
   expect(() => {
-    validateInput(undefined, undefined, undefined)
+    validateInput(undefined, undefined, undefined, [], undefined, undefined)
   }).toThrow()
 })
 
 test("Provide two configurations", () => {
   expect(() => {
-    validateInput("", "", undefined)
+    validateInput("", "", undefined, [], undefined, undefined)
   }).toThrow()
 })
 
 test("Provide an inline configuration", () => {
-  const [config] = validateInput(undefined, '{"inline": "configuration"}', undefined)
+  const [config] = validateInput(
+    undefined,
+    '{"inline": "configuration"}',
+    undefined,
+    [],
+    undefined,
+    undefined
+  )
   expect(config).toEqual({ inline: "configuration" })
 })
 
@@ -55,12 +62,12 @@ describe("Provide a file configuration", () => {
     // expect(mockIsAbsolute).toHaveBeenCalledTimes(1)
     // expect(mockReadFileSync).toHaveBeenCalledTimes(1)
     expect(() => {
-      validateInput("missingConfig.json", undefined, undefined)
+      validateInput("missingConfig.json", undefined, undefined, [], undefined, undefined)
     }).toThrow()
   })
 
   test("Provide existing file configuration", () => {
-    const [config] = validateInput("existingConfig.json", undefined, undefined)
+    const [config] = validateInput("existingConfig.json", undefined, undefined, [], undefined, undefined)
 
     // does not seem to work with ESM
     // expect(mockIsAbsolute).toHaveBeenCalledTimes(1)

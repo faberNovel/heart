@@ -1,12 +1,15 @@
 import {
   Config,
+  ConfigError,
   GenericReport,
+  ListenersError,
   ModuleAnalysisInterface,
   ModuleListenerInterface,
   Result,
+  ThresholdError,
   validateInput,
 } from "@fabernovel/heart-common"
-import { Command } from "commander"
+import { Command, InvalidArgumentError } from "commander"
 import {
   AnalysisOptions,
   createExceptListenersOption,
@@ -40,22 +43,26 @@ export const createAnalysisSubcommand = <C extends Config, R extends GenericRepo
     .action(async (options: AnalysisOptions) => {
       const { file, inline, threshold, exceptListeners, onlyListeners } = options
 
-      const [parsedConfig, parsedThreshold] = validateInput<C>(file, inline, threshold)
+      try {
+        const [parsedConfig, parsedThreshold, listenerModulesFiltered] = validateInput<C>(
+          file,
+          inline,
+          threshold,
+          listenerModules,
+          exceptListeners,
+          onlyListeners
+        )
 
-      let listenerModulesFiltered: ModuleListenerInterface[] = []
-      if (Array.isArray(exceptListeners)) {
-        listenerModulesFiltered = listenerModules.filter(
-          (listenerModule) => !exceptListeners.includes(listenerModule.id)
-        )
-      } else if (Array.isArray(onlyListeners)) {
-        listenerModulesFiltered = listenerModules.filter((listenerModules) =>
-          onlyListeners.includes(listenerModules.id)
-        )
-      } else {
-        listenerModulesFiltered = listenerModules
+        await callback(parsedConfig, parsedThreshold, listenerModulesFiltered)
+      } catch (error) {
+        if (
+          error instanceof ConfigError ||
+          error instanceof ThresholdError ||
+          error instanceof ListenersError
+        ) {
+          throw new InvalidArgumentError(error.message)
+        }
       }
-
-      await callback(parsedConfig, parsedThreshold, listenerModulesFiltered)
     })
 
   return subcommand

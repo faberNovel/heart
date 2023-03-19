@@ -1,4 +1,5 @@
 import { ConfigError } from "./error/ConfigError.js"
+import { ListenersError } from "./error/ListenersError.js"
 import { ThresholdError } from "./error/ThresholdError.js"
 import { Request } from "./http/Request.js"
 import type { Config } from "./module/config/Config.js"
@@ -28,6 +29,10 @@ const Helper = {
 
 export {
   ConfigError,
+  ListenersError,
+  ThresholdError,
+
+  // Modules
   Helper,
   isModuleAnalysis,
   isModuleListener,
@@ -45,11 +50,9 @@ export {
   ObservatoryReport,
   SsllabsServerReport,
   Request,
-  ThresholdError,
   validateInput,
   SsllabsServerStatus,
 }
-
 export type {
   Config,
   ModuleIndex,

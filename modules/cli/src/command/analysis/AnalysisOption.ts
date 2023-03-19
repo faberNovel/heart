@@ -23,13 +23,13 @@ const ANALYSIS_OPTIONS: { [key in keyof AnalysisOptions]-?: string } = {
 export function createFileOption(): Option {
   return new Option(
     `-${ANALYSIS_OPTIONS.file[0]}, --${ANALYSIS_OPTIONS.file} [${ANALYSIS_OPTIONS.file}]", "Path to the JSON configuration file`
-  )
+  ).conflicts(ANALYSIS_OPTIONS.inline)
 }
 
 export function createInlineOption(): Option {
   return new Option(
     `-${ANALYSIS_OPTIONS.inline[0]}, --${ANALYSIS_OPTIONS.inline} [${ANALYSIS_OPTIONS.inline}]", "Inlined JSON configuration`
-  )
+  ).conflicts(ANALYSIS_OPTIONS.file)
 }
 
 export function createThresholdOption(): Option {

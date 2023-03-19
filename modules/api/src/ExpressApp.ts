@@ -2,6 +2,7 @@ import {
   Config,
   ConfigError,
   GenericReport,
+  ListenersError,
   ModuleAnalysisInterface,
   ModuleListenerInterface,
   Result,
@@ -67,7 +68,10 @@ export class ExpressApp {
         const [config, threshold] = validateInput<C>(
           undefined,
           JSON.stringify(request.body),
-          typeof request.query.threshold === "string" ? request.query.threshold : undefined
+          request.query.threshold,
+          this.listenerModules,
+          request.body.except_listeners,
+          request.body.only_listeners
         )
 
         module
@@ -140,12 +144,11 @@ function errorHandler(
   error: unknown,
   _request: express.Request,
   response: express.Response,
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   _next: express.NextFunction
 ) {
   console.error(error)
 
-  if (error instanceof ConfigError || error instanceof ThresholdError) {
+  if (error instanceof ConfigError || error instanceof ThresholdError || error instanceof ListenersError) {
     response.status(400).json(createJsonError(error.message))
   } else if (error instanceof Error) {
     response.status(500).json(createJsonError(error.message))
