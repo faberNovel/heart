@@ -5,7 +5,7 @@ import {
   ModuleListenerInterface,
 } from "@fabernovel/heart-common"
 import { Command } from "commander"
-import { createAnalysisSubcommand } from "../../src/command/AnalysisCommand.js"
+import { createAnalysisSubcommand } from "../../src/command/analysis/AnalysisCommand.js"
 
 test("Create an analysis command", () => {
   const report = new GreenITReport({

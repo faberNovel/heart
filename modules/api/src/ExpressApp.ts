@@ -12,6 +12,15 @@ import cors, { CorsOptions } from "cors"
 import express from "express"
 import { createJsonError } from "./error/JsonError.js"
 
+type ReqBody = Config & {
+  except_listeners?: string[]
+  only_listeners?: string[]
+}
+
+type ReqQuery = {
+  threshold?: string
+}
+
 /**
  * Creates and configures an ExpressJS application.
  */
@@ -48,9 +57,9 @@ export class ExpressApp {
 
   private createRouteHandler<C extends Config, R extends GenericReport<Result>>(
     module: ModuleAnalysisInterface<C, R>
-  ): express.RequestHandler {
+  ): express.RequestHandler<unknown, unknown, ReqBody, ReqQuery> {
     return (
-      request: express.Request<unknown, unknown, C>,
+      request: express.Request<unknown, unknown, ReqBody, ReqQuery>,
       response: express.Response,
       next: express.NextFunction
     ) => {
