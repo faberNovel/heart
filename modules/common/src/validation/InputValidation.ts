@@ -47,8 +47,6 @@ function readFile(path: string): string {
 function parseConfig<T>(configFile: string | undefined, configInline: string | undefined): T {
   if (undefined === configFile && undefined === configInline) {
     throw new ConfigError("You must provide a configuration.")
-  } else if (undefined !== configFile && undefined !== configInline) {
-    throw new ConfigError("You must provide only one configuration.")
   }
 
   const config = configInline ?? readFile(configFile as string)
