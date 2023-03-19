@@ -11,9 +11,9 @@ import { Config } from "../module/config/Config.js"
  * @returns The analysis configuration and the threshold
  */
 function validateInput<C extends Config>(
-  configFile?: string,
-  configInline?: string,
-  thresholdInline?: string
+  configFile: string | undefined,
+  configInline: string | undefined,
+  thresholdInline: string | undefined
 ): [C, number?] {
   const config = parseConfig<C>(configFile, configInline)
   const threshold = undefined === thresholdInline ? undefined : parseThreshold(thresholdInline)
@@ -30,7 +30,7 @@ function readFile(path: string): string {
 /**
  * @throws {ConfigError}
  */
-function parseConfig<T>(configFile?: string, configInline?: string): T {
+function parseConfig<T>(configFile: string | undefined, configInline: string | undefined): T {
   if (undefined === configFile && undefined === configInline) {
     throw new ConfigError("You must provide a configuration.")
   } else if (undefined !== configFile && undefined !== configInline) {

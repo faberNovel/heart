@@ -5,13 +5,13 @@ import { config } from "dotenv"
 import { readFileSync } from "node:fs"
 import { argv, cwd, exit } from "node:process"
 import { PackageJson } from "type-fest"
-import { createAnalysisCommand } from "./command/AnalysisCommand.js"
-import { createServerCommand } from "./command/ServerCommand.js"
+import { createAnalysisSubcommand } from "./command/AnalysisCommand.js"
+import { createServerSubcommand } from "./command/ServerCommand.js"
 import { load, loadEnvironmentVariables } from "./module/ModuleLoader.js"
 import { notifyListenerModules, startAnalysis, startServer } from "./module/ModuleOrchestrator.js"
 
 // set environment variables from a .env file
-// assume that the root path if the one from where the script has been called
+// assume that the root path is the one from where the script has been called
 // /!\ this approach does not follow symlink
 config({ path: `${cwd()}/.env` })
 
@@ -46,7 +46,7 @@ void (async () => {
         await notifyListenerModules(listenerModulesMap.values(), report)
       }
 
-      const analysisCommand = createAnalysisCommand(analysisModule, callback)
+      const analysisCommand = createAnalysisSubcommand(analysisModule, callback)
 
       cmd.addCommand(analysisCommand)
     })
@@ -58,7 +58,7 @@ void (async () => {
         startServer(serverModule, analysisModulesMap.values(), listenerModulesMap.values(), port, cors)
       }
 
-      const serverCommand = createServerCommand(serverModule, callback)
+      const serverCommand = createServerSubcommand(serverModule, callback)
 
       cmd.addCommand(serverCommand)
     })

@@ -1,16 +1,19 @@
 import { ModuleServerInterface } from "@fabernovel/heart-common"
 import { Command } from "commander"
 import { CorsOptions } from "cors"
+import { BaseOptions, createBaseSubcommand } from "./BaseCommand.js"
 
-// the keys are used to create the options names:
-// - options long names: keys names
-// - options short names: first letter of the keys names
-type Options = {
+type ServerOptions = {
   port: string
   cors?: CorsOptions
 }
 
-const OPTIONS: { [key in keyof Options]-?: string } = {
+type Options = BaseOptions & ServerOptions
+
+// the keys are used to create the options names:
+// - options long names: keys names
+// - options short names: first letter of the keys names
+const SERVER_OPTIONS: { [key in keyof ServerOptions]-?: string } = {
   port: "port",
   cors: "cors",
 }
@@ -22,30 +25,30 @@ const PORT_REGEX =
 /**
  * Create a command dedicated to the given server module
  */
-export const createServerCommand = (
+export const createServerSubcommand = (
   module: ModuleServerInterface,
   callback: (port: number, corsOptions?: CorsOptions) => void
 ): Command => {
-  const command = new Command(module.id)
+  const subcommand = createBaseSubcommand(module.id, `Starts the ${module.name} server`)
 
-  command
-    .description(`Starts the ${module.name} server`)
+  subcommand
     .option(
-      `-${OPTIONS.port[0]}, --${OPTIONS.port} [${OPTIONS.port}]`,
+      `-${SERVER_OPTIONS.port[0]}, --${SERVER_OPTIONS.port} [${SERVER_OPTIONS.port}]`,
       "Port that the server is listening to",
       (value: string) => (PORT_REGEX.test(value) ? value : PORT_DEFAULT),
       PORT_DEFAULT
     )
     .option(
-      `-${OPTIONS.cors[0]}, --${OPTIONS.cors} [${OPTIONS.cors}]`,
+      `-${SERVER_OPTIONS.cors[0]}, --${SERVER_OPTIONS.cors} [${SERVER_OPTIONS.cors}]`,
       "CORS configuration, as defined in https://www.npmjs.com/package/cors#configuration-options",
       (value: string) => JSON.parse(value) as CorsOptions
     )
     .action((options: Options) => {
+      console.log(options)
       const { cors, port } = options
 
       callback(Number(port), cors)
     })
 
-  return command
+  return subcommand
 }
