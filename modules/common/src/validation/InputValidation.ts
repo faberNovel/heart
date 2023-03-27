@@ -1,5 +1,4 @@
-import { readFileSync } from "node:fs"
-import { isAbsolute } from "node:path"
+import { readFile } from "../filesystem/fs.js"
 import {
   ConfigInputError,
   ListenersInputError,
@@ -37,21 +36,25 @@ function validateListenersInput(
   return optionValues.every((optionValue) => listenerModulesIds.includes(optionValue))
 }
 
-function readFile(path: string): string {
-  const realPath = isAbsolute(path) ? path : `${process.env.PWD as string}/${path}`
-
-  return readFileSync(realPath, "utf8")
-}
-
 /**
- * @throws {ConfigError}
+ * @throws {ConfigInputError}
  */
 function parseConfig<T>(configFile: string | undefined, configInline: string | undefined): T {
   if (undefined === configFile && undefined === configInline) {
     throw new ConfigInputError("You must provide a configuration.")
   }
 
-  const config = configInline ?? readFile(configFile as string)
+  let config: string
+  if (configInline) {
+    config = configInline
+  } else {
+    try {
+      config = readFile(configFile as string)
+    } catch (error) {
+      throw new ConfigInputError(`Cannot read file ${configFile as string}.`)
+    }
+  }
+
   try {
     return JSON.parse(config) as T
   } catch (error) {
