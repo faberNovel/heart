@@ -5,7 +5,7 @@ import {
   ModuleListenerInterface,
   ThresholdInputError,
 } from "../index.js"
-import { Config } from "../module/config/Config.js"
+import type { Config } from "../module/config/Config.js"
 
 /**
  * Validate that the analysis options are correct
@@ -30,7 +30,7 @@ export function validateInput<C extends Config>(
 }
 
 function validateListenersInput(
-  listenerModulesIds: Array<ModuleListenerInterface["id"]>,
+  listenerModulesIds: ModuleListenerInterface["id"][],
   optionValues: string[]
 ): boolean {
   return optionValues.every((optionValue) => listenerModulesIds.includes(optionValue))

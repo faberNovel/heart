@@ -14,6 +14,8 @@
     "noUnusedParameters": true,
     // Enable all strict type-checking options.
     "strict": true,
+    // This flag controls how import works
+    "importsNotUsedAsValues": "error",
 
     "declaration": true,
 

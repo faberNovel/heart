@@ -1,4 +1,4 @@
-import {
+import type {
   Config,
   GenericReport,
   ModuleAnalysisInterface,
@@ -6,7 +6,7 @@ import {
   ModuleServerInterface,
   Result,
 } from "@fabernovel/heart-common"
-import { CorsOptions } from "cors"
+import type { CorsOptions } from "cors"
 import ora from "ora"
 
 export async function notifyListenerModules<R extends GenericReport<Result>>(
@@ -30,7 +30,7 @@ export async function startAnalysis<C extends Config, R extends GenericReport<Re
   try {
     const report = await module.startAnalysis(conf, threshold)
 
-    const reportName = report.service ? `[${report.service.name}] ` : ""
+    const reportName = `[${report.service.name}] `
     const messageParts = [`${reportName}${report.analyzedUrl}: ${report.displayGrade()}`]
 
     if (report.resultUrl) {

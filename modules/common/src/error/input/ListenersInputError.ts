@@ -1,7 +1,3 @@
 import { InputError } from "../InputError.js"
 
-export class ListenersInputError extends InputError {
-  constructor(message?: string) {
-    super(message)
-  }
-}
+export class ListenersInputError extends InputError {}

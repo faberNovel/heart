@@ -1,4 +1,5 @@
-import { Block, KnownBlock, WebAPICallResult, WebClient } from "@slack/web-api"
+import type { Block, KnownBlock, WebAPICallResult } from "@slack/web-api"
+import { WebClient } from "@slack/web-api"
 
 /**
  * Simple Slack client:

@@ -1,4 +1,4 @@
-import { GenericReport, Result } from "@fabernovel/heart-common"
+import type { GenericReport, Result } from "@fabernovel/heart-common"
 
 export const formatText = (report: GenericReport<Result>): string => {
   let text = `${report.analyzedUrl}: ${report.displayGrade()}`

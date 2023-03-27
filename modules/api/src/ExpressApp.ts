@@ -16,7 +16,7 @@ type ReqBody = Config & {
   only_listeners?: string[]
 }
 
-type ReqQuery = {
+interface ReqQuery {
   threshold?: string
 }
 
@@ -142,6 +142,7 @@ function errorHandler(
   error: unknown,
   _request: express.Request,
   response: express.Response,
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   _next: express.NextFunction
 ) {
   console.error(error)

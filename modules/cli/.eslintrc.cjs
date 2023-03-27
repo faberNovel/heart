@@ -8,16 +8,20 @@ module.exports = {
   plugins: ["@typescript-eslint"],
   extends: [
     /**
-     * @see https://eslint.org/docs/latest/rules/
+     * @see {@link https://eslint.org/docs/latest/rules/ }
      */
     "eslint:recommended",
     /**
-     * @see https://typescript-eslint.io/rules/
+     * @see {@link https://typescript-eslint.io/rules/ }
      */
     "plugin:@typescript-eslint/recommended",
     /**
-     * @see https://typescript-eslint.io/docs/linting/typed-linting/
+     * @see {@link https://typescript-eslint.io/docs/linting/typed-linting/ }
      */
     "plugin:@typescript-eslint/recommended-requiring-type-checking",
+    /**
+     * @see {@link https://typescript-eslint.io/linting/configs/#strict }
+     */
+    "plugin:@typescript-eslint/strict",
   ],
 }

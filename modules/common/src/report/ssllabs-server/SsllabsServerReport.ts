@@ -1,8 +1,8 @@
-import { Service } from "../../service/Service.js"
-import { GenericReport, ReportArguments } from "../Report.js"
-import { SsllabsServerGrade } from "./enum/SsllabsServerGrade.js"
-import { SsllabsServerEndpoint } from "./model/SsllabsServerEndpoint.js"
-import { SsllabsServerResult } from "./model/SsllabsServerResult.js"
+import type { Service } from "../../service/Service.js"
+import type { GenericReport, ReportArguments } from "../Report.js"
+import type { SsllabsServerGrade } from "./enum/SsllabsServerGrade.js"
+import type { SsllabsServerEndpoint } from "./model/SsllabsServerEndpoint.js"
+import type { SsllabsServerResult } from "./model/SsllabsServerResult.js"
 
 /**
  * @see [Documentation ('grade' property)]{@link https://github.com/ssllabs/ssllabs-scan/blob/master/ssllabs-api-docs-v3.md#endpoint}

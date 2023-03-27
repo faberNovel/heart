@@ -1,8 +1,8 @@
-import { GreenITReport } from "@fabernovel/heart-common"
-import { MrkdwnElement, SectionBlock } from "@slack/web-api"
+import type { GreenITReport } from "@fabernovel/heart-common"
+import type { MrkdwnElement, SectionBlock } from "@slack/web-api"
 import { MAX_TEXT_BLOCK_LENGTH } from "./BlocksFormatter.js"
 
-type Practice = {
+interface Practice {
   comment: string
   detailComment: string
 }

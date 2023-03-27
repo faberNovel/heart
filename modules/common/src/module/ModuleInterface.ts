@@ -1,4 +1,4 @@
-import { Service } from "../service/Service.js"
+import type { Service } from "../service/Service.js"
 
 export interface ModuleInterface {
   /**

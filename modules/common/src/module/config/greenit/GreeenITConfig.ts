@@ -1,8 +1,8 @@
-import { Config } from "../Config.js"
+import type { Config } from "../Config.js"
 
 type SizeNames = "desktop" | "galaxyS9" | "galaxyS20" | "iPhone8" | "iPhone8Plus" | "iPhoneX" | "iPad"
 
-type Options = {
+interface Options {
   timeout?: number
   max_tab?: number
   retry?: number

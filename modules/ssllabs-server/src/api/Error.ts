@@ -1,7 +1,7 @@
 /**
  * @see [Documentation]{@link https://github.com/ssllabs/ssllabs-scan/blob/master/ssllabs-api-docs-v3.md#error-reporting}
  */
-export type SsllabsServerError = {
+export interface SsllabsServerError {
   errors: {
     field: string
     message: string

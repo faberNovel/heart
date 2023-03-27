@@ -1,6 +1,6 @@
-import { Service } from "../../service/Service.js"
-import { GenericReport, ReportArguments } from "../Report.js"
-import { ObservatoryResult } from "./ObservatoryResult.js"
+import type { Service } from "../../service/Service.js"
+import type { GenericReport, ReportArguments } from "../Report.js"
+import type { ObservatoryResult } from "./ObservatoryResult.js"
 
 export class ObservatoryReport implements GenericReport<ObservatoryResult> {
   #analyzedUrl: string

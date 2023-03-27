@@ -1,5 +1,5 @@
-import { LighthouseReport } from "@fabernovel/heart-common"
-import { MrkdwnElement, SectionBlock } from "@slack/web-api"
+import type { LighthouseReport } from "@fabernovel/heart-common"
+import type { MrkdwnElement, SectionBlock } from "@slack/web-api"
 
 export const formatLighthouseBlocks = (report: LighthouseReport): [MrkdwnElement[], SectionBlock[]] => {
   const metricsBlocks: MrkdwnElement[] = [

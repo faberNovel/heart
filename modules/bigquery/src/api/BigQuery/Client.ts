@@ -1,13 +1,13 @@
 import { BigQuery, Dataset, Table } from "@google-cloud/bigquery"
-import { Authentication } from "./Authentication.js"
-import { Definitions } from "./Definitions.js"
+import { prepareAuthentication } from "./Authentication.js"
+import { DATASET_DEFINITION, TABLE_DEFINITION } from "./Definitions.js"
 
 export class BigQueryClient {
   private _table: Promise<Table>
   private bigqueryClient: BigQuery
 
   constructor() {
-    Authentication.prepare()
+    prepareAuthentication()
 
     this.bigqueryClient = new BigQuery()
 
@@ -22,13 +22,13 @@ export class BigQueryClient {
    * Retrieve the dataset, or create it if it does not exist.
    */
   private async getOrCreateDataset(): Promise<Dataset> {
-    let dataset = this.bigqueryClient.dataset(Definitions.DATASET.ID)
+    let dataset = this.bigqueryClient.dataset(DATASET_DEFINITION.ID)
 
     const [datasetExists] = await dataset.exists()
 
     if (!datasetExists) {
       // create the dataset if it does not exist
-      const datasetResponse = await this.bigqueryClient.createDataset(Definitions.DATASET.ID)
+      const datasetResponse = await this.bigqueryClient.createDataset(DATASET_DEFINITION.ID)
       dataset = datasetResponse[0]
     }
 
@@ -42,16 +42,16 @@ export class BigQueryClient {
   private async getOrCreateTable(): Promise<Table> {
     const dataset = await this.getOrCreateDataset()
 
-    let table = dataset.table(Definitions.TABLE.ID)
+    let table = dataset.table(TABLE_DEFINITION.ID)
 
     const [tableExists] = await table.exists()
 
     if (tableExists) {
       // update the table if it exists
-      await table.setMetadata(Definitions.TABLE.METADATA)
+      await table.setMetadata(TABLE_DEFINITION.METADATA)
     } else {
       // create the table if it does not exist
-      const tableResponse = await dataset.createTable(Definitions.TABLE.ID, Definitions.TABLE.METADATA)
+      const tableResponse = await dataset.createTable(TABLE_DEFINITION.ID, TABLE_DEFINITION.METADATA)
       table = tableResponse[0]
     }
 

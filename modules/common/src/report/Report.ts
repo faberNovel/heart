@@ -1,4 +1,4 @@
-import { Service } from "../service/Service.js"
+import type { Service } from "../service/Service.js"
 
 /**
  * Define an analysis report that is shared between every Heart module.

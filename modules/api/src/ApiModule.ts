@@ -1,13 +1,14 @@
 import {
   Config,
   GenericReport,
+  Module,
   ModuleAnalysisInterface,
   ModuleListenerInterface,
+  ModuleServerInterface,
   Result,
 } from "@fabernovel/heart-common"
-import { Module, ModuleServerInterface } from "@fabernovel/heart-common"
-import { CorsOptions } from "cors"
-import * as http from "http"
+import type { CorsOptions } from "cors"
+import { createServer, Server } from "http"
 import { ExpressApp } from "./ExpressApp.js"
 
 export class ApiModule extends Module implements ModuleServerInterface {
@@ -16,9 +17,9 @@ export class ApiModule extends Module implements ModuleServerInterface {
     listenerModules: ModuleListenerInterface[],
     port: number,
     corsOptions?: CorsOptions
-  ): http.Server {
+  ): Server {
     const app = new ExpressApp(analysisModules, listenerModules, corsOptions)
 
-    return http.createServer(app.express).listen(port)
+    return createServer(app.express).listen(port)
   }
 }

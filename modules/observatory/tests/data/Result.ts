@@ -1,4 +1,4 @@
-import { ObservatoryReport } from "@fabernovel/heart-common"
+import type { ObservatoryReport } from "@fabernovel/heart-common"
 
 export const RESULT: ObservatoryReport["result"] = {
   scan: {

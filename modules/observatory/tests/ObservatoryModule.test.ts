@@ -10,9 +10,9 @@ jest.unstable_mockModule("../src/api/Client.js", () => {
     Client: jest.fn().mockImplementation(() => {
       return {
         getAnalyzeUrl: () => ANALYZE_URL + CONF.host,
-        requestScan: () => Promise.resolve(RESULT["scan"]),
-        requestTests: () => Promise.resolve(RESULT["tests"]),
-        triggerAnalysis: () => Promise.resolve(RESULT["scan"]),
+        requestScan: () => Promise.resolve(RESULT.scan),
+        requestTests: () => Promise.resolve(RESULT.tests),
+        triggerAnalysis: () => Promise.resolve(RESULT.scan),
       }
     }),
   }
