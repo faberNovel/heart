@@ -100,10 +100,11 @@ describe("Validate the listener modules options", () => {
       undefined
     )
 
-    expect(listenerModulesFiltered).toHaveLength(0)
+    expect(listenerModulesFiltered).toHaveLength(1)
+    expect(listenerModulesFiltered[0]).toHaveProperty("id", "heart-test2")
   })
 
-  test("Exclude 2 modules including 1 with an invalid id", () => {
+  test("Exclude 2 modules but set an invalid id for one of them", () => {
     expect(() => {
       validateInput(
         undefined,
@@ -127,5 +128,51 @@ describe("Validate the listener modules options", () => {
     )
 
     expect(listenerModulesFiltered).toHaveLength(0)
+  })
+
+  test("Keep only 1 module with an invalid id", () => {
+    expect(() => {
+      validateInput(undefined, '{"inline": "configuration"}', undefined, listenerModules, undefined, [
+        "invalid-module-id",
+      ])
+    }).toThrow(ListenersInputError)
+  })
+
+  test("Keep only 1 module with an valid id", () => {
+    const [_config, _threshold, listenerModulesFiltered] = validateInput(
+      undefined,
+      '{"inline": "configuration"}',
+      undefined,
+      listenerModules,
+      undefined,
+      ["heart-test1"]
+    )
+
+    expect(listenerModulesFiltered).toHaveLength(1)
+    expect(listenerModulesFiltered[0]).toHaveProperty("id", "heart-test1")
+  })
+
+  test("Keep 2 modules but set an invalid id for one of them", () => {
+    expect(() => {
+      validateInput(undefined, '{"inline": "configuration"}', undefined, listenerModules, undefined, [
+        "heart-test1",
+        "invalid-module-id",
+      ])
+    }).toThrow(ListenersInputError)
+  })
+
+  test("Keep 2 modules with valid ids", () => {
+    const [_config, _threshold, listenerModulesFiltered] = validateInput(
+      undefined,
+      '{"inline": "configuration"}',
+      undefined,
+      listenerModules,
+      undefined,
+      ["heart-test1", "heart-test2"]
+    )
+
+    expect(listenerModulesFiltered).toHaveLength(2)
+    expect(listenerModulesFiltered[0]).toHaveProperty("id", "heart-test1")
+    expect(listenerModulesFiltered[1]).toHaveProperty("id", "heart-test2")
   })
 })
