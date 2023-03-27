@@ -1,5 +1,5 @@
-import type { CorsOptions } from "cors"
-import type { Server } from "http"
+import type { FastifyCorsOptions } from "@fastify/cors"
+import type { FastifyInstance } from "fastify"
 import type { Config, GenericReport, ModuleListenerInterface, Result } from "../index.js"
 import type { ModuleAnalysisInterface } from "./ModuleAnalysisInterface.js"
 import type { ModuleInterface } from "./ModuleInterface.js"
@@ -8,12 +8,11 @@ import type { ModuleInterface } from "./ModuleInterface.js"
  * Define a Server module.
  */
 export interface ModuleServerInterface extends ModuleInterface {
-  startServer: (
+  createServer: (
     analysisModules: ModuleAnalysisInterface<Config, GenericReport<Result>>[],
     listenerModules: ModuleListenerInterface[],
-    port: number,
-    cors?: CorsOptions
-  ) => Server
+    cors?: FastifyCorsOptions
+  ) => Promise<FastifyInstance>
 }
 
 /**
@@ -29,5 +28,5 @@ export type ModuleServer = new () => ModuleServerInterface
 export function isModuleServer(module: ModuleInterface): module is ModuleServerInterface {
   const m = module as ModuleServerInterface
 
-  return m !== undefined && m.startServer !== undefined && "function" === typeof m.startServer
+  return m !== undefined && m.createServer !== undefined && "function" === typeof m.createServer
 }

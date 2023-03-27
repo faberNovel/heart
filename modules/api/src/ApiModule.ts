@@ -6,20 +6,110 @@ import {
   ModuleListenerInterface,
   ModuleServerInterface,
   Result,
+  validateInput,
 } from "@fabernovel/heart-common"
-import type { CorsOptions } from "cors"
-import { createServer, Server } from "http"
-import { ExpressApp } from "./ExpressApp.js"
+import cors, { FastifyCorsOptions } from "@fastify/cors"
+import Fastify, { FastifyInstance, FastifyReply, FastifyRequest } from "fastify"
+import { createJsonError } from "./error/JsonError.js"
+
+type ReqBody = Config & {
+  except_listeners?: string[]
+  only_listeners?: string[]
+}
+
+type ReqQuery = {
+  threshold?: string
+}
 
 export class ApiModule extends Module implements ModuleServerInterface {
-  startServer(
+  #fastify = Fastify()
+  #listenerModules = new Array<ModuleListenerInterface>()
+  #listenerModulesFiltered = new Array<ModuleListenerInterface>()
+  #report: GenericReport<Result> | undefined
+
+  async createServer(
     analysisModules: ModuleAnalysisInterface<Config, GenericReport<Result>>[],
     listenerModules: ModuleListenerInterface[],
-    port: number,
-    corsOptions?: CorsOptions
-  ): Server {
-    const app = new ExpressApp(analysisModules, listenerModules, corsOptions)
+    corsOptions?: FastifyCorsOptions
+  ): Promise<FastifyInstance> {
+    this.#listenerModules = listenerModules
 
-    return createServer(app.express).listen(port)
+    // plugins registration
+    await this.#fastify.register(cors, corsOptions)
+
+    // hooks
+    this.#fastify.addHook("onResponse", () => {
+      this.#notifyListenerModules()
+    })
+
+    this.#createRoutes(analysisModules)
+
+    return this.#fastify
+  }
+
+  #createRouteHandler(
+    analysisModule: ModuleAnalysisInterface<Config, GenericReport<Result>>
+  ): (
+    req: FastifyRequest<{ Body: ReqBody; Querystring: ReqQuery }>,
+    reply: FastifyReply
+  ) => Promise<FastifyReply> {
+    return async (request, reply) => {
+      try {
+        const [config, threshold, listenerModulesFiltered] = validateInput(
+          undefined,
+          JSON.stringify(request.body),
+          request.query.threshold,
+          this.#listenerModules,
+          request.body.except_listeners,
+          request.body.only_listeners
+        )
+
+        const report = await analysisModule.startAnalysis(config, threshold)
+
+        this.#listenerModulesFiltered = listenerModulesFiltered
+        this.#report = report
+
+        return reply.send({
+          analyzedUrl: report.analyzedUrl,
+          date: report.date,
+          grade: report.grade,
+          isThresholdReached: report.isThresholdReached() ?? null,
+          normalizedGrade: report.normalizedGrade,
+          result: report.result,
+          resultUrl: report.resultUrl ?? null,
+          service: {
+            name: report.service.name,
+            logo: report.service.logo ?? null,
+          },
+          threshold: report.threshold ?? null,
+        })
+      } catch (error) {
+        if (error instanceof Error) {
+          return reply.code(400).send(createJsonError(error.message))
+        } else {
+          return reply.code(500).send(createJsonError("A server error occured"))
+        }
+      }
+    }
+  }
+
+  #createRoutes(analysisModules: ModuleAnalysisInterface<Config, GenericReport<Result>>[]): void {
+    analysisModules.forEach((analysisModule) => {
+      const path = `/${analysisModule.id}`
+
+      const routeHandler = this.#createRouteHandler(analysisModule)
+
+      this.#fastify.post(path, routeHandler)
+    })
+  }
+
+  #notifyListenerModules(): void {
+    if (this.#report !== undefined) {
+      const notifyListenerModulesPromises = this.#listenerModulesFiltered.map((listenerModule) => {
+        return listenerModule.notifyAnalysisDone(this.#report as GenericReport<Result>)
+      })
+
+      void Promise.all(notifyListenerModulesPromises)
+    }
   }
 }

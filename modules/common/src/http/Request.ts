@@ -1,5 +1,6 @@
 import fetch from "node-fetch"
-import { ParsedUrlQueryInput, stringify } from "querystring"
+import type { ParsedUrlQueryInput } from "querystring"
+import { stringify } from "querystring"
 
 const GET = "GET"
 const POST = "POST"

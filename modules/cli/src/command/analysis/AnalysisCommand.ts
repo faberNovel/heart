@@ -1,15 +1,14 @@
-import {
+import type {
   Config,
   GenericReport,
-  InputError,
   ModuleAnalysisInterface,
   ModuleListenerInterface,
   Result,
-  validateInput,
 } from "@fabernovel/heart-common"
+import { InputError, validateInput } from "@fabernovel/heart-common"
 import { Command, InvalidArgumentError } from "commander"
+import type { AnalysisOptions } from "./AnalysisOption.js"
 import {
-  AnalysisOptions,
   createExceptListenersOption,
   createFileOption,
   createInlineOption,

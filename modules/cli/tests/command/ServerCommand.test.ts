@@ -1,6 +1,6 @@
 import type { ModuleServerInterface } from "@fabernovel/heart-common"
 import { Command } from "commander"
-import { createServer } from "http"
+import type { FastifyInstance } from "fastify"
 import { createServerSubcommand } from "../../src/command/server/ServerCommand.js"
 
 test("Create a server command", () => {
@@ -10,7 +10,7 @@ test("Create a server command", () => {
     service: {
       name: "Test Server",
     },
-    startServer: () => createServer(),
+    createServer: () => Promise.resolve() as unknown as Promise<FastifyInstance>,
   }
 
   const optionCors = '{"origin":"http://127.0..0.1:8080/"}'
@@ -18,8 +18,7 @@ test("Create a server command", () => {
 
   const program = new Command()
 
-  // eslint-disable-next-line @typescript-eslint/no-empty-function
-  const serverCommand = createServerSubcommand(module, () => {})
+  const serverCommand = createServerSubcommand(module, () => Promise.resolve())
 
   program.addCommand(serverCommand)
   program.parse(["test-server", "--port", optionPort, "--cors", optionCors], { from: "user" })

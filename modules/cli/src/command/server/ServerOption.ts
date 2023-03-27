@@ -1,9 +1,9 @@
+import type { FastifyCorsOptions } from "@fastify/cors"
 import { Option } from "commander"
-import type { CorsOptions } from "cors"
 
 export interface ServerOptions {
   port: string
-  cors?: CorsOptions
+  cors?: FastifyCorsOptions
 }
 
 // the keys are used to create the options names:
@@ -32,6 +32,6 @@ export function createPortOption(): Option {
 export function createCorsOption(): Option {
   return new Option(
     `-${SERVER_OPTIONS.cors[0]}, --${SERVER_OPTIONS.cors} [${SERVER_OPTIONS.cors}]`,
-    "CORS configuration, as defined in https://www.npmjs.com/package/cors#configuration-options"
-  ).argParser((value) => JSON.parse(value) as CorsOptions)
+    "CORS configuration, as defined in https://github.com/fastify/fastify-cors#options"
+  ).argParser((value) => JSON.parse(value) as FastifyCorsOptions)
 }

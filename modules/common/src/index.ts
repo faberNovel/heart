@@ -35,7 +35,27 @@ const Request = {
   post: post,
 }
 
+export type {
+  // Modules
+  ModuleAnalysisInterface,
+  ModuleIndex,
+  ModuleInterface,
+  ModuleListenerInterface,
+  ModuleServerInterface,
+
+  // Reports
+  GenericReport,
+  Result,
+
+  // Analysis module config
+  Config,
+  GreenITConfig,
+  LighthouseConfig,
+  ObservatoryConfig,
+  SsllabsServerConfig,
+}
 export {
+  // Errors
   InputError,
   ConfigInputError,
   ListenersInputError,
@@ -47,13 +67,8 @@ export {
   isModuleListener,
   isModuleServer,
   Module,
-  ModuleAnalysisInterface,
-  ModuleInterface,
-  ModuleListenerInterface,
-  ModuleServerInterface,
 
   // Reports
-  GenericReport,
   GreenITReport,
   LighthouseReport,
   ObservatoryReport,
@@ -62,14 +77,5 @@ export {
   validateInput,
   SsllabsServerStatus,
 }
-export type {
-  Config,
-  ModuleIndex,
-  Result,
 
-  // Analysis module config
-  GreenITConfig,
-  LighthouseConfig,
-  ObservatoryConfig,
-  SsllabsServerConfig,
-}
+
