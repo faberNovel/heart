@@ -1,9 +1,11 @@
 import { readFileSync } from "node:fs"
 import { isAbsolute } from "node:path"
-import { ConfigError } from "../error/ConfigError.js"
-import { ListenersError } from "../error/ListenersError.js"
-import { ThresholdError } from "../error/ThresholdError.js"
-import { ModuleListenerInterface } from "../index.js"
+import {
+  ConfigInputError,
+  ListenersInputError,
+  ModuleListenerInterface,
+  ThresholdInputError,
+} from "../index.js"
 import { Config } from "../module/config/Config.js"
 
 /**
@@ -46,57 +48,64 @@ function readFile(path: string): string {
  */
 function parseConfig<T>(configFile: string | undefined, configInline: string | undefined): T {
   if (undefined === configFile && undefined === configInline) {
-    throw new ConfigError("You must provide a configuration.")
+    throw new ConfigInputError("You must provide a configuration.")
   }
 
   const config = configInline ?? readFile(configFile as string)
   try {
     return JSON.parse(config) as T
   } catch (error) {
-    throw new ConfigError("Cannot parse the configuration. Please check the JSON syntax.")
+    throw new ConfigInputError("Cannot parse the configuration. Please check the JSON syntax.")
   }
 }
 
 /**
- * @throws {ThresholdError}
+ * @throws {ThresholdInputError}
  */
 function parseThreshold(threshold: string): number {
   const parsedThreshold = Number(threshold)
 
   if (isNaN(parsedThreshold) || parsedThreshold < 0 || parsedThreshold > 100) {
-    throw new ThresholdError("The threshold must be a number between 0 and 100.")
+    throw new ThresholdInputError("The threshold must be a number between 0 and 100.")
   }
 
   return parsedThreshold
 }
 
 /**
+ * Parse the listeners options
+ *
+ * @param listenerModulesLoaded Listener modules loaded
+ * @param exceptListeners Unwanted listeners ids from the listenerModulesLoaded list
+ * @param onlyListeners Only listeners ids from the listenerModulesLoaded list
+ *
  * @throws {ListenersError}
+ * @returns Listener modules filtered, according to the exceptListener and onlyListeners rules
  */
 function parseListenerModules(
-  listenerModules: ModuleListenerInterface[],
+  listenerModulesLoaded: ModuleListenerInterface[],
   exceptListeners: string[] | undefined,
   onlyListeners: string[] | undefined
 ): ModuleListenerInterface[] {
   if (Array.isArray(exceptListeners)) {
-    const listenerModulesIds = listenerModules.map((listenerModule) => listenerModule.id)
+    const listenerModulesIds = listenerModulesLoaded.map((listenerModule) => listenerModule.id)
     const isListenerOptionValid = validateListenersInput(listenerModulesIds, exceptListeners)
 
     if (isListenerOptionValid) {
-      return listenerModules.filter((listenerModule) => !exceptListeners.includes(listenerModule.id))
+      return listenerModulesLoaded.filter((listenerModule) => !exceptListeners.includes(listenerModule.id))
     } else {
-      throw new ListenersError(`Possible values: ${listenerModulesIds.join(", ")}.`)
+      throw new ListenersInputError(`Possible values: ${listenerModulesIds.join(", ")}.`)
     }
   } else if (Array.isArray(onlyListeners)) {
-    const listenerModulesIds = listenerModules.map((listenerModule) => listenerModule.id)
+    const listenerModulesIds = listenerModulesLoaded.map((listenerModule) => listenerModule.id)
     const isListenerOptionValid = validateListenersInput(listenerModulesIds, onlyListeners)
 
     if (isListenerOptionValid) {
-      return listenerModules.filter((listenerModules) => onlyListeners.includes(listenerModules.id))
+      return listenerModulesLoaded.filter((listenerModules) => onlyListeners.includes(listenerModules.id))
     } else {
-      throw new ListenersError(`Possible values: ${listenerModulesIds.join(", ")}.`)
+      throw new ListenersInputError(`Possible values: ${listenerModulesIds.join(", ")}.`)
     }
   } else {
-    return listenerModules
+    return listenerModulesLoaded
   }
 }

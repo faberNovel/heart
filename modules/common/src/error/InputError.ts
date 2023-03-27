@@ -1,4 +1,4 @@
-export class ListenersError extends Error {
+export abstract class InputError extends Error {
   constructor(message?: string) {
     super(message)
   }

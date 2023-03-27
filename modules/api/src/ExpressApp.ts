@@ -1,12 +1,10 @@
 import {
   Config,
-  ConfigError,
   GenericReport,
-  ListenersError,
+  InputError,
   ModuleAnalysisInterface,
   ModuleListenerInterface,
   Result,
-  ThresholdError,
   validateInput,
 } from "@fabernovel/heart-common"
 import cors, { CorsOptions } from "cors"
@@ -148,7 +146,7 @@ function errorHandler(
 ) {
   console.error(error)
 
-  if (error instanceof ConfigError || error instanceof ThresholdError || error instanceof ListenersError) {
+  if (error instanceof InputError) {
     response.status(400).json(createJsonError(error.message))
   } else if (error instanceof Error) {
     response.status(500).json(createJsonError(error.message))

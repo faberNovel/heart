@@ -1,12 +1,10 @@
 import {
   Config,
-  ConfigError,
   GenericReport,
-  ListenersError,
+  InputError,
   ModuleAnalysisInterface,
   ModuleListenerInterface,
   Result,
-  ThresholdError,
   validateInput,
 } from "@fabernovel/heart-common"
 import { Command, InvalidArgumentError } from "commander"
@@ -23,7 +21,7 @@ import {
  * Create a command dedicated to the given analysis module
  */
 export const createAnalysisSubcommand = <C extends Config, R extends GenericReport<Result>>(
-  module: ModuleAnalysisInterface<C, R>,
+  analysisModule: ModuleAnalysisInterface<C, R>,
   listenerModules: ModuleListenerInterface[],
   callback: (
     config: C,
@@ -31,10 +29,10 @@ export const createAnalysisSubcommand = <C extends Config, R extends GenericRepo
     listenerModulesFiltered: ModuleListenerInterface[]
   ) => Promise<void>
 ): Command => {
-  const subcommand = new Command(module.id)
+  const subcommand = new Command(analysisModule.id)
 
   subcommand
-    .description(`Analyzes a URL with ${module.service.name}`)
+    .description(`Analyzes a URL with ${analysisModule.service.name}`)
     .addOption(createFileOption())
     .addOption(createInlineOption())
     .addOption(createThresholdOption())
@@ -55,11 +53,7 @@ export const createAnalysisSubcommand = <C extends Config, R extends GenericRepo
 
         await callback(parsedConfig, parsedThreshold, listenerModulesFiltered)
       } catch (error) {
-        if (
-          error instanceof ConfigError ||
-          error instanceof ThresholdError ||
-          error instanceof ListenersError
-        ) {
+        if (error instanceof InputError) {
           throw new InvalidArgumentError(error.message)
         }
       }
