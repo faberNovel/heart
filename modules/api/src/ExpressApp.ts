@@ -63,7 +63,7 @@ export class ExpressApp {
       next: express.NextFunction
     ) => {
       try {
-        const [config, threshold] = validateInput<C>(
+        const [config, threshold, listenerModulesFiltered] = validateInput<C>(
           undefined,
           JSON.stringify(request.body),
           request.query.threshold,
@@ -75,7 +75,7 @@ export class ExpressApp {
         module
           .startAnalysis(config, threshold)
           .then((report: GenericReport<Result>) => {
-            const notifyListenerModulesPromises = this.listenerModules.map((listenerModule) =>
+            const notifyListenerModulesPromises = listenerModulesFiltered.map((listenerModule) =>
               listenerModule.notifyAnalysisDone(report)
             )
 
