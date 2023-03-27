@@ -1,5 +1,7 @@
-import { ConfigError } from "./error/ConfigError.js"
-import { ThresholdError } from "./error/ThresholdError.js"
+import { ConfigInputError } from "./error/input/ConfigInputError.js"
+import { ListenersInputError } from "./error/input/ListenersInputError.js"
+import { ThresholdInputError } from "./error/input/ThresholdInputError.js"
+import { InputError } from "./error/InputError.js"
 import { Request } from "./http/Request.js"
 import type { Config } from "./module/config/Config.js"
 import { GreenITConfig } from "./module/config/greenit/GreeenITConfig.js"
@@ -27,7 +29,13 @@ const Helper = {
 }
 
 export {
-  ConfigError,
+  // Errors
+  InputError,
+  ConfigInputError,
+  ListenersInputError,
+  ThresholdInputError,
+
+  // Modules
   Helper,
   isModuleAnalysis,
   isModuleListener,
@@ -45,11 +53,9 @@ export {
   ObservatoryReport,
   SsllabsServerReport,
   Request,
-  ThresholdError,
   validateInput,
   SsllabsServerStatus,
 }
-
 export type {
   Config,
   ModuleIndex,

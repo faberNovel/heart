@@ -1,16 +1,24 @@
 import {
   Config,
-  ConfigError,
   GenericReport,
+  InputError,
   ModuleAnalysisInterface,
   ModuleListenerInterface,
   Result,
-  ThresholdError,
   validateInput,
 } from "@fabernovel/heart-common"
 import cors, { CorsOptions } from "cors"
 import express from "express"
 import { createJsonError } from "./error/JsonError.js"
+
+type ReqBody = Config & {
+  except_listeners?: string[]
+  only_listeners?: string[]
+}
+
+type ReqQuery = {
+  threshold?: string
+}
 
 /**
  * Creates and configures an ExpressJS application.
@@ -48,23 +56,26 @@ export class ExpressApp {
 
   private createRouteHandler<C extends Config, R extends GenericReport<Result>>(
     module: ModuleAnalysisInterface<C, R>
-  ): express.RequestHandler {
+  ): express.RequestHandler<unknown, unknown, ReqBody, ReqQuery> {
     return (
-      request: express.Request<unknown, unknown, C>,
+      request: express.Request<unknown, unknown, ReqBody, ReqQuery>,
       response: express.Response,
       next: express.NextFunction
     ) => {
       try {
-        const [config, threshold] = validateInput<C>(
+        const [config, threshold, listenerModulesFiltered] = validateInput<C>(
           undefined,
           JSON.stringify(request.body),
-          typeof request.query.threshold === "string" ? request.query.threshold : undefined
+          request.query.threshold,
+          this.listenerModules,
+          request.body.except_listeners,
+          request.body.only_listeners
         )
 
         module
           .startAnalysis(config, threshold)
           .then((report: GenericReport<Result>) => {
-            const notifyListenerModulesPromises = this.listenerModules.map((listenerModule) =>
+            const notifyListenerModulesPromises = listenerModulesFiltered.map((listenerModule) =>
               listenerModule.notifyAnalysisDone(report)
             )
 
@@ -131,12 +142,11 @@ function errorHandler(
   error: unknown,
   _request: express.Request,
   response: express.Response,
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   _next: express.NextFunction
 ) {
   console.error(error)
 
-  if (error instanceof ConfigError || error instanceof ThresholdError) {
+  if (error instanceof InputError) {
     response.status(400).json(createJsonError(error.message))
   } else if (error instanceof Error) {
     response.status(500).json(createJsonError(error.message))

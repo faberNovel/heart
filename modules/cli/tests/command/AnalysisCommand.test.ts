@@ -1,6 +1,11 @@
-import { Config, GreenITReport, ModuleAnalysisInterface } from "@fabernovel/heart-common"
+import {
+  Config,
+  GreenITReport,
+  ModuleAnalysisInterface,
+  ModuleListenerInterface,
+} from "@fabernovel/heart-common"
 import { Command } from "commander"
-import { createAnalysisCommand } from "../../src/command/AnalysisCommand.js"
+import { createAnalysisSubcommand } from "../../src/command/analysis/AnalysisCommand.js"
 
 test("Create an analysis command", () => {
   const report = new GreenITReport({
@@ -15,7 +20,7 @@ test("Create an analysis command", () => {
     },
   })
 
-  const module: ModuleAnalysisInterface<Config, GreenITReport> = {
+  const analysisModule: ModuleAnalysisInterface<Config, GreenITReport> = {
     id: "test-analysis-tool",
     name: "Heart Test Analysis Tool",
     service: {
@@ -24,11 +29,13 @@ test("Create an analysis command", () => {
     startAnalysis: () => new Promise((resolve) => resolve(report)),
   }
 
+  const listenerModules: ModuleListenerInterface[] = []
+
   const optionConfigInline = '{"url": "https://www.heart.fabernovel.com"}'
 
   const program = new Command()
 
-  const analysisCommand = createAnalysisCommand(module, () => Promise.resolve())
+  const analysisCommand = createAnalysisSubcommand(analysisModule, listenerModules, () => Promise.resolve())
 
   program.addCommand(analysisCommand)
   program.parse(["test-analysis-tool", "--inline", optionConfigInline], { from: "user" })
@@ -38,7 +45,7 @@ test("Create an analysis command", () => {
   const command = program.commands[0]
   const options = command.opts()
 
-  expect(command.name()).toBe(module.id)
+  expect(command.name()).toBe(analysisModule.id)
   expect(Object.keys(options)).toHaveLength(1)
   expect(options).toHaveProperty("inline", optionConfigInline)
 })

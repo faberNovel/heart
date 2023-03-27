@@ -35,11 +35,11 @@ const ROOT_PATH = cwd()
  * 1. get the absolute paths of the installed Heart modules
  * 2. loads the modules
  */
-export async function load(debug = false): Promise<LoadedModules> {
+export async function loadModules(debug = false): Promise<LoadedModules> {
   try {
     const modulesPaths = await getPaths(debug)
 
-    const modules = await loadModules(modulesPaths, debug)
+    const modules = await loadModulesFromPaths(modulesPaths, debug)
 
     const analysisModulesMap = new Map<string, ModuleAnalysisInterface<Config, GenericReport<Result>>>()
     const listenerModulesMap = new Map<string, ModuleListenerInterface>()
@@ -156,7 +156,7 @@ async function getPaths(debug = false): Promise<string[]> {
  * Load a list of modules according to their path.
  * Preserve the order in the returned array.
  */
-async function loadModules(modulesPaths: string[], debug = false): Promise<ModuleInterface[]> {
+async function loadModulesFromPaths(modulesPaths: string[], debug = false): Promise<ModuleInterface[]> {
   const promises = []
 
   // do not use the .forEach() method here instead of the for() loop,
