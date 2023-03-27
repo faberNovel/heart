@@ -91,6 +91,7 @@ describe("Validate the listener modules options", () => {
   })
 
   test("Exclude 1 module with a valid id", () => {
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const [_config, _threshold, listenerModulesFiltered] = validateInput(
       undefined,
       '{"inline": "configuration"}',
@@ -118,6 +119,7 @@ describe("Validate the listener modules options", () => {
   })
 
   test("Exclude 2 modules with valid ids", () => {
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const [_config, _threshold, listenerModulesFiltered] = validateInput(
       undefined,
       '{"inline": "configuration"}',
@@ -139,6 +141,7 @@ describe("Validate the listener modules options", () => {
   })
 
   test("Keep only 1 module with an valid id", () => {
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const [_config, _threshold, listenerModulesFiltered] = validateInput(
       undefined,
       '{"inline": "configuration"}',
@@ -162,6 +165,7 @@ describe("Validate the listener modules options", () => {
   })
 
   test("Keep 2 modules with valid ids", () => {
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const [_config, _threshold, listenerModulesFiltered] = validateInput(
       undefined,
       '{"inline": "configuration"}',

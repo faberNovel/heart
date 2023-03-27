@@ -50,8 +50,8 @@ export class Client {
     // Observatory API is unconventional, and does not take advantage of http verbs :/
     if (isError(scan)) {
       return Promise.reject({
-        error: scan["error"],
-        message: scan["text"],
+        error: scan.error,
+        message: scan.text,
       })
     }
 

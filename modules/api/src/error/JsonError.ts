@@ -1,4 +1,4 @@
-type JsonError = {
+interface JsonError {
   error: string
 }
 

@@ -2,7 +2,7 @@ import { ConfigInputError } from "./error/input/ConfigInputError.js"
 import { ListenersInputError } from "./error/input/ListenersInputError.js"
 import { ThresholdInputError } from "./error/input/ThresholdInputError.js"
 import { InputError } from "./error/InputError.js"
-import { Request } from "./http/Request.js"
+import { get, HEADER_CONTENT_TYPE, HEADER_CONTENT_TYPE_X_WWW_FORM_URLENCODED, post } from "./http/Request.js"
 import type { Config } from "./module/config/Config.js"
 import type { GreenITConfig } from "./module/config/greenit/GreeenITConfig.js"
 import type { LighthouseConfig } from "./module/config/lighthouse/LighthouseConfig.js"
@@ -28,8 +28,14 @@ const Helper = {
   timeout,
 }
 
+const Request = {
+  get: get,
+  HEADER_CONTENT_TYPE: HEADER_CONTENT_TYPE,
+  HEADER_CONTENT_TYPE_X_WWW_FORM_URLENCODED: HEADER_CONTENT_TYPE_X_WWW_FORM_URLENCODED,
+  post: post,
+}
+
 export {
-  // Errors
   InputError,
   ConfigInputError,
   ListenersInputError,

@@ -19,15 +19,15 @@ export type GreenITResult = Result & {
   inlineStyleSheetsNumber: number
   emptySrcTagNumber: number
   inlineJsScriptsNumber: number
-  imagesResizedInBrowser: Array<{
+  imagesResizedInBrowser: {
     src: string
     clientWidth: number
     clientHeight: number
     naturalWidth: number
     naturalHeight: number
-  }>
-  entries: Array<Entry>
-  dataEntries: Array<Entry>
+  }[]
+  entries: Entry[]
+  dataEntries: Entry[]
   bestPractices: {
     AddExpiresOrCacheControlHeaders: {
       detailComment: string

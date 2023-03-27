@@ -161,9 +161,7 @@ async function loadModulesFromPaths(modulesPaths: string[], debug = false): Prom
 
   // do not use the .forEach() method here instead of the for() loop,
   // because the 'await' keyword will not be available.
-  for (let i = 0; i < modulesPaths.length; i++) {
-    const modulePath = modulesPaths[i]
-
+  for (const modulePath of modulesPaths) {
     // read package.json file from the module to look for the module entry point
     // @see {@link https://docs.npmjs.com/files/package.json#main}
     try {

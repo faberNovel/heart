@@ -3,7 +3,7 @@ import type { SsllabsServerGrade } from "../enum/SsllabsServerGrade.js"
 /**
  * @see [Documentation]{@link https://github.com/ssllabs/ssllabs-scan/blob/master/ssllabs-api-docs-v3.md#endpoint}
  */
-export type SsllabsServerEndpoint = {
+export interface SsllabsServerEndpoint {
   ipAddress: string
   serverName: string
   statusMessage: string

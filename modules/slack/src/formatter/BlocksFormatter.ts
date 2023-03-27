@@ -25,14 +25,14 @@ export const MAX_TEXT_BLOCK_LENGTH = 3000
 const createBlocks = (
   report: GenericReport<Result>,
   metricsBlocks: MrkdwnElement[] = [],
-  advicesBlocks: Array<DividerBlock | HeaderBlock | SectionBlock> = []
+  advicesBlocks: (DividerBlock | HeaderBlock | SectionBlock)[] = []
 ) => {
   metricsBlocks.unshift({
     type: "mrkdwn",
     text: "*Overall*: " + report.displayGrade(),
   })
 
-  const blocks: Array<KnownBlock | Block> = [
+  const blocks: (KnownBlock | Block)[] = [
     {
       type: "header",
       text: {
@@ -99,7 +99,7 @@ const createBlocks = (
   return blocks
 }
 
-export const formatBlocks = (report: GenericReport<Result>): Array<KnownBlock | Block> => {
+export const formatBlocks = (report: GenericReport<Result>): (KnownBlock | Block)[] => {
   if (report instanceof LighthouseReport) {
     const [metricsBlocks, advicesBlocks] = formatLighthouseBlocks(report)
     return createBlocks(report, metricsBlocks, advicesBlocks)

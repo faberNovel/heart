@@ -1,3 +1,3 @@
-export type ModuleIndex<T> = {
+export interface ModuleIndex<T> {
   default: T
 }
