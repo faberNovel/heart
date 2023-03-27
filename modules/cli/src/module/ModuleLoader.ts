@@ -1,6 +1,6 @@
-import type { GenericReport } from "@fabernovel/heart-common"
 import {
   Config,
+  GenericReport,
   isModuleAnalysis,
   isModuleListener,
   isModuleServer,

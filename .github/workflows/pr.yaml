@@ -28,7 +28,7 @@ jobs:
         run: node common/scripts/install-run-rush.js change --target-branch origin/$GITHUB_BASE_REF --verify -v
 
       - name: 💅 Lint
-        run: node common/scripts/install-run-rush.js lint
+        run: node common/scripts/install-run-rush.js lint --verbose # --verbose allows to display warnings from ESLint
 
   test:
     name: Test
