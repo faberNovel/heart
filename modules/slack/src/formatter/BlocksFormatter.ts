@@ -5,7 +5,7 @@ import {
   ObservatoryReport,
   Result,
 } from "@fabernovel/heart-common"
-import {
+import type {
   Block,
   DividerBlock,
   HeaderBlock,

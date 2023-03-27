@@ -1,7 +1,7 @@
-import { Result } from "lighthouse"
-import { Service } from "../../service/Service.js"
-import { GenericReport, ReportArguments } from "../Report.js"
-import { LighthouseResult } from "./LighthouseResult.js"
+import type { Result } from "lighthouse"
+import type { Service } from "../../service/Service.js"
+import type { GenericReport, ReportArguments } from "../Report.js"
+import type { LighthouseResult } from "./LighthouseResult.js"
 
 const compute = (categories: Record<string, Result.Category>, fractionDigits?: number): number => {
   const avgScore = computeCategories(categories)

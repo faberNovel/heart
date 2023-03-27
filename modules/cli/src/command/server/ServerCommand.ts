@@ -1,6 +1,6 @@
-import { ModuleServerInterface } from "@fabernovel/heart-common"
+import type { ModuleServerInterface } from "@fabernovel/heart-common"
 import { Command } from "commander"
-import { CorsOptions } from "cors"
+import type { CorsOptions } from "cors"
 import { createCorsOption, createPortOption, ServerOptions } from "./ServerOption.js"
 
 /**

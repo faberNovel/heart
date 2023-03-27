@@ -5,7 +5,7 @@ import {
   ModuleListenerInterface,
   ThresholdInputError,
 } from "../index.js"
-import { Config } from "../module/config/Config.js"
+import type { Config } from "../module/config/Config.js"
 
 /**
  * Validate that the analysis options are correct

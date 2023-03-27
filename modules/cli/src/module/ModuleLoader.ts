@@ -1,4 +1,4 @@
-import { GenericReport } from "@fabernovel/heart-common"
+import type { GenericReport } from "@fabernovel/heart-common"
 import {
   Config,
   isModuleAnalysis,
@@ -14,7 +14,7 @@ import {
 import dotenv from "dotenv"
 import { readFileSync } from "node:fs"
 import { cwd, env } from "node:process"
-import { PackageJson } from "type-fest"
+import type { PackageJson } from "type-fest"
 import { MissingEnvironmentVariables } from "../error/MissingEnvironmentVariables.js"
 
 type LoadedModules = [

@@ -1,5 +1,5 @@
 import { Option } from "commander"
-import { CorsOptions } from "cors"
+import type { CorsOptions } from "cors"
 
 export type ServerOptions = {
   port: string

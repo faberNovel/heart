@@ -1,4 +1,4 @@
-import { SsllabsServerGrade } from "../enum/SsllabsServerGrade.js"
+import type { SsllabsServerGrade } from "../enum/SsllabsServerGrade.js"
 
 /**
  * @see [Documentation]{@link https://github.com/ssllabs/ssllabs-scan/blob/master/ssllabs-api-docs-v3.md#endpoint}

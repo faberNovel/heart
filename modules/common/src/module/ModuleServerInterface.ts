@@ -1,8 +1,8 @@
-import { CorsOptions } from "cors"
-import { Server } from "http"
-import { Config, GenericReport, ModuleListenerInterface, Result } from "../index.js"
-import { ModuleAnalysisInterface } from "./ModuleAnalysisInterface.js"
-import { ModuleInterface } from "./ModuleInterface.js"
+import type { CorsOptions } from "cors"
+import type { Server } from "http"
+import type { Config, GenericReport, ModuleListenerInterface, Result } from "../index.js"
+import type { ModuleAnalysisInterface } from "./ModuleAnalysisInterface.js"
+import type { ModuleInterface } from "./ModuleInterface.js"
 
 /**
  * Define a Server module.

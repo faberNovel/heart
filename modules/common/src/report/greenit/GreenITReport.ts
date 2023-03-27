@@ -1,6 +1,6 @@
-import { Service } from "../../service/Service.js"
-import { GenericReport, ReportArguments } from "../Report.js"
-import { GreenITResult } from "./GreenITResult.js"
+import type { Service } from "../../service/Service.js"
+import type { GenericReport, ReportArguments } from "../Report.js"
+import type { GreenITResult } from "./GreenITResult.js"
 
 export class GreenITReport implements GenericReport<GreenITResult> {
   #analyzedUrl: string

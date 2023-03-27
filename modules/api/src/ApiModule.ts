@@ -1,4 +1,4 @@
-import {
+import type {
   Config,
   GenericReport,
   ModuleAnalysisInterface,
@@ -6,7 +6,7 @@ import {
   Result,
 } from "@fabernovel/heart-common"
 import { Module, ModuleServerInterface } from "@fabernovel/heart-common"
-import { CorsOptions } from "cors"
+import type { CorsOptions } from "cors"
 import * as http from "http"
 import { ExpressApp } from "./ExpressApp.js"
 

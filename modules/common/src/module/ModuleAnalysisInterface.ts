@@ -1,7 +1,7 @@
-import { Config } from "./config/Config.js"
-import { Result } from "../report/Result.js"
-import { ModuleInterface } from "./ModuleInterface.js"
-import { GenericReport } from "../index.js"
+import type { Config } from "./config/Config.js"
+import type { Result } from "../report/Result.js"
+import type { ModuleInterface } from "./ModuleInterface.js"
+import type { GenericReport } from "../index.js"
 
 /**
  * Define an Analysis module.

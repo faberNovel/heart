@@ -1,4 +1,4 @@
-import {
+import type {
   Config,
   GenericReport,
   ModuleAnalysisInterface,
@@ -6,7 +6,7 @@ import {
   ModuleServerInterface,
   Result,
 } from "@fabernovel/heart-common"
-import { CorsOptions } from "cors"
+import type { CorsOptions } from "cors"
 import ora from "ora"
 
 export async function notifyListenerModules<R extends GenericReport<Result>>(
