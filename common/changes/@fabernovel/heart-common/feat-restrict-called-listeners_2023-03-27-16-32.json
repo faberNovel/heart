@@ -1,0 +1,10 @@
+{
+  "changes": [
+    {
+      "packageName": "@fabernovel/heart-common",
+      "comment": "Add the validation of listeners options",
+      "type": "none"
+    }
+  ],
+  "packageName": "@fabernovel/heart-common"
+}

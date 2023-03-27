@@ -1,0 +1,10 @@
+{
+  "changes": [
+    {
+      "packageName": "@fabernovel/heart-cli",
+      "comment": "Add the except-listeners and only-listeners options, to reduce the list of listeners modules triggered after an analysis. Both options accept a comma-separated list of module IDs (e.g. heart-greenit)",
+      "type": "none"
+    }
+  ],
+  "packageName": "@fabernovel/heart-cli"
+}
