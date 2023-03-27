@@ -1,5 +1,5 @@
 import { jest } from "@jest/globals"
-import { RunnerResult } from "lighthouse"
+import type { RunnerResult } from "lighthouse"
 import { Conf } from "../data/Conf.js"
 
 jest.unstable_mockModule("lighthouse", () => ({

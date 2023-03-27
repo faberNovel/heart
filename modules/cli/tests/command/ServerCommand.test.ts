@@ -1,4 +1,4 @@
-import { ModuleServerInterface } from "@fabernovel/heart-common"
+import type { ModuleServerInterface } from "@fabernovel/heart-common"
 import { Command } from "commander"
 import { createServer } from "http"
 import { createServerSubcommand } from "../../src/command/server/ServerCommand.js"
