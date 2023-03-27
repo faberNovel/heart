@@ -18,5 +18,9 @@ module.exports = {
      * @see https://typescript-eslint.io/docs/linting/typed-linting/
      */
     "plugin:@typescript-eslint/recommended-requiring-type-checking",
+    /**
+     * @see https://typescript-eslint.io/linting/configs/#strict
+     */
+    "plugin:@typescript-eslint/strict",
   ],
 }
