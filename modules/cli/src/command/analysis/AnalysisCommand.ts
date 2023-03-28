@@ -1,14 +1,15 @@
-import type {
+import {
   Config,
   GenericReport,
+  InputError,
   ModuleAnalysisInterface,
   ModuleListenerInterface,
   Result,
+  validateAnalysisInput,
 } from "@fabernovel/heart-common"
-import { InputError, validateInput } from "@fabernovel/heart-common"
 import { Command, InvalidArgumentError } from "commander"
-import type { AnalysisOptions } from "./AnalysisOption.js"
 import {
+  AnalysisOptions,
   createExceptListenersOption,
   createFileOption,
   createInlineOption,
@@ -41,7 +42,7 @@ export const createAnalysisSubcommand = <C extends Config, R extends GenericRepo
       const { file, inline, threshold, exceptListeners, onlyListeners } = options
 
       try {
-        const [parsedConfig, parsedThreshold, listenerModulesFiltered] = validateInput<C>(
+        const [validatedConfig, validatedThreshold, listenerModulesFiltered] = validateAnalysisInput<C>(
           file,
           inline,
           threshold,
@@ -50,7 +51,7 @@ export const createAnalysisSubcommand = <C extends Config, R extends GenericRepo
           onlyListeners
         )
 
-        await callback(parsedConfig, parsedThreshold, listenerModulesFiltered)
+        await callback(validatedConfig, validatedThreshold, listenerModulesFiltered)
       } catch (error) {
         if (error instanceof InputError) {
           throw new InvalidArgumentError(error.message)

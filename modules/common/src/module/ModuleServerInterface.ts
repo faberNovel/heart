@@ -23,10 +23,8 @@ export type ModuleServer = new () => ModuleServerInterface
 
 /**
  * Checks if a module is a Server one.
- * @see {@link https://www.typescriptlang.org/docs/handbook/advanced-types.html#user-defined-type-guards | User-Defined Type Guards}
+ * @see {@link https://www.typescriptlang.org/docs/handbook/2/narrowing.html#using-type-predicates | User-Defined Type Guards}
  */
 export function isModuleServer(module: ModuleInterface): module is ModuleServerInterface {
-  const m = module as ModuleServerInterface
-
-  return m !== undefined && m.createServer !== undefined && "function" === typeof m.createServer
+  return (module as ModuleServerInterface).createServer !== undefined
 }

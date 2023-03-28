@@ -32,18 +32,11 @@ export class Client {
     this.apiUrl = env.OBSERVATORY_API_URL
     this.host = conf.host
 
-    if (undefined === this.host) {
-      return Promise.reject({
-        error: "mandatory-parameter",
-        message: '"host" is a mandatory parameter',
-      })
-    }
-
     const scan = await Request.post<ObservatoryReport["result"]["scan"] | Error>(
       `${this.apiUrl ?? ""}analyze?host=${this.host}`,
       conf,
       {
-        [Request.HEADER_CONTENT_TYPE]: Request.HEADER_CONTENT_TYPE_X_WWW_FORM_URLENCODED,
+        ["Content-Type"]: "application/x-www-form-urlencoded",
       }
     )
 

@@ -17,22 +17,22 @@ jest.unstable_mockModule("../../src/filesystem/fs.js", () => ({
 
 const { readFile } = await import("../../src/filesystem/fs.js")
 const { ConfigInputError, ListenersInputError } = await import("../../src/index.js")
-const { validateInput } = await import("../../src/validation/InputValidation.js")
+const { validateAnalysisInput } = await import("../../src/validation/input/AnalysisInputValidation.js")
 
 test("Provide no configurations", () => {
   expect(() => {
-    validateInput(undefined, undefined, undefined, [], undefined, undefined)
+    validateAnalysisInput(undefined, undefined, undefined, [], undefined, undefined)
   }).toThrow(ConfigInputError)
 })
 
 test("Provide two configurations", () => {
   expect(() => {
-    validateInput("", "", undefined, [], undefined, undefined)
+    validateAnalysisInput("", "", undefined, [], undefined, undefined)
   }).toThrow(ConfigInputError)
 })
 
 test("Provide an inline configuration", () => {
-  const [config] = validateInput(
+  const [config] = validateAnalysisInput(
     undefined,
     '{"inline": "configuration"}',
     undefined,
@@ -46,12 +46,19 @@ test("Provide an inline configuration", () => {
 describe("Provide a file configuration", () => {
   test("Provide a nonexistent file", () => {
     expect(() => {
-      validateInput("missingConfig.json", undefined, undefined, [], undefined, undefined)
+      validateAnalysisInput("missingConfig.json", undefined, undefined, [], undefined, undefined)
     }).toThrow(ConfigInputError)
   })
 
   test("Provide an existent file", () => {
-    const [config] = validateInput("existingConfig.json", undefined, undefined, [], undefined, undefined)
+    const [config] = validateAnalysisInput(
+      "existingConfig.json",
+      undefined,
+      undefined,
+      [],
+      undefined,
+      undefined
+    )
 
     expect(readFile).toHaveBeenCalledTimes(1)
     expect(config).toEqual(JSON.parse(MOCK_FILE_INFO["existingConfig.json"]))
@@ -79,7 +86,7 @@ describe("Validate the listener modules options", () => {
 
   test("Exclude 1 module with an invalid id", () => {
     expect(() => {
-      validateInput(
+      validateAnalysisInput(
         undefined,
         '{"inline": "configuration"}',
         undefined,
@@ -92,7 +99,7 @@ describe("Validate the listener modules options", () => {
 
   test("Exclude 1 module with a valid id", () => {
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    const [_config, _threshold, listenerModulesFiltered] = validateInput(
+    const [_validatedConfig, _validatedThreshold, listenerModulesFiltered] = validateAnalysisInput(
       undefined,
       '{"inline": "configuration"}',
       undefined,
@@ -107,7 +114,7 @@ describe("Validate the listener modules options", () => {
 
   test("Exclude 2 modules but set an invalid id for one of them", () => {
     expect(() => {
-      validateInput(
+      validateAnalysisInput(
         undefined,
         '{"inline": "configuration"}',
         undefined,
@@ -120,7 +127,7 @@ describe("Validate the listener modules options", () => {
 
   test("Exclude 2 modules with valid ids", () => {
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    const [_config, _threshold, listenerModulesFiltered] = validateInput(
+    const [_validatedConfig, _validatedThreshold, listenerModulesFiltered] = validateAnalysisInput(
       undefined,
       '{"inline": "configuration"}',
       undefined,
@@ -134,7 +141,7 @@ describe("Validate the listener modules options", () => {
 
   test("Keep only 1 module with an invalid id", () => {
     expect(() => {
-      validateInput(undefined, '{"inline": "configuration"}', undefined, listenerModules, undefined, [
+      validateAnalysisInput(undefined, '{"inline": "configuration"}', undefined, listenerModules, undefined, [
         "invalid-module-id",
       ])
     }).toThrow(ListenersInputError)
@@ -142,7 +149,7 @@ describe("Validate the listener modules options", () => {
 
   test("Keep only 1 module with an valid id", () => {
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    const [_config, _threshold, listenerModulesFiltered] = validateInput(
+    const [_validatedConfig, _validatedThreshold, listenerModulesFiltered] = validateAnalysisInput(
       undefined,
       '{"inline": "configuration"}',
       undefined,
@@ -157,7 +164,7 @@ describe("Validate the listener modules options", () => {
 
   test("Keep 2 modules but set an invalid id for one of them", () => {
     expect(() => {
-      validateInput(undefined, '{"inline": "configuration"}', undefined, listenerModules, undefined, [
+      validateAnalysisInput(undefined, '{"inline": "configuration"}', undefined, listenerModules, undefined, [
         "heart-test1",
         "invalid-module-id",
       ])
@@ -166,7 +173,7 @@ describe("Validate the listener modules options", () => {
 
   test("Keep 2 modules with valid ids", () => {
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    const [_config, _threshold, listenerModulesFiltered] = validateInput(
+    const [_validatedConfig, _validatedThreshold, listenerModulesFiltered] = validateAnalysisInput(
       undefined,
       '{"inline": "configuration"}',
       undefined,

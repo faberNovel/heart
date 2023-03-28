@@ -6,7 +6,7 @@ import {
   ModuleListenerInterface,
   ModuleServerInterface,
   Result,
-  validateInput,
+  validateAnalysisInput,
 } from "@fabernovel/heart-common"
 import cors, { FastifyCorsOptions } from "@fastify/cors"
 import Fastify, { FastifyInstance, FastifyReply, FastifyRequest } from "fastify"
@@ -17,7 +17,7 @@ type ReqBody = Config & {
   only_listeners?: string[]
 }
 
-type ReqQuery = {
+interface ReqQuery {
   threshold?: string
 }
 
@@ -55,7 +55,7 @@ export class ApiModule extends Module implements ModuleServerInterface {
   ) => Promise<FastifyReply> {
     return async (request, reply) => {
       try {
-        const [config, threshold, listenerModulesFiltered] = validateInput(
+        const [validatedConfig, validatedThreshold, listenerModulesFiltered] = validateAnalysisInput(
           undefined,
           JSON.stringify(request.body),
           request.query.threshold,
@@ -64,7 +64,7 @@ export class ApiModule extends Module implements ModuleServerInterface {
           request.body.only_listeners
         )
 
-        const report = await analysisModule.startAnalysis(config, threshold)
+        const report = await analysisModule.startAnalysis(validatedConfig, validatedThreshold)
 
         this.#listenerModulesFiltered = listenerModulesFiltered
         this.#report = report

@@ -1,8 +1,8 @@
 import type { FastifyCorsOptions } from "@fastify/cors"
-import { Option } from "commander"
+import { InvalidArgumentError, Option } from "commander"
 
 export interface ServerOptions {
-  port: string
+  port: number
   cors?: FastifyCorsOptions
 }
 
@@ -14,9 +14,7 @@ const SERVER_OPTIONS: { [key in keyof ServerOptions]-?: string } = {
   cors: "cors",
 }
 
-const PORT_DEFAULT = "3000"
-const PORT_REGEX =
-  /^(0|[1-9][0-9]{0,3}|[1-5][0-9]{4}|6[0-4][0-9]{3}|65[0-4][0-9]{2}|655[0-2][0-9]|6553[0-5])$/
+const PORT_DEFAULT = 3000
 
 export function createPortOption(): Option {
   return new Option(
@@ -25,7 +23,13 @@ export function createPortOption(): Option {
   )
     .default(PORT_DEFAULT)
     .argParser((value) => {
-      return PORT_REGEX.test(value) ? value : PORT_DEFAULT
+      const port = Number(value)
+
+      if (isNaN(port)) {
+        throw new InvalidArgumentError(`Must be a number`)
+      }
+
+      return port
     })
 }
 

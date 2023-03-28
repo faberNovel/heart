@@ -1,11 +1,11 @@
-import { readFile } from "../filesystem/fs.js"
+import { readFile } from "../../filesystem/fs.js"
 import {
   ConfigInputError,
   ListenersInputError,
   ModuleListenerInterface,
   ThresholdInputError,
-} from "../index.js"
-import type { Config } from "../module/config/Config.js"
+} from "../../index.js"
+import type { Config } from "../../module/config/Config.js"
 
 /**
  * Validate that the analysis options are correct
@@ -14,19 +14,19 @@ import type { Config } from "../module/config/Config.js"
  * @throws {ListenersError}
  * @returns The analysis configuration and the threshold
  */
-export function validateInput<C extends Config>(
+export function validateAnalysisInput<C extends Config>(
   configFile: string | undefined,
   configInline: string | undefined,
-  thresholdInline: string | undefined,
+  threshold: string | undefined,
   listenerModules: ModuleListenerInterface[],
   exceptListeners: string[] | undefined,
   onlyListeners: string[] | undefined
 ): [C, number | undefined, ModuleListenerInterface[]] {
-  const config = parseConfig<C>(configFile, configInline)
-  const threshold = undefined === thresholdInline ? undefined : parseThreshold(thresholdInline)
+  const validatedConfig = parseConfig<C>(configFile, configInline)
+  const validatedThreshold = undefined === threshold ? undefined : parseThreshold(threshold)
   const listenerModulesFiltered = parseListenerModules(listenerModules, exceptListeners, onlyListeners)
 
-  return [config, threshold, listenerModulesFiltered]
+  return [validatedConfig, validatedThreshold, listenerModulesFiltered]
 }
 
 function validateListenersInput(

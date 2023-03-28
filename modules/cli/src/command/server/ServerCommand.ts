@@ -1,8 +1,7 @@
-import type { ModuleServerInterface } from "@fabernovel/heart-common"
+import { ModuleServerInterface, validateServerInput } from "@fabernovel/heart-common"
 import type { FastifyCorsOptions } from "@fastify/cors"
 import { Command } from "commander"
-import type { ServerOptions } from "./ServerOption.js"
-import { createCorsOption, createPortOption } from "./ServerOption.js"
+import { createCorsOption, createPortOption, ServerOptions } from "./ServerOption.js"
 
 /**
  * Create a command dedicated to the given server module
@@ -20,7 +19,9 @@ export const createServerSubcommand = (
     .action(async (options: ServerOptions) => {
       const { cors, port } = options
 
-      await callback(Number(port), cors)
+      const [validatedPort] = validateServerInput(port)
+
+      await callback(validatedPort, cors)
     })
 
   return subcommand

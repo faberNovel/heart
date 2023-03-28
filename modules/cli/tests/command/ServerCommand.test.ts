@@ -14,14 +14,14 @@ test("Create a server command", () => {
   }
 
   const optionCors = '{"origin":"http://127.0..0.1:8080/"}'
-  const optionPort = "3000"
+  const optionPort = 3000
 
   const program = new Command()
 
   const serverCommand = createServerSubcommand(module, () => Promise.resolve())
 
   program.addCommand(serverCommand)
-  program.parse(["test-server", "--port", optionPort, "--cors", optionCors], { from: "user" })
+  program.parse(["test-server", "--port", optionPort.toString(), "--cors", optionCors], { from: "user" })
 
   expect(program.commands).toHaveLength(1)
 
