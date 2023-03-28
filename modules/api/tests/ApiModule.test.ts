@@ -1,4 +1,4 @@
-import { createServer } from "./build/ApiModule.js"
+import { createServer } from "./build/CreateServer.js"
 
 describe("Start an analysis with an invalid request", () => {
   test("Get a 404 status code with an invalid verb and path", async () => {
