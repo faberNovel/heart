@@ -1,6 +1,6 @@
-import { ModuleServerInterface, validateServerInput } from "@fabernovel/heart-common"
+import { InputError, ModuleServerInterface, validateServerInput } from "@fabernovel/heart-common"
 import type { FastifyCorsOptions } from "@fastify/cors"
-import { Command } from "commander"
+import { Command, InvalidArgumentError } from "commander"
 import { createCorsOption, createPortOption, ServerOptions } from "./ServerOption.js"
 
 /**
@@ -19,9 +19,15 @@ export const createServerSubcommand = (
     .action(async (options: ServerOptions) => {
       const { cors, port } = options
 
-      const [validatedPort] = validateServerInput(port)
+      try {
+        validateServerInput(port)
 
-      await callback(validatedPort, cors)
+        await callback(port, cors)
+      } catch (error) {
+        if (error instanceof InputError) {
+          throw new InvalidArgumentError(error.message)
+        }
+      }
     })
 
   return subcommand

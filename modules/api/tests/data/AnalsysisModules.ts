@@ -6,8 +6,6 @@ import {
   GreenITReport,
   ObservatoryReport,
 } from "@fabernovel/heart-common"
-import type { GreenITResult } from "@fabernovel/heart-common/lib/report/greenit/GreenITResult.js"
-import type { ObservatoryResult } from "@fabernovel/heart-common/lib/report/observatory/ObservatoryResult.js"
 
 export const analysisModules: ModuleAnalysisInterface<Config, GenericReport<Result>>[] = [
   {
@@ -21,7 +19,7 @@ export const analysisModules: ModuleAnalysisInterface<Config, GenericReport<Resu
         new GreenITReport({
           analyzedUrl: "",
           date: new Date(),
-          result: {} as unknown as GreenITResult,
+          result: {} as unknown as GreenITReport["result"],
           service: {
             name: "GreenIT Analysis",
           },
@@ -39,7 +37,14 @@ export const analysisModules: ModuleAnalysisInterface<Config, GenericReport<Resu
         new ObservatoryReport({
           analyzedUrl: "",
           date: new Date(),
-          result: {} as unknown as ObservatoryResult,
+          result: {
+            scan: {
+              grade: "",
+              score: 100,
+              state: "FINISHED",
+            } as unknown as ObservatoryReport["result"]["scan"],
+            tests: {},
+          },
           service: {
             name: "GreenIT Analysis",
           },

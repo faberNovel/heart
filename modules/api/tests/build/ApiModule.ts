@@ -3,7 +3,7 @@ import { ApiModule } from "../../src/ApiModule.js"
 import { analysisModules } from "../data/AnalsysisModules.js"
 import { listenerModules } from "../data/ListenerModules.js"
 
-export async function createApiModule(): Promise<FastifyInstance> {
+export async function createServer(): Promise<FastifyInstance> {
   const apiModule = new ApiModule({
     name: "Heart API",
     service: {

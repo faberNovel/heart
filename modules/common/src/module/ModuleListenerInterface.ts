@@ -20,5 +20,6 @@ export type ModuleListener = new () => ModuleListenerInterface
  * @see {@link https://www.typescriptlang.org/docs/handbook/2/narrowing.html#using-type-predicates | User-Defined Type Guards}
  */
 export function isModuleListener(module: ModuleInterface): module is ModuleListenerInterface {
+  // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
   return (module as ModuleListenerInterface).notifyAnalysisDone !== undefined
 }

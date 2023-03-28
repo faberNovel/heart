@@ -1,8 +1,8 @@
-import { createApiModule } from "./build/ApiModule.js"
+import { createServer } from "./build/ApiModule.js"
 
 describe("Start an analysis with an invalid request", () => {
   test("Get a 404 status code with an invalid verb and path", async () => {
-    const fastify = await createApiModule()
+    const fastify = await createServer()
 
     const response = await fastify.inject({
       method: "GET",
@@ -15,7 +15,7 @@ describe("Start an analysis with an invalid request", () => {
   })
 
   test("Get a 404 status code with an invalid verb but a valid path", async () => {
-    const fastify = await createApiModule()
+    const fastify = await createServer()
 
     const response = await fastify.inject({
       method: "GET",
@@ -28,7 +28,7 @@ describe("Start an analysis with an invalid request", () => {
   })
 
   test("Get a 404 status code with a valid verb but an invalid path", async () => {
-    const fastify = await createApiModule()
+    const fastify = await createServer()
 
     const response = await fastify.inject({
       method: "POST",
@@ -41,7 +41,7 @@ describe("Start an analysis with an invalid request", () => {
   })
 
   test("Get a 400 status code on POST /observatory with an missing body", async () => {
-    const fastify = await createApiModule()
+    const fastify = await createServer()
 
     const response = await fastify.inject({
       method: "POST",
@@ -54,13 +54,13 @@ describe("Start an analysis with an invalid request", () => {
   })
 
   test("Get a 400 status code on POST /observatory with an invalid format on the except_listeners property", async () => {
-    const fastify = await createApiModule()
+    const fastify = await createServer()
 
     const response = await fastify.inject({
       method: "POST",
       url: "/observatory",
       payload: {
-        except_listeners: true,
+        except_listeners: "wrong-format",
       },
     })
 
@@ -70,7 +70,7 @@ describe("Start an analysis with an invalid request", () => {
   })
 
   test("Get a 400 status code on POST /greenit with a valid format but an incorrect value on the except_listeners property", async () => {
-    const fastify = await createApiModule()
+    const fastify = await createServer()
 
     const response = await fastify.inject({
       method: "POST",
@@ -86,13 +86,13 @@ describe("Start an analysis with an invalid request", () => {
   })
 
   test("Get a 400 status code on POST /observatory with an invalid format on the only_listeners property", async () => {
-    const fastify = await createApiModule()
+    const fastify = await createServer()
 
     const response = await fastify.inject({
       method: "POST",
       url: "/observatory",
       payload: {
-        only_listeners: true,
+        only_listeners: "wrong-format",
       },
     })
 
@@ -102,7 +102,7 @@ describe("Start an analysis with an invalid request", () => {
   })
 
   test("Get a 400 status code on POST /greenit with a valid format but an incorrect value on the only_listeners property", async () => {
-    const fastify = await createApiModule()
+    const fastify = await createServer()
 
     const response = await fastify.inject({
       method: "POST",
@@ -118,11 +118,12 @@ describe("Start an analysis with an invalid request", () => {
   })
 
   test("Get a 400 status code on POST /greenit?threshold=invalid with an invalid format for the threshold", async () => {
-    const fastify = await createApiModule()
+    const fastify = await createServer()
 
     const response = await fastify.inject({
       method: "POST",
       url: "/greenit",
+      payload: {},
       query: {
         threshold: "invalid",
       },
@@ -134,11 +135,12 @@ describe("Start an analysis with an invalid request", () => {
   })
 
   test("Get a 400 status code on POST /greenit?threshold=123 with a valid format but an incorrect value for the threshold", async () => {
-    const fastify = await createApiModule()
+    const fastify = await createServer()
 
     const response = await fastify.inject({
       method: "POST",
       url: "/greenit",
+      payload: {},
       query: {
         threshold: "123",
       },
@@ -152,7 +154,7 @@ describe("Start an analysis with an invalid request", () => {
 
 describe("Start an analysis with a valid request", () => {
   test("Get a 200 status code on POST /greenit with a valid body", async () => {
-    const fastify = await createApiModule()
+    const fastify = await createServer()
 
     const response = await fastify.inject({
       method: "POST",
@@ -168,11 +170,11 @@ describe("Start an analysis with a valid request", () => {
   })
 
   test("Get a 200 status code on POST /observatory with a valid body", async () => {
-    const fastify = await createApiModule()
+    const fastify = await createServer()
 
     const response = await fastify.inject({
       method: "POST",
-      url: "/greenit",
+      url: "/observatory",
       payload: {
         url: "",
       },

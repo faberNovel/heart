@@ -26,5 +26,6 @@ export type ModuleServer = new () => ModuleServerInterface
  * @see {@link https://www.typescriptlang.org/docs/handbook/2/narrowing.html#using-type-predicates | User-Defined Type Guards}
  */
 export function isModuleServer(module: ModuleInterface): module is ModuleServerInterface {
+  // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
   return (module as ModuleServerInterface).createServer !== undefined
 }

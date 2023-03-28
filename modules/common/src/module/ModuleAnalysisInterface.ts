@@ -27,5 +27,6 @@ export type ModuleAnalysis<
 export function isModuleAnalysis<C extends Config, R extends GenericReport<Result>>(
   module: ModuleInterface
 ): module is ModuleAnalysisInterface<C, R> {
+  // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
   return (module as ModuleAnalysisInterface<C, R>).startAnalysis !== undefined
 }

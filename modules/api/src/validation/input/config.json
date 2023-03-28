@@ -1,0 +1,6 @@
+{
+  "$id": "config",
+  "title": "Config options",
+  "type": "object",
+  "minProperties": 1
+}

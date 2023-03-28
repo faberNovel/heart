@@ -29,6 +29,7 @@ export const createAnalysisSubcommand = <C extends Config, R extends GenericRepo
     listenerModulesFiltered: ModuleListenerInterface[]
   ) => Promise<void>
 ): Command => {
+  const listenerModulesIds = listenerModules.map((listenerModule) => listenerModule.id)
   const subcommand = new Command(analysisModule.id)
 
   subcommand
@@ -42,16 +43,22 @@ export const createAnalysisSubcommand = <C extends Config, R extends GenericRepo
       const { file, inline, threshold, exceptListeners, onlyListeners } = options
 
       try {
-        const [validatedConfig, validatedThreshold, listenerModulesFiltered] = validateAnalysisInput<C>(
-          file,
-          inline,
-          threshold,
-          listenerModules,
-          exceptListeners,
-          onlyListeners
-        )
+        validateAnalysisInput(file, inline, threshold, listenerModulesIds, exceptListeners, onlyListeners)
 
-        await callback(validatedConfig, validatedThreshold, listenerModulesFiltered)
+        if (exceptListeners !== undefined) {
+          listenerModules = listenerModules.filter(
+            (listenerModule) => !exceptListeners.includes(listenerModule.id)
+          )
+        } else if (onlyListeners !== undefined) {
+          listenerModules = listenerModules.filter((listenerModules) =>
+            onlyListeners.includes(listenerModules.id)
+          )
+        }
+
+        // by construction, either file or inline is a C
+        const config = (file ?? inline) as C
+
+        await callback(config, threshold, listenerModules)
       } catch (error) {
         if (error instanceof InputError) {
           throw new InvalidArgumentError(error.message)

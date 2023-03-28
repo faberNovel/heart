@@ -1,6 +1,7 @@
 import {
   Config,
   GenericReport,
+  InputError,
   Module,
   ModuleAnalysisInterface,
   ModuleListenerInterface,
@@ -11,6 +12,9 @@ import {
 import cors, { FastifyCorsOptions } from "@fastify/cors"
 import Fastify, { FastifyInstance, FastifyReply, FastifyRequest } from "fastify"
 import { createJsonError } from "./error/JsonError.js"
+import configSchema from "./validation/input/config.json" assert { type: "json" }
+import listenerSchema from "./validation/input/listener.json" assert { type: "json" }
+import thresholdSchema from "./validation/input/threshold.json" assert { type: "json" }
 
 type ReqBody = Config & {
   except_listeners?: string[]
@@ -35,6 +39,9 @@ export class ApiModule extends Module implements ModuleServerInterface {
     this.#listenerModules = listenerModules
 
     // plugins registration
+    this.#fastify.addSchema(configSchema)
+    this.#fastify.addSchema(listenerSchema)
+    this.#fastify.addSchema(thresholdSchema)
     await this.#fastify.register(cors, corsOptions)
 
     // hooks
@@ -54,20 +61,36 @@ export class ApiModule extends Module implements ModuleServerInterface {
     reply: FastifyReply
   ) => Promise<FastifyReply> {
     return async (request, reply) => {
+      const config = request.body
+      const threshold = request.query.threshold === undefined ? undefined : Number(request.query.threshold)
+      const exceptListeners = request.body.except_listeners
+      const onlyListeners = request.body.only_listeners
+
       try {
-        const [validatedConfig, validatedThreshold, listenerModulesFiltered] = validateAnalysisInput(
+        validateAnalysisInput(
           undefined,
-          JSON.stringify(request.body),
-          request.query.threshold,
-          this.#listenerModules,
-          request.body.except_listeners,
-          request.body.only_listeners
+          config,
+          threshold,
+          this.#listenerModules.map((listenerModule) => listenerModule.id),
+          exceptListeners,
+          onlyListeners
         )
 
-        const report = await analysisModule.startAnalysis(validatedConfig, validatedThreshold)
+        const report = await analysisModule.startAnalysis(config, threshold)
 
-        this.#listenerModulesFiltered = listenerModulesFiltered
+        // update internal state objects for a later step with listener modules
         this.#report = report
+        if (exceptListeners !== undefined) {
+          this.#listenerModulesFiltered = this.#listenerModules.filter(
+            (listenerModule) => !exceptListeners.includes(listenerModule.id)
+          )
+        } else if (onlyListeners !== undefined) {
+          this.#listenerModulesFiltered = this.#listenerModules.filter((listenerModules) =>
+            onlyListeners.includes(listenerModules.id)
+          )
+        } else {
+          this.#listenerModulesFiltered = this.#listenerModules
+        }
 
         return reply.send({
           analyzedUrl: report.analyzedUrl,
@@ -84,9 +107,11 @@ export class ApiModule extends Module implements ModuleServerInterface {
           threshold: report.threshold ?? null,
         })
       } catch (error) {
-        if (error instanceof Error) {
+        if (error instanceof InputError) {
+          this.#fastify.log.error(error)
           return reply.code(400).send(createJsonError(error.message))
         } else {
+          this.#fastify.log.fatal(error)
           return reply.code(500).send(createJsonError("A server error occured"))
         }
       }
@@ -99,14 +124,24 @@ export class ApiModule extends Module implements ModuleServerInterface {
 
       const routeHandler = this.#createRouteHandler(analysisModule)
 
-      this.#fastify.post(path, routeHandler)
+      this.#fastify.post(path, {
+        schema: {
+          body: {
+            allOf: [{ $ref: "config#" }, { $ref: "listener#" }],
+          },
+          querystring: {
+            $ref: "threshold#",
+          },
+        },
+        handler: routeHandler,
+      })
     })
   }
 
   #notifyListenerModules(): void {
     if (this.#report !== undefined) {
       const notifyListenerModulesPromises = this.#listenerModulesFiltered.map((listenerModule) => {
-        return listenerModule.notifyAnalysisDone(this.#report as GenericReport<Result>)
+        return listenerModule.notifyAnalysisDone(this.#report!)
       })
 
       void Promise.all(notifyListenerModulesPromises)

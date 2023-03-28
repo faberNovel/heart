@@ -1,0 +1,10 @@
+{
+  "$id": "threshold",
+  "title": "Threshold options",
+  "type": "object",
+  "properties": {
+    "threshold": {
+      "type": "number"
+    }
+  }
+}
