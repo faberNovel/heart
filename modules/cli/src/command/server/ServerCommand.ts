@@ -1,6 +1,6 @@
-import type { ModuleServerInterface } from "@fabernovel/heart-common"
-import { Command } from "commander"
-import type { CorsOptions } from "cors"
+import { InputError, ModuleServerInterface, validateServerInput } from "@fabernovel/heart-common"
+import type { FastifyCorsOptions } from "@fastify/cors"
+import { Command, InvalidArgumentError } from "commander"
 import { createCorsOption, createPortOption, ServerOptions } from "./ServerOption.js"
 
 /**
@@ -8,7 +8,7 @@ import { createCorsOption, createPortOption, ServerOptions } from "./ServerOptio
  */
 export const createServerSubcommand = (
   module: ModuleServerInterface,
-  callback: (port: number, corsOptions: CorsOptions | undefined) => void
+  callback: (port: number, corsOptions: FastifyCorsOptions | undefined) => Promise<void>
 ): Command => {
   const subcommand = new Command(module.id)
 
@@ -16,10 +16,18 @@ export const createServerSubcommand = (
     .description(`Starts the ${module.name} server`)
     .addOption(createPortOption())
     .addOption(createCorsOption())
-    .action((options: ServerOptions) => {
+    .action(async (options: ServerOptions) => {
       const { cors, port } = options
 
-      callback(Number(port), cors)
+      try {
+        validateServerInput(port)
+
+        await callback(port, cors)
+      } catch (error) {
+        if (error instanceof InputError) {
+          throw new InvalidArgumentError(error.message)
+        }
+      }
     })
 
   return subcommand

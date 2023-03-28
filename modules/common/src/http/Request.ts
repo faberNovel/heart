@@ -1,18 +1,20 @@
 import fetch from "node-fetch"
 import { ParsedUrlQueryInput, stringify } from "querystring"
 
-const GET = "GET"
-const POST = "POST"
-export const HEADER_CONTENT_TYPE = "Content-Type"
-const HEADER_CONTENT_TYPE_JSON = "application/json"
-export const HEADER_CONTENT_TYPE_X_WWW_FORM_URLENCODED = "application/x-www-form-urlencoded"
-const BASE_HEADER = {
-  [HEADER_CONTENT_TYPE]: HEADER_CONTENT_TYPE_JSON,
+const BASE_HEADER: Record<"Content-Type", string> = {
+  "Content-Type": "application/json",
+}
+
+const ALLOWED_HEADERS_FOR_POST = ["application/json", "application/x-www-form-urlencoded"] as const
+type AllowedHeadersForPostType = (typeof ALLOWED_HEADERS_FOR_POST)[number]
+
+function isContentTypeHeaderAllowedForPost(header: string): header is AllowedHeadersForPostType {
+  return ALLOWED_HEADERS_FOR_POST.includes(header as AllowedHeadersForPostType)
 }
 
 export async function get<T>(url: string, headers: Record<string, string> = {}): Promise<T> {
   const response = await fetch(url, {
-    method: GET,
+    method: "GET",
     headers: { ...BASE_HEADER, ...headers },
   })
 
@@ -24,24 +26,23 @@ export async function post<T>(
   body: ParsedUrlQueryInput = {},
   headers: Record<string, string> = {}
 ): Promise<T> {
-  let bodyString = ""
+  const completeHeaders: Record<string, string> = { ...BASE_HEADER, ...headers }
 
-  headers = { ...BASE_HEADER, ...headers }
-  switch (headers[HEADER_CONTENT_TYPE]) {
-    case HEADER_CONTENT_TYPE_JSON:
-      bodyString = JSON.stringify(body)
-      break
-    case HEADER_CONTENT_TYPE_X_WWW_FORM_URLENCODED:
-      bodyString = stringify(body)
-      break
-    default:
-      return Promise.reject({ error: "invalid-header", message: "Unsupported header Content-Type" })
+  const contentTypeHeader = completeHeaders["Content-Type"]
+
+  if (!isContentTypeHeaderAllowedForPost(contentTypeHeader)) {
+    const errorMessage = `Unsupported Content-Type header value. Allowed values: ${ALLOWED_HEADERS_FOR_POST.join(
+      ", "
+    )}.`
+    return Promise.reject(errorMessage)
   }
 
+  const stringifiedBody = contentTypeHeader === "application/json" ? JSON.stringify(body) : stringify(body)
+
   const response = await fetch(url, {
-    method: POST,
-    body: bodyString,
-    headers,
+    method: "POST",
+    body: stringifiedBody,
+    headers: completeHeaders,
   })
 
   return response.json() as Promise<T>

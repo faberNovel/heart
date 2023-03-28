@@ -1,9 +1,9 @@
-import { Option } from "commander"
-import type { CorsOptions } from "cors"
+import type { FastifyCorsOptions } from "@fastify/cors"
+import { InvalidArgumentError, Option } from "commander"
 
 export interface ServerOptions {
-  port: string
-  cors?: CorsOptions
+  port: number
+  cors?: FastifyCorsOptions
 }
 
 // the keys are used to create the options names:
@@ -14,9 +14,7 @@ const SERVER_OPTIONS: { [key in keyof ServerOptions]-?: string } = {
   cors: "cors",
 }
 
-const PORT_DEFAULT = "3000"
-const PORT_REGEX =
-  /^(0|[1-9][0-9]{0,3}|[1-5][0-9]{4}|6[0-4][0-9]{3}|65[0-4][0-9]{2}|655[0-2][0-9]|6553[0-5])$/
+const PORT_DEFAULT = 3000
 
 export function createPortOption(): Option {
   return new Option(
@@ -25,13 +23,19 @@ export function createPortOption(): Option {
   )
     .default(PORT_DEFAULT)
     .argParser((value) => {
-      return PORT_REGEX.test(value) ? value : PORT_DEFAULT
+      const port = Number(value)
+
+      if (isNaN(port)) {
+        throw new InvalidArgumentError(`Must be a number`)
+      }
+
+      return port
     })
 }
 
 export function createCorsOption(): Option {
   return new Option(
     `-${SERVER_OPTIONS.cors[0]}, --${SERVER_OPTIONS.cors} [${SERVER_OPTIONS.cors}]`,
-    "CORS configuration, as defined in https://www.npmjs.com/package/cors#configuration-options"
-  ).argParser((value) => JSON.parse(value) as CorsOptions)
+    "CORS configuration, as defined in https://github.com/fastify/fastify-cors#options"
+  ).argParser((value) => JSON.parse(value) as FastifyCorsOptions)
 }

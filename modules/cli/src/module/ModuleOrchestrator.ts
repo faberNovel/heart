@@ -6,7 +6,7 @@ import type {
   ModuleServerInterface,
   Result,
 } from "@fabernovel/heart-common"
-import type { CorsOptions } from "cors"
+import type { FastifyCorsOptions } from "@fastify/cors"
 import ora from "ora"
 
 export async function notifyListenerModules<R extends GenericReport<Result>>(
@@ -66,18 +66,20 @@ export async function startAnalysis<C extends Config, R extends GenericReport<Re
   }
 }
 
-export function startServer(
-  module: ModuleServerInterface,
+export async function startServer(
+  serverModule: ModuleServerInterface,
   analysisModules: IterableIterator<ModuleAnalysisInterface<Config, GenericReport<Result>>>,
   listenerModules: ModuleListenerInterface[],
   port: number,
-  cors?: CorsOptions
-): void {
-  module
-    .startServer(Array.from(analysisModules), listenerModules, port, cors)
-    .on("listening", () => console.log(`Server listening on port ${port}`))
-    .on("error", (error: NodeJS.ErrnoException) => {
-      console.error(error.message)
-      process.exit(1)
-    })
+  cors?: FastifyCorsOptions
+): Promise<void> {
+  const fastifyInstance = await serverModule.createServer(Array.from(analysisModules), listenerModules, cors)
+
+  try {
+    await fastifyInstance.listen({ port: port })
+    console.log(`Server listening on port ${port}`)
+  } catch (err) {
+    fastifyInstance.log.error(err)
+    process.exit(1)
+  }
 }

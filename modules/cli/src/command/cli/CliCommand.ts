@@ -1,6 +1,6 @@
 import type { Config, ModuleListenerInterface } from "@fabernovel/heart-common"
+import type { FastifyCorsOptions } from "@fastify/cors"
 import { Command } from "commander"
-import type { CorsOptions } from "cors"
 import { readFileSync } from "node:fs"
 import { argv } from "node:process"
 import type { PackageJson } from "type-fest"
@@ -56,9 +56,17 @@ export async function start(): Promise<Command> {
 
   // server modules: create a command for each of them
   serverModulesMap.forEach((serverModule, modulePath: string) => {
-    const callback = (port: number, cors: CorsOptions | undefined) => {
+    const callback = async (port: number, cors: FastifyCorsOptions | undefined) => {
+      // load environment variables for the server module
       loadEnvironmentVariables(modulePath)
-      startServer(serverModule, analysisModulesMap.values(), listenerModules, port, cors)
+
+      // load environment variables for the analysis modules:
+      // do it once at startup instead at each route call
+      analysisModulesMap.forEach((_module, modulePath) => {
+        loadEnvironmentVariables(modulePath)
+      })
+
+      await startServer(serverModule, analysisModulesMap.values(), listenerModules, port, cors)
     }
 
     const serverCommand = createServerSubcommand(serverModule, callback)

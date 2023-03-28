@@ -1,0 +1,20 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema",
+  "$id": "listener",
+  "title": "Listener options",
+  "type": "object",
+  "properties": {
+    "except_listeners": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "only_listeners": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    }
+  }
+}

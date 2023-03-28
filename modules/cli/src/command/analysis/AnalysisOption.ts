@@ -1,10 +1,12 @@
 import { Option } from "commander"
+import type { JsonValue } from "type-fest"
+import { readFile } from "../../filesystem/fs.js"
 import { snakeCaseToCamelCase } from "../../text/case.js"
 
 export type AnalysisOptions = Partial<{
-  file: string
-  inline: string
-  threshold: string
+  file: JsonValue
+  inline: JsonValue
+  threshold: number
   exceptListeners: string[] // array of strings because of the .argParser() on the Option
   onlyListeners: string[] // array of strings because of the .argParser() on the Option
 }>
@@ -23,20 +25,30 @@ const ANALYSIS_OPTIONS: { [key in keyof AnalysisOptions]-?: string } = {
 export function createFileOption(): Option {
   return new Option(
     `-${ANALYSIS_OPTIONS.file[0]}, --${ANALYSIS_OPTIONS.file} [${ANALYSIS_OPTIONS.file}]", "Path to the JSON configuration file`
-  ).conflicts(ANALYSIS_OPTIONS.inline)
+  )
+    .conflicts(ANALYSIS_OPTIONS.inline)
+    .argParser((path) => {
+      const configStringified = readFile(path)
+
+      return JSON.parse(configStringified) as JsonValue
+    })
 }
 
 export function createInlineOption(): Option {
   return new Option(
     `-${ANALYSIS_OPTIONS.inline[0]}, --${ANALYSIS_OPTIONS.inline} [${ANALYSIS_OPTIONS.inline}]", "Inlined JSON configuration`
-  ).conflicts(ANALYSIS_OPTIONS.file)
+  )
+    .conflicts(ANALYSIS_OPTIONS.file)
+    .argParser((value) => {
+      return JSON.parse(value) as JsonValue
+    })
 }
 
 export function createThresholdOption(): Option {
   return new Option(
     `-${ANALYSIS_OPTIONS.threshold[0]}, --${ANALYSIS_OPTIONS.threshold} [${ANALYSIS_OPTIONS.threshold}]`,
     "A threshold between 0 and 100 that you want to reach with the analysis"
-  )
+  ).argParser((value) => Number(value))
 }
 
 export function createExceptListenersOption(): Option {

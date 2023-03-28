@@ -22,12 +22,11 @@ export type ModuleAnalysis<
 
 /**
  * Checks if a module is an Analysis one.
- * @see {@link https://www.typescriptlang.org/docs/handbook/advanced-types.html#user-defined-type-guards | User-Defined Type Guards}
+ * @see {@link https://www.typescriptlang.org/docs/handbook/2/narrowing.html#using-type-predicates | User-Defined Type Guards}
  */
 export function isModuleAnalysis<C extends Config, R extends GenericReport<Result>>(
   module: ModuleInterface
 ): module is ModuleAnalysisInterface<C, R> {
-  const m = module as ModuleAnalysisInterface<C, R>
-
-  return m !== undefined && m.startAnalysis !== undefined && "function" === typeof m.startAnalysis
+  // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
+  return (module as ModuleAnalysisInterface<C, R>).startAnalysis !== undefined
 }

@@ -47,5 +47,5 @@ test("Create an analysis command", () => {
 
   expect(command.name()).toBe(analysisModule.id)
   expect(Object.keys(options)).toHaveLength(1)
-  expect(options).toHaveProperty("inline", optionConfigInline)
+  expect(options).toHaveProperty("inline", JSON.parse(optionConfigInline))
 })

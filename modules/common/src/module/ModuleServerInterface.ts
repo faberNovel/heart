@@ -1,5 +1,5 @@
-import type { CorsOptions } from "cors"
-import type { Server } from "http"
+import type { FastifyCorsOptions } from "@fastify/cors"
+import type { FastifyInstance } from "fastify"
 import type { Config, GenericReport, ModuleListenerInterface, Result } from "../index.js"
 import type { ModuleAnalysisInterface } from "./ModuleAnalysisInterface.js"
 import type { ModuleInterface } from "./ModuleInterface.js"
@@ -8,12 +8,11 @@ import type { ModuleInterface } from "./ModuleInterface.js"
  * Define a Server module.
  */
 export interface ModuleServerInterface extends ModuleInterface {
-  startServer: (
+  createServer: (
     analysisModules: ModuleAnalysisInterface<Config, GenericReport<Result>>[],
     listenerModules: ModuleListenerInterface[],
-    port: number,
-    cors?: CorsOptions
-  ) => Server
+    cors?: FastifyCorsOptions
+  ) => Promise<FastifyInstance>
 }
 
 /**
@@ -24,10 +23,9 @@ export type ModuleServer = new () => ModuleServerInterface
 
 /**
  * Checks if a module is a Server one.
- * @see {@link https://www.typescriptlang.org/docs/handbook/advanced-types.html#user-defined-type-guards | User-Defined Type Guards}
+ * @see {@link https://www.typescriptlang.org/docs/handbook/2/narrowing.html#using-type-predicates | User-Defined Type Guards}
  */
 export function isModuleServer(module: ModuleInterface): module is ModuleServerInterface {
-  const m = module as ModuleServerInterface
-
-  return m !== undefined && m.startServer !== undefined && "function" === typeof m.startServer
+  // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
+  return (module as ModuleServerInterface).createServer !== undefined
 }
