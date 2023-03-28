@@ -1,1 +1,3 @@
-export class PortInputError extends Error {}
+import { InputError } from "../InputError.js"
+
+export class PortInputError extends InputError {}

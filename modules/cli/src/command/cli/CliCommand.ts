@@ -57,7 +57,15 @@ export async function start(): Promise<Command> {
   // server modules: create a command for each of them
   serverModulesMap.forEach((serverModule, modulePath: string) => {
     const callback = async (port: number, cors: FastifyCorsOptions | undefined) => {
+      // load environment variables for the server module
       loadEnvironmentVariables(modulePath)
+
+      // load environment variables for the analysis modules:
+      // do it once at startup instead at each route call
+      analysisModulesMap.forEach((_module, modulePath) => {
+        loadEnvironmentVariables(modulePath)
+      })
+
       await startServer(serverModule, analysisModulesMap.values(), listenerModules, port, cors)
     }
 
