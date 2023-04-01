@@ -2,7 +2,7 @@
   "changes": [
     {
       "packageName": "@fabernovel/heart-cli",
-      "comment": "The note now display the grade if it exists, plus the note over 100",
+      "comment": "",
       "type": "none"
     }
   ],

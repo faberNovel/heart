@@ -2,7 +2,7 @@
   "changes": [
     {
       "packageName": "@fabernovel/heart-cli",
-      "comment": "Displays both the note and normalized note once the analysis is done",
+      "comment": "Improve the summary of the analysis: the grade is now displayed too if provided by the analysis service",
       "type": "minor"
     }
   ],
