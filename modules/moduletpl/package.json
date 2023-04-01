@@ -30,7 +30,7 @@
     "test": "NODE_OPTIONS='--experimental-vm-modules' jest --passWithNoTests"
   },
   "dependencies": {
-    "@fabernovel/heart-common": "workspace:^4.0.0-alpha.2"
+    "@fabernovel/heart-common": "workspace:^4.0.0-alpha.3"
   },
   "devDependencies": {
     "@jest/globals": "^29.5.0",
@@ -45,7 +45,7 @@
     "typescript": "^4.9.5"
   },
   "peerDependencies": {
-    "@fabernovel/heart-cli": "^4.0.0-alpha.2"
+    "@fabernovel/heart-cli": "^4.0.0-alpha.3"
   },
   "engines": {
     "node": ">=18 <20"
