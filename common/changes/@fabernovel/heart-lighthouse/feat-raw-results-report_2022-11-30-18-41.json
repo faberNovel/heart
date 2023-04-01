@@ -2,8 +2,8 @@
   "changes": [
     {
       "packageName": "@fabernovel/heart-lighthouse",
-      "comment": "",
-      "type": "none"
+      "comment": "Upgrade to lighthouse 10",
+      "type": "minor"
     }
   ],
   "packageName": "@fabernovel/heart-lighthouse"
