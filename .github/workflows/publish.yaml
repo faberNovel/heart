@@ -31,7 +31,7 @@ on:
           # Increments according to their own minor or patch increment (depends of the type of changes made to each package)
           - individualVersion
           # Increments to the same major version. Use only for major releases.
-          - lockStepVersion
+          - nextMajor
         default: "individualVersion"
         required: true
 
