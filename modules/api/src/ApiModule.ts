@@ -101,7 +101,7 @@ export class ApiModule extends Module implements ModuleServerInterface {
       const exceptListeners = request.body.except_listeners
       const onlyListeners = request.body.only_listeners
 
-      validateAnalysisInput(undefined, config, threshold, listenerModulesIds, exceptListeners, onlyListeners)
+      validateAnalysisInput(config, threshold, listenerModulesIds, exceptListeners, onlyListeners)
 
       const report = await analysisModule.startAnalysis(config, threshold)
 

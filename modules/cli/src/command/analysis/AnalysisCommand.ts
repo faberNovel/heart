@@ -11,8 +11,7 @@ import { Command, InvalidArgumentError } from "commander"
 import {
   AnalysisOptions,
   createExceptListenersOption,
-  createFileOption,
-  createInlineOption,
+  createConfigOption,
   createOnlyListenersOption,
   createThresholdOption,
 } from "./AnalysisOption.js"
@@ -34,16 +33,15 @@ export const createAnalysisSubcommand = <C extends Config, R extends GenericRepo
 
   subcommand
     .description(`Analyzes a URL with ${analysisModule.service.name}`)
-    .addOption(createFileOption())
-    .addOption(createInlineOption())
+    .addOption(createConfigOption())
     .addOption(createThresholdOption())
     .addOption(createExceptListenersOption())
     .addOption(createOnlyListenersOption())
     .action(async (options: AnalysisOptions) => {
-      const { file, inline, threshold, exceptListeners, onlyListeners } = options
+      const { config, threshold, exceptListeners, onlyListeners } = options
 
       try {
-        validateAnalysisInput(file, inline, threshold, listenerModulesIds, exceptListeners, onlyListeners)
+        validateAnalysisInput(config, threshold, listenerModulesIds, exceptListeners, onlyListeners)
 
         if (exceptListeners !== undefined) {
           listenerModules = listenerModules.filter(
@@ -55,10 +53,7 @@ export const createAnalysisSubcommand = <C extends Config, R extends GenericRepo
           )
         }
 
-        // by construction, either file or inline is a C
-        const config = (file ?? inline) as C
-
-        await callback(config, threshold, listenerModules)
+        await callback(config as C, threshold, listenerModules)
       } catch (error) {
         if (error instanceof InputError) {
           throw new InvalidArgumentError(error.message)

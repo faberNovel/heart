@@ -3,9 +3,7 @@ import type { JsonValue } from "type-fest"
 import { readFile } from "../../filesystem/fs.js"
 import { snakeCaseToCamelCase } from "../../text/case.js"
 
-export type AnalysisOptions = Partial<{
-  file: JsonValue
-  inline: JsonValue
+export type AnalysisOptions = { config: JsonValue } & Partial<{
   threshold: number
   exceptListeners: string[] // array of strings because of the .argParser() on the Option
   onlyListeners: string[] // array of strings because of the .argParser() on the Option
@@ -15,34 +13,38 @@ export type AnalysisOptions = Partial<{
 // - options long names: keys names
 // - options short names: first letter of the keys names
 const ANALYSIS_OPTIONS: { [key in keyof AnalysisOptions]-?: string } = {
-  file: "file",
-  inline: "inline",
+  config: "config",
   threshold: "threshold",
   exceptListeners: "except-listeners",
   onlyListeners: "only-listeners",
 }
 
-export function createFileOption(): Option {
+export function createConfigOption(): Option {
   return new Option(
-    `-${ANALYSIS_OPTIONS.file[0]}, --${ANALYSIS_OPTIONS.file} [${ANALYSIS_OPTIONS.file}]", "Path to the JSON configuration file`
+    `-${ANALYSIS_OPTIONS.config[0]}, --${ANALYSIS_OPTIONS.config} [${ANALYSIS_OPTIONS.config}]", "Path to the JSON configuration file`
   )
-    .conflicts(ANALYSIS_OPTIONS.inline)
+    .conflicts(ANALYSIS_OPTIONS.config)
     .argParser((path) => {
-      const configStringified = readFile(path)
+      try {
+        const configStringified = readFile(path)
 
-      return JSON.parse(configStringified) as JsonValue
+        return JSON.parse(configStringified) as JsonValue
+      } catch (error) {
+        console.error("ya un soucis coco!")
+        throw error
+      }
     })
 }
 
-export function createInlineOption(): Option {
-  return new Option(
-    `-${ANALYSIS_OPTIONS.inline[0]}, --${ANALYSIS_OPTIONS.inline} [${ANALYSIS_OPTIONS.inline}]", "Inlined JSON configuration`
-  )
-    .conflicts(ANALYSIS_OPTIONS.file)
-    .argParser((value) => {
-      return JSON.parse(value) as JsonValue
-    })
-}
+// export function createInlineOption(): Option {
+//   return new Option(
+//     `-${ANALYSIS_OPTIONS.inline[0]}, --${ANALYSIS_OPTIONS.inline} [${ANALYSIS_OPTIONS.inline}]", "Inlined JSON configuration`
+//   )
+//     .conflicts(ANALYSIS_OPTIONS.file)
+//     .argParser((value) => {
+//       return JSON.parse(value) as JsonValue
+//     })
+// }
 
 export function createThresholdOption(): Option {
   return new Option(

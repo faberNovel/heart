@@ -15,14 +15,13 @@ import {
  * @throws {ListenersError}
  */
 export function validateAnalysisInput(
-  configFile: JsonValue | undefined,
-  configInline: JsonValue | undefined,
+  config: JsonValue,
   threshold: number | undefined,
   listenerModulesIds: ModuleListenerInterface["id"][],
   exceptListenersIds: string[] | undefined,
   onlyListenersIds: string[] | undefined
 ): void {
-  validateConfig(configFile, configInline)
+  validateConfig(config)
   validateThreshold(threshold)
   validateListenerModules(listenerModulesIds, exceptListenersIds, onlyListenersIds)
 }
@@ -37,20 +36,13 @@ function validateListenersInput(
 /**
  * @throws {ConfigInputError}
  */
-function validateConfig(configFile: JsonValue | undefined, configInline: JsonValue | undefined): void {
-  if (configFile === undefined && configInline === undefined) {
-    throw new ConfigInputError("You must provide a configuration.")
-  } else if (configFile !== undefined && configInline !== undefined) {
-    throw new ConfigInputError("You must provide only one configuration.")
-  } else if (configFile !== undefined) {
-    if (typeof configFile !== "object" || configFile === null || Array.isArray(configFile)) {
-      throw new ConfigInputError("The configuration must be a JSON object.")
-    }
-  } else {
-    if (typeof configInline !== "object" || configInline === null || Array.isArray(configInline)) {
-      throw new ConfigInputError("The configuration must be a JSON object.")
-    }
+function validateConfig(config: JsonValue): void {
+  // TODO: validate against schema
+  if (config === "3") {
+    throw new ConfigInputError()
   }
+
+  return
 }
 
 /**
