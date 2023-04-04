@@ -1,8 +1,6 @@
-import { ConfigInputError } from "./error/input/ConfigInputError.js"
-import { ListenersInputError } from "./error/input/ListenersInputError.js"
-import { ThresholdInputError } from "./error/input/ThresholdInputError.js"
 import { InputError } from "./error/InputError.js"
 import { get, post } from "./http/Request.js"
+import type { ParsedInput, ValidatedInput } from "./input/Input.js"
 import type { Config } from "./module/config/Config.js"
 import type { GreenITConfig } from "./module/config/greenit/GreeenITConfig.js"
 import type { LighthouseConfig } from "./module/config/lighthouse/LighthouseConfig.js"
@@ -52,13 +50,14 @@ export type {
   LighthouseConfig,
   ObservatoryConfig,
   SsllabsServerConfig,
+
+  // Input
+  ParsedInput,
+  ValidatedInput,
 }
 export {
   // Errors
   InputError,
-  ConfigInputError,
-  ListenersInputError,
-  ThresholdInputError,
 
   // Modules
   Helper,

@@ -1,1 +1,1 @@
-export abstract class InputError extends Error {}
+export class InputError extends Error {}

@@ -6,23 +6,13 @@ import {
   ModuleAnalysisInterface,
   ModuleListenerInterface,
   ModuleServerInterface,
+  ParsedInput,
   Result,
+  ValidatedInput,
   validateAnalysisInput,
 } from "@fabernovel/heart-common"
 import cors, { FastifyCorsOptions } from "@fastify/cors"
-import Fastify, { FastifyError, FastifyInstance, FastifyReply, FastifyRequest, FastifySchema } from "fastify"
-import configSchema from "./validation/input/config.json" assert { type: "json" }
-import listenerSchema from "./validation/input/listener.json" assert { type: "json" }
-import thresholdSchema from "./validation/input/threshold.json" assert { type: "json" }
-
-type ReqBody = Config & {
-  except_listeners?: string[]
-  only_listeners?: string[]
-}
-
-interface ReqQuery {
-  threshold?: string
-}
+import Fastify, { FastifyError, FastifyInstance, FastifyReply, FastifyRequest } from "fastify"
 
 /**
  * @see {@link https://www.fastify.io/docs/latest/Reference/Server/#seterrorhandler}
@@ -61,11 +51,6 @@ export class ApiModule extends Module implements ModuleServerInterface {
     listenerModules: ModuleListenerInterface[],
     corsOptions?: FastifyCorsOptions
   ): Promise<FastifyInstance> {
-    // schemas registration
-    this.#fastify.addSchema(configSchema)
-    this.#fastify.addSchema(listenerSchema)
-    this.#fastify.addSchema(thresholdSchema)
-
     // plugins registration
     await this.#fastify.register(cors, corsOptions)
 
@@ -89,19 +74,12 @@ export class ApiModule extends Module implements ModuleServerInterface {
   #createRouteHandler(
     analysisModule: ModuleAnalysisInterface<Config, GenericReport<Result>>,
     listenerModules: ModuleListenerInterface[]
-  ): (
-    req: FastifyRequest<{ Body: ReqBody; Querystring: ReqQuery }>,
-    reply: FastifyReply
-  ) => Promise<FastifyReply> {
-    const listenerModulesIds = listenerModules.map((listenerModule) => listenerModule.id)
-
+  ): (req: FastifyRequest<{ Body: ValidatedInput }>, reply: FastifyReply) => Promise<FastifyReply> {
     return async (request, reply) => {
       const config = request.body
-      const threshold = request.query.threshold === undefined ? undefined : Number(request.query.threshold)
+      const threshold = request.body.threshold === undefined ? undefined : Number(request.body.threshold)
       const exceptListeners = request.body.except_listeners
       const onlyListeners = request.body.only_listeners
-
-      validateAnalysisInput(config, threshold, listenerModulesIds, exceptListeners, onlyListeners)
 
       const report = await analysisModule.startAnalysis(config, threshold)
 
@@ -136,27 +114,32 @@ export class ApiModule extends Module implements ModuleServerInterface {
     }
   }
 
+  #createRoutePreHandler(listenerModules: ModuleListenerInterface[]) {
+    return () => async (request: FastifyRequest<{ Body: ParsedInput }>) => {
+      const config = request.body.config
+      const threshold = request.body.threshold === undefined ? undefined : Number(request.body.threshold)
+      const exceptListeners = request.body.except_listeners
+      const onlyListeners = request.body.only_listeners
+
+      const listenerModulesIds = listenerModules.map((listenerModule) => listenerModule.id)
+
+      validateAnalysisInput(config, threshold, listenerModulesIds, exceptListeners, onlyListeners)
+    }
+  }
+
   #registerRoutes(
     analysisModules: ModuleAnalysisInterface<Config, GenericReport<Result>>[],
     listenerModules: ModuleListenerInterface[]
   ): void {
-    const schema: FastifySchema = {
-      body: {
-        allOf: [{ $ref: "config#" }, { $ref: "listener#" }],
-      },
-      querystring: {
-        $ref: "threshold#",
-      },
-    }
-
     analysisModules.forEach((analysisModule) => {
       const path = `/${analysisModule.id}`
 
       const routeHandler = this.#createRouteHandler(analysisModule, listenerModules)
+      const routePreHandler = this.#createRoutePreHandler(listenerModules)
 
       this.#fastify.post(path, {
-        schema: schema,
         handler: routeHandler,
+        preHandler: routePreHandler,
       })
     })
   }

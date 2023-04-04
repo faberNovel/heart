@@ -1,4 +1,4 @@
-import { PortInputError } from "../../error/input/PortInputError.js"
+import { InputError } from "../../error/InputError.js"
 
 const PORT_REGEX =
   /^(0|[1-9][0-9]{0,3}|[1-5][0-9]{4}|6[0-4][0-9]{3}|65[0-4][0-9]{2}|655[0-2][0-9]|6553[0-5])$/
@@ -7,17 +7,17 @@ const PORT_REGEX =
  * Validate that the server options are correct.
  * Throws InputError if not.
  *
- * @throws PortInputError
+ * @throws InputError
  */
 export function validateServerInput(port: number): void {
   validatePort(port)
 }
 
 /**
- * @throws PortInputError
+ * @throws InputError
  */
 function validatePort(port: number): void {
   if (!PORT_REGEX.test(port.toString())) {
-    throw new PortInputError("Must be a number >= 0 and <= 65535")
+    throw new InputError("Must be a number >= 0 and <= 65535")
   }
 }

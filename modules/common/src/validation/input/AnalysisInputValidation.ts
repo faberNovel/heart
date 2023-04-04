@@ -1,18 +1,14 @@
+import _Ajv, { JSONSchemaType } from "ajv"
 import type { JsonValue } from "type-fest"
-import {
-  ConfigInputError,
-  ListenersInputError,
-  ModuleListenerInterface,
-  ThresholdInputError,
-} from "../../index.js"
+import { InputError, ModuleListenerInterface } from "../../index.js"
+import type { ParsedInput, ValidatedInput } from "../../input/Input.js"
+const Ajv = _Ajv as unknown as typeof _Ajv.default // temp workaround: https://github.com/ajv-validator/ajv/issues/2132#issuecomment-1290409907
 
 /**
  * Validate that the analysis options are correct.
  * Throws InputError if not.
  *
- * @throws {ConfigInputError}
- * @throws {ThresholdError}
- * @throws {ListenersError}
+ * @throws {InputError}
  */
 export function validateAnalysisInput(
   config: JsonValue,
@@ -21,76 +17,80 @@ export function validateAnalysisInput(
   exceptListenersIds: string[] | undefined,
   onlyListenersIds: string[] | undefined
 ): void {
-  validateConfig(config)
-  validateThreshold(threshold)
-  validateListenerModules(listenerModulesIds, exceptListenersIds, onlyListenersIds)
-}
+  const data = createData(config, threshold, exceptListenersIds, onlyListenersIds)
+  const schema = createValidationSchema(listenerModulesIds)
 
-function validateListenersInput(
-  listenerModulesIds: ModuleListenerInterface["id"][],
-  optionValues: string[]
-): boolean {
-  return optionValues.every((optionValue) => listenerModulesIds.includes(optionValue))
-}
+  const ajv = new Ajv()
+  const validate = ajv.compile(schema)
 
-/**
- * @throws {ConfigInputError}
- */
-function validateConfig(config: JsonValue): void {
-  // TODO: validate against schema
-  if (config === "3") {
-    throw new ConfigInputError()
-  }
-
-  return
-}
-
-/**
- * @throws {ThresholdInputError}
- */
-function validateThreshold(threshold: number | undefined): void {
-  if (threshold !== undefined && (isNaN(threshold) || threshold < 0 || threshold > 100)) {
-    throw new ThresholdInputError("The threshold must be a number between 0 and 100.")
+  if (!validate(data)) {
+    throw new InputError("Something went wrong with the input validation")
   }
 }
 
-/**
- * Validate the listeners options
- *
- * @param listenerModulesIds IDs of the listener modules loaded
- * @param exceptListeners IDs of the listener modules unwanted amongst listenerModulesIds
- * @param onlyListeners IDs of the listener modules to keep amongst listenerModulesIds
- *
- * @throws {ListenersError}
- */
-function validateListenerModules(
-  listenerModulesIds: ModuleListenerInterface["id"][],
+function createData(
+  config: JsonValue,
+  threshold: number | undefined,
   exceptListenersIds: string[] | undefined,
   onlyListenersIds: string[] | undefined
-): void {
-  if (exceptListenersIds !== undefined) {
-    if (Array.isArray(exceptListenersIds)) {
-      const isListenerOptionValid = validateListenersInput(listenerModulesIds, exceptListenersIds)
-
-      if (!isListenerOptionValid) {
-        throw new ListenersInputError(`Possible values: ${listenerModulesIds.join(", ")}.`)
-      }
-    } else {
-      throw new ListenersInputError(
-        `Must be an array with some of these values: ${listenerModulesIds.join(", ")}.`
-      )
-    }
-  } else if (onlyListenersIds !== undefined) {
-    if (Array.isArray(onlyListenersIds)) {
-      const isListenerOptionValid = validateListenersInput(listenerModulesIds, onlyListenersIds)
-
-      if (!isListenerOptionValid) {
-        throw new ListenersInputError(`Possible values: ${listenerModulesIds.join(", ")}.`)
-      }
-    } else {
-      throw new ListenersInputError(
-        `Must be an array with some of these values: ${listenerModulesIds.join(", ")}.`
-      )
-    }
+): ParsedInput {
+  return {
+    config: config,
+    threshold: threshold,
+    except_listeners: exceptListenersIds,
+    only_listeners: onlyListenersIds,
   }
+}
+
+function createValidationSchema(
+  listenerModulesIds: ModuleListenerInterface["id"][]
+): JSONSchemaType<ValidatedInput> {
+  const s: JSONSchemaType<ValidatedInput> = {
+    type: "object",
+    properties: {
+      config: {
+        minProperties: 1,
+        patternProperties: {
+          "^.*$": {
+            anyOf: [
+              { type: "string" },
+              { type: "number" },
+              { type: "boolean" },
+              { type: "null" },
+              { $ref: "#" },
+              {
+                type: "array",
+                items: {
+                  $ref: "#",
+                },
+              },
+            ],
+          },
+        },
+      },
+      threshold: {
+        type: "number",
+        minimum: 0,
+        maximum: 100,
+      },
+      except_listeners: {
+        type: "array",
+        items: {
+          type: "string",
+          enum: listenerModulesIds,
+        },
+      },
+      only_listeners: {
+        type: "array",
+        items: {
+          type: "string",
+          enum: listenerModulesIds,
+        },
+      },
+    },
+    required: ["config"],
+    additionalProperties: false,
+  }
+
+  return s
 }
