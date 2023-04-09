@@ -5,16 +5,26 @@ import {
   ModuleAnalysisInterface,
   ModuleListenerInterface,
   Result,
+  ValidatedInput,
   validateAnalysisInput,
 } from "@fabernovel/heart-common"
 import { Command, InvalidArgumentError } from "commander"
 import {
   AnalysisOptions,
-  createExceptListenersOption,
   createConfigOption,
+  createExceptListenersOption,
   createOnlyListenersOption,
   createThresholdOption,
 } from "./AnalysisOption.js"
+
+function prepareOptionsForValidation(options: AnalysisOptions): Record<keyof ValidatedInput, unknown> {
+  return {
+    config: options.config,
+    threshold: options.threshold,
+    except_listeners: options.exceptListeners,
+    only_listeners: options.onlyListeners,
+  }
+}
 
 /**
  * Create a command dedicated to the given analysis module
@@ -41,7 +51,8 @@ export const createAnalysisSubcommand = <C extends Config, R extends GenericRepo
       const { config, threshold, exceptListeners, onlyListeners } = options
 
       try {
-        validateAnalysisInput(listenerModulesIds, config, threshold, exceptListeners, onlyListeners)
+        const data = prepareOptionsForValidation(options)
+        validateAnalysisInput(listenerModulesIds, data)
 
         if (exceptListeners !== undefined) {
           listenerModules = listenerModules.filter(

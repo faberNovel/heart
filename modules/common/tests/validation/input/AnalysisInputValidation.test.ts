@@ -3,19 +3,19 @@ import { InputError, ModuleListenerInterface, validateAnalysisInput } from "../.
 describe("Validate invalid configuration", () => {
   test("Empty string as configuration", () => {
     expect(() => {
-      validateAnalysisInput([], "", undefined, undefined, undefined)
+      validateAnalysisInput([], { config: "" })
     }).toThrow(InputError)
   })
 
   test("Number as configuration", () => {
     expect(() => {
-      validateAnalysisInput([], 2, undefined, undefined, undefined)
+      validateAnalysisInput([], { config: 2 })
     }).toThrow(InputError)
   })
 
   test("Empty JSON object as configuration", () => {
     expect(() => {
-      validateAnalysisInput([], {}, undefined, undefined, undefined)
+      validateAnalysisInput([], { config: {} })
     }).toThrow(InputError)
   })
 })
@@ -42,42 +42,37 @@ describe("Validate the listener modules options", () => {
 
   test("Exclude 1 module with an invalid id", () => {
     expect(() => {
-      validateAnalysisInput(
-        listenerModulesIds,
-        { inline: "configuration" },
-        undefined,
-        ["invalid-module-id"],
-        undefined
-      )
+      validateAnalysisInput(listenerModulesIds, {
+        config: { inline: "configuration" },
+        except_listeners: ["invalid-module-id"],
+      })
     }).toThrow(InputError)
   })
 
   test("Exclude 2 modules but set an invalid id for one of them", () => {
     expect(() => {
-      validateAnalysisInput(
-        listenerModulesIds,
-        { inline: "configuration" },
-        undefined,
-        ["heart-test1", "invalid-module-id"],
-        undefined
-      )
+      validateAnalysisInput(listenerModulesIds, {
+        config: { inline: "configuration" },
+        except_listeners: ["heart-test1", "invalid-module-id"],
+      })
     }).toThrow(InputError)
   })
 
   test("Keep only 1 module with an invalid id", () => {
     expect(() => {
-      validateAnalysisInput(listenerModulesIds, { inline: "configuration" }, undefined, undefined, [
-        "invalid-module-id",
-      ])
+      validateAnalysisInput(listenerModulesIds, {
+        config: { inline: "configuration" },
+        only_listeners: ["invalid-module-id"],
+      })
     }).toThrow(InputError)
   })
 
   test("Keep 2 modules but set an invalid id for one of them", () => {
     expect(() => {
-      validateAnalysisInput(listenerModulesIds, { inline: "configuration" }, undefined, undefined, [
-        "heart-test1",
-        "invalid-module-id",
-      ])
+      validateAnalysisInput(listenerModulesIds, {
+        config: { inline: "configuration" },
+        only_listeners: ["heart-test1", "invalid-module-id"],
+      })
     }).toThrow(InputError)
   })
 })

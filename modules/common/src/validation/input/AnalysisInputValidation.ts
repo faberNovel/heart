@@ -1,23 +1,8 @@
 import _Ajv, { AnySchema, JSONSchemaType } from "ajv"
-import type { JsonValue } from "type-fest"
 import { InputError, ModuleListenerInterface } from "../../index.js"
 import configSchema from "./schema/config.json" assert { type: "json" }
 import thresholdSchema from "./schema/threshold.json" assert { type: "json" }
 const Ajv = _Ajv as unknown as typeof _Ajv.default // temp workaround: https://github.com/ajv-validator/ajv/issues/2132#issuecomment-1290409907
-
-function createData(
-  config: JsonValue,
-  threshold: number | undefined,
-  exceptListenersIds: string[] | undefined,
-  onlyListenersIds: string[] | undefined
-) {
-  return {
-    config: config,
-    threshold: threshold,
-    except_listeners: exceptListenersIds,
-    only_listeners: onlyListenersIds,
-  }
-}
 
 /**
  * Validate that the analysis options are correct.
@@ -27,12 +12,8 @@ function createData(
  */
 export function validateAnalysisInput(
   listenerModulesIds: ModuleListenerInterface["id"][],
-  config: JsonValue,
-  threshold: number | undefined,
-  exceptListenersIds: string[] | undefined,
-  onlyListenersIds: string[] | undefined
+  data: unknown
 ): void {
-  const data = createData(config, threshold, exceptListenersIds, onlyListenersIds)
   const schema = createValidationSchema(listenerModulesIds)
 
   const ajv = new Ajv()

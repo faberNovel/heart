@@ -38,13 +38,7 @@ function createRoutePreHandler(
   return (request, _reply, done) => {
     const listenerModulesIds = listenerModules.map((listenerModule) => listenerModule.id)
 
-    validateAnalysisInput(
-      listenerModulesIds,
-      request.body.config,
-      request.body.threshold,
-      request.body.except_listeners,
-      request.body.only_listeners
-    )
+    validateAnalysisInput(listenerModulesIds, request.body)
 
     done()
   }
@@ -159,11 +153,12 @@ export class ApiModule extends Module implements ModuleServerInterface {
     analysisModules: ModuleAnalysisInterface<Config, GenericReport<Result>>[],
     listenerModules: ModuleListenerInterface[]
   ): void {
+    const routePreHandler = createRoutePreHandler(listenerModules)
+
     analysisModules.forEach((analysisModule) => {
       const path = `/${analysisModule.id}`
 
       const routeHandler = this.#createRouteHandler(analysisModule)
-      const routePreHandler = createRoutePreHandler(listenerModules)
 
       this.#fastify.post(path, {
         handler: routeHandler,
