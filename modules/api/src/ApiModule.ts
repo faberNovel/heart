@@ -12,7 +12,13 @@ import {
   validateAnalysisInput,
 } from "@fabernovel/heart-common"
 import cors, { FastifyCorsOptions } from "@fastify/cors"
-import Fastify, { FastifyError, FastifyInstance, FastifyReply, FastifyRequest } from "fastify"
+import Fastify, {
+  FastifyError,
+  FastifyInstance,
+  FastifyReply,
+  FastifyRequest,
+  HookHandlerDoneFunction,
+} from "fastify"
 
 /**
  * @see {@link https://www.fastify.io/docs/latest/Reference/Server/#seterrorhandler}
@@ -111,8 +117,14 @@ export class ApiModule extends Module implements ModuleServerInterface {
     }
   }
 
-  #createRoutePreHandler(listenerModules: ModuleListenerInterface[]) {
-    return () => (request: FastifyRequest<{ Body: ParsedInput }>) => {
+  #createRoutePreHandler(
+    listenerModules: ModuleListenerInterface[]
+  ): (
+    request: FastifyRequest<{ Body: ParsedInput }>,
+    reply: FastifyReply,
+    done: HookHandlerDoneFunction
+  ) => void {
+    return (request, _reply, done) => {
       const listenerModulesIds = listenerModules.map((listenerModule) => listenerModule.id)
 
       validateAnalysisInput(
@@ -122,6 +134,8 @@ export class ApiModule extends Module implements ModuleServerInterface {
         request.body.except_listeners,
         request.body.only_listeners
       )
+
+      done()
     }
   }
 
