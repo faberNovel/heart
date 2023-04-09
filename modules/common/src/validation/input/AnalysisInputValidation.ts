@@ -46,6 +46,15 @@ export function createValidationSchema(listenerModulesIds: ModuleListenerInterfa
       except_listeners: listenerSchema,
       only_listeners: listenerSchema,
     },
+    allOf: [
+      // make the listener options mutually exclusive
+      {
+        not: {
+          type: "object",
+          required: ["except_listeners", "only_listeners"],
+        },
+      },
+    ],
     required: ["config"],
     additionalProperties: false,
   }

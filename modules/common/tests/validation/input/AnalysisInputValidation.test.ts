@@ -75,4 +75,14 @@ describe("Validate the listener modules options", () => {
       })
     }).toThrow(InputError)
   })
+
+  test("Use both options", () => {
+    expect(() => {
+      validateAnalysisInput(listenerModulesIds, {
+        config: { inline: "configuration" },
+        except_listeners: [],
+        only_listeners: [],
+      })
+    }).toThrow(InputError)
+  })
 })
