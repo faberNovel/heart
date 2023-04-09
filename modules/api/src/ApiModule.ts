@@ -20,6 +20,14 @@ import Fastify, {
   HookHandlerDoneFunction,
 } from "fastify"
 
+// using declaration merging, add your plugin props to the appropriate fastify interfaces
+// if prop type is defined here, the value will be typechecked when you call decorate{,Request,Reply}
+declare module "fastify" {
+  interface FastifyRequest {
+    report: GenericReport<Result>
+  }
+}
+
 function createRoutePreHandler(
   listenerModules: ModuleListenerInterface[]
 ): (
@@ -71,7 +79,6 @@ function notifyListenerModules(
 
 export class ApiModule extends Module implements ModuleServerInterface {
   #fastify = Fastify()
-  #report: GenericReport<Result> | undefined
 
   async createServer(
     analysisModules: ModuleAnalysisInterface<Config, GenericReport<Result>>[],
@@ -80,6 +87,10 @@ export class ApiModule extends Module implements ModuleServerInterface {
   ): Promise<FastifyInstance> {
     // plugins registration
     await this.#fastify.register(cors, corsOptions)
+
+    // decorator registration
+    // objects must be initialized with "null"
+    this.#fastify.decorateRequest("report", null)
 
     // hooks registration
     this.#fastify.addHook("onResponse", this.#createOnResponseHookHandler(listenerModules))
@@ -97,26 +108,23 @@ export class ApiModule extends Module implements ModuleServerInterface {
     listenerModules: ModuleListenerInterface[]
   ): (request: FastifyRequest<{ Body: ValidatedInput }>) => Promise<void> {
     return async (request) => {
-      // this.#report is set in the route handler
-      if (this.#report !== undefined) {
-        const { except_listeners, only_listeners } = request.body
+      const { except_listeners, only_listeners } = request.body
 
-        const listenerModulesResolved = new Array<ModuleListenerInterface>()
+      const listenerModulesResolved = new Array<ModuleListenerInterface>()
 
-        if (except_listeners !== undefined) {
-          listenerModulesResolved.concat(
-            listenerModules.filter((listenerModule) => !except_listeners.includes(listenerModule.id))
-          )
-        } else if (only_listeners !== undefined) {
-          listenerModulesResolved.concat(
-            listenerModules.filter((listenerModules) => only_listeners.includes(listenerModules.id))
-          )
-        } else {
-          listenerModulesResolved.concat(listenerModules)
-        }
-
-        await notifyListenerModules(listenerModulesResolved, this.#report)
+      if (except_listeners !== undefined) {
+        listenerModulesResolved.push(
+          ...listenerModules.filter((listenerModule) => !except_listeners.includes(listenerModule.id))
+        )
+      } else if (only_listeners !== undefined) {
+        listenerModulesResolved.push(
+          ...listenerModules.filter((listenerModules) => only_listeners.includes(listenerModules.id))
+        )
+      } else {
+        listenerModulesResolved.push(...listenerModules)
       }
+
+      await notifyListenerModules(listenerModulesResolved, request.report)
     }
   }
 
@@ -128,7 +136,7 @@ export class ApiModule extends Module implements ModuleServerInterface {
 
       const report = await analysisModule.startAnalysis(config, threshold)
 
-      this.#report = report
+      request.report = report
 
       return reply.send({
         analyzedUrl: report.analyzedUrl,
