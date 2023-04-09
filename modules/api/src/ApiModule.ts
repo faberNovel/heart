@@ -20,6 +20,28 @@ import Fastify, {
   HookHandlerDoneFunction,
 } from "fastify"
 
+function createRoutePreHandler(
+  listenerModules: ModuleListenerInterface[]
+): (
+  request: FastifyRequest<{ Body: ParsedInput }>,
+  reply: FastifyReply,
+  done: HookHandlerDoneFunction
+) => void {
+  return (request, _reply, done) => {
+    const listenerModulesIds = listenerModules.map((listenerModule) => listenerModule.id)
+
+    validateAnalysisInput(
+      listenerModulesIds,
+      request.body.config,
+      request.body.threshold,
+      request.body.except_listeners,
+      request.body.only_listeners
+    )
+
+    done()
+  }
+}
+
 /**
  * @see {@link https://www.fastify.io/docs/latest/Reference/Server/#seterrorhandler}
  */
@@ -39,17 +61,16 @@ async function handleErrors(
 function notifyListenerModules(
   listenerModules: ModuleListenerInterface[],
   report: GenericReport<Result>
-): void {
+): Promise<unknown[]> {
   const notifyListenerModulesPromises = listenerModules.map((listenerModule) => {
     return listenerModule.notifyAnalysisDone(report)
   })
 
-  void Promise.all(notifyListenerModulesPromises)
+  return Promise.all(notifyListenerModulesPromises)
 }
 
 export class ApiModule extends Module implements ModuleServerInterface {
   #fastify = Fastify()
-  #listenerModulesFiltered = new Array<ModuleListenerInterface>()
   #report: GenericReport<Result> | undefined
 
   async createServer(
@@ -61,12 +82,7 @@ export class ApiModule extends Module implements ModuleServerInterface {
     await this.#fastify.register(cors, corsOptions)
 
     // hooks registration
-    this.#fastify.addHook("onResponse", () => {
-      // this.#report is set in the route handler
-      if (this.#report !== undefined) {
-        notifyListenerModules(this.#listenerModulesFiltered, this.#report)
-      }
-    })
+    this.#fastify.addHook("onResponse", this.#createOnResponseHookHandler(listenerModules))
 
     // route registration
     this.#registerRoutes(analysisModules, listenerModules)
@@ -77,28 +93,42 @@ export class ApiModule extends Module implements ModuleServerInterface {
     return this.#fastify
   }
 
-  #createRouteHandler(
-    analysisModule: ModuleAnalysisInterface<Config, GenericReport<Result>>,
+  #createOnResponseHookHandler(
     listenerModules: ModuleListenerInterface[]
-  ): (req: FastifyRequest<{ Body: ValidatedInput }>, reply: FastifyReply) => Promise<FastifyReply> {
+  ): (request: FastifyRequest<{ Body: ValidatedInput }>) => Promise<void> {
+    return async (request) => {
+      // this.#report is set in the route handler
+      if (this.#report !== undefined) {
+        const { except_listeners, only_listeners } = request.body
+
+        const listenerModulesResolved = new Array<ModuleListenerInterface>()
+
+        if (except_listeners !== undefined) {
+          listenerModulesResolved.concat(
+            listenerModules.filter((listenerModule) => !except_listeners.includes(listenerModule.id))
+          )
+        } else if (only_listeners !== undefined) {
+          listenerModulesResolved.concat(
+            listenerModules.filter((listenerModules) => only_listeners.includes(listenerModules.id))
+          )
+        } else {
+          listenerModulesResolved.concat(listenerModules)
+        }
+
+        await notifyListenerModules(listenerModulesResolved, this.#report)
+      }
+    }
+  }
+
+  #createRouteHandler(
+    analysisModule: ModuleAnalysisInterface<Config, GenericReport<Result>>
+  ): (request: FastifyRequest<{ Body: ValidatedInput }>, reply: FastifyReply) => Promise<FastifyReply> {
     return async (request, reply) => {
-      const { config, threshold, except_listeners, only_listeners } = request.body
+      const { config, threshold } = request.body
 
       const report = await analysisModule.startAnalysis(config, threshold)
 
-      // update internal state objects for a later usage (trigger listener modules)
       this.#report = report
-      if (except_listeners !== undefined) {
-        this.#listenerModulesFiltered = listenerModules.filter(
-          (listenerModule) => !except_listeners.includes(listenerModule.id)
-        )
-      } else if (only_listeners !== undefined) {
-        this.#listenerModulesFiltered = listenerModules.filter((listenerModules) =>
-          only_listeners.includes(listenerModules.id)
-        )
-      } else {
-        this.#listenerModulesFiltered = listenerModules
-      }
 
       return reply.send({
         analyzedUrl: report.analyzedUrl,
@@ -117,28 +147,6 @@ export class ApiModule extends Module implements ModuleServerInterface {
     }
   }
 
-  #createRoutePreHandler(
-    listenerModules: ModuleListenerInterface[]
-  ): (
-    request: FastifyRequest<{ Body: ParsedInput }>,
-    reply: FastifyReply,
-    done: HookHandlerDoneFunction
-  ) => void {
-    return (request, _reply, done) => {
-      const listenerModulesIds = listenerModules.map((listenerModule) => listenerModule.id)
-
-      validateAnalysisInput(
-        listenerModulesIds,
-        request.body.config,
-        request.body.threshold,
-        request.body.except_listeners,
-        request.body.only_listeners
-      )
-
-      done()
-    }
-  }
-
   #registerRoutes(
     analysisModules: ModuleAnalysisInterface<Config, GenericReport<Result>>[],
     listenerModules: ModuleListenerInterface[]
@@ -146,8 +154,8 @@ export class ApiModule extends Module implements ModuleServerInterface {
     analysisModules.forEach((analysisModule) => {
       const path = `/${analysisModule.id}`
 
-      const routeHandler = this.#createRouteHandler(analysisModule, listenerModules)
-      const routePreHandler = this.#createRoutePreHandler(listenerModules)
+      const routeHandler = this.#createRouteHandler(analysisModule)
+      const routePreHandler = createRoutePreHandler(listenerModules)
 
       this.#fastify.post(path, {
         handler: routeHandler,
