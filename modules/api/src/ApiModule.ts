@@ -100,25 +100,27 @@ export class ApiModule extends Module implements ModuleServerInterface {
 
   #createOnResponseHookHandler(
     listenerModules: ModuleListenerInterface[]
-  ): (request: FastifyRequest<{ Body: ValidatedInput }>) => Promise<void> {
-    return async (request) => {
-      const { except_listeners, only_listeners } = request.body
+  ): (request: FastifyRequest<{ Body: ValidatedInput }>, reply: FastifyReply) => Promise<void> {
+    return async (request, reply) => {
+      if (reply.statusCode >= 200 && reply.statusCode < 300) {
+        const { except_listeners, only_listeners } = request.body
 
-      const listenerModulesResolved = new Array<ModuleListenerInterface>()
+        const listenerModulesResolved = new Array<ModuleListenerInterface>()
 
-      if (except_listeners !== undefined) {
-        listenerModulesResolved.push(
-          ...listenerModules.filter((listenerModule) => !except_listeners.includes(listenerModule.id))
-        )
-      } else if (only_listeners !== undefined) {
-        listenerModulesResolved.push(
-          ...listenerModules.filter((listenerModules) => only_listeners.includes(listenerModules.id))
-        )
-      } else {
-        listenerModulesResolved.push(...listenerModules)
+        if (except_listeners !== undefined) {
+          listenerModulesResolved.push(
+            ...listenerModules.filter((listenerModule) => !except_listeners.includes(listenerModule.id))
+          )
+        } else if (only_listeners !== undefined) {
+          listenerModulesResolved.push(
+            ...listenerModules.filter((listenerModules) => only_listeners.includes(listenerModules.id))
+          )
+        } else {
+          listenerModulesResolved.push(...listenerModules)
+        }
+
+        await notifyListenerModules(listenerModulesResolved, request.report)
       }
-
-      await notifyListenerModules(listenerModulesResolved, request.report)
     }
   }
 
