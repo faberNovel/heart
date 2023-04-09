@@ -6,7 +6,6 @@ import {
   ModuleAnalysisInterface,
   ModuleListenerInterface,
   ModuleServerInterface,
-  ParsedInput,
   Result,
   ValidatedInput,
   validateAnalysisInput,
@@ -19,6 +18,7 @@ import Fastify, {
   FastifyRequest,
   HookHandlerDoneFunction,
 } from "fastify"
+import type { ParsedInput } from "./input/Input.js"
 
 // using declaration merging, add your plugin props to the appropriate fastify interfaces
 // if prop type is defined here, the value will be typechecked when you call decorate{,Request,Reply}
