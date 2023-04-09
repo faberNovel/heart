@@ -25,43 +25,41 @@ function parseConfig(config: string): JsonValue {
 }
 
 /**
- * Create the required --config option.
+ * Create the --config option.
  * Accepts either a file path to a JSON file, either an inline JSON.
  * Additional JSON schema validation is done in a dedicated validation process.
  */
 export function createConfigOption(): Option {
   return new Option(
     `-${ANALYSIS_OPTIONS.config[0]}, --${ANALYSIS_OPTIONS.config} <${ANALYSIS_OPTIONS.config}>", "Path to the JSON configuration file`
-  )
-    .makeOptionMandatory()
-    .argParser((config) => {
-      try {
-        const configStringified = readFile(config)
+  ).argParser((config) => {
+    try {
+      const configStringified = readFile(config)
 
-        return parseConfig(configStringified)
-      } catch (error) {
-        if (isErrnoException(error)) {
-          // triggered if the file cannot be read (e.g. invalid path)
-          try {
-            return parseConfig(config)
-          } catch (error) {
-            throw new InvalidArgumentError(
-              "The configuration is neither a file or a valid stringified JSON. Please check the file path or the JSON syntax."
-            )
-          }
-        } else if (error instanceof SyntaxError) {
+      return parseConfig(configStringified)
+    } catch (error) {
+      if (isErrnoException(error)) {
+        // triggered if the file cannot be read (e.g. invalid path)
+        try {
+          return parseConfig(config)
+        } catch (error) {
           throw new InvalidArgumentError(
-            "The content of the configuration file cannot parse as JSON. Please check the syntax."
+            "The configuration is neither a file or a valid stringified JSON. Please check the file path or the JSON syntax."
           )
         }
-
-        throw error
+      } else if (error instanceof SyntaxError) {
+        throw new InvalidArgumentError(
+          "The content of the configuration file cannot parse as JSON. Please check the syntax."
+        )
       }
-    })
+
+      throw error
+    }
+  })
 }
 
 /**
- * Create the optional --threshold option.
+ * Create the --threshold option.
  * Accepts a number.
  * Additional JSON schema validation is done in a dedicated validation process.
  */
@@ -69,11 +67,19 @@ export function createThresholdOption(): Option {
   return new Option(
     `-${ANALYSIS_OPTIONS.threshold[0]}, --${ANALYSIS_OPTIONS.threshold} <${ANALYSIS_OPTIONS.threshold}>`,
     "A threshold between 0 and 100 that you want to reach with the analysis"
-  ).argParser((value) => Number(value))
+  ).argParser((value) => {
+    const threshold = Number(value)
+
+    if (isNaN(threshold)) {
+      throw new InvalidArgumentError(`Must be a number`)
+    }
+
+    return threshold
+  })
 }
 
 /**
- * Create the optional --except-listeners option.
+ * Create the --except-listeners option.
  * Accepts a comma-separated list of string.
  * Additional JSON schema validation is done in a dedicated validation process.
  */
@@ -81,13 +87,11 @@ export function createExceptListenersOption(): Option {
   return new Option(
     `-le, --${ANALYSIS_OPTIONS.exceptListeners} <${snakeCaseToCamelCase(ANALYSIS_OPTIONS.exceptListeners)}>`,
     "A comma-separated list of listener modules that will not be triggered after the analysis is done"
-  )
-    .conflicts(snakeCaseToCamelCase(ANALYSIS_OPTIONS.onlyListeners))
-    .argParser((value) => value.split(","))
+  ).argParser((value) => value.split(","))
 }
 
 /**
- * Create the optional --only-listeners option.
+ * Create the --only-listeners option.
  * Accepts a comma-separated list of string.
  * Additional JSON schema validation is done in a dedicated validation process.
  */
@@ -95,7 +99,5 @@ export function createOnlyListenersOption(): Option {
   return new Option(
     `-lo, --${ANALYSIS_OPTIONS.onlyListeners} <${snakeCaseToCamelCase(ANALYSIS_OPTIONS.onlyListeners)}>`,
     "A comma-separated list of listener modules that will be triggered after the analysis is done"
-  )
-    .conflicts(snakeCaseToCamelCase(ANALYSIS_OPTIONS.exceptListeners))
-    .argParser((value) => value.split(","))
+  ).argParser((value) => value.split(","))
 }

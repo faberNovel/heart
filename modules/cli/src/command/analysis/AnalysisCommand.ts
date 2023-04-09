@@ -4,7 +4,7 @@ import {
   InputError,
   ModuleAnalysisInterface,
   ModuleListenerInterface,
-  ParsedInput,
+  ParsedAnalysisInput,
   Result,
   validateAnalysisInput,
 } from "@fabernovel/heart-common"
@@ -17,7 +17,7 @@ import {
   createThresholdOption,
 } from "./AnalysisOption.js"
 
-function prepareOptionsForValidation(options: AnalysisOptions): ParsedInput {
+function prepareOptionsForValidation(options: AnalysisOptions): ParsedAnalysisInput {
   return {
     config: options.config,
     threshold: options.threshold,
@@ -48,19 +48,20 @@ export const createAnalysisSubcommand = <C extends Config, R extends GenericRepo
     .addOption(createExceptListenersOption())
     .addOption(createOnlyListenersOption())
     .action(async (options: AnalysisOptions) => {
-      const { config, threshold, exceptListeners, onlyListeners } = options
-
       try {
-        const data = prepareOptionsForValidation(options)
-        validateAnalysisInput(data, listenerModulesIds)
+        const unvalidatedInputs = prepareOptionsForValidation(options)
+        const { config, threshold, except_listeners, only_listeners } = validateAnalysisInput(
+          unvalidatedInputs,
+          listenerModulesIds
+        )
 
-        if (exceptListeners !== undefined) {
+        if (except_listeners !== undefined) {
           listenerModules = listenerModules.filter(
-            (listenerModule) => !exceptListeners.includes(listenerModule.id)
+            (listenerModule) => !except_listeners.includes(listenerModule.id)
           )
-        } else if (onlyListeners !== undefined) {
+        } else if (only_listeners !== undefined) {
           listenerModules = listenerModules.filter((listenerModules) =>
-            onlyListeners.includes(listenerModules.id)
+            only_listeners.includes(listenerModules.id)
           )
         }
 

@@ -1,9 +1,9 @@
-import type { FastifyCorsOptions } from "@fastify/cors"
 import { InvalidArgumentError, Option } from "commander"
+import type { JsonValue } from "type-fest"
 
 export interface ServerOptions {
   port: number
-  cors?: FastifyCorsOptions
+  cors?: JsonValue
 }
 
 // the keys are used to create the options names:
@@ -37,5 +37,5 @@ export function createCorsOption(): Option {
   return new Option(
     `-${SERVER_OPTIONS.cors[0]}, --${SERVER_OPTIONS.cors} [${SERVER_OPTIONS.cors}]`,
     "CORS configuration, as defined in https://github.com/fastify/fastify-cors#options"
-  ).argParser((value) => JSON.parse(value) as FastifyCorsOptions)
+  ).argParser((value) => JSON.parse(value) as JsonValue)
 }

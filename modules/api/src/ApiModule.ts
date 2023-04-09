@@ -6,9 +6,9 @@ import {
   ModuleAnalysisInterface,
   ModuleListenerInterface,
   ModuleServerInterface,
-  ParsedInput,
+  ParsedAnalysisInput,
   Result,
-  ValidatedInput,
+  ValidatedAnalysisInput,
   validateAnalysisInput,
 } from "@fabernovel/heart-common"
 import cors, { FastifyCorsOptions } from "@fastify/cors"
@@ -31,7 +31,7 @@ declare module "fastify" {
 function createRoutePreHandler(
   listenerModules: ModuleListenerInterface[]
 ): (
-  request: FastifyRequest<{ Body: ParsedInput }>,
+  request: FastifyRequest<{ Body: ParsedAnalysisInput }>,
   reply: FastifyReply,
   done: HookHandlerDoneFunction
 ) => void {
@@ -100,7 +100,7 @@ export class ApiModule extends Module implements ModuleServerInterface {
 
   #createOnResponseHookHandler(
     listenerModules: ModuleListenerInterface[]
-  ): (request: FastifyRequest<{ Body: ValidatedInput }>, reply: FastifyReply) => Promise<void> {
+  ): (request: FastifyRequest<{ Body: ValidatedAnalysisInput }>, reply: FastifyReply) => Promise<void> {
     return async (request, reply) => {
       if (reply.statusCode >= 200 && reply.statusCode < 300) {
         const { except_listeners, only_listeners } = request.body
@@ -126,7 +126,10 @@ export class ApiModule extends Module implements ModuleServerInterface {
 
   #createRouteHandler(
     analysisModule: ModuleAnalysisInterface<Config, GenericReport<Result>>
-  ): (request: FastifyRequest<{ Body: ValidatedInput }>, reply: FastifyReply) => Promise<FastifyReply> {
+  ): (
+    request: FastifyRequest<{ Body: ValidatedAnalysisInput }>,
+    reply: FastifyReply
+  ) => Promise<FastifyReply> {
     return async (request, reply) => {
       const { config, threshold } = request.body
 
