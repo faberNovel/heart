@@ -1,26 +1,97 @@
 import { InputError, ModuleListenerInterface, validateAnalysisInput } from "../../../src/index.js"
 
-describe("Validate invalid configuration", () => {
-  test("Empty string as configuration", () => {
+describe("Invalid option combinations", () => {
+  test("Missing configuration", () => {
     expect(() => {
-      validateAnalysisInput([], { config: "" })
+      validateAnalysisInput({})
     }).toThrow(InputError)
   })
 
-  test("Number as configuration", () => {
+  test("Both listener options", () => {
     expect(() => {
-      validateAnalysisInput([], { config: 2 })
-    }).toThrow(InputError)
-  })
-
-  test("Empty JSON object as configuration", () => {
-    expect(() => {
-      validateAnalysisInput([], { config: {} })
+      validateAnalysisInput({
+        config: { inline: "configuration" },
+        except_listeners: [],
+        only_listeners: [],
+      })
     }).toThrow(InputError)
   })
 })
 
-describe("Validate the listener modules options", () => {
+describe("Invalid configuration value", () => {
+  test("Array", () => {
+    expect(() => {
+      validateAnalysisInput({ config: [] })
+    }).toThrow(InputError)
+  })
+
+  test("Empty JSON object", () => {
+    expect(() => {
+      validateAnalysisInput({ config: {} })
+    }).toThrow(InputError)
+  })
+
+  test("Number", () => {
+    expect(() => {
+      validateAnalysisInput({ config: 2 })
+    }).toThrow(InputError)
+  })
+
+  test("String", () => {
+    expect(() => {
+      validateAnalysisInput({ config: "" })
+    }).toThrow(InputError)
+  })
+})
+
+describe("Invalid threshold value", () => {
+  test("Array", () => {
+    expect(() => {
+      validateAnalysisInput({
+        config: { inline: "configuration" },
+        threshold: [],
+      })
+    }).toThrow(InputError)
+  })
+
+  test("JSON object", () => {
+    expect(() => {
+      validateAnalysisInput({
+        config: { inline: "configuration" },
+        threshold: {},
+      })
+    }).toThrow(InputError)
+  })
+
+  test("Number lower than 0", () => {
+    expect(() => {
+      validateAnalysisInput({
+        config: { inline: "configuration" },
+        threshold: -1,
+      })
+    }).toThrow(InputError)
+  })
+
+  test("Number higher than 100", () => {
+    expect(() => {
+      validateAnalysisInput({
+        config: { inline: "configuration" },
+        threshold: 101,
+      })
+    }).toThrow(InputError)
+  })
+
+  test("String", () => {
+    expect(() => {
+      validateAnalysisInput({
+        config: { inline: "configuration" },
+        threshold: "",
+      })
+    }).toThrow(InputError)
+  })
+})
+
+describe("Invalid listener options value", () => {
   // eslint-disable-next-line @typescript-eslint/no-empty-function
   const notifyAnalysisDone = () => new Promise(() => {})
 
@@ -42,47 +113,49 @@ describe("Validate the listener modules options", () => {
 
   test("Exclude 1 module with an invalid id", () => {
     expect(() => {
-      validateAnalysisInput(listenerModulesIds, {
-        config: { inline: "configuration" },
-        except_listeners: ["invalid-module-id"],
-      })
+      validateAnalysisInput(
+        {
+          config: { inline: "configuration" },
+          except_listeners: ["invalid-module-id"],
+        },
+        listenerModulesIds
+      )
     }).toThrow(InputError)
   })
 
   test("Exclude 2 modules but set an invalid id for one of them", () => {
     expect(() => {
-      validateAnalysisInput(listenerModulesIds, {
-        config: { inline: "configuration" },
-        except_listeners: ["heart-test1", "invalid-module-id"],
-      })
+      validateAnalysisInput(
+        {
+          config: { inline: "configuration" },
+          except_listeners: ["heart-test1", "invalid-module-id"],
+        },
+        listenerModulesIds
+      )
     }).toThrow(InputError)
   })
 
   test("Keep only 1 module with an invalid id", () => {
     expect(() => {
-      validateAnalysisInput(listenerModulesIds, {
-        config: { inline: "configuration" },
-        only_listeners: ["invalid-module-id"],
-      })
+      validateAnalysisInput(
+        {
+          config: { inline: "configuration" },
+          only_listeners: ["invalid-module-id"],
+        },
+        listenerModulesIds
+      )
     }).toThrow(InputError)
   })
 
   test("Keep 2 modules but set an invalid id for one of them", () => {
     expect(() => {
-      validateAnalysisInput(listenerModulesIds, {
-        config: { inline: "configuration" },
-        only_listeners: ["heart-test1", "invalid-module-id"],
-      })
-    }).toThrow(InputError)
-  })
-
-  test("Use both options", () => {
-    expect(() => {
-      validateAnalysisInput(listenerModulesIds, {
-        config: { inline: "configuration" },
-        except_listeners: [],
-        only_listeners: [],
-      })
+      validateAnalysisInput(
+        {
+          config: { inline: "configuration" },
+          only_listeners: ["heart-test1", "invalid-module-id"],
+        },
+        listenerModulesIds
+      )
     }).toThrow(InputError)
   })
 })

@@ -11,8 +11,8 @@ const Ajv = _Ajv as unknown as typeof _Ajv.default // temp workaround: https://g
  * @throws {InputError}
  */
 export function validateAnalysisInput(
-  listenerModulesIds: ModuleListenerInterface["id"][],
-  data: unknown
+  data: unknown,
+  listenerModulesIds: ModuleListenerInterface["id"][] = []
 ): void {
   const schema = createValidationSchema(listenerModulesIds)
 

@@ -38,7 +38,7 @@ function createRoutePreHandler(
   return (request, _reply, done) => {
     const listenerModulesIds = listenerModules.map((listenerModule) => listenerModule.id)
 
-    validateAnalysisInput(listenerModulesIds, request.body)
+    validateAnalysisInput(request.body, listenerModulesIds)
 
     done()
   }

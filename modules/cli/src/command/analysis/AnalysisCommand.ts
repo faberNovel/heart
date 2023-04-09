@@ -52,7 +52,7 @@ export const createAnalysisSubcommand = <C extends Config, R extends GenericRepo
 
       try {
         const data = prepareOptionsForValidation(options)
-        validateAnalysisInput(listenerModulesIds, data)
+        validateAnalysisInput(data, listenerModulesIds)
 
         if (exceptListeners !== undefined) {
           listenerModules = listenerModules.filter(
