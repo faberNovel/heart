@@ -4,8 +4,8 @@ import {
   InputError,
   ModuleAnalysisInterface,
   ModuleListenerInterface,
+  ParsedInput,
   Result,
-  ValidatedInput,
   validateAnalysisInput,
 } from "@fabernovel/heart-common"
 import { Command, InvalidArgumentError } from "commander"
@@ -17,7 +17,7 @@ import {
   createThresholdOption,
 } from "./AnalysisOption.js"
 
-function prepareOptionsForValidation(options: AnalysisOptions): Record<keyof ValidatedInput, unknown> {
+function prepareOptionsForValidation(options: AnalysisOptions): ParsedInput {
   return {
     config: options.config,
     threshold: options.threshold,

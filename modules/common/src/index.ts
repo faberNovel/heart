@@ -1,6 +1,6 @@
 import { InputError } from "./error/InputError.js"
 import { get, post } from "./http/Request.js"
-import type { ValidatedInput } from "./input/Input.js"
+import type { ParsedInput, ValidatedInput } from "./input/Input.js"
 import type { Config } from "./module/config/Config.js"
 import type { GreenITConfig } from "./module/config/greenit/GreeenITConfig.js"
 import type { LighthouseConfig } from "./module/config/lighthouse/LighthouseConfig.js"
@@ -52,6 +52,7 @@ export type {
   SsllabsServerConfig,
 
   // Input
+  ParsedInput,
   ValidatedInput,
 }
 export {
