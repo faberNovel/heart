@@ -38,7 +38,7 @@ test("Create an analysis command", () => {
   const analysisCommand = createAnalysisSubcommand(analysisModule, listenerModules, () => Promise.resolve())
 
   program.addCommand(analysisCommand)
-  program.parse(["test-analysis-tool", "--inline", optionConfigInline], { from: "user" })
+  program.parse(["test-analysis-tool", "--config", optionConfigInline], { from: "user" })
 
   expect(program.commands).toHaveLength(1)
 
@@ -47,5 +47,5 @@ test("Create an analysis command", () => {
 
   expect(command.name()).toBe(analysisModule.id)
   expect(Object.keys(options)).toHaveLength(1)
-  expect(options).toHaveProperty("inline", JSON.parse(optionConfigInline))
+  expect(options).toHaveProperty("config", JSON.parse(optionConfigInline))
 })

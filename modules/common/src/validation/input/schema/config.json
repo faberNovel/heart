@@ -1,0 +1,21 @@
+{
+  "type": "object",
+  "minProperties": 1,
+  "patternProperties": {
+    "^.*$": {
+      "anyOf": [
+        { "type": "string" },
+        { "type": "number" },
+        { "type": "boolean" },
+        { "type": "null" },
+        { "$ref": "#" },
+        {
+          "type": "array",
+          "items": {
+            "$ref": "#"
+          }
+        }
+      ]
+    }
+  }
+}

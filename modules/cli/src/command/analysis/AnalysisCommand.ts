@@ -41,7 +41,7 @@ export const createAnalysisSubcommand = <C extends Config, R extends GenericRepo
       const { config, threshold, exceptListeners, onlyListeners } = options
 
       try {
-        validateAnalysisInput(config, threshold, listenerModulesIds, exceptListeners, onlyListeners)
+        validateAnalysisInput(listenerModulesIds, config, threshold, exceptListeners, onlyListeners)
 
         if (exceptListeners !== undefined) {
           listenerModules = listenerModules.filter(
