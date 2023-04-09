@@ -119,7 +119,7 @@ describe("Start an analysis with an invalid request", () => {
     expect(response.statusCode).toBe(400)
   })
 
-  test("Get a 400 status code on POST /greenit?threshold=invalid with an invalid format for the threshold", async () => {
+  test("Get a 400 status code on POST /greenit with an invalid threshold format", async () => {
     const fastify = await createServer(analysisModules, listenerModules)
 
     const response = await fastify.inject({
@@ -136,14 +136,13 @@ describe("Start an analysis with an invalid request", () => {
     expect(response.statusCode).toBe(400)
   })
 
-  test("Get a 400 status code on POST /greenit?threshold=123 with a valid format but an incorrect value for the threshold", async () => {
+  test("Get a 400 status code on POST /greenit with a valid threshold format but an incorrect value", async () => {
     const fastify = await createServer(analysisModules, listenerModules)
 
     const response = await fastify.inject({
       method: "POST",
       url: "/greenit",
-      payload: {},
-      query: {
+      payload: {
         threshold: "123",
       },
     })
@@ -162,7 +161,9 @@ describe("Start an analysis with a valid request", () => {
       method: "POST",
       url: "/greenit",
       payload: {
-        url: "",
+        config: {
+          url: "",
+        },
       },
     })
 
@@ -178,7 +179,9 @@ describe("Start an analysis with a valid request", () => {
       method: "POST",
       url: "/observatory",
       payload: {
-        url: "",
+        config: {
+          url: "",
+        },
       },
     })
 
