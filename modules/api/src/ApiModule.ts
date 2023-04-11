@@ -53,7 +53,9 @@ async function handleErrors(
   reply: FastifyReply
 ): Promise<FastifyReply> {
   if (error instanceof InputError) {
-    return reply.status(400).send(error)
+    return reply.status(400).send({
+      errors: error.cause.map((c) => c.message),
+    })
   }
 
   // fastify will use parent error handler to handle this
