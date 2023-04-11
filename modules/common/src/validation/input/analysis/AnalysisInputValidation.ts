@@ -10,7 +10,7 @@ function getValidationSchema(listenerModulesIds: ModuleListenerInterface["id"][]
     type: "array",
     items: {
       type: "string",
-      pattern: listenerModulesIds.join("|"),
+      pattern: "^" + listenerModulesIds.join("|") + "$",
     },
   }
 
