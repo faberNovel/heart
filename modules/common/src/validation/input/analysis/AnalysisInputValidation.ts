@@ -18,6 +18,9 @@ function getValidationSchema(listenerModulesIds: ModuleListenerInterface["id"][]
     $schema: "http://json-schema.org/draft-07/schema",
     type: "object",
     properties: {
+      // defining a JSON schema that is valid against the JsonObject type from the type-fest dependency
+      // is quite a challenge, and may not be even possible with constraints like having a minimum of 1 property.
+      // for these reasons, we are using the AnySchema type instead of an ideal JSONSchemaType<JsonObject>.
       config: configSchema as AnySchema,
       threshold: thresholdSchema as JSONSchemaType<number>,
       except_listeners: listenerSchema,
@@ -34,6 +37,13 @@ function getValidationSchema(listenerModulesIds: ModuleListenerInterface["id"][]
     ],
     required: ["config"],
     additionalProperties: false,
+    // customize error messages with ajv-errors
+    errorMessage: {
+      properties: {
+        config: "config must an object with at least 1 property",
+        threshold: "threshold should be a number between 0 and 100",
+      },
+    },
   }
 }
 
