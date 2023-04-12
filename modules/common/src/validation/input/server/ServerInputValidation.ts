@@ -1,16 +1,16 @@
-import type { AnySchema } from "ajv"
+import type { SchemaObject } from "ajv"
 import type { ValidatedServerInput } from "../../../input/ServerInput.js"
 import { validateInput } from "../InputValidation.js"
 import corsSchema from "./schema/cors.json" assert { type: "json" }
 import portSchema from "./schema/port.json" assert { type: "json" }
 
-function getValidationSchema(): AnySchema {
+function getValidationSchema(): SchemaObject {
   return {
     $schema: "http://json-schema.org/draft-07/schema",
     type: "object",
     properties: {
-      port: portSchema as AnySchema,
-      cors: corsSchema as AnySchema,
+      port: portSchema,
+      cors: corsSchema,
     },
     additionalProperties: false,
   }

@@ -1,12 +1,12 @@
-import type { AnySchema, JSONSchemaType } from "ajv"
+import type { SchemaObject } from "ajv"
 import type { ValidatedAnalysisInput } from "../../../index.js"
 import type { ModuleListenerInterface } from "../../../module/ModuleListenerInterface.js"
 import { validateInput } from "../InputValidation.js"
 import configSchema from "./schema/config.json" assert { type: "json" }
 import thresholdSchema from "./schema/threshold.json" assert { type: "json" }
 
-function getValidationSchema(listenerModulesIds: ModuleListenerInterface["id"][]): AnySchema {
-  const listenerSchema: JSONSchemaType<ModuleListenerInterface["id"][]> = {
+function getValidationSchema(listenerModulesIds: ModuleListenerInterface["id"][]): SchemaObject {
+  const listenerSchema = {
     type: "array",
     items: {
       type: "string",
@@ -18,11 +18,8 @@ function getValidationSchema(listenerModulesIds: ModuleListenerInterface["id"][]
     $schema: "http://json-schema.org/draft-07/schema",
     type: "object",
     properties: {
-      // defining a JSON schema that is valid against the JsonObject type from the type-fest dependency
-      // is quite a challenge, and may not be even possible with constraints like having a minimum of 1 property.
-      // for these reasons, we are using the AnySchema type instead of an ideal JSONSchemaType<JsonObject>.
-      config: configSchema as AnySchema,
-      threshold: thresholdSchema as JSONSchemaType<number>,
+      config: configSchema,
+      threshold: thresholdSchema,
       except_listeners: listenerSchema,
       only_listeners: listenerSchema,
     },
