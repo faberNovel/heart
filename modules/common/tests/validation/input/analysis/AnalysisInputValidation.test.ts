@@ -1,4 +1,6 @@
-import { InputError, ModuleListenerInterface, validateAnalysisInput } from "../../../src/index.js"
+import { InputError } from "../../../../src/error/InputError.js"
+import type { ModuleListenerInterface } from "../../../../src/module/ModuleListenerInterface.js"
+import { validateAnalysisInput } from "../../../../src/validation/input/analysis/AnalysisInputValidation.js"
 
 describe("Invalid option combinations", () => {
   test("Missing configuration", () => {
@@ -63,7 +65,7 @@ describe("Invalid threshold value", () => {
     }).toThrow(InputError)
   })
 
-  test("Number lower than 0", () => {
+  test("Number < 0", () => {
     expect(() => {
       validateAnalysisInput({
         config: { inline: "configuration" },
@@ -72,7 +74,7 @@ describe("Invalid threshold value", () => {
     }).toThrow(InputError)
   })
 
-  test("Number higher than 100", () => {
+  test("Number > 100", () => {
     expect(() => {
       validateAnalysisInput({
         config: { inline: "configuration" },
