@@ -1,10 +1,6 @@
 {
   "type": "object",
   "properties": {
-    "hook": {
-      "type": "string",
-      "pattern": "onRequest|preParsing|preValidation|preHandler|preSerialization|onSend"
-    },
     "origin": {
       "oneOf": [
         { "type": "boolean" },
