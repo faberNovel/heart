@@ -68,7 +68,7 @@ export const createAnalysisSubcommand = <C extends Config, R extends GenericRepo
         await callback(config as C, threshold, listenerModules)
       } catch (error) {
         if (error instanceof InputError) {
-          throw new InvalidArgumentError(error.message)
+          throw new InvalidArgumentError(error.cause[0].message ?? error.message)
         }
       }
     })
