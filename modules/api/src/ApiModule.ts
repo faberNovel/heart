@@ -56,10 +56,11 @@ async function handleErrors(
     return reply.status(400).send({
       errors: error.cause.map((c) => c.message),
     })
+  } else {
+    return reply.status(500).send({
+      errors: [error.message],
+    })
   }
-
-  // fastify will use parent error handler to handle this
-  return reply.send(error)
 }
 
 function notifyListenerModules(
@@ -89,7 +90,7 @@ export class ApiModule extends Module implements ModuleServerInterface {
     this.#fastify.decorateRequest("report", null)
 
     // hooks registration
-    this.#fastify.addHook("onResponse", this.#createOnResponseHookHandler(listenerModules))
+    this.#fastify.addHook("onResponse", this.#createNotifyListenersHandler(listenerModules))
 
     // route registration
     this.#registerRoutes(analysisModules, listenerModules)
@@ -100,7 +101,7 @@ export class ApiModule extends Module implements ModuleServerInterface {
     return this.#fastify
   }
 
-  #createOnResponseHookHandler(
+  #createNotifyListenersHandler(
     listenerModules: ModuleListenerInterface[]
   ): (request: FastifyRequest<{ Body: ValidatedAnalysisInput }>, reply: FastifyReply) => Promise<void> {
     return async (request, reply) => {
