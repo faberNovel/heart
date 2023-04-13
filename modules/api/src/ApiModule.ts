@@ -1,24 +1,17 @@
 import {
   Config,
   GenericReport,
-  InputError,
   Module,
   ModuleAnalysisInterface,
   ModuleListenerInterface,
   ModuleServerInterface,
-  ParsedAnalysisInput,
   Result,
-  ValidatedAnalysisInput,
-  validateAnalysisInput,
 } from "@fabernovel/heart-common"
 import cors, { FastifyCorsOptions } from "@fastify/cors"
-import Fastify, {
-  FastifyError,
-  FastifyInstance,
-  FastifyReply,
-  FastifyRequest,
-  HookHandlerDoneFunction,
-} from "fastify"
+import Fastify, { FastifyInstance } from "fastify"
+import { errorHandler } from "./error/ErrorHandler.js"
+import { createNotifyListenerModulesHandler } from "./notification/NotifyListenerModules.js"
+import { createRouteHandler, createRoutePreHandler } from "./router/RouteHandler.js"
 
 // using declaration merging, add your plugin props to the appropriate fastify interfaces
 // if prop type is defined here, the value will be typechecked when you call decorate{,Request,Reply}
@@ -26,105 +19,6 @@ declare module "fastify" {
   interface FastifyRequest {
     report: GenericReport<Result>
   }
-}
-
-function createNotifyListenerModulesHandler(
-  listenerModules: ModuleListenerInterface[]
-): (request: FastifyRequest<{ Body: ValidatedAnalysisInput }>, reply: FastifyReply) => Promise<void> {
-  return async (request, reply) => {
-    if (reply.statusCode >= 200 && reply.statusCode < 300) {
-      const { except_listeners, only_listeners } = request.body
-
-      const listenerModulesResolved = new Array<ModuleListenerInterface>()
-
-      if (except_listeners !== undefined) {
-        listenerModulesResolved.push(
-          ...listenerModules.filter((listenerModule) => !except_listeners.includes(listenerModule.id))
-        )
-      } else if (only_listeners !== undefined) {
-        listenerModulesResolved.push(
-          ...listenerModules.filter((listenerModules) => only_listeners.includes(listenerModules.id))
-        )
-      } else {
-        listenerModulesResolved.push(...listenerModules)
-      }
-
-      await notifyListenerModules(listenerModulesResolved, request.report)
-    }
-  }
-}
-
-function createRouteHandler(
-  analysisModule: ModuleAnalysisInterface<Config, GenericReport<Result>>
-): (request: FastifyRequest<{ Body: ValidatedAnalysisInput }>, reply: FastifyReply) => Promise<FastifyReply> {
-  return async (request, reply) => {
-    const { config, threshold } = request.body
-
-    const report = await analysisModule.startAnalysis(config, threshold)
-
-    request.report = report
-
-    return reply.send({
-      analyzedUrl: report.analyzedUrl,
-      date: report.date,
-      grade: report.grade,
-      isThresholdReached: report.isThresholdReached() ?? null,
-      normalizedGrade: report.normalizedGrade,
-      result: report.result,
-      resultUrl: report.resultUrl ?? null,
-      service: {
-        name: report.service.name,
-        logo: report.service.logo ?? null,
-      },
-      threshold: report.threshold ?? null,
-    })
-  }
-}
-
-function createRoutePreHandler(
-  listenerModules: ModuleListenerInterface[]
-): (
-  request: FastifyRequest<{ Body: ParsedAnalysisInput }>,
-  reply: FastifyReply,
-  done: HookHandlerDoneFunction
-) => void {
-  return (request, _reply, done) => {
-    const listenerModulesIds = listenerModules.map((listenerModule) => listenerModule.id)
-
-    validateAnalysisInput(request.body, listenerModulesIds)
-
-    done()
-  }
-}
-
-/**
- * @see {@link https://www.fastify.io/docs/latest/Reference/Server/#seterrorhandler}
- */
-async function handleErrors(
-  error: FastifyError,
-  _request: FastifyRequest,
-  reply: FastifyReply
-): Promise<FastifyReply> {
-  if (error instanceof InputError) {
-    return reply.status(400).send({
-      errors: error.cause.map((c) => c.message),
-    })
-  } else {
-    return reply.status(500).send({
-      errors: [error.message],
-    })
-  }
-}
-
-function notifyListenerModules(
-  listenerModules: ModuleListenerInterface[],
-  report: GenericReport<Result>
-): Promise<unknown[]> {
-  const notifyListenerModulesPromises = listenerModules.map((listenerModule) => {
-    return listenerModule.notifyAnalysisDone(report)
-  })
-
-  return Promise.all(notifyListenerModulesPromises)
 }
 
 export class ApiModule extends Module implements ModuleServerInterface {
@@ -149,7 +43,7 @@ export class ApiModule extends Module implements ModuleServerInterface {
     this.#registerRoutes(analysisModules, listenerModules)
 
     // error handler registration
-    this.#fastify.setErrorHandler(handleErrors)
+    this.#fastify.setErrorHandler(errorHandler)
 
     return this.#fastify
   }
