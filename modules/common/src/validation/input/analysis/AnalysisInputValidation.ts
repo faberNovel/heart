@@ -30,6 +30,7 @@ function getValidationSchema(listenerModulesIds: ModuleListenerInterface["id"][]
           type: "object",
           required: ["except_listeners", "only_listeners"],
         },
+        errorMessage: "The except-listeners and only-listeners options cannot be used simultaneously",
       },
     ],
     required: ["config"],
@@ -38,6 +39,12 @@ function getValidationSchema(listenerModulesIds: ModuleListenerInterface["id"][]
     errorMessage: {
       properties: {
         config: "config must an object with at least 1 property",
+        except_listeners: `except-listeners must be a comma-separated list with at least one of the following values: ${listenerModulesIds.join(
+          ","
+        )}`,
+        only_listeners: `only-listeners must be a comma-separated list with at least one of the following values: ${listenerModulesIds.join(
+          ","
+        )}`,
         threshold: "threshold should be a number between 0 and 100",
       },
     },
