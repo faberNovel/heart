@@ -28,6 +28,59 @@ declare module "fastify" {
   }
 }
 
+function createNotifyListenerModulesHandler(
+  listenerModules: ModuleListenerInterface[]
+): (request: FastifyRequest<{ Body: ValidatedAnalysisInput }>, reply: FastifyReply) => Promise<void> {
+  return async (request, reply) => {
+    if (reply.statusCode >= 200 && reply.statusCode < 300) {
+      const { except_listeners, only_listeners } = request.body
+
+      const listenerModulesResolved = new Array<ModuleListenerInterface>()
+
+      if (except_listeners !== undefined) {
+        listenerModulesResolved.push(
+          ...listenerModules.filter((listenerModule) => !except_listeners.includes(listenerModule.id))
+        )
+      } else if (only_listeners !== undefined) {
+        listenerModulesResolved.push(
+          ...listenerModules.filter((listenerModules) => only_listeners.includes(listenerModules.id))
+        )
+      } else {
+        listenerModulesResolved.push(...listenerModules)
+      }
+
+      await notifyListenerModules(listenerModulesResolved, request.report)
+    }
+  }
+}
+
+function createRouteHandler(
+  analysisModule: ModuleAnalysisInterface<Config, GenericReport<Result>>
+): (request: FastifyRequest<{ Body: ValidatedAnalysisInput }>, reply: FastifyReply) => Promise<FastifyReply> {
+  return async (request, reply) => {
+    const { config, threshold } = request.body
+
+    const report = await analysisModule.startAnalysis(config, threshold)
+
+    request.report = report
+
+    return reply.send({
+      analyzedUrl: report.analyzedUrl,
+      date: report.date,
+      grade: report.grade,
+      isThresholdReached: report.isThresholdReached() ?? null,
+      normalizedGrade: report.normalizedGrade,
+      result: report.result,
+      resultUrl: report.resultUrl ?? null,
+      service: {
+        name: report.service.name,
+        logo: report.service.logo ?? null,
+      },
+      threshold: report.threshold ?? null,
+    })
+  }
+}
+
 function createRoutePreHandler(
   listenerModules: ModuleListenerInterface[]
 ): (
@@ -90,7 +143,7 @@ export class ApiModule extends Module implements ModuleServerInterface {
     this.#fastify.decorateRequest("report", null)
 
     // hooks registration
-    this.#fastify.addHook("onResponse", this.#createNotifyListenersHandler(listenerModules))
+    this.#fastify.addHook("onResponse", createNotifyListenerModulesHandler(listenerModules))
 
     // route registration
     this.#registerRoutes(analysisModules, listenerModules)
@@ -99,62 +152,6 @@ export class ApiModule extends Module implements ModuleServerInterface {
     this.#fastify.setErrorHandler(handleErrors)
 
     return this.#fastify
-  }
-
-  #createNotifyListenersHandler(
-    listenerModules: ModuleListenerInterface[]
-  ): (request: FastifyRequest<{ Body: ValidatedAnalysisInput }>, reply: FastifyReply) => Promise<void> {
-    return async (request, reply) => {
-      if (reply.statusCode >= 200 && reply.statusCode < 300) {
-        const { except_listeners, only_listeners } = request.body
-
-        const listenerModulesResolved = new Array<ModuleListenerInterface>()
-
-        if (except_listeners !== undefined) {
-          listenerModulesResolved.push(
-            ...listenerModules.filter((listenerModule) => !except_listeners.includes(listenerModule.id))
-          )
-        } else if (only_listeners !== undefined) {
-          listenerModulesResolved.push(
-            ...listenerModules.filter((listenerModules) => only_listeners.includes(listenerModules.id))
-          )
-        } else {
-          listenerModulesResolved.push(...listenerModules)
-        }
-
-        await notifyListenerModules(listenerModulesResolved, request.report)
-      }
-    }
-  }
-
-  #createRouteHandler(
-    analysisModule: ModuleAnalysisInterface<Config, GenericReport<Result>>
-  ): (
-    request: FastifyRequest<{ Body: ValidatedAnalysisInput }>,
-    reply: FastifyReply
-  ) => Promise<FastifyReply> {
-    return async (request, reply) => {
-      const { config, threshold } = request.body
-
-      const report = await analysisModule.startAnalysis(config, threshold)
-
-      request.report = report
-
-      return reply.send({
-        analyzedUrl: report.analyzedUrl,
-        date: report.date,
-        grade: report.grade,
-        isThresholdReached: report.isThresholdReached() ?? null,
-        normalizedGrade: report.normalizedGrade,
-        result: report.result,
-        resultUrl: report.resultUrl ?? null,
-        service: {
-          name: report.service.name,
-          logo: report.service.logo ?? null,
-        },
-        threshold: report.threshold ?? null,
-      })
-    }
   }
 
   #registerRoutes(
@@ -166,7 +163,7 @@ export class ApiModule extends Module implements ModuleServerInterface {
     analysisModules.forEach((analysisModule) => {
       const path = `/${analysisModule.id}`
 
-      const routeHandler = this.#createRouteHandler(analysisModule)
+      const routeHandler = createRouteHandler(analysisModule)
 
       this.#fastify.post(path, {
         handler: routeHandler,
