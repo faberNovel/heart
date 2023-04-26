@@ -36,7 +36,17 @@ export class Client {
   }
 
   private generateApiUrl(path: string): string {
-    return `${this.API_URL}${path}?${stringify(this.conf)}`
+    const query = stringify({
+      host: this.conf.host,
+      publish: this.conf.publish,
+      startNew: this.conf.startNew,
+      fromCache: this.conf.fromCache,
+      maxAge: this.conf.maxAge,
+      all: this.conf.all,
+      ignoreMismatch: this.conf.ignoreMismatch,
+    })
+
+    return `${this.API_URL}${path}?${query}`
   }
 
   private async requestApi(): Promise<SsllabsServerReport["result"]> {

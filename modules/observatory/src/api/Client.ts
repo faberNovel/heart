@@ -34,7 +34,11 @@ export class Client {
 
     const scan = await Request.post<ObservatoryReport["result"]["scan"] | Error>(
       `${this.apiUrl ?? ""}analyze?host=${this.host}`,
-      conf,
+      {
+        host: conf.host,
+        hidden: conf.hidden,
+        rescan: conf.rescan,
+      },
       {
         ["Content-Type"]: "application/x-www-form-urlencoded",
       }

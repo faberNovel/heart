@@ -1,0 +1,43 @@
+{
+  "type": "object",
+  "properties": {
+    "origin": {
+      "oneOf": [
+        { "type": "boolean" },
+        { "type": "string" },
+        { "type": "array", "items": { "type": "string" } }
+      ]
+    },
+    "credentials": {
+      "type": "boolean"
+    },
+    "exposedHeaders": {
+      "oneOf": [{ "type": "string" }, { "type": "array", "items": { "type": "string" } }]
+    },
+    "allowedHeaders": {
+      "oneOf": [{ "type": "string" }, { "type": "array", "items": { "type": "string" } }]
+    },
+    "methods": {
+      "oneOf": [{ "type": "string" }, { "type": "array", "items": { "type": "string" } }]
+    },
+    "maxAge": {
+      "type": "number"
+    },
+    "preflightContinue": {
+      "type": "boolean"
+    },
+    "optionsSuccessStatus": {
+      "type": "number"
+    },
+    "preflight": {
+      "type": "boolean"
+    },
+    "strictPreflight": {
+      "type": "boolean"
+    },
+    "hideOptionsRoute": {
+      "type": "boolean"
+    }
+  },
+  "additionalProperties": false
+}

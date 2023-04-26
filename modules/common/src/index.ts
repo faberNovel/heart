@@ -1,8 +1,7 @@
-import { ConfigInputError } from "./error/input/ConfigInputError.js"
-import { ListenersInputError } from "./error/input/ListenersInputError.js"
-import { ThresholdInputError } from "./error/input/ThresholdInputError.js"
 import { InputError } from "./error/InputError.js"
 import { get, post } from "./http/Request.js"
+import type { ParsedAnalysisInput, ValidatedAnalysisInput } from "./input/AnalysisInput.js"
+import type { ParsedServerInput } from "./input/ServerInput.js"
 import type { Config } from "./module/config/Config.js"
 import type { GreenITConfig } from "./module/config/greenit/GreeenITConfig.js"
 import type { LighthouseConfig } from "./module/config/lighthouse/LighthouseConfig.js"
@@ -22,8 +21,8 @@ import type { Result } from "./report/Result.js"
 import { SsllabsServerStatus } from "./report/ssllabs-server/enum/SsllabsServerStatus.js"
 import { SsllabsServerReport } from "./report/ssllabs-server/SsllabsServerReport.js"
 import { timeout } from "./time/timeout.js"
-import { validateAnalysisInput } from "./validation/input/AnalysisInputValidation.js"
-import { validateServerInput } from "./validation/input/ServerInputValidation.js"
+import { validateAnalysisInput } from "./validation/input/analysis/AnalysisInputValidation.js"
+import { validateServerInput } from "./validation/input/server/ServerInputValidation.js"
 
 const Helper = {
   timeout,
@@ -52,13 +51,15 @@ export type {
   LighthouseConfig,
   ObservatoryConfig,
   SsllabsServerConfig,
+
+  // Input
+  ParsedAnalysisInput,
+  ParsedServerInput,
+  ValidatedAnalysisInput,
 }
 export {
   // Errors
   InputError,
-  ConfigInputError,
-  ListenersInputError,
-  ThresholdInputError,
 
   // Modules
   Helper,

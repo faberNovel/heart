@@ -4,18 +4,27 @@ import {
   InputError,
   ModuleAnalysisInterface,
   ModuleListenerInterface,
+  ParsedAnalysisInput,
   Result,
   validateAnalysisInput,
 } from "@fabernovel/heart-common"
 import { Command, InvalidArgumentError } from "commander"
 import {
   AnalysisOptions,
+  createConfigOption,
   createExceptListenersOption,
-  createFileOption,
-  createInlineOption,
   createOnlyListenersOption,
   createThresholdOption,
 } from "./AnalysisOption.js"
+
+function prepareOptionsForValidation(options: AnalysisOptions): ParsedAnalysisInput {
+  return {
+    config: options.config,
+    threshold: options.threshold,
+    except_listeners: options.exceptListeners,
+    only_listeners: options.onlyListeners,
+  }
+}
 
 /**
  * Create a command dedicated to the given analysis module
@@ -34,34 +43,32 @@ export const createAnalysisSubcommand = <C extends Config, R extends GenericRepo
 
   subcommand
     .description(`Analyzes a URL with ${analysisModule.service.name}`)
-    .addOption(createFileOption())
-    .addOption(createInlineOption())
+    .addOption(createConfigOption())
     .addOption(createThresholdOption())
     .addOption(createExceptListenersOption())
     .addOption(createOnlyListenersOption())
     .action(async (options: AnalysisOptions) => {
-      const { file, inline, threshold, exceptListeners, onlyListeners } = options
-
       try {
-        validateAnalysisInput(file, inline, threshold, listenerModulesIds, exceptListeners, onlyListeners)
+        const unvalidatedInputs = prepareOptionsForValidation(options)
+        const { config, threshold, except_listeners, only_listeners } = validateAnalysisInput(
+          unvalidatedInputs,
+          listenerModulesIds
+        )
 
-        if (exceptListeners !== undefined) {
+        if (except_listeners !== undefined) {
           listenerModules = listenerModules.filter(
-            (listenerModule) => !exceptListeners.includes(listenerModule.id)
+            (listenerModule) => !except_listeners.includes(listenerModule.id)
           )
-        } else if (onlyListeners !== undefined) {
+        } else if (only_listeners !== undefined) {
           listenerModules = listenerModules.filter((listenerModules) =>
-            onlyListeners.includes(listenerModules.id)
+            only_listeners.includes(listenerModules.id)
           )
         }
 
-        // by construction, either file or inline is a C
-        const config = (file ?? inline) as C
-
-        await callback(config, threshold, listenerModules)
+        await callback(config as C, threshold, listenerModules)
       } catch (error) {
         if (error instanceof InputError) {
-          throw new InvalidArgumentError(error.message)
+          throw new InvalidArgumentError(error.cause[0].message ?? error.message)
         }
       }
     })

@@ -1,0 +1,10 @@
+{
+  "changes": [
+    {
+      "packageName": "@fabernovel/heart-cli",
+      "comment": "Improve the configurations options: a unique --config option replaces both the --inline and --file ones",
+      "type": "none"
+    }
+  ],
+  "packageName": "@fabernovel/heart-cli"
+}
