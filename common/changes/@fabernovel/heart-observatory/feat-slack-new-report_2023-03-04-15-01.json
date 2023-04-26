@@ -3,7 +3,7 @@
     {
       "packageName": "@fabernovel/heart-observatory",
       "comment": "The module now send back detailed results instead of the summary only",
-      "type": "none"
+      "type": "major"
     }
   ],
   "packageName": "@fabernovel/heart-observatory"

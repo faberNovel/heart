@@ -3,7 +3,7 @@
     {
       "packageName": "@fabernovel/heart-api",
       "comment": "Improve the API specifications: they are more scalable and consistent with the CLI options",
-      "type": "none"
+      "type": "major"
     }
   ],
   "packageName": "@fabernovel/heart-api"
