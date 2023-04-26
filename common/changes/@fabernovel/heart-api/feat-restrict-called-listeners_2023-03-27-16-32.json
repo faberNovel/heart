@@ -3,7 +3,7 @@
     {
       "packageName": "@fabernovel/heart-api",
       "comment": "Add the except_listeners and only_listeners keys to the body, to reduce the list of listeners modules triggered after an analysis. Both keys accept an array of module IDs (e.g. greenit)",
-      "type": "none"
+      "type": "minor"
     }
   ],
   "packageName": "@fabernovel/heart-api"
