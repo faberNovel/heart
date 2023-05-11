@@ -1,0 +1,10 @@
+{
+  "changes": [
+    {
+      "packageName": "@fabernovel/heart-cli",
+      "comment": "Improve the compability of the module by running the tests on Node.js versions 18, 19 and 20",
+      "type": "none"
+    }
+  ],
+  "packageName": "@fabernovel/heart-cli"
+}
