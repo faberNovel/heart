@@ -1,4 +1,4 @@
-import { Config, ModuleAnalysisInterface, GreenITReport } from "@fabernovel/heart-common"
+import { type Config, type ModuleAnalysisInterface, GreenITReport } from "@fabernovel/heart-common"
 import { jest } from "@jest/globals"
 import { startAnalysis } from "../../src/module/ModuleOrchestrator.js"
 

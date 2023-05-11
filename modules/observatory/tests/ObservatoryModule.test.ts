@@ -1,4 +1,4 @@
-import { ObservatoryConfig, ObservatoryReport } from "@fabernovel/heart-common"
+import { type ObservatoryConfig, ObservatoryReport } from "@fabernovel/heart-common"
 import { jest } from "@jest/globals"
 import { RESULT } from "./data/Result.js"
 

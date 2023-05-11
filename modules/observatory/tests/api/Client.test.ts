@@ -6,9 +6,10 @@ const ANALYZE_URL = "www.observatory.mozilla/results"
 const API_URL = "www.observatory.mozilla/api"
 
 jest.unstable_mockModule("@fabernovel/heart-common", () => ({
+  ObservatoryReport: {},
   Request: {
-    get: () => Promise.resolve(RESULT),
-    post: () => Promise.resolve(RESULT),
+    get: jest.fn(() => Promise.resolve(RESULT)),
+    post: jest.fn(() => Promise.resolve(RESULT)),
   },
 }))
 await import("@fabernovel/heart-common")

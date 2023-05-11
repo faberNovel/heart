@@ -1,5 +1,5 @@
 import type { Config, GreenITConfig } from "@fabernovel/heart-common"
-import { Module, ModuleAnalysisInterface, GreenITReport } from "@fabernovel/heart-common"
+import { Module, type ModuleAnalysisInterface, GreenITReport } from "@fabernovel/heart-common"
 import { requestResult } from "./api/Client.js"
 
 export class GreenITModule extends Module implements ModuleAnalysisInterface<GreenITConfig, GreenITReport> {

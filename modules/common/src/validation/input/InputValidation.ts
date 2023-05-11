@@ -1,4 +1,4 @@
-import _Ajv, { AnySchema } from "ajv"
+import _Ajv, { type AnySchema } from "ajv"
 import _AjvErrors from "ajv-errors"
 import { InputError } from "../../error/InputError.js"
 // temp workaround for ESM: https://github.com/ajv-validator/ajv/issues/2132#issuecomment-1290409907

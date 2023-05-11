@@ -1,16 +1,16 @@
 import {
-  Config,
-  GenericReport,
+  type Config,
+  type GenericReport,
   InputError,
-  ModuleAnalysisInterface,
-  ModuleListenerInterface,
-  ParsedAnalysisInput,
-  Result,
+  type ModuleAnalysisInterface,
+  type ModuleListenerInterface,
+  type ParsedAnalysisInput,
+  type Result,
   validateAnalysisInput,
 } from "@fabernovel/heart-common"
 import { Command, InvalidArgumentError } from "commander"
 import {
-  AnalysisOptions,
+  type AnalysisOptions,
   createConfigOption,
   createExceptListenersOption,
   createOnlyListenersOption,

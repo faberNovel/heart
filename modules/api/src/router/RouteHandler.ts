@@ -1,11 +1,11 @@
 import {
-  Config,
-  GenericReport,
-  ModuleAnalysisInterface,
-  ModuleListenerInterface,
-  ParsedAnalysisInput,
-  Result,
-  ValidatedAnalysisInput,
+  type Config,
+  type GenericReport,
+  type ModuleAnalysisInterface,
+  type ModuleListenerInterface,
+  type ParsedAnalysisInput,
+  type Result,
+  type ValidatedAnalysisInput,
   validateAnalysisInput,
 } from "@fabernovel/heart-common"
 import type { FastifyReply, FastifyRequest, HookHandlerDoneFunction } from "fastify"

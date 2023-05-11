@@ -1,11 +1,11 @@
 import {
   Helper,
   Module,
-  ModuleAnalysisInterface,
+  type ModuleAnalysisInterface,
   SsllabsServerReport,
   SsllabsServerStatus,
-  SsllabsServerConfig,
-  Config,
+  type SsllabsServerConfig,
+  type Config,
 } from "@fabernovel/heart-common"
 import { Client } from "./api/Client.js"
 

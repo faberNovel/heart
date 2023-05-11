@@ -1,6 +1,6 @@
-import { ObservatoryConfig, ObservatoryReport, Request } from "@fabernovel/heart-common"
+import { type ObservatoryConfig, ObservatoryReport, Request } from "@fabernovel/heart-common"
 import { env } from "node:process"
-import { Error, isError } from "./Error.js"
+import { type Error, isError } from "./Error.js"
 
 export class Client {
   private analyzeUrl?: string

@@ -1,14 +1,14 @@
 import {
-  Config,
-  GenericReport,
+  type Config,
+  type GenericReport,
   Module,
-  ModuleAnalysisInterface,
-  ModuleListenerInterface,
-  ModuleServerInterface,
-  Result,
+  type ModuleAnalysisInterface,
+  type ModuleListenerInterface,
+  type ModuleServerInterface,
+  type Result,
 } from "@fabernovel/heart-common"
-import cors, { FastifyCorsOptions } from "@fastify/cors"
-import Fastify, { FastifyInstance } from "fastify"
+import cors, { type FastifyCorsOptions } from "@fastify/cors"
+import Fastify, { type FastifyInstance } from "fastify"
 import { errorHandler } from "./error/ErrorHandler.js"
 import { createNotifyListenerModulesHandler } from "./notification/NotifyListenerModules.js"
 import { createRouteHandler, createRoutePreHandler } from "./router/RouteHandler.js"
