@@ -1,8 +1,8 @@
 import {
   Helper,
   Module,
-  ModuleAnalysisInterface,
-  ObservatoryConfig,
+  type ModuleAnalysisInterface,
+  type ObservatoryConfig,
   ObservatoryReport,
 } from "@fabernovel/heart-common"
 import { Client } from "./api/Client.js"

@@ -1,8 +1,8 @@
 import {
-  ModuleAnalysisInterface,
-  Config,
-  GenericReport,
-  Result,
+  type ModuleAnalysisInterface,
+  type Config,
+  type GenericReport,
+  type Result,
   GreenITReport,
   ObservatoryReport,
 } from "@fabernovel/heart-common"

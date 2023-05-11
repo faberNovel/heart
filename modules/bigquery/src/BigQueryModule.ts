@@ -1,4 +1,9 @@
-import { GenericReport, Module, ModuleListenerInterface, Result } from "@fabernovel/heart-common"
+import {
+  type GenericReport,
+  Module,
+  type ModuleListenerInterface,
+  type Result,
+} from "@fabernovel/heart-common"
 import { PartialFailureError } from "@google-cloud/common/build/src/util.js"
 import { BigQueryClient } from "./api/BigQuery/Client.js"
 import { RowReport } from "./api/BigQuery/model/RowReport.js"

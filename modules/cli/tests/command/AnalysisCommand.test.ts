@@ -1,8 +1,8 @@
 import {
-  Config,
+  type Config,
   GreenITReport,
-  ModuleAnalysisInterface,
-  ModuleListenerInterface,
+  type ModuleAnalysisInterface,
+  type ModuleListenerInterface,
 } from "@fabernovel/heart-common"
 import { Command } from "commander"
 import { createAnalysisSubcommand } from "../../src/command/analysis/AnalysisCommand.js"

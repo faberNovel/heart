@@ -1,12 +1,12 @@
 import {
   InputError,
-  ModuleServerInterface,
-  ParsedServerInput,
+  type ModuleServerInterface,
+  type ParsedServerInput,
   validateServerInput,
 } from "@fabernovel/heart-common"
 import type { FastifyCorsOptions } from "@fastify/cors"
 import { Command, InvalidArgumentError } from "commander"
-import { ServerOptions, createCorsOption, createPortOption } from "./ServerOption.js"
+import { type ServerOptions, createCorsOption, createPortOption } from "./ServerOption.js"
 
 function prepareOptionsForValidation(options: ServerOptions): ParsedServerInput {
   return {

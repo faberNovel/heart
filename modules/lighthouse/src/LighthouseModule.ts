@@ -1,9 +1,9 @@
 import {
-  Config,
-  LighthouseConfig,
+  type Config,
+  type LighthouseConfig,
   LighthouseReport,
   Module,
-  ModuleAnalysisInterface,
+  type ModuleAnalysisInterface,
 } from "@fabernovel/heart-common"
 import { requestResult } from "./api/Client.js"
 

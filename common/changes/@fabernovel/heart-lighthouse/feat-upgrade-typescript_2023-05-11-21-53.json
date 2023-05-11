@@ -1,0 +1,10 @@
+{
+  "changes": [
+    {
+      "packageName": "@fabernovel/heart-lighthouse",
+      "comment": "Upgrade TypeScript from 4 to 5",
+      "type": "none"
+    }
+  ],
+  "packageName": "@fabernovel/heart-lighthouse"
+}

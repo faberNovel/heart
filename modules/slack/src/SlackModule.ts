@@ -1,4 +1,9 @@
-import { Module, ModuleListenerInterface, Result, GenericReport } from "@fabernovel/heart-common"
+import {
+  Module,
+  type ModuleListenerInterface,
+  type Result,
+  type GenericReport,
+} from "@fabernovel/heart-common"
 import { Client } from "./api/Client.js"
 import { formatBlocks } from "./formatter/BlocksFormatter.js"
 import { formatText } from "./formatter/TextFormatter.js"

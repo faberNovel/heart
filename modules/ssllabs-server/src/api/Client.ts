@@ -1,11 +1,11 @@
 import {
   Request,
-  SsllabsServerConfig,
+  type SsllabsServerConfig,
   SsllabsServerReport,
   SsllabsServerStatus,
 } from "@fabernovel/heart-common"
 import { stringify } from "querystring"
-import { isSsllabsServerError, SsllabsServerError } from "./Error.js"
+import { isSsllabsServerError, type SsllabsServerError } from "./Error.js"
 
 export class Client {
   private readonly API_URL = "https://api.ssllabs.com/api/v3"

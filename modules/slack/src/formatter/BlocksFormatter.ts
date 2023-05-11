@@ -1,9 +1,9 @@
 import {
-  GenericReport,
+  type GenericReport,
   GreenITReport,
   LighthouseReport,
   ObservatoryReport,
-  Result,
+  type Result,
 } from "@fabernovel/heart-common"
 import type {
   Block,

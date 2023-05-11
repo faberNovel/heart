@@ -1,15 +1,15 @@
 import {
-  Config,
-  GenericReport,
+  type Config,
+  type GenericReport,
   isModuleAnalysis,
   isModuleListener,
   isModuleServer,
-  ModuleAnalysisInterface,
-  ModuleIndex,
-  ModuleInterface,
-  ModuleListenerInterface,
-  ModuleServerInterface,
-  Result,
+  type ModuleAnalysisInterface,
+  type ModuleIndex,
+  type ModuleInterface,
+  type ModuleListenerInterface,
+  type ModuleServerInterface,
+  type Result,
 } from "@fabernovel/heart-common"
 import dotenv from "dotenv"
 import { readFileSync } from "node:fs"
