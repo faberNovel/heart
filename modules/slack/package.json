@@ -52,6 +52,6 @@
     "@fabernovel/heart-cli": "^4.0.0-alpha.4"
   },
   "engines": {
-    "node": ">=18 <20"
+    "node": ">=18 <21"
   }
 }
