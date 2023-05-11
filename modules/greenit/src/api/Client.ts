@@ -10,7 +10,7 @@ const DEFAULT_OPTIONS: Options = {
   timeout: 3000,
 }
 
-export async function requestResult(conf: GreenITConfig): Promise<GreenITReport["result"]> {
+export async function requestResult(config: GreenITConfig): Promise<GreenITReport["result"]> {
   const browser = await puppeteer.launch({
     headless: true,
     args: [
@@ -23,10 +23,10 @@ export async function requestResult(conf: GreenITConfig): Promise<GreenITReport[
 
   const options: Options = {
     ci: true,
-    device: conf.device ?? DEFAULT_OPTIONS.device,
+    device: config.device ?? DEFAULT_OPTIONS.device,
     max_tab: DEFAULT_OPTIONS.max_tab,
-    retry: conf.retry ?? DEFAULT_OPTIONS.retry,
-    timeout: conf.timeout ?? DEFAULT_OPTIONS.timeout,
+    retry: config.retry ?? DEFAULT_OPTIONS.retry,
+    timeout: config.timeout ?? DEFAULT_OPTIONS.timeout,
   }
 
   const reports = new Array<Report>()
@@ -42,7 +42,7 @@ export async function requestResult(conf: GreenITConfig): Promise<GreenITReport[
     // eslint-disable-next-line @typescript-eslint/no-empty-function
     console.error = () => {}
 
-    const r = await createJsonReports(browser, [{ url: conf.url }], options)
+    const r = await createJsonReports(browser, [{ url: config.url }], options)
 
     reports.push(...r)
   } catch (error) {

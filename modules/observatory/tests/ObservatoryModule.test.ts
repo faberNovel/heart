@@ -34,6 +34,9 @@ describe("Starts an analysis", () => {
     const expectedReport = new ObservatoryReport({
       analyzedUrl: "heart.fabernovel.com",
       date: report.date,
+      inputs: {
+        config: CONF,
+      },
       result: RESULT,
       resultUrl: ANALYZE_URL + "heart.fabernovel.com",
       service: {
@@ -58,6 +61,9 @@ describe("Starts an analysis", () => {
     const expectedReport = new ObservatoryReport({
       analyzedUrl: "heart.fabernovel.com",
       date: report.date,
+      inputs: {
+        config: CONF,
+      },
       result: RESULT,
       resultUrl: ANALYZE_URL + "heart.fabernovel.com",
       service: {
@@ -66,7 +72,7 @@ describe("Starts an analysis", () => {
     })
 
     expect(report).toStrictEqual(expectedReport)
-    expect(report).toHaveProperty("threshold", undefined)
+    expect(report).toHaveProperty("inputs", { config: CONF })
   })
 
   it("Should return false status when results do not match threshold objective", async () => {
@@ -76,9 +82,12 @@ describe("Starts an analysis", () => {
     const expectedReport = new ObservatoryReport({
       analyzedUrl: "heart.fabernovel.com",
       date: report.date,
+      inputs: {
+        config: CONF,
+        threshold: THRESHOLD,
+      },
       result: RESULT,
       resultUrl: ANALYZE_URL + "heart.fabernovel.com",
-      threshold: THRESHOLD,
       service: {
         name: "Observatory Test",
       },

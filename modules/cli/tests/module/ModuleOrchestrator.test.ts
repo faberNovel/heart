@@ -6,6 +6,9 @@ test("Displays the results of an analysis", async () => {
   const report = new GreenITReport({
     analyzedUrl: "https://heart.fabernovel.com",
     date: new Date(),
+    inputs: {
+      config: {},
+    },
     result: {
       grade: "B",
       ecoIndex: 50,

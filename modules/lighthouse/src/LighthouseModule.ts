@@ -1,4 +1,10 @@
-import { LighthouseConfig, LighthouseReport, Module, ModuleAnalysisInterface } from "@fabernovel/heart-common"
+import {
+  Config,
+  LighthouseConfig,
+  LighthouseReport,
+  Module,
+  ModuleAnalysisInterface,
+} from "@fabernovel/heart-common"
 import { requestResult } from "./api/Client.js"
 
 export class LighthouseModule
@@ -7,21 +13,24 @@ export class LighthouseModule
 {
   private threshold?: number
 
-  public async startAnalysis(conf: LighthouseConfig, threshold?: number): Promise<LighthouseReport> {
+  public async startAnalysis(config: LighthouseConfig, threshold?: number): Promise<LighthouseReport> {
     this.threshold = threshold
 
-    const result = await requestResult(conf)
+    const result = await requestResult(config)
 
-    return this.handleResult(result)
+    return this.handleResult(config, result)
   }
 
-  private handleResult(result: LighthouseReport["result"]): LighthouseReport {
+  private handleResult(config: Config, result: LighthouseReport["result"]): LighthouseReport {
     return new LighthouseReport({
       analyzedUrl: result.requestedUrl as string,
       date: new Date(result.fetchTime),
       result: result,
       service: this.service,
-      threshold: this.threshold,
+      inputs: {
+        config: config,
+        threshold: this.threshold,
+      },
     })
   }
 }

@@ -11,6 +11,9 @@ test("Create an analysis command", () => {
   const report = new GreenITReport({
     analyzedUrl: "https://heart.fabernovel.com",
     date: new Date(),
+    inputs: {
+      config: {},
+    },
     result: {
       grade: "B",
       ecoIndex: 50,

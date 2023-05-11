@@ -37,13 +37,13 @@ export async function start(): Promise<Command> {
   // analysis modules: create a command for each of them
   analysisModulesMap.forEach((analysisModule, modulePath) => {
     const callback = async <C extends Config>(
-      conf: C,
+      config: C,
       threshold: number | undefined,
       listenerModulesFiltered: ModuleListenerInterface[]
     ) => {
       loadEnvironmentVariables(modulePath)
 
-      const report = await startAnalysis(analysisModule, conf, threshold)
+      const report = await startAnalysis(analysisModule, config, threshold)
 
       // notify filtered listener modules
       await notifyListenerModules(listenerModulesFiltered, report)

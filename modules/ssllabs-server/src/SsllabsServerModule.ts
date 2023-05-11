@@ -5,6 +5,7 @@ import {
   SsllabsServerReport,
   SsllabsServerStatus,
   SsllabsServerConfig,
+  Config,
 } from "@fabernovel/heart-common"
 import { Client } from "./api/Client.js"
 
@@ -17,15 +18,16 @@ export class SsllabsServerModule
   private apiClient = new Client()
   private threshold?: number
 
-  public async startAnalysis(conf: SsllabsServerConfig, threshold?: number): Promise<SsllabsServerReport> {
+  public async startAnalysis(config: SsllabsServerConfig, threshold?: number): Promise<SsllabsServerReport> {
     this.threshold = threshold
 
-    await this.apiClient.launchAnalysis(conf)
+    await this.apiClient.launchAnalysis(config)
 
-    return this.requestResult()
+    return this.requestResult(config)
   }
 
   private async handleResult(
+    config: Config,
     result: SsllabsServerReport["result"],
     triesQty: number
   ): Promise<SsllabsServerReport> {
@@ -36,7 +38,7 @@ export class SsllabsServerModule
       case SsllabsServerStatus.DNS:
       case SsllabsServerStatus.IN_PROGRESS:
         await Helper.timeout(SsllabsServerModule.TIME_BETWEEN_TRIES)
-        return this.requestResult(++triesQty)
+        return this.requestResult(config, ++triesQty)
 
       case SsllabsServerStatus.READY:
         return new SsllabsServerReport({
@@ -45,7 +47,10 @@ export class SsllabsServerModule
           result: result,
           resultUrl: this.apiClient.getAnalyzeUrl(),
           service: this.service,
-          threshold: this.threshold,
+          inputs: {
+            config: config,
+            threshold: this.threshold,
+          },
         })
 
       default:
@@ -53,7 +58,7 @@ export class SsllabsServerModule
     }
   }
 
-  private async requestResult(triesQty = 1): Promise<SsllabsServerReport> {
+  private async requestResult(config: Config, triesQty = 1): Promise<SsllabsServerReport> {
     if (triesQty > SsllabsServerModule.MAX_TRIES) {
       throw new Error(
         `The maximum number of tries (${SsllabsServerModule.MAX_TRIES}) to retrieve the report has been reached.`
@@ -62,6 +67,6 @@ export class SsllabsServerModule
 
     const result = await this.apiClient.getResult()
 
-    return this.handleResult(result, triesQty)
+    return this.handleResult(config, result, triesQty)
   }
 }

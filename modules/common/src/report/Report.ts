@@ -1,3 +1,4 @@
+import type { ValidatedAnalysisInput } from "../index.js"
 import type { Service } from "../service/Service.js"
 
 /**
@@ -26,10 +27,7 @@ interface ReportBase {
    */
   service: Service
 
-  /**
-   * Threshold
-   */
-  threshold?: number
+  inputs: Pick<ValidatedAnalysisInput, "config" | "threshold">
 }
 
 interface ValueHolder<A> {

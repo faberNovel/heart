@@ -19,6 +19,9 @@ export const analysisModules: ModuleAnalysisInterface<Config, GenericReport<Resu
         new GreenITReport({
           analyzedUrl: "",
           date: new Date(),
+          inputs: {
+            config: {},
+          },
           result: {} as unknown as GreenITReport["result"],
           service: {
             name: "GreenIT Analysis",
@@ -37,6 +40,9 @@ export const analysisModules: ModuleAnalysisInterface<Config, GenericReport<Resu
         new ObservatoryReport({
           analyzedUrl: "",
           date: new Date(),
+          inputs: {
+            config: {},
+          },
           result: {
             scan: {
               grade: "",

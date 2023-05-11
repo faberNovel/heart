@@ -1,19 +1,19 @@
-import type { GreenITConfig } from "@fabernovel/heart-common"
+import type { Config, GreenITConfig } from "@fabernovel/heart-common"
 import { Module, ModuleAnalysisInterface, GreenITReport } from "@fabernovel/heart-common"
 import { requestResult } from "./api/Client.js"
 
 export class GreenITModule extends Module implements ModuleAnalysisInterface<GreenITConfig, GreenITReport> {
   private threshold?: number
 
-  public async startAnalysis(conf: GreenITConfig, threshold?: number): Promise<GreenITReport> {
+  public async startAnalysis(config: GreenITConfig, threshold?: number): Promise<GreenITReport> {
     this.threshold = threshold
 
-    const result = await requestResult(conf)
+    const result = await requestResult(config)
 
-    return this.handleResult(result)
+    return this.handleResult(config, result)
   }
 
-  private handleResult(result: GreenITReport["result"]): GreenITReport {
+  private handleResult(config: Config, result: GreenITReport["result"]): GreenITReport {
     const [date, time] = result.date.split(" ")
     const [day, month, year] = date.split("/")
 
@@ -22,7 +22,10 @@ export class GreenITModule extends Module implements ModuleAnalysisInterface<Gre
       date: new Date(`${year}-${month}-${day}T${time}`),
       result: result,
       service: this.service,
-      threshold: this.threshold,
+      inputs: {
+        config: config,
+        threshold: this.threshold,
+      },
     })
   }
 }

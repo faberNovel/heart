@@ -1,3 +1,4 @@
+import type { ValidatedAnalysisInput } from "../../index.js"
 import type { Service } from "../../service/Service.js"
 import type { GenericReport, ReportArguments } from "../Report.js"
 import type { SsllabsServerGrade } from "./enum/SsllabsServerGrade.js"
@@ -52,7 +53,7 @@ export class SsllabsServerReport implements GenericReport<SsllabsServerResult> {
   #result: SsllabsServerResult
   #resultUrl: string | undefined
   #service: Service
-  #threshold: number | undefined
+  #inputs: Pick<ValidatedAnalysisInput, "config" | "threshold">
 
   constructor({
     analyzedUrl,
@@ -60,14 +61,14 @@ export class SsllabsServerReport implements GenericReport<SsllabsServerResult> {
     result,
     resultUrl,
     service,
-    threshold,
+    inputs,
   }: ReportArguments<SsllabsServerResult>) {
     this.#analyzedUrl = analyzedUrl
     this.#date = date
     this.#result = result
     this.#resultUrl = resultUrl
     this.#service = service
-    this.#threshold = threshold
+    this.#inputs = inputs
 
     this.#normalizedGrade = computeEndpoints(this.#result.endpoints)
     this.#grade = this.#normalizedGrade.toString()
@@ -101,8 +102,8 @@ export class SsllabsServerReport implements GenericReport<SsllabsServerResult> {
     return this.#service
   }
 
-  get threshold(): number | undefined {
-    return this.#threshold
+  get inputs(): Pick<ValidatedAnalysisInput, "config" | "threshold"> {
+    return this.#inputs
   }
 
   displayGrade(): string {
@@ -112,6 +113,6 @@ export class SsllabsServerReport implements GenericReport<SsllabsServerResult> {
   }
 
   isThresholdReached(): boolean | undefined {
-    return this.threshold !== undefined ? this.normalizedGrade >= this.threshold : undefined
+    return this.inputs.threshold !== undefined ? this.normalizedGrade >= this.inputs.threshold : undefined
   }
 }
