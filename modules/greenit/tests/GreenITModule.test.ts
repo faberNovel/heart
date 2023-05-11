@@ -39,7 +39,7 @@ describe("Run GreenIT analysis", () => {
     expect(analysisReport).toHaveProperty("grade", SuccessResult.grade)
     expect(analysisReport).toHaveProperty("normalizedGrade", SuccessResult.ecoIndex)
     expect(analysisReport).toHaveProperty("service", moduleConfig.service)
-    expect(analysisReport).toHaveProperty("threshold", undefined)
+    expect(analysisReport).toHaveProperty("inputs", { config: Conf })
   })
 
   it("should be able to handle a failed analysis", async () => {
@@ -96,7 +96,7 @@ describe("Run GreenIT analysis", () => {
     expect(analysisReport).toHaveProperty("grade", SuccessResult.grade)
     expect(analysisReport).toHaveProperty("normalizedGrade", SuccessResult.ecoIndex)
     expect(analysisReport).toHaveProperty("service", moduleConfig.service)
-    expect(analysisReport).toHaveProperty("threshold", THRESHOLD)
+    expect(analysisReport).toHaveProperty("inputs", { config: Conf, threshold: THRESHOLD })
   })
 
   it("Should return false when results do not match thresholds objectives", async () => {
@@ -126,7 +126,7 @@ describe("Run GreenIT analysis", () => {
     expect(analysisReport).toHaveProperty("grade", SuccessResult.grade)
     expect(analysisReport).toHaveProperty("normalizedGrade", SuccessResult.ecoIndex)
     expect(analysisReport).toHaveProperty("service", moduleConfig.service)
-    expect(analysisReport).toHaveProperty("threshold", THRESHOLD)
+    expect(analysisReport).toHaveProperty("inputs", { config: Conf, threshold: THRESHOLD })
     expect(analysisReport.isThresholdReached()).toStrictEqual(false)
   })
 })
