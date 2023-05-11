@@ -1,3 +1,4 @@
+import type { ValidatedAnalysisInput } from "../../index.js"
 import type { Service } from "../../service/Service.js"
 import type { GenericReport, ReportArguments } from "../Report.js"
 import type { GreenITResult } from "./GreenITResult.js"
@@ -8,15 +9,15 @@ export class GreenITReport implements GenericReport<GreenITResult> {
   #result: GreenITResult
   #resultUrl: string | undefined
   #service: Service
-  #threshold: number | undefined
+  #inputs: Pick<ValidatedAnalysisInput, "config" | "threshold">
 
-  constructor({ analyzedUrl, date, result, resultUrl, service, threshold }: ReportArguments<GreenITResult>) {
+  constructor({ analyzedUrl, date, result, resultUrl, service, inputs }: ReportArguments<GreenITResult>) {
     this.#analyzedUrl = analyzedUrl
     this.#date = date
     this.#result = result
     this.#resultUrl = resultUrl
     this.#service = service
-    this.#threshold = threshold
+    this.#inputs = inputs
   }
 
   get analyzedUrl(): string {
@@ -47,8 +48,8 @@ export class GreenITReport implements GenericReport<GreenITResult> {
     return this.#service
   }
 
-  get threshold(): number | undefined {
-    return this.#threshold
+  get inputs(): Pick<ValidatedAnalysisInput, "config" | "threshold"> {
+    return this.#inputs
   }
 
   displayGrade(): string {
@@ -58,6 +59,6 @@ export class GreenITReport implements GenericReport<GreenITResult> {
   }
 
   isThresholdReached(): boolean | undefined {
-    return this.threshold !== undefined ? this.normalizedGrade >= this.threshold : undefined
+    return this.inputs.threshold !== undefined ? this.normalizedGrade >= this.inputs.threshold : undefined
   }
 }

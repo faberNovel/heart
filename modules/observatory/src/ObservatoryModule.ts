@@ -15,15 +15,15 @@ export class ObservatoryModule
 {
   #client = new Client()
 
-  public async startAnalysis(conf: ObservatoryConfig, threshold?: number): Promise<ObservatoryReport> {
-    const scan = await this.#client.triggerAnalysis(conf)
+  public async startAnalysis(config: ObservatoryConfig, threshold?: number): Promise<ObservatoryReport> {
+    const scan = await this.#client.triggerAnalysis(config)
 
     const finishedScan = await this.requestFinishedScan(scan)
 
     const tests = await this.#client.requestTests(finishedScan)
 
     return new ObservatoryReport({
-      analyzedUrl: conf.host,
+      analyzedUrl: config.host,
       date: new Date(finishedScan.end_time),
       result: {
         scan: finishedScan,
@@ -31,7 +31,10 @@ export class ObservatoryModule
       },
       resultUrl: this.#client.getAnalyzeUrl(),
       service: this.service,
-      threshold: threshold,
+      inputs: {
+        config: config,
+        threshold: threshold,
+      },
     })
   }
 

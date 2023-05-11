@@ -24,6 +24,10 @@ export function createRouteHandler(
       analyzedUrl: report.analyzedUrl,
       date: report.date,
       grade: report.grade,
+      inputs: {
+        config: report.inputs.config,
+        threshold: report.inputs.threshold ?? null,
+      },
       isThresholdReached: report.isThresholdReached() ?? null,
       normalizedGrade: report.normalizedGrade,
       result: report.result,
@@ -32,7 +36,6 @@ export function createRouteHandler(
         name: report.service.name,
         logo: report.service.logo ?? null,
       },
-      threshold: report.threshold ?? null,
     })
   }
 }

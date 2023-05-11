@@ -2,6 +2,7 @@ import type { Result } from "lighthouse"
 import type { Service } from "../../service/Service.js"
 import type { GenericReport, ReportArguments } from "../Report.js"
 import type { LighthouseResult } from "./LighthouseResult.js"
+import type { ValidatedAnalysisInput } from "../../index.js"
 
 const compute = (categories: Record<string, Result.Category>, fractionDigits?: number): number => {
   const avgScore = computeCategories(categories)
@@ -51,22 +52,15 @@ export class LighthouseReport implements GenericReport<LighthouseResult> {
   #result: LighthouseResult
   #resultUrl: string | undefined
   #service: Service
-  #threshold: number | undefined
+  #inputs: Pick<ValidatedAnalysisInput, "config" | "threshold">
 
-  constructor({
-    analyzedUrl,
-    date,
-    result,
-    resultUrl,
-    service,
-    threshold,
-  }: ReportArguments<LighthouseResult>) {
+  constructor({ analyzedUrl, date, result, resultUrl, service, inputs }: ReportArguments<LighthouseResult>) {
     this.#analyzedUrl = analyzedUrl
     this.#date = date
     this.#result = result
     this.#resultUrl = resultUrl
     this.#service = service
-    this.#threshold = threshold
+    this.#inputs = inputs
 
     this.#normalizedGrade = compute(this.#result.categories)
     this.#grade = this.#normalizedGrade.toString()
@@ -100,8 +94,8 @@ export class LighthouseReport implements GenericReport<LighthouseResult> {
     return this.#service
   }
 
-  get threshold(): number | undefined {
-    return this.#threshold
+  get inputs(): Pick<ValidatedAnalysisInput, "config" | "threshold"> {
+    return this.#inputs
   }
 
   displayGrade(): string {
@@ -111,6 +105,6 @@ export class LighthouseReport implements GenericReport<LighthouseResult> {
   }
 
   isThresholdReached(): boolean | undefined {
-    return this.threshold !== undefined ? this.normalizedGrade >= this.threshold : undefined
+    return this.inputs.threshold !== undefined ? this.normalizedGrade >= this.inputs.threshold : undefined
   }
 }

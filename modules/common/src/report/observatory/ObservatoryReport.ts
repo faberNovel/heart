@@ -1,3 +1,4 @@
+import type { ValidatedAnalysisInput } from "../../index.js"
 import type { Service } from "../../service/Service.js"
 import type { GenericReport, ReportArguments } from "../Report.js"
 import type { ObservatoryResult } from "./ObservatoryResult.js"
@@ -8,22 +9,15 @@ export class ObservatoryReport implements GenericReport<ObservatoryResult> {
   #result: ObservatoryResult
   #resultUrl: string | undefined
   #service: Service
-  #threshold: number | undefined
+  #inputs: Pick<ValidatedAnalysisInput, "config" | "threshold">
 
-  constructor({
-    analyzedUrl,
-    date,
-    result,
-    resultUrl,
-    service,
-    threshold,
-  }: ReportArguments<ObservatoryResult>) {
+  constructor({ analyzedUrl, date, result, resultUrl, service, inputs }: ReportArguments<ObservatoryResult>) {
     this.#analyzedUrl = analyzedUrl
     this.#date = date
     this.#result = result
     this.#resultUrl = resultUrl
     this.#service = service
-    this.#threshold = threshold
+    this.#inputs = inputs
   }
 
   get analyzedUrl(): string {
@@ -54,8 +48,8 @@ export class ObservatoryReport implements GenericReport<ObservatoryResult> {
     return this.#service
   }
 
-  get threshold(): number | undefined {
-    return this.#threshold
+  get inputs(): Pick<ValidatedAnalysisInput, "config" | "threshold"> {
+    return this.#inputs
   }
 
   displayGrade(): string {
@@ -65,6 +59,6 @@ export class ObservatoryReport implements GenericReport<ObservatoryResult> {
   }
 
   isThresholdReached(): boolean | undefined {
-    return this.threshold !== undefined ? this.normalizedGrade >= this.threshold : undefined
+    return this.inputs.threshold !== undefined ? this.normalizedGrade >= this.inputs.threshold : undefined
   }
 }
