@@ -32,7 +32,7 @@ function parseConfig(config: string): JsonValue {
 export function createConfigOption(): Option {
   return new Option(
     `-${ANALYSIS_OPTIONS.config[0]}, --${ANALYSIS_OPTIONS.config} <${ANALYSIS_OPTIONS.config}>", "Path to the JSON configuration file`
-  ).argParser((config) => {
+  ).argParser<JsonValue>((config) => {
     try {
       const configStringified = readFile(config)
 
@@ -67,7 +67,7 @@ export function createThresholdOption(): Option {
   return new Option(
     `-${ANALYSIS_OPTIONS.threshold[0]}, --${ANALYSIS_OPTIONS.threshold} <${ANALYSIS_OPTIONS.threshold}>`,
     "A threshold between 0 and 100 that you want to reach with the analysis"
-  ).argParser((value) => {
+  ).argParser<number>((value) => {
     const threshold = Number(value)
 
     if (isNaN(threshold)) {
@@ -87,7 +87,7 @@ export function createExceptListenersOption(): Option {
   return new Option(
     `-le, --${ANALYSIS_OPTIONS.exceptListeners} <${snakeCaseToCamelCase(ANALYSIS_OPTIONS.exceptListeners)}>`,
     "A comma-separated list of listener modules that will not be triggered after the analysis is done"
-  ).argParser((value) => value.split(","))
+  ).argParser<string[]>((value) => value.split(","))
 }
 
 /**
@@ -99,5 +99,5 @@ export function createOnlyListenersOption(): Option {
   return new Option(
     `-lo, --${ANALYSIS_OPTIONS.onlyListeners} <${snakeCaseToCamelCase(ANALYSIS_OPTIONS.onlyListeners)}>`,
     "A comma-separated list of listener modules that will be triggered after the analysis is done"
-  ).argParser((value) => value.split(","))
+  ).argParser<string[]>((value) => value.split(","))
 }
