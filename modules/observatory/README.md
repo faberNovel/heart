@@ -27,7 +27,7 @@ Read more about [the description and design of _Heart_](https://github.com/faber
 3. Start an analysis
 
     ```bash
-    npx heart observatory --inline '{"host": "heart.fabernovel.com"}'
+    npx heart observatory --config '{"host": "heart.fabernovel.com"}'
     ```
 
     OR 

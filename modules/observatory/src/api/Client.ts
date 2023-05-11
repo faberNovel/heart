@@ -38,9 +38,6 @@ export class Client {
         host: conf.host,
         hidden: conf.hidden,
         rescan: conf.rescan,
-      },
-      {
-        ["Content-Type"]: "application/x-www-form-urlencoded",
       }
     )
 

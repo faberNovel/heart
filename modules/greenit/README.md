@@ -17,13 +17,13 @@ Read more about [the description and design of _Heart_](https://github.com/faber
 2. Start an analysis
 
     ```bash
-    npx heart greenit --inline '{"url":"https://www.fabernovel.com/"}'
+    npx heart greenit --config '{"url":"https://www.fabernovel.com/"}'
     ```
 
     OR 
 
     ```bash
-    npx heart greenit --file configuration.json
+    npx heart greenit --config configuration.json
     ```
 
     The analysis configuration follows the JSON format and has the following keys:
