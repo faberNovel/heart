@@ -25,7 +25,7 @@ Read more about [the description and design of _Heart_](https://github.com/faber
 3. Start an analysis
 
     ```bash
-    npx heart greenit --inline '{"url":"https://www.fabernovel.com"}'
+    npx heart greenit --config '{"url":"https://www.fabernovel.com"}'
     ```
 
     OR 

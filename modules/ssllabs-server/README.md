@@ -17,7 +17,7 @@ Read more about [the purpose, design and general installation of _Heart_](https:
 2. Start an analysis
 
     ```bash
-    npx heart ssllabs-server --inline '{"host":"heart.fabernovel.com"}'
+    npx heart ssllabs-server --config '{"host":"heart.fabernovel.com"}'
     ```
 
     OR 
