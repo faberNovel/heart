@@ -41,8 +41,8 @@
   "dependencies": {
     "@fabernovel/heart-common": "workspace:^4.0.0-alpha.4",
     "greenit-cli": "github:cnumr/GreenIT-Analysis-cli#a4363a9bcf7630e4a5a4cd264a7da9ec6f34b571",
-    "puppeteer": "^19.7.3",
-    "rimraf": "^4.4.0"
+    "puppeteer": "^20.4.0",
+    "rimraf": "^5.0.1"
   },
   "devDependencies": {
     "@jest/globals": "^29.5.0",
