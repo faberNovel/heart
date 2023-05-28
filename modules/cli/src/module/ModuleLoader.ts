@@ -117,7 +117,7 @@ async function getPaths(debug = false): Promise<string[]> {
       console.error(`package.json not found in ${ROOT_PATH}`)
     }
 
-    throw error
+    return Promise.reject(error)
   })) as ModuleIndex<PackageJson>
   const packageJson = moduleIndex.default
 

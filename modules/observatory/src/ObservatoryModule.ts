@@ -4,8 +4,10 @@ import {
   type ModuleAnalysisInterface,
   type ObservatoryConfig,
   ObservatoryReport,
+  ObservatoryScanState,
 } from "@fabernovel/heart-common"
 import { Client } from "./api/Client.js"
+import { ObservatoryError } from "./error/ObservatoryError.js"
 
 const TIME_BETWEEN_TRIES = 10000
 
@@ -45,9 +47,9 @@ export class ObservatoryModule
     scan: ObservatoryReport["result"]["scan"]
   ): Promise<ObservatoryReport["result"]["scan"]> {
     switch (scan.state) {
-      case "PENDING":
-      case "STARTING":
-      case "RUNNING": {
+      case ObservatoryScanState.PENDING:
+      case ObservatoryScanState.STARTING:
+      case ObservatoryScanState.RUNNING: {
         // wait a bit before a new request (the scanning operation takes several seconds)
         await Helper.timeout(TIME_BETWEEN_TRIES)
         const newScan = await this.#client.requestScan()
@@ -55,12 +57,14 @@ export class ObservatoryModule
         return this.requestFinishedScan(newScan)
       }
 
-      case "FINISHED":
+      case ObservatoryScanState.FINISHED:
         return scan
 
-      case "FAILED":
-      default:
-        throw new Error(scan.state)
+      case ObservatoryScanState.FAILED:
+      default: {
+        const e = new ObservatoryError(scan.state)
+        return Promise.reject(e)
+      }
     }
   }
 }

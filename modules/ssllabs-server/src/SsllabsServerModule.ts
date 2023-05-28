@@ -8,6 +8,7 @@ import {
   type Config,
 } from "@fabernovel/heart-common"
 import { Client } from "./api/Client.js"
+import { SsllabsServerError } from "./error/SsllabsServerError.js"
 
 export class SsllabsServerModule
   extends Module
@@ -32,8 +33,10 @@ export class SsllabsServerModule
     triesQty: number
   ): Promise<SsllabsServerReport> {
     switch (result.status) {
-      case SsllabsServerStatus.ERROR:
-        throw new Error(`${result.status}: ${result.statusMessage}`)
+      case SsllabsServerStatus.ERROR: {
+        const e = new SsllabsServerError(`${result.status}: ${result.statusMessage}`)
+        return Promise.reject(e)
+      }
 
       case SsllabsServerStatus.DNS:
       case SsllabsServerStatus.IN_PROGRESS:
@@ -53,16 +56,19 @@ export class SsllabsServerModule
           },
         })
 
-      default:
-        throw new Error(result.statusMessage)
+      default: {
+        const e = new SsllabsServerError(result.statusMessage)
+        return Promise.reject(e)
+      }
     }
   }
 
   private async requestResult(config: Config, triesQty = 1): Promise<SsllabsServerReport> {
     if (triesQty > SsllabsServerModule.MAX_TRIES) {
-      throw new Error(
+      const e = new SsllabsServerError(
         `The maximum number of tries (${SsllabsServerModule.MAX_TRIES}) to retrieve the report has been reached.`
       )
+      return Promise.reject(e)
     }
 
     const result = await this.apiClient.getResult()

@@ -36,7 +36,8 @@ export const createServerSubcommand = (
         await callback(port, cors)
       } catch (error) {
         if (error instanceof InputError) {
-          throw new InvalidArgumentError(error.message)
+          const e = new InvalidArgumentError(error.message)
+          return Promise.reject(e)
         }
       }
     })

@@ -1,6 +1,6 @@
 import { type ObservatoryConfig, ObservatoryReport, Request } from "@fabernovel/heart-common"
 import { env } from "node:process"
-import { type Error, isError } from "./Error.js"
+import { type ScanError, isScanError } from "./error/Error.js"
 
 export class Client {
   private analyzeUrl?: string
@@ -32,7 +32,7 @@ export class Client {
     this.apiUrl = env.OBSERVATORY_API_URL
     this.host = conf.host
 
-    const scan = await Request.post<ObservatoryReport["result"]["scan"] | Error>(
+    const scan = await Request.post<ObservatoryReport["result"]["scan"] | ScanError>(
       `${this.apiUrl ?? ""}analyze?host=${this.host}`,
       {
         host: conf.host,
@@ -42,17 +42,10 @@ export class Client {
     )
 
     // Observatory API is unconventional, and does not take advantage of http verbs :/
-    if (isError(scan)) {
+    if (isScanError(scan)) {
       return Promise.reject({
         error: scan.error,
         message: scan.text,
-      })
-    }
-
-    if ("FAILED" === scan.state || "ABORTED" === scan.state) {
-      return Promise.reject({
-        error: "error",
-        message: scan.state,
       })
     }
 

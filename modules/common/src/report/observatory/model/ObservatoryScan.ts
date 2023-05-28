@@ -1,7 +1,9 @@
+import type { ObservatoryScanState } from "../enum/ObservatoryScanState.js"
+
 /**
  * @see {@link https://github.com/mozilla/http-observatory/blob/master/httpobs/docs/api.md#scan}
  */
-export interface Scan {
+export interface ObservatoryScan {
   // timestamp for when the scan completed
   end_time: string
 
@@ -27,7 +29,7 @@ export interface Scan {
   start_time: string
 
   // the current state of the scan (https://github.com/mozilla/http-observatory/blob/master/httpobs/docs/api.md#scanner-state)
-  state: "ABORTED" | "FAILED" | "FINISHED" | "PENDING" | "STARTING" | "RUNNING"
+  state: ObservatoryScanState
 
   // the number of subtests that were assigned a fail result
   tests_failed: number

@@ -1,4 +1,4 @@
-import type { ObservatoryReport } from "@fabernovel/heart-common"
+import { ObservatoryScanState, type ObservatoryReport } from "@fabernovel/heart-common"
 
 export const RESULT: ObservatoryReport["result"] = {
   scan: {
@@ -10,7 +10,7 @@ export const RESULT: ObservatoryReport["result"] = {
     score: 95,
     likelihood_indicator: "",
     start_time: "",
-    state: "FINISHED",
+    state: ObservatoryScanState.FINISHED,
     tests_failed: 3,
     tests_passed: 4,
     tests_quantity: 12,

@@ -1,7 +1,7 @@
 /**
  * @see {@link https://github.com/mozilla/http-observatory/blob/master/httpobs/docs/api.md#tests}
  */
-export type Tests = Record<
+export type ObservatoryTests = Record<
   string,
   {
     // the expectation for a test result going in
