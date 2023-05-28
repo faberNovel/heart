@@ -15,6 +15,7 @@ import { isModuleListener, type ModuleListenerInterface } from "./module/ModuleL
 import { isModuleServer, type ModuleServerInterface } from "./module/ModuleServerInterface.js"
 import { GreenITReport } from "./report/greenit/GreenITReport.js"
 import { LighthouseReport } from "./report/lighthouse/LighthouseReport.js"
+import { ObservatoryScanState } from "./report/observatory/enum/ObservatoryScanState.js"
 import { ObservatoryReport } from "./report/observatory/ObservatoryReport.js"
 import type { GenericReport } from "./report/Report.js"
 import type { Result } from "./report/Result.js"
@@ -72,6 +73,7 @@ export {
   GreenITReport,
   LighthouseReport,
   ObservatoryReport,
+  ObservatoryScanState,
   SsllabsServerReport,
   Request,
   validateAnalysisInput,
