@@ -35,7 +35,7 @@
   "dependencies": {
     "@fabernovel/heart-common": "workspace:^4.0.0-alpha.4",
     "lighthouse": "^10.0.2",
-    "puppeteer": "^19.7.3"
+    "puppeteer": "^20.4.0"
   },
   "devDependencies": {
     "@jest/globals": "^29.5.0",
