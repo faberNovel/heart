@@ -30,12 +30,12 @@ Before making a new contribution, please check [the issues](https://github.com/f
 1. Create a branch for your enhancement from the `main` branch and push it to the remote
 2. [Create a Pull Request from the GitHub interface](https://github.com/faberNovel/heart/compare) and select your branch
 
-### [Setup your local environment](.docs/SETUP_LOCAL_ENVIRONMENT.md)
+### [Setup your local environment](docs/SETUP_LOCAL_ENVIRONMENT.md)
 
 ### Code your enhancements
 
 1. Checkout the newly created branch
-2. Code your enhancements. If your enhancement is about creating a new module, you will find some help with [the dedicated documentation](./docs/CREATE_NEW_MODULE.md).
+2. Code your enhancements. If your enhancement is about creating a new module, you will find some help with [the dedicated documentation](docs/CREATE_NEW_MODULE.md).
 
 ### Test your enhancements
 
@@ -71,7 +71,7 @@ To do so, you have to:
     rush-pnpm exec heart lighthouse -i '{"url": "https://heart.fabernovel.com/"}'
     ```
 
-### [Provide a changelog](.docs/PROVIDE_CHANGELOG.md)
+### [Provide a changelog](docs/PROVIDE_CHANGELOG.md)
 
 ### Submit your enhancements
 
