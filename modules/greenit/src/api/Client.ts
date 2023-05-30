@@ -10,15 +10,16 @@ const DEFAULT_OPTIONS: Options = {
   timeout: 3000,
 }
 
+/**
+ * @see {@link https://github.com/GoogleChrome/lighthouse/blob/main/docs/puppeteer.md#option-2-launch-chrome-with-lighthousechrome-launcher-and-handoff-to-puppeteer}
+ */
 export async function requestResult(config: GreenITConfig): Promise<GreenITReport["result"]> {
   const browser = await puppeteer.launch({
-    headless: true,
-    args: [
-      "--no-sandbox", // can't run inside docker without
-      "--disable-setuid-sandbox", // but security issues
-    ],
-    // Keep gpu horsepower in headless
-    ignoreDefaultArgs: ["--disable-gpu"],
+    // https://www.howtogeek.com/devops/how-to-run-puppeteer-and-headless-chrome-in-a-docker-container/#using-puppeteer-in-docker
+    args: ["--disable-gpu", "--disable-dev-shm-usage", "--disable-setuid-sandbox", "--no-sandbox"],
+    defaultViewport: null,
+    // https://developer.chrome.com/articles/new-headless/
+    headless: "new",
   })
 
   const options: Options = {
