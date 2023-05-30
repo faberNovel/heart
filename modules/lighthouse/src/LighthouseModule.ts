@@ -11,17 +11,17 @@ export class LighthouseModule
   extends Module
   implements ModuleAnalysisInterface<LighthouseConfig, LighthouseReport>
 {
-  private threshold?: number
+  #threshold?: number
 
   public async startAnalysis(config: LighthouseConfig, threshold?: number): Promise<LighthouseReport> {
-    this.threshold = threshold
+    this.#threshold = threshold
 
     const result = await requestResult(config)
 
-    return this.handleResult(config, result)
+    return this.#handleResult(config, result)
   }
 
-  private handleResult(config: Config, result: LighthouseReport["result"]): LighthouseReport {
+  #handleResult(config: Config, result: LighthouseReport["result"]): LighthouseReport {
     return new LighthouseReport({
       analyzedUrl: result.requestedUrl as string,
       date: new Date(result.fetchTime),
@@ -29,7 +29,7 @@ export class LighthouseModule
       service: this.service,
       inputs: {
         config: config,
-        threshold: this.threshold,
+        threshold: this.#threshold,
       },
     })
   }

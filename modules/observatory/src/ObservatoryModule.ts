@@ -20,7 +20,7 @@ export class ObservatoryModule
   public async startAnalysis(config: ObservatoryConfig, threshold?: number): Promise<ObservatoryReport> {
     const scan = await this.#client.triggerAnalysis(config)
 
-    const finishedScan = await this.requestFinishedScan(scan)
+    const finishedScan = await this.#requestFinishedScan(scan)
 
     const tests = await this.#client.requestTests(finishedScan)
 
@@ -43,7 +43,7 @@ export class ObservatoryModule
   /**
    * Request the Scan until its state goes to "FINISHED"
    */
-  private async requestFinishedScan(
+  async #requestFinishedScan(
     scan: ObservatoryReport["result"]["scan"]
   ): Promise<ObservatoryReport["result"]["scan"]> {
     switch (scan.state) {
@@ -54,7 +54,7 @@ export class ObservatoryModule
         await Helper.timeout(TIME_BETWEEN_TRIES)
         const newScan = await this.#client.requestScan()
 
-        return this.requestFinishedScan(newScan)
+        return this.#requestFinishedScan(newScan)
       }
 
       case ObservatoryScanState.FINISHED:

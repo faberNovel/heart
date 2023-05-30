@@ -10,24 +10,25 @@ import {
 import { Client } from "./api/Client.js"
 import { SsllabsServerError } from "./error/SsllabsServerError.js"
 
+const MAX_TRIES = 100
+const TIME_BETWEEN_TRIES = 10000 // 10 seconds
+
 export class SsllabsServerModule
   extends Module
   implements ModuleAnalysisInterface<SsllabsServerConfig, SsllabsServerReport>
 {
-  private static readonly MAX_TRIES = 100
-  private static readonly TIME_BETWEEN_TRIES = 10000 // 10 seconds
-  private apiClient = new Client()
-  private threshold?: number
+  #apiClient = new Client()
+  #threshold?: number
 
   public async startAnalysis(config: SsllabsServerConfig, threshold?: number): Promise<SsllabsServerReport> {
-    this.threshold = threshold
+    this.#threshold = threshold
 
-    await this.apiClient.launchAnalysis(config)
+    await this.#apiClient.launchAnalysis(config)
 
-    return this.requestResult(config)
+    return this.#requestResult(config)
   }
 
-  private async handleResult(
+  async #handleResult(
     config: Config,
     result: SsllabsServerReport["result"],
     triesQty: number
@@ -40,19 +41,19 @@ export class SsllabsServerModule
 
       case SsllabsServerStatus.DNS:
       case SsllabsServerStatus.IN_PROGRESS:
-        await Helper.timeout(SsllabsServerModule.TIME_BETWEEN_TRIES)
-        return this.requestResult(config, ++triesQty)
+        await Helper.timeout(TIME_BETWEEN_TRIES)
+        return this.#requestResult(config, ++triesQty)
 
       case SsllabsServerStatus.READY:
         return new SsllabsServerReport({
-          analyzedUrl: this.apiClient.getProjectUrl(),
+          analyzedUrl: this.#apiClient.getProjectUrl(),
           date: new Date(result.startTime),
           result: result,
-          resultUrl: this.apiClient.getAnalyzeUrl(),
+          resultUrl: this.#apiClient.getAnalyzeUrl(),
           service: this.service,
           inputs: {
             config: config,
-            threshold: this.threshold,
+            threshold: this.#threshold,
           },
         })
 
@@ -63,16 +64,16 @@ export class SsllabsServerModule
     }
   }
 
-  private async requestResult(config: Config, triesQty = 1): Promise<SsllabsServerReport> {
-    if (triesQty > SsllabsServerModule.MAX_TRIES) {
+  async #requestResult(config: Config, triesQty = 1): Promise<SsllabsServerReport> {
+    if (triesQty > MAX_TRIES) {
       const e = new SsllabsServerError(
-        `The maximum number of tries (${SsllabsServerModule.MAX_TRIES}) to retrieve the report has been reached.`
+        `The maximum number of tries (${MAX_TRIES}) to retrieve the report has been reached.`
       )
       return Promise.reject(e)
     }
 
-    const result = await this.apiClient.getResult()
+    const result = await this.#apiClient.getResult()
 
-    return this.handleResult(config, result, triesQty)
+    return this.#handleResult(config, result, triesQty)
   }
 }

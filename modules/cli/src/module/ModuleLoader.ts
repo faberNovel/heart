@@ -25,7 +25,7 @@ type LoadedModules = [
 
 // file that contains the list of required environment variables
 const PACKAGE_PREFIX = "@fabernovel/heart-"
-const ENVIRONMENT_VARIABLE_MODEL = ".env.sample"
+const ENVIRONMENT_VARIABLE_TEMPLATE = ".env.tpl"
 // assume that the root path is the one from where the script has been called
 // /!\ this approach does not follow symlink
 const ROOT_PATH = cwd()
@@ -75,14 +75,14 @@ export function loadEnvironmentVariables(modulePath: string): void {
   const missingEnvironmentVariables: string[] = []
 
   try {
-    // load the .env.sample file from the module
+    // load the .env.tpl file from the module
     const requiredModuleDotenvVariables = Object.entries(
-      dotenv.parse(readFileSync(modulePath + ENVIRONMENT_VARIABLE_MODEL, "utf8"))
+      dotenv.parse(readFileSync(modulePath + ENVIRONMENT_VARIABLE_TEMPLATE, "utf8"))
     )
 
     // set variables if
     // not yet registered in process.env
-    // and having a default value in .env.sample file,
+    // and having a default value in .env.tpl file,
     requiredModuleDotenvVariables.forEach(([variableName, defaultValue]) => {
       if (!env[variableName] && defaultValue.length !== 0) {
         env[variableName] = defaultValue

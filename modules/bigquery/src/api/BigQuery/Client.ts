@@ -3,32 +3,32 @@ import { prepareAuthentication } from "./Authentication.js"
 import { DATASET_DEFINITION, TABLE_DEFINITION } from "./Definitions.js"
 
 export class BigQueryClient {
-  private _table: Promise<Table>
-  private bigqueryClient: BigQuery
+  #table: Promise<Table>
+  #bigqueryClient: BigQuery
 
   constructor() {
     prepareAuthentication()
 
-    this.bigqueryClient = new BigQuery()
+    this.#bigqueryClient = new BigQuery()
 
-    this._table = this.getOrCreateTable()
+    this.#table = this.#getOrCreateTable()
   }
 
   get table(): Promise<Table> {
-    return this._table
+    return this.#table
   }
 
   /**
    * Retrieve the dataset, or create it if it does not exist.
    */
-  private async getOrCreateDataset(): Promise<Dataset> {
-    let dataset = this.bigqueryClient.dataset(DATASET_DEFINITION.ID)
+  async #getOrCreateDataset(): Promise<Dataset> {
+    let dataset = this.#bigqueryClient.dataset(DATASET_DEFINITION.ID)
 
     const [datasetExists] = await dataset.exists()
 
     if (!datasetExists) {
       // create the dataset if it does not exist
-      const datasetResponse = await this.bigqueryClient.createDataset(DATASET_DEFINITION.ID)
+      const datasetResponse = await this.#bigqueryClient.createDataset(DATASET_DEFINITION.ID)
       dataset = datasetResponse[0]
     }
 
@@ -39,8 +39,8 @@ export class BigQueryClient {
    * Retrieve the table of the dataset.
    * Update it if it exists, or create it if not.
    */
-  private async getOrCreateTable(): Promise<Table> {
-    const dataset = await this.getOrCreateDataset()
+  async #getOrCreateTable(): Promise<Table> {
+    const dataset = await this.#getOrCreateDataset()
 
     let table = dataset.table(TABLE_DEFINITION.ID)
 

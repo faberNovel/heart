@@ -3,17 +3,17 @@ import { Module, type ModuleAnalysisInterface, GreenITReport } from "@fabernovel
 import { requestResult } from "./api/Client.js"
 
 export class GreenITModule extends Module implements ModuleAnalysisInterface<GreenITConfig, GreenITReport> {
-  private threshold?: number
+  #threshold?: number
 
   public async startAnalysis(config: GreenITConfig, threshold?: number): Promise<GreenITReport> {
-    this.threshold = threshold
+    this.#threshold = threshold
 
     const result = await requestResult(config)
 
-    return this.handleResult(config, result)
+    return this.#handleResult(config, result)
   }
 
-  private handleResult(config: Config, result: GreenITReport["result"]): GreenITReport {
+  #handleResult(config: Config, result: GreenITReport["result"]): GreenITReport {
     const [date, time] = result.date.split(" ")
     const [day, month, year] = date.split("/")
 
@@ -24,7 +24,7 @@ export class GreenITModule extends Module implements ModuleAnalysisInterface<Gre
       service: this.service,
       inputs: {
         config: config,
-        threshold: this.threshold,
+        threshold: this.#threshold,
       },
     })
   }
