@@ -8,12 +8,12 @@ import { WebClient } from "@slack/web-api"
  * - the SLACK_CHANNEL_ID process.env property
  */
 export class Client {
-  private channel: string
-  private client: WebClient
+  #channel: string
+  #client: WebClient
 
   constructor() {
-    this.channel = process.env.SLACK_CHANNEL_ID as string
-    this.client = new WebClient(process.env.SLACK_API_TOKEN)
+    this.#channel = process.env.SLACK_CHANNEL_ID as string
+    this.#client = new WebClient(process.env.SLACK_API_TOKEN)
   }
 
   public async postMessage(options: {
@@ -22,8 +22,8 @@ export class Client {
     icon_url?: string
     username?: string
   }): Promise<WebAPICallResult> {
-    return this.client.chat.postMessage({
-      channel: this.channel,
+    return this.#client.chat.postMessage({
+      channel: this.#channel,
       ...options,
     })
   }

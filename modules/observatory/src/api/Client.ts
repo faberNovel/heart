@@ -3,19 +3,19 @@ import { env } from "node:process"
 import { type ScanError, isScanError } from "./error/Error.js"
 
 export class Client {
-  private analyzeUrl?: string
-  private apiUrl?: string
-  private host = ""
+  #analyzeUrl?: string
+  #apiUrl?: string
+  #host = ""
 
   public getAnalyzeUrl(): string {
-    return (this.analyzeUrl ?? "") + this.host
+    return (this.#analyzeUrl ?? "") + this.#host
   }
 
   /**
    * Get the summary of the analysis
    */
   public async requestScan(): Promise<ObservatoryReport["result"]["scan"]> {
-    return Request.get(`${this.apiUrl ?? ""}analyze?host=${this.host}`)
+    return Request.get(`${this.#apiUrl ?? ""}analyze?host=${this.#host}`)
   }
 
   /**
@@ -24,16 +24,16 @@ export class Client {
   public async requestTests(
     scan: ObservatoryReport["result"]["scan"]
   ): Promise<ObservatoryReport["result"]["tests"]> {
-    return Request.get(`${this.apiUrl ?? ""}getScanResults?scan=${scan.scan_id}`)
+    return Request.get(`${this.#apiUrl ?? ""}getScanResults?scan=${scan.scan_id}`)
   }
 
   public async triggerAnalysis(conf: ObservatoryConfig): Promise<ObservatoryReport["result"]["scan"]> {
-    this.analyzeUrl = env.OBSERVATORY_ANALYZE_URL
-    this.apiUrl = env.OBSERVATORY_API_URL
-    this.host = conf.host
+    this.#analyzeUrl = env.OBSERVATORY_ANALYZE_URL
+    this.#apiUrl = env.OBSERVATORY_API_URL
+    this.#host = conf.host
 
     const scan = await Request.post<ObservatoryReport["result"]["scan"] | ScanError>(
-      `${this.apiUrl ?? ""}analyze?host=${this.host}`,
+      `${this.#apiUrl ?? ""}analyze?host=${this.#host}`,
       {
         host: conf.host,
         hidden: conf.hidden,

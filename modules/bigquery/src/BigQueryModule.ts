@@ -9,11 +9,11 @@ import { BigQueryClient } from "./api/BigQuery/Client.js"
 import { RowReport } from "./api/BigQuery/model/RowReport.js"
 
 export class BigQueryModule extends Module implements ModuleListenerInterface {
-  private bigqueryClient = new BigQueryClient()
+  #bigqueryClient = new BigQueryClient()
 
   public async notifyAnalysisDone<R extends Result>(report: GenericReport<R>): Promise<unknown> {
     try {
-      const table = await this.bigqueryClient.table
+      const table = await this.#bigqueryClient.table
 
       return table.insert(new RowReport(report))
     } catch (error) {
