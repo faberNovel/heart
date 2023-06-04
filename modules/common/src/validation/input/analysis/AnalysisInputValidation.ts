@@ -38,7 +38,7 @@ function getValidationSchema(listenerModulesIds: ModuleListenerInterface["id"][]
     // customize error messages with ajv-errors
     errorMessage: {
       properties: {
-        config: "config must an object with at least 1 property",
+        config: "config must be an object with at least 1 property",
         except_listeners: `except-listeners must be a comma-separated list with at least one of the following values: ${listenerModulesIds.join(
           ","
         )}`,
