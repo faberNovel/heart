@@ -1,6 +1,6 @@
 {
   "name": "@fabernovel/heart-slack",
-  "version": "4.0.0-alpha.4",
+  "version": "4.0.0-alpha.5",
   "description": "Listener module of Heart, which reacts to the end of an analysis by sending the results to a Slack channel",
   "homepage": "https://heart.fabernovel.com",
   "bugs": {
@@ -33,7 +33,7 @@
     "test": "NODE_OPTIONS='--experimental-vm-modules' jest --passWithNoTests"
   },
   "dependencies": {
-    "@fabernovel/heart-common": "workspace:^4.0.0-alpha.4",
+    "@fabernovel/heart-common": "workspace:^4.0.0-alpha.5",
     "@slack/web-api": "^6.8.1"
   },
   "devDependencies": {
@@ -49,7 +49,7 @@
     "typescript": "^5.0.4"
   },
   "peerDependencies": {
-    "@fabernovel/heart-cli": "^4.0.0-alpha.4"
+    "@fabernovel/heart-cli": "^4.0.0-alpha.5"
   },
   "engines": {
     "node": ">=18 <21"

@@ -1,6 +1,6 @@
 {
   "name": "@fabernovel/heart-greenit",
-  "version": "4.0.0-alpha.4",
+  "version": "4.0.0-alpha.5",
   "description": "Analysis module of Heart, which analyses URLs with GreenIT",
   "keywords": [
     "greenit",
@@ -39,7 +39,7 @@
     "test": "NODE_OPTIONS='--experimental-vm-modules' jest"
   },
   "dependencies": {
-    "@fabernovel/heart-common": "workspace:^4.0.0-alpha.4",
+    "@fabernovel/heart-common": "workspace:^4.0.0-alpha.5",
     "greenit-cli": "github:cnumr/GreenIT-Analysis-cli#a4363a9bcf7630e4a5a4cd264a7da9ec6f34b571",
     "puppeteer": "^20.4.0",
     "rimraf": "^5.0.1"
@@ -56,7 +56,7 @@
     "typescript": "^5.0.4"
   },
   "peerDependencies": {
-    "@fabernovel/heart-cli": "^4.0.0-alpha.4"
+    "@fabernovel/heart-cli": "^4.0.0-alpha.5"
   },
   "engines": {
     "node": ">=18 <21"
