@@ -6,12 +6,15 @@ import {
   type ModuleListenerInterface,
   type ModuleServerInterface,
   type Result,
+  getAnalysisValidationSchema,
 } from "@fabernovel/heart-common"
 import cors, { type FastifyCorsOptions } from "@fastify/cors"
 import Fastify, { type FastifyInstance } from "fastify"
-import { errorHandler } from "./error/ErrorHandler.js"
 import { createNotifyListenerModulesHandler } from "./notification/NotifyListenerModules.js"
-import { createRouteHandler, createRoutePreHandler } from "./router/RouteHandler.js"
+import { createRouteHandler } from "./router/RouteHandler.js"
+import _AjvErrors from "ajv-errors"
+// temp workaround for ESM: https://github.com/ajv-validator/ajv/issues/2132#issuecomment-1537224620
+const AjvErrors = _AjvErrors.default
 
 // using declaration merging, add your plugin props to the appropriate fastify interfaces
 // if prop type is defined here, the value will be typechecked when you call decorate{,Request,Reply}
@@ -22,7 +25,14 @@ declare module "fastify" {
 }
 
 export class ApiModule extends Module implements ModuleServerInterface {
-  #fastify = Fastify()
+  #fastify = Fastify({
+    ajv: {
+      customOptions: {
+        allErrors: true,
+      },
+      plugins: [AjvErrors],
+    },
+  })
 
   async createServer(
     analysisModules: ModuleAnalysisInterface<Config, GenericReport<Result>>[],
@@ -42,9 +52,6 @@ export class ApiModule extends Module implements ModuleServerInterface {
     // route registration
     this.#registerRoutes(analysisModules, listenerModules)
 
-    // error handler registration
-    this.#fastify.setErrorHandler(errorHandler)
-
     return this.#fastify
   }
 
@@ -52,7 +59,7 @@ export class ApiModule extends Module implements ModuleServerInterface {
     analysisModules: ModuleAnalysisInterface<Config, GenericReport<Result>>[],
     listenerModules: ModuleListenerInterface[]
   ): void {
-    const routePreHandler = createRoutePreHandler(listenerModules)
+    const bodySchema = getAnalysisValidationSchema(listenerModules.map((m) => m.id))
 
     analysisModules.forEach((analysisModule) => {
       const path = `/${analysisModule.id}`
@@ -61,7 +68,9 @@ export class ApiModule extends Module implements ModuleServerInterface {
 
       this.#fastify.post(path, {
         handler: routeHandler,
-        preHandler: routePreHandler,
+        schema: {
+          body: bodySchema,
+        },
       })
     })
   }

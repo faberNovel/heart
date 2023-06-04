@@ -6,7 +6,6 @@ import portSchema from "./schema/port.json" assert { type: "json" }
 
 function getValidationSchema(): SchemaObject {
   return {
-    $schema: "http://json-schema.org/draft-07/schema",
     type: "object",
     properties: {
       port: portSchema,

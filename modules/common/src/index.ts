@@ -22,7 +22,10 @@ import type { Result } from "./report/Result.js"
 import { SsllabsServerStatus } from "./report/ssllabs-server/enum/SsllabsServerStatus.js"
 import { SsllabsServerReport } from "./report/ssllabs-server/SsllabsServerReport.js"
 import { timeout } from "./time/timeout.js"
-import { validateAnalysisInput } from "./validation/input/analysis/AnalysisInputValidation.js"
+import {
+  getAnalysisValidationSchema,
+  validateAnalysisInput,
+} from "./validation/input/analysis/AnalysisInputValidation.js"
 import { validateServerInput } from "./validation/input/server/ServerInputValidation.js"
 
 const Helper = {
@@ -76,7 +79,10 @@ export {
   ObservatoryScanState,
   SsllabsServerReport,
   Request,
+  SsllabsServerStatus,
+
+  // Validation
+  getAnalysisValidationSchema,
   validateAnalysisInput,
   validateServerInput,
-  SsllabsServerStatus,
 }

@@ -2,13 +2,10 @@ import {
   type Config,
   type GenericReport,
   type ModuleAnalysisInterface,
-  type ModuleListenerInterface,
-  type ParsedAnalysisInput,
   type Result,
   type ValidatedAnalysisInput,
-  validateAnalysisInput,
 } from "@fabernovel/heart-common"
-import type { FastifyReply, FastifyRequest, HookHandlerDoneFunction } from "fastify"
+import type { FastifyReply, FastifyRequest } from "fastify"
 
 export function createRouteHandler(
   analysisModule: ModuleAnalysisInterface<Config, GenericReport<Result>>
@@ -37,21 +34,5 @@ export function createRouteHandler(
         logo: report.service.logo ?? null,
       },
     })
-  }
-}
-
-export function createRoutePreHandler(
-  listenerModules: ModuleListenerInterface[]
-): (
-  request: FastifyRequest<{ Body: ParsedAnalysisInput }>,
-  reply: FastifyReply,
-  done: HookHandlerDoneFunction
-) => void {
-  return (request, _reply, done) => {
-    const listenerModulesIds = listenerModules.map((listenerModule) => listenerModule.id)
-
-    validateAnalysisInput(request.body, listenerModulesIds)
-
-    done()
   }
 }
