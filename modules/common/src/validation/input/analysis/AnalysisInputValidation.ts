@@ -5,7 +5,9 @@ import { validateInput } from "../InputValidation.js"
 import configSchema from "./schema/config.json" assert { type: "json" }
 import thresholdSchema from "./schema/threshold.json" assert { type: "json" }
 
-function getValidationSchema(listenerModulesIds: ModuleListenerInterface["id"][]): SchemaObject {
+export function getAnalysisValidationSchema(
+  listenerModulesIds: ModuleListenerInterface["id"][]
+): SchemaObject {
   const listenerSchema = {
     type: "array",
     items: {
@@ -15,7 +17,6 @@ function getValidationSchema(listenerModulesIds: ModuleListenerInterface["id"][]
   }
 
   return {
-    $schema: "http://json-schema.org/draft-07/schema",
     type: "object",
     properties: {
       config: configSchema,
@@ -38,7 +39,7 @@ function getValidationSchema(listenerModulesIds: ModuleListenerInterface["id"][]
     // customize error messages with ajv-errors
     errorMessage: {
       properties: {
-        config: "config must an object with at least 1 property",
+        config: "config must be an object with at least 1 property",
         except_listeners: `except-listeners must be a comma-separated list with at least one of the following values: ${listenerModulesIds.join(
           ","
         )}`,
@@ -61,7 +62,7 @@ export function validateAnalysisInput(
   data: unknown,
   listenerModulesIds: ModuleListenerInterface["id"][] = []
 ): ValidatedAnalysisInput {
-  const schema = getValidationSchema(listenerModulesIds)
+  const schema = getAnalysisValidationSchema(listenerModulesIds)
 
   return validateInput<ValidatedAnalysisInput>(data, schema)
 }

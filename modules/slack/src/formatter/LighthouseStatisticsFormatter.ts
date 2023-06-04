@@ -17,7 +17,7 @@ export const formatLighthouseBlocks = (report: LighthouseReport): [MrkdwnElement
   const audits = Object.values(report.result.audits)
 
   const advicesBlocks: SectionBlock[][] = Object.values(report.result.categories)
-    .sort((a, b) => (a.title < b.title ? -1 : 0))
+    .sort((a, b) => (a.title < b.title ? -1 : 0)) // alphabetical sort
     .map((category) => {
       const auditsIds = category.auditRefs
         .filter((auditRef) => !["metrics", "hidden"].includes(auditRef.group ?? ""))
@@ -27,17 +27,18 @@ export const formatLighthouseBlocks = (report: LighthouseReport): [MrkdwnElement
         (audit) => auditsIds.includes(audit.id) && audit.score !== null && audit.score < 1
       )
 
-      const sections: SectionBlock[] = [
-        {
+      const sections: SectionBlock[] = []
+
+      // display the category only if it contains advices
+      if (a.length > 0) {
+        sections.push({
           type: "section",
           text: {
             type: "mrkdwn",
             text: `*${category.title} (${category.score === null ? "" : `${category.score * 100}/100)`}*`,
           },
-        },
-      ]
+        })
 
-      if (a.length > 0) {
         sections.push({
           type: "section",
           text: {
