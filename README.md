@@ -24,7 +24,7 @@ I want to:
 2. Configure the Slack module
     
     ```bash
-    echo SLACK_API_TOKEN=My_Slack_Api_Token >> .env
+    echo HEART_SLACK_API_TOKEN=My_Slack_Api_Token >> .env
     ```
 
 3. Start an analysis

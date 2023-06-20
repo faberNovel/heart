@@ -16,8 +16,8 @@ await import("@fabernovel/heart-common")
 const { Client } = await import("../../src/api/Client.js")
 
 describe("Client", () => {
-  process.env.OBSERVATORY_ANALYZE_URL = ANALYZE_URL
-  process.env.OBSERVATORY_API_URL = API_URL
+  process.env.HEART_OBSERVATORY_ANALYZE_URL = ANALYZE_URL
+  process.env.HEART_OBSERVATORY_API_URL = API_URL
 
   test("Analyze with valid configuration", async () => {
     const CONF = { host: "www.website.test" }

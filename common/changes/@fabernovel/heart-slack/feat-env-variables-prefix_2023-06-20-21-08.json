@@ -1,0 +1,10 @@
+{
+  "changes": [
+    {
+      "packageName": "@fabernovel/heart-slack",
+      "comment": "Add a HEART_ prefix to the environment variables names to avoid collisions",
+      "type": "major"
+    }
+  ],
+  "packageName": "@fabernovel/heart-slack"
+}

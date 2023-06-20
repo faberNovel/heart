@@ -19,7 +19,7 @@ Read more about [the description and design of _Heart_](https://github.com/faber
 2. In the project root folder, create a `.env` file with the [_Google Service accounts_](https://cloud.google.com/docs/authentication/getting-started#creating_a_service_account) credentials (you can use [Code Beautify](https://codebeautify.org/remove-extra-spaces) to remove whitespaces)
 
     ```dotenv
-    GOOGLE_APPLICATION_CREDENTIALS={"type": "service_account","project_id": "","private_key_id": "","private_key": "","client_email": "","client_id": "","auth_uri": "","token_uri": "","auth_provider_x509_cert_url": "","client_x509_cert_url": ""}
+    HEART_BIGQUERY_GOOGLE_APPLICATION_CREDENTIALS={"type": "service_account","project_id": "","private_key_id": "","private_key": "","client_email": "","client_id": "","auth_uri": "","token_uri": "","auth_provider_x509_cert_url": "","client_x509_cert_url": ""}
     ```
 
 3. Start an analysis

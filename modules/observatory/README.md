@@ -20,8 +20,8 @@ Read more about [the description and design of _Heart_](https://github.com/faber
 
     In this case, you must provide the following env values:
     ```dotenv
-    OBSERVATORY_API_URL=
-    OBSERVATORY_ANALYZE_URL=
+    HEART_OBSERVATORY_API_URL=
+    HEART_OBSERVATORY_ANALYZE_URL=
     ```
 
 3. Start an analysis
