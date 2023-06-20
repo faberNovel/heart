@@ -28,8 +28,8 @@ export class Client {
   }
 
   public async triggerAnalysis(conf: ObservatoryConfig): Promise<ObservatoryReport["result"]["scan"]> {
-    this.#analyzeUrl = env.OBSERVATORY_ANALYZE_URL
-    this.#apiUrl = env.OBSERVATORY_API_URL
+    this.#analyzeUrl = env.HEART_OBSERVATORY_ANALYZE_URL
+    this.#apiUrl = env.HEART_OBSERVATORY_API_URL
     this.#host = conf.host
 
     const scan = await Request.post<ObservatoryReport["result"]["scan"] | ScanError>(
