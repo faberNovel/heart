@@ -431,6 +431,11 @@
       "packageName": "@fabernovel/heart-ssllabs-server",
       "projectFolder": "modules/ssllabs-server",
       "versionPolicyName": "nextMajor"
+    },
+    {
+      "packageName": "@fabernovel/heart-storage",
+      "projectFolder": "modules/storage",
+      "versionPolicyName": "nextMajor"
     }
   ]
 }
