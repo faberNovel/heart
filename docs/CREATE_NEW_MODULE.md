@@ -2,17 +2,17 @@
 
 Creating a new module is about copying the module template directory, then rename some files and variable names.
 
-1. Copy the _modules/heart-moduletpl_ directory (except the .rush, node_modules and lib directories inside).
+1. Copy the _modules/moduletpl_ directory and rename it.
 
-2. In the copied directory, search and replace the `moduletpl` and `ModuleTpl` strings of every files and directories
+2. In the copied directory, search and replace the `moduletpl` and `ModuleTpl` strings in each file and filename.
 
 3. Update the `description`, `license` and `contributors` fields of the pakage.json file 
 
-4. Indicates to Rush that he has to manage your new module: add the following lines to the array under the `project` key of the `rush.json` file:
+4. Indicates to Rush that he has to manage your new module: add the following lines to the array under the `projects` key of the `rush.json` file:
     ```json
     {
-      "packageName": "@fabernovel/heart-moduletpl",
-      "projectFolder": "modules/heart-moduletpl",
+      "packageName": "@fabernovel/moduletpl",
+      "projectFolder": "modules/moduletpl",
       "versionPolicyName": "individualVersion"
     },
     ```
