@@ -4,7 +4,9 @@
   "extends": "../tsconfig.json",
 
   "compilerOptions": {
+    "emitDecoratorMetadata": true,
     "esModuleInterop": true,
+    "experimentalDecorators": true,
     "resolveJsonModule": true
   },
 

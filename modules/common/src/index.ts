@@ -1,3 +1,5 @@
+import { ReportEntity } from "./entities/ReportEntity.js"
+import { ServiceEntity } from "./entities/ServiceEntity.js"
 import { InputError } from "./error/InputError.js"
 import { get, post } from "./http/Request.js"
 import type { ParsedAnalysisInput, ValidatedAnalysisInput } from "./input/AnalysisInput.js"
@@ -62,6 +64,10 @@ export type {
   ValidatedAnalysisInput,
 }
 export {
+  // Database
+  ReportEntity,
+  ServiceEntity,
+
   // Errors
   InputError,
 

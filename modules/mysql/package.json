@@ -1,7 +1,7 @@
 {
-  "name": "@fabernovel/heart-storage",
+  "name": "@fabernovel/heart-mysql",
   "version": "4.0.0-alpha.5",
-  "description": "Store the analysis results of Heart into different kind of databases",
+  "description": "Store the results of analysis into a MySQL database",
   "homepage": "https://heart.fabernovel.com",
   "bugs": {
     "url": "https://github.com/faberNovel/heart/issues"
@@ -9,7 +9,7 @@
   "repository": {
     "type": "git",
     "url": "https://github.com/faberNovel/heart.git",
-    "directory": "modules/storage"
+    "directory": "modules/mysql"
   },
   "license": "MIT",
   "contributors": [
@@ -22,7 +22,8 @@
     "lib": "lib"
   },
   "files": [
-    "lib/**/*"
+    "lib/**/*",
+    ".env.tpl"
   ],
   "scripts": {
     "build": "rimraf lib && tsc --project tsconfig.build.json",
@@ -32,7 +33,10 @@
     "test": "NODE_OPTIONS='--experimental-vm-modules' jest --passWithNoTests"
   },
   "dependencies": {
-    "@fabernovel/heart-common": "workspace:^4.0.0-alpha.5"
+    "@fabernovel/heart-common": "workspace:^4.0.0-alpha.5",
+    "@mikro-orm/core": "^5.7.12",
+    "@mikro-orm/mysql": "^5.7.12",
+    "@mikro-orm/reflection": "^5.7.12"
   },
   "devDependencies": {
     "@jest/globals": "^29.5.0",
