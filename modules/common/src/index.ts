@@ -10,11 +10,15 @@ import type { LighthouseConfig } from "./module/config/lighthouse/LighthouseConf
 import type { ObservatoryConfig } from "./module/config/observatory/ObservatoryConfig.js"
 import type { SsllabsServerConfig } from "./module/config/ssllabs-server/SsllabsServerConfig.js"
 import { Module } from "./module/Module.js"
-import { isModuleAnalysis, type ModuleAnalysisInterface } from "./module/ModuleAnalysisInterface.js"
+import { isModuleAnalysis, type ModuleAnalysisInterface } from "./module/analysis/ModuleAnalysisInterface.js"
 import type { ModuleIndex } from "./module/ModuleIndex.js"
 import type { ModuleInterface } from "./module/ModuleInterface.js"
-import { isModuleListener, type ModuleListenerInterface } from "./module/ModuleListenerInterface.js"
-import { isModuleServer, type ModuleServerInterface } from "./module/ModuleServerInterface.js"
+import { isModuleListener, type ModuleListenerInterface } from "./module/listener/ModuleListenerInterface.js"
+import {
+  isModuleListenerDatabase,
+  type ModuleListenerDatabaseInterface,
+} from "./module/listener/ModuleListenerDatabaseInterface.js"
+import { isModuleServer, type ModuleServerInterface } from "./module/server/ModuleServerInterface.js"
 import { GreenITReport } from "./report/greenit/GreenITReport.js"
 import { LighthouseReport } from "./report/lighthouse/LighthouseReport.js"
 import { ObservatoryScanState } from "./report/observatory/enum/ObservatoryScanState.js"
@@ -45,6 +49,7 @@ export type {
   ModuleIndex,
   ModuleInterface,
   ModuleListenerInterface,
+  ModuleListenerDatabaseInterface,
   ModuleServerInterface,
 
   // Reports
@@ -75,6 +80,7 @@ export {
   Helper,
   isModuleAnalysis,
   isModuleListener,
+  isModuleListenerDatabase,
   isModuleServer,
   Module,
 

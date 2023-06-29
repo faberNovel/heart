@@ -1,6 +1,6 @@
-import type { GenericReport } from "../report/Report.js"
-import type { Result } from "../report/Result.js"
-import type { ModuleInterface } from "./ModuleInterface.js"
+import type { GenericReport } from "../../report/Report.js"
+import type { Result } from "../../report/Result.js"
+import type { ModuleInterface } from "../ModuleInterface.js"
 
 /**
  * Define an Listener module.

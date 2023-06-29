@@ -1,5 +1,5 @@
 import { InputError } from "../../../../src/error/InputError.js"
-import type { ModuleListenerInterface } from "../../../../src/module/ModuleListenerInterface.js"
+import type { ModuleListenerInterface } from "../../../../src/module/listener/ModuleListenerInterface.js"
 import { validateAnalysisInput } from "../../../../src/validation/input/analysis/AnalysisInputValidation.js"
 
 describe("Invalid option combinations", () => {
