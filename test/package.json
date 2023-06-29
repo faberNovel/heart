@@ -14,6 +14,7 @@
     "@fabernovel/heart-cli": "workspace:^4.0.0-alpha.5",
     "@fabernovel/heart-greenit": "workspace:^4.0.0-alpha.5",
     "@fabernovel/heart-lighthouse": "workspace:^4.0.0-alpha.5",
+    "@fabernovel/heart-mysql": "workspace:^4.0.0-alpha.5",
     "@fabernovel/heart-observatory": "workspace:^4.0.0-alpha.5",
     "@fabernovel/heart-slack": "workspace:^4.0.0-alpha.5",
     "@fabernovel/heart-ssllabs-server": "workspace:^4.0.0-alpha.5"
