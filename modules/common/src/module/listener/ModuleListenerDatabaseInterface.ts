@@ -1,10 +1,11 @@
+import type { MikroORM } from "@mikro-orm/core"
 import type { ModuleListenerInterface } from "./ModuleListenerInterface.js"
 
 /**
  * Define a database Listener module.
  */
 export interface ModuleListenerDatabaseInterface extends ModuleListenerInterface {
-  isMigrationRequired(): boolean
+  getDatabaseClient(): Promise<MikroORM>
 }
 
 /**
@@ -21,5 +22,5 @@ export function isModuleListenerDatabase(
   module: ModuleListenerInterface
 ): module is ModuleListenerDatabaseInterface {
   // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
-  return (module as ModuleListenerDatabaseInterface).isMigrationRequired !== undefined
+  return (module as ModuleListenerDatabaseInterface).getDatabaseClient !== undefined
 }

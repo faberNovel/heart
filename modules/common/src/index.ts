@@ -33,6 +33,7 @@ import {
   validateAnalysisInput,
 } from "./validation/input/analysis/AnalysisInputValidation.js"
 import { validateServerInput } from "./validation/input/server/ServerInputValidation.js"
+import { createDatabaseClient } from "./module/listener/ModuleListenerDatabase.js"
 
 const Helper = {
   timeout,
@@ -70,6 +71,7 @@ export type {
 }
 export {
   // Database
+  createDatabaseClient,
   ReportEntity,
   ServiceEntity,
 

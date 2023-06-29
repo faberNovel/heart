@@ -35,8 +35,7 @@
   "dependencies": {
     "@fabernovel/heart-common": "workspace:^4.0.0-alpha.5",
     "@mikro-orm/core": "^5.7.12",
-    "@mikro-orm/mysql": "^5.7.12",
-    "@mikro-orm/reflection": "^5.7.12"
+    "@mikro-orm/mysql": "^5.7.12"
   },
   "devDependencies": {
     "@jest/globals": "^29.5.0",
