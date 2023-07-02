@@ -35,10 +35,12 @@
   "dependencies": {
     "@fabernovel/heart-common": "workspace:^4.0.0-alpha.5",
     "@mikro-orm/core": "^5.7.12",
+    "@mikro-orm/migrations": "^5.7.12",
     "@mikro-orm/mysql": "^5.7.12"
   },
   "devDependencies": {
     "@jest/globals": "^29.5.0",
+    "@mikro-orm/cli": "^5.7.12",
     "@types/jest": "^29.5.1",
     "@types/node": "^18.15.10",
     "@typescript-eslint/eslint-plugin": "^5.57.0",
@@ -47,6 +49,7 @@
     "jest": "^29.5.0",
     "rimraf": "^5.0.1",
     "ts-jest": "^29.1.0",
+    "ts-node": "^10.9.1",
     "typescript": "^5.0.4"
   },
   "peerDependencies": {
@@ -54,5 +57,12 @@
   },
   "engines": {
     "node": ">=18 <21"
+  },
+  "mikro-orm": {
+    "useTsNode": true,
+    "configPaths": [
+      "./src/config/mikro-orm.config.ts",
+      "./lib/config/mikro-orm.config.js"
+    ]
   }
 }

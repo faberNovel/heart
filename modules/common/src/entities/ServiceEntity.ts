@@ -1,13 +1,13 @@
 import { Entity, PrimaryKey, Property } from "@mikro-orm/core"
 import type { Service } from "../service/Service.js"
 
-@Entity()
+@Entity({ tableName: "service" })
 export class ServiceEntity {
-  @Property()
-  logo?: Service["logo"]
-
   @PrimaryKey()
   name!: Service["name"]
+
+  @Property()
+  logo?: Service["logo"]
 
   constructor(service: Service) {
     this.name = service.name

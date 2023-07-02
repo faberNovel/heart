@@ -1,24 +1,25 @@
 import {
   Module,
   ReportEntity,
-  createDatabaseClient,
   type GenericReport,
   type ModuleListenerDatabaseInterface,
   type Result,
 } from "@fabernovel/heart-common"
-import type { MikroORM } from "@mikro-orm/core"
-import { defineConfig, type MySqlDriver } from "@mikro-orm/mysql"
-import { env } from "node:process"
+import { MikroORM } from "@mikro-orm/core"
+import { type MySqlDriver } from "@mikro-orm/mysql"
+import databaseConfig from "./config/mikro-orm.config.js"
+
+function createDatabaseClient(): Promise<MikroORM> {
+  return MikroORM.init<MySqlDriver>(databaseConfig)
+}
 
 export class MysqlModule extends Module implements ModuleListenerDatabaseInterface {
-  #client = createDatabaseClient<MySqlDriver>(defineConfig, env.HEART_MYSQL_URL as string)
-
-  getDatabaseClient(): Promise<MikroORM> {
-    return this.#client
+  public getDatabaseClient(): Promise<MikroORM> {
+    return createDatabaseClient()
   }
 
-  async notifyAnalysisDone(report: GenericReport<Result>): Promise<void> {
-    const orm = await this.#client
+  public async notifyAnalysisDone(report: GenericReport<Result>): Promise<void> {
+    const orm = await createDatabaseClient()
     const reportEntity = new ReportEntity<Result>(report)
 
     return orm.em.persistAndFlush(reportEntity)
