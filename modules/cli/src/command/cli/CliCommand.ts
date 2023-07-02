@@ -1,10 +1,16 @@
-import type { Config, ModuleListenerInterface } from "@fabernovel/heart-common"
+import {
+  isModuleListenerDatabase,
+  type Config,
+  type ModuleListenerDatabaseInterface,
+  type ModuleListenerInterface,
+} from "@fabernovel/heart-common"
 import type { FastifyCorsOptions } from "@fastify/cors"
 import { Command } from "commander"
 import { readFileSync } from "node:fs"
 import { argv } from "node:process"
 import type { PackageJson } from "type-fest"
 import { loadEnvironmentVariables, loadModules } from "../../module/ModuleLoader.js"
+import { migrateListenerDatabase } from "../../module/ModuleMigration.js"
 import { notifyListenerModules, startAnalysis, startServer } from "../../module/ModuleOrchestrator.js"
 import { createAnalysisSubcommand } from "../analysis/AnalysisCommand.js"
 import { createServerSubcommand } from "../server/ServerCommand.js"
@@ -33,6 +39,14 @@ export async function start(): Promise<Command> {
   const cmd = createCommand()
   const [analysisModulesMap, listenerModulesMap, serverModulesMap] = await loadModules()
   const listenerModules = Array.from(listenerModulesMap.values()).map((listenerModule) => listenerModule)
+  const listenerDatabaseModules = listenerModules.filter((m): m is ModuleListenerDatabaseInterface =>
+    isModuleListenerDatabase(m)
+  )
+
+  // run database migrations for Listener database modules
+  if (listenerDatabaseModules.length > 0) {
+    await migrateListenerDatabase(listenerDatabaseModules)
+  }
 
   // analysis modules: create a command for each of them
   analysisModulesMap.forEach((analysisModule, modulePath) => {

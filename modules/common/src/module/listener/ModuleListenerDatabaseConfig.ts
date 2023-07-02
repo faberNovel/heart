@@ -13,8 +13,7 @@ export function createDatabaseConfig<D extends IDatabaseDriver>(options: Options
       entities: [ReportEntity, ServiceEntity],
       metadataProvider: TsMorphMetadataProvider,
       migrations: {
-        path: "lib/migrations",
-        pathTs: "src/migrations",
+        snapshot: false,
       },
     },
   }

@@ -36,6 +36,5 @@ export class ReportEntity<Result> {
     this.normalizedGrade = report.normalizedGrade
     this.result = report.result
     this.resultUrl = report.resultUrl
-    this.service = new ServiceEntity(report.service)
   }
 }

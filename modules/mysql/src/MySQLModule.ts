@@ -1,27 +1,40 @@
 import {
   Module,
-  ReportEntity,
   type GenericReport,
   type ModuleListenerDatabaseInterface,
   type Result,
+  type ModuleInterface,
 } from "@fabernovel/heart-common"
-import { MikroORM } from "@mikro-orm/core"
-import { type MySqlDriver } from "@mikro-orm/mysql"
-import databaseConfig from "./config/mikro-orm.config.js"
-
-function createDatabaseClient(): Promise<MikroORM> {
-  return MikroORM.init<MySqlDriver>(databaseConfig)
-}
+import { MySQLClient } from "./client/Client.js"
 
 export class MySQLModule extends Module implements ModuleListenerDatabaseInterface {
-  public getDatabaseClient(): Promise<MikroORM> {
-    return createDatabaseClient()
+  #client: MySQLClient
+
+  constructor(module: Pick<ModuleInterface, "name" | "service">) {
+    super(module)
+    this.#client = new MySQLClient()
+  }
+
+  public async hasPendingMigrations(): Promise<boolean> {
+    const migrator = await this.#client.getMigrator()
+
+    const migrations = await migrator.getPendingMigrations()
+
+    return migrations.length > 0
+  }
+
+  public async runPendingMigrations(): Promise<void> {
+    const migrator = await this.#client.getMigrator()
+
+    await migrator.up()
   }
 
   public async notifyAnalysisDone(report: GenericReport<Result>): Promise<void> {
-    const orm = await createDatabaseClient()
-    const reportEntity = new ReportEntity<Result>(report)
-
-    return orm.em.persistAndFlush(reportEntity)
+    try {
+      await this.#client.save(report)
+    } catch (error) {
+      console.error(error)
+      return Promise.reject(error)
+    }
   }
 }
