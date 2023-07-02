@@ -1,8 +1,8 @@
-import { MysqlModule } from "./MysqlModule.js"
+import { MySQLModule } from "./MySQLModule.js"
 
-export default new MysqlModule({
-  name: "Heart Mysql",
+export default new MySQLModule({
+  name: "Heart MySQL",
   service: {
-    name: "Mysql",
+    name: "MySQL",
   },
 })

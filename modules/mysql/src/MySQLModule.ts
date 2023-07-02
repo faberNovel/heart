@@ -13,7 +13,7 @@ function createDatabaseClient(): Promise<MikroORM> {
   return MikroORM.init<MySqlDriver>(databaseConfig)
 }
 
-export class MysqlModule extends Module implements ModuleListenerDatabaseInterface {
+export class MySQLModule extends Module implements ModuleListenerDatabaseInterface {
   public getDatabaseClient(): Promise<MikroORM> {
     return createDatabaseClient()
   }
