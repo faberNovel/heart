@@ -1,0 +1,10 @@
+{
+  "changes": [
+    {
+      "packageName": "@fabernovel/heart-slack",
+      "comment": "Update the module description",
+      "type": "none"
+    }
+  ],
+  "packageName": "@fabernovel/heart-slack"
+}

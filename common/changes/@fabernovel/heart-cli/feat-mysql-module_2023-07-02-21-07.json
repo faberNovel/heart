@@ -1,0 +1,10 @@
+{
+  "changes": [
+    {
+      "packageName": "@fabernovel/heart-cli",
+      "comment": "Add the ability to migrate databases from the new database listener modules",
+      "type": "none"
+    }
+  ],
+  "packageName": "@fabernovel/heart-cli"
+}

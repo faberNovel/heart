@@ -1,0 +1,10 @@
+{
+  "changes": [
+    {
+      "packageName": "@fabernovel/heart-common",
+      "comment": "Add the new database listener module definition and database entities",
+      "type": "none"
+    }
+  ],
+  "packageName": "@fabernovel/heart-common"
+}
