@@ -1,10 +1,10 @@
 import { createDatabaseConfig } from "@fabernovel/heart-common"
-import { defineConfig } from "@mikro-orm/mysql"
+import { MySqlDriver, defineConfig } from "@mikro-orm/mysql"
 import { env } from "node:process"
 import { Migration20230702150637 } from "../migrations/Migration20230702150637.js"
 
 export default defineConfig(
-  createDatabaseConfig({
+  createDatabaseConfig<MySqlDriver>({
     clientUrl: env.HEART_MYSQL_DATABASE_URL as string,
     migrations: {
       migrationsList: [

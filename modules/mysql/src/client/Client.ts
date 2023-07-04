@@ -8,7 +8,7 @@ export class MySQLClient {
   #orm: MikroORM<MySqlDriver> | undefined
 
   public async getMigrator(): Promise<IMigrator> {
-    const orm = await this.getOrCreateDatabaseClient()
+    const orm = await this.getOrCreateOrm()
 
     return orm.getMigrator()
   }
@@ -20,7 +20,7 @@ export class MySQLClient {
     const reportEntity = await this.createReportEntity(report)
 
     const em = await this.getOrCreateEntityManager()
-    const orm = await this.getOrCreateDatabaseClient()
+    const orm = await this.getOrCreateOrm()
 
     await em.persistAndFlush(reportEntity)
 
@@ -40,7 +40,7 @@ export class MySQLClient {
    * Get or create the ORM: avoid the opening of several DB connection at the same or in a very short interval of time.
    * As Heart is a CLI tool, having the DB connection opened during a single analysis that longs a couple of minutes is acceptable.
    */
-  private async getOrCreateDatabaseClient(): Promise<MikroORM<MySqlDriver>> {
+  private async getOrCreateOrm(): Promise<MikroORM<MySqlDriver>> {
     if (this.#orm === undefined) {
       this.#orm = await MikroORM.init<MySqlDriver>(databaseConfig)
     }
@@ -53,7 +53,7 @@ export class MySQLClient {
    * @link https://mikro-orm.io/docs/identity-map
    */
   private async getOrCreateEntityManager(): Promise<SqlEntityManager> {
-    const orm = await this.getOrCreateDatabaseClient()
+    const orm = await this.getOrCreateOrm()
 
     if (this.#em === undefined) {
       this.#em = orm.em.fork()

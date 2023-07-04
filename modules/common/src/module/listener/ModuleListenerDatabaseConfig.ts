@@ -6,15 +6,13 @@ import { ServiceEntity } from "../../entities/ServiceEntity.js"
 const DB_NAME = "heart"
 
 export function createDatabaseConfig<D extends IDatabaseDriver>(options: Options<D>): Options<D> {
-  return {
-    ...options,
-    ...{
-      dbName: DB_NAME,
-      entities: [ReportEntity, ServiceEntity],
-      metadataProvider: TsMorphMetadataProvider,
-      migrations: {
-        snapshot: false,
-      },
-    },
+  options.dbName = DB_NAME
+  options.entities = [ReportEntity, ServiceEntity]
+  options.metadataProvider = TsMorphMetadataProvider
+
+  if (options.migrations) {
+    options.migrations.snapshot = false
   }
+
+  return options
 }
