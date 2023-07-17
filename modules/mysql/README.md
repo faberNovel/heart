@@ -1,6 +1,6 @@
 # Heart MySQL
 
-_Heart MySQL_ is a _listener_ module of _Heart_, which reacts to the end of an analysis by storing the results of an analysis in a MySQL database of your choice.
+_Heart MySQL_ is a _listener_ module of _Heart_, which reacts to the end of an analysis and stores the results of an analysis in a MySQL database.
 
 Note that you must install an _analysis_ module too, to have a minimum viable installation of _Heart_.
 
@@ -13,7 +13,7 @@ Read more about [the description and design of _Heart_](https://github.com/faber
 1. Install the package, _[Heart CLI](https://www.npmjs.com/package/@fabernovel/heart-cli)_ and an _analysis_ module, for example _[Heart GreenIT](https://www.npmjs.com/package/@fabernovel/heart-greenit)_
 
     ```bash
-    npm install @fabernovel/heart-cli @fabernovel/heart-greenit @fabernovel/heart-slack
+    npm install @fabernovel/heart-cli @fabernovel/heart-greenit @fabernovel/heart-mysql
     ```
 
 2. In the project root folder, create a `.env` file with the database connection information set as a URL
@@ -34,7 +34,7 @@ Read more about [the description and design of _Heart_](https://github.com/faber
     npx heart greenit --file configuration.json
     ```
 
-    Once the analysis is done, the results are stored in your _MySQL_ database, mainly in the `report` table.
+    Once the analysis is done, the results are stored in your _MySQL_ database.
 
 ## Github Action
 
