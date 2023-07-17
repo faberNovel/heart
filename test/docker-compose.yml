@@ -1,0 +1,11 @@
+services:
+  mysql:
+    container_name: heart_mysql
+    image: mysql:5.7
+    ports:
+      - 3306:3306
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: heart
+      MYSQL_USER: heart
+      MYSQL_PASSWORD: heart

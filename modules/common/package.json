@@ -32,6 +32,8 @@
     "test": "NODE_OPTIONS='--experimental-vm-modules' jest"
   },
   "dependencies": {
+    "@mikro-orm/core": "^5.7.13",
+    "@mikro-orm/reflection": "^5.7.13",
     "ajv": "^8.12.0",
     "ajv-errors": "^3.0.0",
     "node-fetch": "^3.3.0"
@@ -41,7 +43,7 @@
     "@jest/globals": "^29.6.1",
     "@types/har-format": "^1.2.10",
     "@types/jest": "^29.5.3",
-    "@types/node": "^18.15.10",
+    "@types/node": "^18.16.19",
     "@typescript-eslint/eslint-plugin": "^5.57.0",
     "@typescript-eslint/parser": "^5.57.0",
     "eslint": "^8.36.0",

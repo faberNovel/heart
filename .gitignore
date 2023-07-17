@@ -30,3 +30,7 @@ common/autoinstallers/*/.npmrc
 
 # Visual Studio Code
 .vscode
+
+# MikroORM temporary directory
+modules/*/temp
+test/temp

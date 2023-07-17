@@ -6,7 +6,6 @@ Note that you must install an _analysis_ module too, to have a minimum viable in
 
 Read more about [the description and design of _Heart_](https://github.com/faberNovel/heart#readme).
 
-
 # Usage
 
 ## Standalone

@@ -1,8 +1,8 @@
 import type { FastifyCorsOptions } from "@fastify/cors"
 import type { FastifyInstance } from "fastify"
-import type { Config, GenericReport, ModuleListenerInterface, Result } from "../index.js"
-import type { ModuleAnalysisInterface } from "./ModuleAnalysisInterface.js"
-import type { ModuleInterface } from "./ModuleInterface.js"
+import type { Config, GenericReport, ModuleListenerInterface, Result } from "../../index.js"
+import type { ModuleInterface } from "../ModuleInterface.js"
+import type { ModuleAnalysisInterface } from "../analysis/ModuleAnalysisInterface.js"
 
 /**
  * Define a Server module.

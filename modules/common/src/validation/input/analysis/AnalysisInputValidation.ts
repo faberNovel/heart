@@ -1,6 +1,6 @@
 import type { SchemaObject } from "ajv"
 import type { ValidatedAnalysisInput } from "../../../index.js"
-import type { ModuleListenerInterface } from "../../../module/ModuleListenerInterface.js"
+import type { ModuleListenerInterface } from "../../../module/listener/ModuleListenerInterface.js"
 import { validateInput } from "../InputValidation.js"
 import configSchema from "./schema/config.json" assert { type: "json" }
 import thresholdSchema from "./schema/threshold.json" assert { type: "json" }
