@@ -146,7 +146,9 @@ async function getPaths(debug = false): Promise<string[]> {
   const paths = modulesNames.map((moduleName: string) => `${ROOT_PATH}/node_modules/${moduleName}/`)
 
   if (debug) {
-    paths.forEach((path: string) => console.log(`Looking for a module in ${path}`))
+    paths.forEach((path: string) => {
+      console.log(`Looking for a module in ${path}`)
+    })
   }
 
   return paths

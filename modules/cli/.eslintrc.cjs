@@ -2,7 +2,7 @@ module.exports = {
   parser: "@typescript-eslint/parser",
   parserOptions: {
     tsconfigRootDir: __dirname,
-    project: ["./tsconfig.json"],
+    project: true,
   },
   ignorePatterns: ["bin/"],
   plugins: ["@typescript-eslint"],
@@ -11,17 +11,7 @@ module.exports = {
      * @see {@link https://eslint.org/docs/latest/rules/ }
      */
     "eslint:recommended",
-    /**
-     * @see {@link https://typescript-eslint.io/rules/ }
-     */
-    "plugin:@typescript-eslint/recommended",
-    /**
-     * @see {@link https://typescript-eslint.io/docs/linting/typed-linting/ }
-     */
-    "plugin:@typescript-eslint/recommended-requiring-type-checking",
-    /**
-     * @see {@link https://typescript-eslint.io/linting/configs/#strict }
-     */
-    "plugin:@typescript-eslint/strict",
+    "plugin:@typescript-eslint/strict-type-checked",
+    "plugin:@typescript-eslint/stylistic-type-checked",
   ],
 }

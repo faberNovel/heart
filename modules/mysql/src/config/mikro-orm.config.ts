@@ -5,7 +5,7 @@ import { Migration20230702150637 } from "../migrations/Migration20230702150637.j
 
 export default defineConfig(
   createDatabaseConfig<MySqlDriver>({
-    clientUrl: env.HEART_MYSQL_DATABASE_URL as string,
+    clientUrl: env.HEART_MYSQL_DATABASE_URL ?? "",
     migrations: {
       migrationsList: [
         {

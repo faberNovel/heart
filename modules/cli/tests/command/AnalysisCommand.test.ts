@@ -29,7 +29,10 @@ test("Create an analysis command", () => {
     service: {
       name: "Test Analysis Tool",
     },
-    startAnalysis: () => new Promise((resolve) => resolve(report)),
+    startAnalysis: () =>
+      new Promise((resolve) => {
+        resolve(report)
+      }),
   }
 
   const listenerModules: ModuleListenerInterface[] = []
