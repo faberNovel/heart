@@ -24,7 +24,10 @@ test("Displays the results of an analysis", async () => {
     service: {
       name: "Test Analysis Tool",
     },
-    startAnalysis: () => new Promise((resolve) => resolve(report)),
+    startAnalysis: () =>
+      new Promise((resolve) => {
+        resolve(report)
+      }),
   }
 
   const startAnalysisMock = jest.spyOn(module, "startAnalysis")

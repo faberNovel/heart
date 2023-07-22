@@ -23,7 +23,7 @@ export class LighthouseModule
 
   #handleResult(config: Config, result: LighthouseReport["result"]): LighthouseReport {
     return new LighthouseReport({
-      analyzedUrl: result.requestedUrl as string,
+      analyzedUrl: result.requestedUrl ?? "",
       date: new Date(result.fetchTime),
       result: result,
       service: this.service,

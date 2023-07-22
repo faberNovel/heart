@@ -17,7 +17,7 @@ const FILENAME = `${ENVIRONMENT_VARIABLE_NAME.toLocaleLowerCase()}.json`
  */
 export function prepareAuthentication(): void {
   try {
-    writeFileSync(FILENAME, env[ENVIRONMENT_VARIABLE_NAME] as string)
+    writeFileSync(FILENAME, env[ENVIRONMENT_VARIABLE_NAME] ?? "")
 
     env.GOOGLE_APPLICATION_CREDENTIALS = `${process.cwd()}/${FILENAME}`
   } catch (error) {

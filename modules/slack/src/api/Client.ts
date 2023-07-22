@@ -13,7 +13,7 @@ export class Client {
   #client: WebClient
 
   constructor() {
-    this.#channel = env.HEART_SLACK_CHANNEL_ID as string
+    this.#channel = env.HEART_SLACK_CHANNEL_ID ?? ""
     this.#client = new WebClient(env.HEART_SLACK_API_TOKEN)
   }
 

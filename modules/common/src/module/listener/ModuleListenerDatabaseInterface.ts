@@ -21,9 +21,10 @@ export type ModuleListenerDatabase = new () => ModuleListenerDatabaseInterface
 export function isModuleListenerDatabase(
   module: ModuleListenerInterface
 ): module is ModuleListenerDatabaseInterface {
-  // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
   return (
+    // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
     (module as ModuleListenerDatabaseInterface).hasPendingMigrations !== undefined &&
+    // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
     (module as ModuleListenerDatabaseInterface).runPendingMigrations !== undefined
   )
 }

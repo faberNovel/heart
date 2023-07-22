@@ -29,7 +29,7 @@ function computeCategories(categories: Record<string, Result.Category>): number 
   }
 
   const sumScores = categoriesNameWithScore.reduce(
-    (acc, categoryName) => acc + (categories[categoryName].score as number),
+    (acc, categoryName) => acc + (categories[categoryName].score ?? 0),
     0
   )
 

@@ -61,8 +61,8 @@ const createBlocks = (
       elements.push({
         type: "mrkdwn",
         text: report.isThresholdReached()
-          ? `:white_check_mark: Threshold (${report.inputs.threshold as number}) reached`
-          : `:warning: Threshold (${report.inputs.threshold as number}) not reached`,
+          ? `:white_check_mark: Threshold (${report.inputs.threshold ?? 0}) reached`
+          : `:warning: Threshold (${report.inputs.threshold ?? 0}) not reached`,
       })
     }
 
