@@ -118,7 +118,7 @@ async function getPaths(debug = false): Promise<string[]> {
     }
 
     return Promise.reject(error)
-  })) as ModuleIndex<PackageJson>
+  })) as { default: PackageJson }
   const packageJson = moduleIndex.default
 
   // list the modules according to the given pattern
@@ -173,15 +173,15 @@ async function loadModulesFromPaths(modulesPaths: string[], debug = false): Prom
 
       const moduleIndex = (await import(`${modulePath}package.json`, {
         assert: { type: "json" },
-      })) as ModuleIndex<
-        Omit<PackageJson, "name" | "main"> & {
+      })) as {
+        default: Omit<PackageJson, "name" | "main"> & {
           name: NonNullable<PackageJson["name"]>
           main: NonNullable<PackageJson["main"]>
         }
-      >
+      }
       const packageJson = moduleIndex.default
-      const pkg = (await import(modulePath + packageJson.main)) as ModuleIndex<ModuleInterface>
-      const module = pkg.default
+      const { initialize }: ModuleIndex = await import(modulePath + packageJson.main)
+      const module = initialize()
 
       // only keep the modules that are compatible
       if (isModuleAnalysis(module) || isModuleListener(module) || isModuleServer(module)) {
