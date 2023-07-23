@@ -14,11 +14,7 @@ void (async () => {
   try {
     await start()
   } catch (error) {
-    if (typeof error === "string") {
-      logger.error(error)
-    } else if (error instanceof Error) {
-      logger.error(error.message)
-    }
+    logger.error(error)
 
     exit(1)
   }

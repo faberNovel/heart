@@ -48,7 +48,7 @@ export async function start(): Promise<Command> {
     await migrateListenerDatabase(listenerDatabaseModules)
   }
 
-  // analysis modules: create a command for each of them
+  // create and add 1 command for each analysis module
   analysisModulesMap.forEach((analysisModule, modulePath) => {
     const callback = async <C extends Config>(
       config: C,
@@ -68,7 +68,7 @@ export async function start(): Promise<Command> {
     cmd.addCommand(analysisCommand)
   })
 
-  // server modules: create a command for each of them
+  // create and add 1 command for each server module
   serverModulesMap.forEach((serverModule, modulePath: string) => {
     const callback = async (port: number, cors: FastifyCorsOptions | undefined) => {
       // load environment variables for the server module

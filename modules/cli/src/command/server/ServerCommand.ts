@@ -38,6 +38,8 @@ export const createServerSubcommand = (
         if (error instanceof InputError) {
           const e = new InvalidArgumentError(error.message)
           return Promise.reject(e)
+        } else {
+          return Promise.reject(error)
         }
       }
     })

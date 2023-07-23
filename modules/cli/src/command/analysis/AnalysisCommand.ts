@@ -70,6 +70,8 @@ export const createAnalysisSubcommand = <C extends Config, R extends GenericRepo
         if (error instanceof InputError) {
           const e = new InvalidArgumentError(error.cause[0].message ?? error.message)
           return Promise.reject(e)
+        } else {
+          return Promise.reject(error)
         }
       }
     })
