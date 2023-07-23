@@ -80,6 +80,6 @@ export async function startServer(
     console.info(`Server listening on port ${port}`)
   } catch (err) {
     fastifyInstance.log.error(err)
-    process.exit(1)
+    throw err
   }
 }
