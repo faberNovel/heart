@@ -60,5 +60,14 @@
   },
   "engines": {
     "node": ">=18 <21"
+  },
+  "heart": {
+    "id": "greenit",
+    "name": "Heart GreenIT",
+    "type": "analysis",
+    "service": {
+      "name": "GreenIT Analysis",
+      "logoUrl": "https://raw.githubusercontent.com/faberNovel/heart/main/assets/images/logos/GreenIT.png?v=20221214"
+    }
   }
 }

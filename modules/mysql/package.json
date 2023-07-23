@@ -58,6 +58,14 @@
   "engines": {
     "node": ">=18 <21"
   },
+  "heart": {
+    "id": "mysql",
+    "name": "Heart MySQL",
+    "type": "listener",
+    "service": {
+      "name": "MySQL"
+    }
+  },
   "mikro-orm": {
     "useTsNode": true,
     "configPaths": [

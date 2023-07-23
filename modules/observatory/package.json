@@ -52,5 +52,14 @@
   },
   "engines": {
     "node": ">=18 <21"
+  },
+  "heart": {
+    "id": "observatory",
+    "name": "Heart Observatory",
+    "type": "analysis",
+    "service": {
+      "name": "Mozilla Observatory",
+      "logoUrl": "https://raw.githubusercontent.com/faberNovel/heart/main/assets/images/logos/Observatory.png?v=20221126"
+    }
   }
 }

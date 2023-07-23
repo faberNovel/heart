@@ -56,5 +56,13 @@
   },
   "engines": {
     "node": ">=18 <21"
+  },
+  "heart": {
+    "id": "api",
+    "name": "Heart API",
+    "type": "server",
+    "service": {
+      "name": "Heart API"
+    }
   }
 }
