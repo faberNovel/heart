@@ -2,6 +2,7 @@ import {
   isModuleAnalysis,
   isModuleListener,
   isModuleServer,
+  logger,
   type Config,
   type GenericReport,
   type ModuleAnalysisInterface,
@@ -16,7 +17,6 @@ import { readFileSync } from "node:fs"
 import { cwd, env } from "node:process"
 import type { PackageJson } from "type-fest"
 import { MissingEnvironmentVariables } from "../error/MissingEnvironmentVariables.js"
-import { logger } from "../logger/logger.js"
 
 type LoadedModules = [
   Map<string, ModuleAnalysisInterface<Config, GenericReport<Result>>>,
@@ -115,7 +115,7 @@ async function getPaths(debug = false): Promise<string[]> {
   const packageJsonPath = `${ROOT_PATH}/package.json`
   const moduleIndex = (await import(packageJsonPath, { assert: { type: "json" } }).catch((error) => {
     if (debug) {
-      console.error(`package.json not found in ${ROOT_PATH}`)
+      logger.error(`package.json not found in ${ROOT_PATH}`)
     }
 
     return Promise.reject(error)
@@ -148,7 +148,7 @@ async function getPaths(debug = false): Promise<string[]> {
 
   if (debug) {
     paths.forEach((path: string) => {
-      console.log(`Looking for a module in ${path}`)
+      logger.info(`Looking for a module in ${path}`)
     })
   }
 
@@ -169,7 +169,7 @@ async function loadModulesFromPaths(modulesPaths: string[], debug = false): Prom
     // @see {@link https://docs.npmjs.com/files/package.json#main}
     try {
       if (debug) {
-        console.log("Loading module %s...", modulePath)
+        logger.info("Loading module %s...", modulePath)
       }
 
       const moduleIndex = (await import(`${modulePath}package.json`, {
@@ -182,7 +182,7 @@ async function loadModulesFromPaths(modulesPaths: string[], debug = false): Prom
       }
       const packageJson = moduleIndex.default
       const { initialize } = (await import(modulePath + packageJson.main)) as ModuleIndex
-      const module = initialize(logger)
+      const module = initialize()
 
       // only keep the modules that are compatible
       if (isModuleAnalysis(module) || isModuleListener(module) || isModuleServer(module)) {
@@ -190,7 +190,7 @@ async function loadModulesFromPaths(modulesPaths: string[], debug = false): Prom
         const matches = new RegExp(`^${PACKAGE_PREFIX}(.+)$`).exec(packageJson.name)
 
         if (null === matches) {
-          console.error(
+          logger.error(
             `${packageJson.name} module not loaded because the name does not start with ${PACKAGE_PREFIX}.`
           )
         } else {
@@ -199,7 +199,7 @@ async function loadModulesFromPaths(modulesPaths: string[], debug = false): Prom
         }
       }
     } catch (error) {
-      console.error(error)
+      logger.error(error)
     }
   }
 

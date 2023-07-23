@@ -4,6 +4,7 @@ import {
   type ModuleListenerDatabaseInterface,
   type Result,
   type ModuleInterface,
+  logger,
 } from "@fabernovel/heart-common"
 import { MySQLClient } from "./client/Client.js"
 
@@ -33,7 +34,7 @@ export class MySQLModule extends Module implements ModuleListenerDatabaseInterfa
     try {
       await this.#client.save(report)
     } catch (error) {
-      console.error(error)
+      logger.error(error)
       return Promise.reject(error)
     }
   }

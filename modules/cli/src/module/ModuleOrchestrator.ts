@@ -1,10 +1,11 @@
-import type {
-  Config,
-  GenericReport,
-  ModuleAnalysisInterface,
-  ModuleListenerInterface,
-  ModuleServerInterface,
-  Result,
+import {
+  logger,
+  type Config,
+  type GenericReport,
+  type ModuleAnalysisInterface,
+  type ModuleListenerInterface,
+  type ModuleServerInterface,
+  type Result,
 } from "@fabernovel/heart-common"
 import type { FastifyCorsOptions } from "@fastify/cors"
 import ora from "ora"
@@ -77,7 +78,7 @@ export async function startServer(
 
   try {
     await fastifyInstance.listen({ port: port })
-    console.log(`Server listening on port ${port}`)
+    logger.info(`Server listening on port ${port}`)
   } catch (err) {
     fastifyInstance.log.error(err)
     process.exit(1)

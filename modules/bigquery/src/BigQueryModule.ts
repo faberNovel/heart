@@ -1,6 +1,7 @@
 import {
-  type GenericReport,
   Module,
+  logger,
+  type GenericReport,
   type ModuleListenerInterface,
   type Result,
 } from "@fabernovel/heart-common"
@@ -19,10 +20,10 @@ export class BigQueryModule extends Module implements ModuleListenerInterface {
     } catch (error) {
       if (error instanceof PartialFailureError) {
         error.errors?.forEach((error) => {
-          console.error(error)
+          logger.error(error)
         })
       } else {
-        console.error(error)
+        logger.error(error)
       }
 
       return Promise.reject()

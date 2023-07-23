@@ -4,6 +4,7 @@ import { InputError } from "./error/InputError.js"
 import { get, post } from "./http/Request.js"
 import type { ParsedAnalysisInput, ValidatedAnalysisInput } from "./input/AnalysisInput.js"
 import type { ParsedServerInput } from "./input/ServerInput.js"
+import { logger } from "./logger/logger.js"
 import { Module } from "./module/Module.js"
 import type { ModuleIndex } from "./module/ModuleIndex.js"
 import type { ModuleInterface } from "./module/ModuleInterface.js"
@@ -77,6 +78,9 @@ export {
 
   // Errors
   InputError,
+
+  // Logger
+  logger,
 
   // Modules
   Helper,

@@ -1,6 +1,7 @@
 import dotenv from "dotenv"
 import { cwd, exit } from "node:process"
 import { start } from "./command/cli/CliCommand.js"
+import { logger } from "@fabernovel/heart-common"
 
 /**
  * Loads `.env` file contents into process.env.
@@ -14,9 +15,9 @@ void (async () => {
     await start()
   } catch (error) {
     if (typeof error === "string") {
-      console.error(error)
+      logger.error(error)
     } else if (error instanceof Error) {
-      console.error(error.message)
+      logger.error(error.message)
     }
 
     exit(1)

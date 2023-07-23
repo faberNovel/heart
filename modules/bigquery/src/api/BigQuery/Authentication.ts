@@ -1,3 +1,4 @@
+import { logger } from "@fabernovel/heart-common"
 import { writeFileSync } from "fs"
 import { env } from "node:process"
 
@@ -21,7 +22,7 @@ export function prepareAuthentication(): void {
 
     env.GOOGLE_APPLICATION_CREDENTIALS = `${process.cwd()}/${FILENAME}`
   } catch (error) {
-    console.error(error)
+    logger.error(error)
     process.exit(1)
   }
 }

@@ -36,7 +36,8 @@
     "@mikro-orm/reflection": "^5.7.13",
     "ajv": "^8.12.0",
     "ajv-errors": "^3.0.0",
-    "node-fetch": "^3.3.1"
+    "node-fetch": "^3.3.1",
+    "winston": "^3.10.0"
   },
   "devDependencies": {
     "@fastify/cors": "^8.3.0",
@@ -53,8 +54,7 @@
     "rimraf": "^5.0.1",
     "ts-jest": "^29.1.1",
     "type-fest": "^4.0.0",
-    "typescript": "^5.1.6",
-    "winston": "^3.10.0"
+    "typescript": "^5.1.6"
   },
   "engines": {
     "node": ">=18 <21"
