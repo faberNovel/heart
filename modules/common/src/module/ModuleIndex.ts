@@ -1,5 +1,6 @@
+import winston from "winston"
 import type { ModuleInterface } from "./ModuleInterface.js"
 
 export interface ModuleIndex {
-  initialize: () => ModuleInterface
+  initialize: (logger: winston.Logger) => ModuleInterface
 }

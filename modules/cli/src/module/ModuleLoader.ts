@@ -1,9 +1,9 @@
 import {
-  type Config,
-  type GenericReport,
   isModuleAnalysis,
   isModuleListener,
   isModuleServer,
+  type Config,
+  type GenericReport,
   type ModuleAnalysisInterface,
   type ModuleIndex,
   type ModuleInterface,
@@ -16,6 +16,7 @@ import { readFileSync } from "node:fs"
 import { cwd, env } from "node:process"
 import type { PackageJson } from "type-fest"
 import { MissingEnvironmentVariables } from "../error/MissingEnvironmentVariables.js"
+import { logger } from "../logger/logger.js"
 
 type LoadedModules = [
   Map<string, ModuleAnalysisInterface<Config, GenericReport<Result>>>,
@@ -180,8 +181,8 @@ async function loadModulesFromPaths(modulesPaths: string[], debug = false): Prom
         }
       }
       const packageJson = moduleIndex.default
-      const { initialize }: ModuleIndex = await import(modulePath + packageJson.main)
-      const module = initialize()
+      const { initialize } = (await import(modulePath + packageJson.main)) as ModuleIndex
+      const module = initialize(logger)
 
       // only keep the modules that are compatible
       if (isModuleAnalysis(module) || isModuleListener(module) || isModuleServer(module)) {
