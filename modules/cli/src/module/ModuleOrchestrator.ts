@@ -1,5 +1,4 @@
 import {
-  logger,
   type Config,
   type GenericReport,
   type ModuleAnalysisInterface,
@@ -78,7 +77,7 @@ export async function startServer(
 
   try {
     await fastifyInstance.listen({ port: port })
-    logger.info(`Server listening on port ${port}`)
+    console.info(`Server listening on port ${port}`)
   } catch (err) {
     fastifyInstance.log.error(err)
     process.exit(1)

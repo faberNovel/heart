@@ -1,8 +1,8 @@
 import type { Result } from "lighthouse"
+import { logger, type ValidatedAnalysisInput } from "../../index.js"
 import type { Service } from "../../service/Service.js"
 import type { GenericReport, ReportArguments } from "../Report.js"
 import type { LighthouseResult } from "./LighthouseResult.js"
-import type { ValidatedAnalysisInput } from "../../index.js"
 
 const compute = (categories: Record<string, Result.Category>, fractionDigits?: number): number => {
   const avgScore = computeCategories(categories)
@@ -23,7 +23,7 @@ function computeCategories(categories: Record<string, Result.Category>): number 
   )
 
   if (categoriesName.length > categoriesNameWithScore.length) {
-    console.warn(
+    logger.warn(
       `Some Lighthouse categories does not have a score. Consequently, they will not be taken into account for the computation of the average score.`
     )
   }

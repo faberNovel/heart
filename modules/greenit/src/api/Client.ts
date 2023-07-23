@@ -33,7 +33,7 @@ export async function requestResult(config: GreenITConfig): Promise<GreenITRepor
   const reports = new Array<Report>()
 
   // As the createJsonReports use console.* functions to display progress info and errors and do not send back these information,
-  // we need to disable the console.* functions during this operation to properly handle the output
+  // so we need to disable the console.* functions during this operation to handle the output ourselves.
   const consoleLog = console.log
   const consoleError = console.error
 
