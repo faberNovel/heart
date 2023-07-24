@@ -6,6 +6,7 @@ import { createServerSubcommand } from "../../src/command/server/ServerCommand.j
 test("Create a server command", () => {
   const module: ModuleServerInterface = {
     id: "test-server",
+    type: "server",
     name: "Heart Test Server",
     service: {
       name: "Test Server",

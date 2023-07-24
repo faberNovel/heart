@@ -1,62 +1,47 @@
-import {
-  isModuleAnalysis,
-  isModuleListener,
-  isModuleServer,
-  logger,
-  type Config,
-  type GenericReport,
-  type ModuleAnalysisInterface,
-  type ModuleIndex,
-  type ModuleInterface,
-  type ModuleListenerInterface,
-  type ModuleServerInterface,
-  type Result,
-} from "@fabernovel/heart-common"
+import type { ModuleIndex, ModuleMetadata } from "@fabernovel/heart-common"
 import dotenv from "dotenv"
 import { readFileSync } from "node:fs"
-import { cwd, env } from "node:process"
+import { env } from "node:process"
 import type { PackageJson } from "type-fest"
 import { MissingEnvironmentVariables } from "../error/MissingEnvironmentVariables.js"
+import type { PackageJsonModule } from "./PackageJson.js"
 
-type LoadedModules = [
-  Map<string, ModuleAnalysisInterface<Config, GenericReport<Result>>>,
-  Map<string, ModuleListenerInterface>,
-  Map<string, ModuleServerInterface>
+type ModulesMetadata = [
+  Map<string, PackageJsonModule>,
+  Map<string, PackageJsonModule>,
+  Map<string, PackageJsonModule>
 ]
 
 // file that contains the list of required environment variables
 const PACKAGE_PREFIX = "@fabernovel/heart-"
 const ENVIRONMENT_VARIABLE_TEMPLATE = ".env.tpl"
-// assume that the root path is the one from where the script has been called
-// /!\ this approach does not follow symlink
-const ROOT_PATH = cwd()
 
 /**
- * Load the installed modules:
+ * Load the installed modules metadata:
  * 1. get the absolute paths of the installed Heart modules
- * 2. loads the modules
+ * 2. loads the package.json file
  */
-export async function loadModules(debug = false): Promise<LoadedModules> {
+export async function loadModulesMetadata(cwd: string): Promise<ModulesMetadata> {
   try {
-    const modulesPaths = await getPaths(debug)
+    const modulesPaths = await getPaths(cwd)
 
-    const modules = await loadModulesFromPaths(modulesPaths, debug)
+    const modulesMetadata = await loadModulesMetadataFromPath(modulesPaths)
 
-    const analysisModulesMap = new Map<string, ModuleAnalysisInterface<Config, GenericReport<Result>>>()
-    const listenerModulesMap = new Map<string, ModuleListenerInterface>()
-    const serverModulesMap = new Map<string, ModuleServerInterface>()
+    const analysisModulesMap = new Map<string, PackageJsonModule>()
+    const listenerModulesMap = new Map<string, PackageJsonModule>()
+    const serverModulesMap = new Map<string, PackageJsonModule>()
 
     // as modulesPaths and modules are ordered identically,
     // we could use the index to construct the Map objects
     modulesPaths.forEach((modulePath, index) => {
-      const module = modules[index]
+      const moduleMetadata = modulesMetadata[index]
 
-      if (isModuleAnalysis(module)) {
-        analysisModulesMap.set(modulePath, module)
-      } else if (isModuleListener(module)) {
-        listenerModulesMap.set(modulePath, module)
-      } else if (isModuleServer(module)) {
-        serverModulesMap.set(modulePath, module)
+      if (moduleMetadata.type === "analysis") {
+        analysisModulesMap.set(modulePath, moduleMetadata)
+      } else if (moduleMetadata.type === "listener") {
+        listenerModulesMap.set(modulePath, moduleMetadata)
+      } else if (moduleMetadata.type === "server") {
+        serverModulesMap.set(modulePath, moduleMetadata)
       }
     })
 
@@ -105,19 +90,34 @@ export function loadEnvironmentVariables(modulePath: string): void {
   }
 }
 
+export async function initializeModules<M extends ModuleMetadata>(
+  listenerModulesMap: Map<string, PackageJsonModule>
+): Promise<M[]> {
+  const paths = new Array<string>()
+  const metadatas = new Array<ModuleMetadata>()
+
+  listenerModulesMap.forEach((packageJsonModule, modulePath) => {
+    paths.push(modulePath + packageJsonModule.main)
+    metadatas.push(packageJsonModule.heart)
+  })
+
+  const promises = paths.map((path) => import(path) as Promise<ModuleIndex>)
+
+  const moduleIndexes = await Promise.all(promises)
+
+  // as Promise.all() keeps the order, the arrays paths, metadatas, promises and modules have all the exact same indexation
+  return moduleIndexes.map((moduleIndex, i) => moduleIndex.initialize(metadatas[i]) as M)
+}
+
 /**
  * Retrieve the paths of @fabernovel/heart-* modules, except heart-cli and heart-common.
  * (Heart Common must not be installed as an npm package, but who knows ¯\_(ツ)_/¯)
  * paths are guessed according to the content of the package.json
  */
-async function getPaths(debug = false): Promise<string[]> {
+async function getPaths(cwd: string): Promise<string[]> {
   const pattern = new RegExp(`^${PACKAGE_PREFIX}(?!cli|common)`)
-  const packageJsonPath = `${ROOT_PATH}/package.json`
+  const packageJsonPath = `${cwd}/package.json`
   const moduleIndex = (await import(packageJsonPath, { assert: { type: "json" } }).catch((error) => {
-    if (debug) {
-      logger.error(`package.json not found in ${ROOT_PATH}`)
-    }
-
     return Promise.reject(error)
   })) as { default: PackageJson }
   const packageJson = moduleIndex.default
@@ -144,64 +144,22 @@ async function getPaths(debug = false): Promise<string[]> {
   }
 
   // list the absolute path of each modules
-  const paths = modulesNames.map((moduleName: string) => `${ROOT_PATH}/node_modules/${moduleName}/`)
-
-  if (debug) {
-    paths.forEach((path: string) => {
-      logger.info(`Looking for a module in ${path}`)
-    })
-  }
+  const paths = modulesNames.map((moduleName: string) => `${cwd}/node_modules/${moduleName}/`)
 
   return paths
 }
 
 /**
- * Load a list of modules according to their path.
+ * Load the modules metadata (the ones inside the package.json's heart key).
  * Preserve the order in the returned array.
  */
-async function loadModulesFromPaths(modulesPaths: string[], debug = false): Promise<ModuleInterface[]> {
-  const promises = []
-
-  // do not use the .forEach() method here instead of the for() loop,
-  // because the 'await' keyword will not be available.
-  for (const modulePath of modulesPaths) {
-    // read package.json file from the module to look for the module entry point
-    // @see {@link https://docs.npmjs.com/files/package.json#main}
-    try {
-      if (debug) {
-        logger.info("Loading module %s...", modulePath)
-      }
-
-      const moduleIndex = (await import(`${modulePath}package.json`, {
+async function loadModulesMetadataFromPath(modulesPaths: string[]): Promise<PackageJsonModule[]> {
+  const promises = modulesPaths.map(
+    (modulePath) =>
+      import(`${modulePath}package.json`, {
         assert: { type: "json" },
-      })) as {
-        default: Omit<PackageJson, "name" | "main"> & {
-          name: NonNullable<PackageJson["name"]>
-          main: NonNullable<PackageJson["main"]>
-        }
-      }
-      const packageJson = moduleIndex.default
-      const { initialize } = (await import(modulePath + packageJson.main)) as ModuleIndex
-      const module = initialize()
-
-      // only keep the modules that are compatible
-      if (isModuleAnalysis(module) || isModuleListener(module) || isModuleServer(module)) {
-        // guess the module id from the package name: take the string after the characters "@fabernovel/heart-"
-        const matches = new RegExp(`^${PACKAGE_PREFIX}(.+)$`).exec(packageJson.name)
-
-        if (null === matches) {
-          logger.error(
-            `${packageJson.name} module not loaded because the name does not start with ${PACKAGE_PREFIX}.`
-          )
-        } else {
-          module.id = matches[1]
-          promises.push(module)
-        }
-      }
-    } catch (error) {
-      logger.error(error)
-    }
-  }
+      }) as Promise<PackageJsonModule>
+  )
 
   return Promise.all(promises)
 }

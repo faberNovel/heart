@@ -22,7 +22,9 @@ const { ObservatoryModule } = await import("../src/ObservatoryModule.js")
 
 describe("Starts an analysis", () => {
   const module = new ObservatoryModule({
+    id: "observatory-test",
     name: "Heart Observatory Test",
+    type: "analysis",
     service: {
       name: "Observatory Test",
     },

@@ -13,6 +13,8 @@ export async function createServer(
   listenerModules: ModuleListenerInterface[]
 ): Promise<FastifyInstance> {
   const apiModule = new ApiModule({
+    id: "api",
+    type: "server",
     name: "Heart API",
     service: {
       name: "Heart API",

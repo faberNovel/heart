@@ -1,6 +1,6 @@
 import {
   InputError,
-  type ModuleServerInterface,
+  type ModuleMetadata,
   type ParsedServerInput,
   validateServerInput,
 } from "@fabernovel/heart-common"
@@ -19,13 +19,13 @@ function prepareOptionsForValidation(options: ServerOptions): ParsedServerInput 
  * Create a command dedicated to the given server module
  */
 export const createServerSubcommand = (
-  module: ModuleServerInterface,
+  moduleMetadata: ModuleMetadata,
   callback: (port: number, corsOptions: FastifyCorsOptions | undefined) => Promise<void>
 ): Command => {
-  const subcommand = new Command(module.id)
+  const subcommand = new Command(moduleMetadata.id)
 
   subcommand
-    .description(`Starts the ${module.name} server`)
+    .description(`Starts the ${moduleMetadata.name} server`)
     .addOption(createPortOption())
     .addOption(createCorsOption())
     .action(async (options: ServerOptions) => {

@@ -1,10 +1,6 @@
+import type { ModuleMetadata } from "@fabernovel/heart-common"
 import { ApiModule } from "./ApiModule.js"
 
-export function initialize() {
-  return new ApiModule({
-    name: "Heart API",
-    service: {
-      name: "Heart API",
-    },
-  })
+export function initialize(moduleMetadata: ModuleMetadata) {
+  return new ApiModule(moduleMetadata)
 }

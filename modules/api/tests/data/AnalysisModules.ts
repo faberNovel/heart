@@ -10,6 +10,7 @@ import {
 export const analysisModules: ModuleAnalysisInterface<Config, GenericReport<Result>>[] = [
   {
     id: "greenit",
+    type: "analysis",
     name: "Heart GreenIT",
     service: {
       name: "GreenIT Analysis",
@@ -31,6 +32,7 @@ export const analysisModules: ModuleAnalysisInterface<Config, GenericReport<Resu
   },
   {
     id: "observatory",
+    type: "analysis",
     name: "Heart Observatory",
     service: {
       name: "Mozilla Observatory",

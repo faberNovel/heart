@@ -61,7 +61,7 @@
   "heart": {
     "id": "mysql",
     "name": "Heart MySQL",
-    "type": "listener",
+    "type": "listener:database",
     "service": {
       "name": "MySQL"
     }

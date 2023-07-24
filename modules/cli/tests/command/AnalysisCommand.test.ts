@@ -1,11 +1,7 @@
-import {
-  type Config,
-  GreenITReport,
-  type ModuleAnalysisInterface,
-  type ModuleListenerInterface,
-} from "@fabernovel/heart-common"
+import { GreenITReport, type Config, type ModuleAnalysisInterface } from "@fabernovel/heart-common"
 import { Command } from "commander"
 import { createAnalysisSubcommand } from "../../src/command/analysis/AnalysisCommand.js"
+import type { PackageJsonModule } from "../../src/module/PackageJson.js"
 
 test("Create an analysis command", () => {
   const report = new GreenITReport({
@@ -25,6 +21,7 @@ test("Create an analysis command", () => {
 
   const analysisModule: ModuleAnalysisInterface<Config, GreenITReport> = {
     id: "test-analysis-tool",
+    type: "analysis",
     name: "Heart Test Analysis Tool",
     service: {
       name: "Test Analysis Tool",
@@ -35,7 +32,7 @@ test("Create an analysis command", () => {
       }),
   }
 
-  const listenerModules: ModuleListenerInterface[] = []
+  const listenerModules = new Map<string, PackageJsonModule>()
 
   const optionConfigInline = '{"url": "https://www.heart.fabernovel.com"}'
 

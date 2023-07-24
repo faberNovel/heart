@@ -1,6 +1,6 @@
 import type { Service } from "../service/Service.js"
 
-export interface ModuleInterface {
+export interface ModuleMetadata {
   /**
    * Example: observatory
    */
@@ -12,4 +12,6 @@ export interface ModuleInterface {
   name: string
 
   service: Service
+
+  type: "analysis" | "listener" | "listener:database" | "server"
 }

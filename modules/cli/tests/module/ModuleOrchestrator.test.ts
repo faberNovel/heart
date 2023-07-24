@@ -20,6 +20,7 @@ test("Displays the results of an analysis", async () => {
 
   const module: ModuleAnalysisInterface<Config, GreenITReport> = {
     id: "test-analysis-tool",
+    type: "analysis",
     name: "Heart Test Analysis Tool",
     service: {
       name: "Test Analysis Tool",

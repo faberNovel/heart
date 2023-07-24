@@ -1,3 +1,4 @@
+import type { ModuleMetadata } from "@fabernovel/heart-common"
 import { jest } from "@jest/globals"
 import { Conf } from "./data/Conf.js"
 import SuccessResult from "./data/SuccessResult.json" assert { type: "json" }
@@ -19,12 +20,13 @@ describe("Run GreenIT analysis", () => {
       },
     ])
 
-    const moduleConfig = {
+    const moduleConfig: ModuleMetadata = {
       id: "1234",
+      type: "analysis",
       name: "Green IT",
       service: {
         name: "Green IT",
-        logo: "some-logo",
+        logoUrl: "some-logo",
       },
     }
 
@@ -50,12 +52,13 @@ describe("Run GreenIT analysis", () => {
       },
     ])
 
-    const moduleConfig = {
+    const moduleConfig: ModuleMetadata = {
       id: "1234",
+      type: "analysis",
       name: "Green IT",
       service: {
         name: "Green IT",
-        logo: "some-logo",
+        logoUrl: "some-logo",
       },
     }
 
@@ -77,12 +80,13 @@ describe("Run GreenIT analysis", () => {
       },
     ])
 
-    const moduleConfig = {
+    const moduleConfig: ModuleMetadata = {
       id: "1234",
+      type: "analysis",
       name: "Green IT",
       service: {
         name: "Green IT",
-        logo: "some-logo",
+        logoUrl: "some-logo",
       },
     }
 
@@ -107,12 +111,13 @@ describe("Run GreenIT analysis", () => {
       },
     ])
 
-    const moduleConfig = {
+    const moduleConfig: ModuleMetadata = {
       id: "1234",
+      type: "analysis",
       name: "Green IT",
       service: {
         name: "Green IT",
-        logo: "some-logo",
+        logoUrl: "some-logo",
       },
     }
 

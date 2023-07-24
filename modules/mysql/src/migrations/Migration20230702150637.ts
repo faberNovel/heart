@@ -4,7 +4,7 @@ export class Migration20230702150637 extends Migration {
   // eslint-disable-next-line @typescript-eslint/require-await
   async up(): Promise<void> {
     this.addSql(
-      "create table `service` (`name` varchar(255) not null, `logo` varchar(255) null, primary key (`name`)) default character set utf8mb4 collate utf8mb4_general_ci engine = InnoDB;"
+      "create table `service` (`name` varchar(255) not null, `logoUrl` varchar(255) null, primary key (`name`)) default character set utf8mb4 collate utf8mb4_general_ci engine = InnoDB;"
     )
 
     this.addSql(

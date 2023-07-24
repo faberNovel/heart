@@ -11,5 +11,5 @@ export interface Service {
   /**
    * Public url to the logo
    */
-  readonly logo?: string
+  readonly logoUrl?: string
 }

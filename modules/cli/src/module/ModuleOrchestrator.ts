@@ -68,12 +68,12 @@ export async function startAnalysis<C extends Config, R extends GenericReport<Re
 
 export async function startServer(
   serverModule: ModuleServerInterface,
-  analysisModules: IterableIterator<ModuleAnalysisInterface<Config, GenericReport<Result>>>,
+  analysisModules: ModuleAnalysisInterface<Config, GenericReport<Result>>[],
   listenerModules: ModuleListenerInterface[],
   port: number,
   cors?: FastifyCorsOptions
 ): Promise<void> {
-  const fastifyInstance = await serverModule.createServer(Array.from(analysisModules), listenerModules, cors)
+  const fastifyInstance = await serverModule.createServer(analysisModules, listenerModules, cors)
 
   try {
     await fastifyInstance.listen({ port: port })

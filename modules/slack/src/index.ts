@@ -1,11 +1,6 @@
+import type { ModuleMetadata } from "@fabernovel/heart-common"
 import { SlackModule } from "./SlackModule.js"
 
-export function initialize() {
-  return new SlackModule({
-    name: "Heart Slack",
-    service: {
-      name: "Slack",
-      logo: "https://raw.githubusercontent.com/faberNovel/heart/main/assets/images/logos/Slack.png?v=20221126",
-    },
-  })
+export function initialize(moduleMetadata: ModuleMetadata) {
+  return new SlackModule(moduleMetadata)
 }

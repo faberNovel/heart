@@ -15,7 +15,7 @@ export class SlackModule extends Module implements ModuleListenerInterface {
     return this.#slackClient.postMessage({
       blocks: formatBlocks(report),
       text: formatText(report),
-      icon_url: report.service.logo,
+      icon_url: report.service.logoUrl,
       username: report.service.name,
     })
   }

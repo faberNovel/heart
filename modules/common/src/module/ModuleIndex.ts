@@ -1,5 +1,6 @@
-import type { ModuleInterface } from "./ModuleInterface.js"
+import type { Module } from "./Module.js"
+import type { ModuleMetadata } from "./ModuleMetadata.js"
 
 export interface ModuleIndex {
-  initialize: () => ModuleInterface
+  initialize: (moduleMetadata: ModuleMetadata) => Module
 }

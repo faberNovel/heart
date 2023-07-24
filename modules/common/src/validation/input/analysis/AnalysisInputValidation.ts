@@ -1,13 +1,10 @@
 import type { SchemaObject } from "ajv"
-import type { ValidatedAnalysisInput } from "../../../index.js"
-import type { ModuleListenerInterface } from "../../../module/listener/ModuleListenerInterface.js"
+import type { ModuleMetadata, ValidatedAnalysisInput } from "../../../index.js"
 import { validateInput } from "../InputValidation.js"
 import configSchema from "./schema/config.json" assert { type: "json" }
 import thresholdSchema from "./schema/threshold.json" assert { type: "json" }
 
-export function getAnalysisValidationSchema(
-  listenerModulesIds: ModuleListenerInterface["id"][]
-): SchemaObject {
+export function getAnalysisValidationSchema(listenerModulesIds: ModuleMetadata["id"][]): SchemaObject {
   const listenerSchema = {
     type: "array",
     items: {
@@ -60,7 +57,7 @@ export function getAnalysisValidationSchema(
  */
 export function validateAnalysisInput(
   data: unknown,
-  listenerModulesIds: ModuleListenerInterface["id"][] = []
+  listenerModulesIds: ModuleMetadata["id"][] = []
 ): ValidatedAnalysisInput {
   const schema = getAnalysisValidationSchema(listenerModulesIds)
 

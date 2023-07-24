@@ -3,7 +3,7 @@ import {
   type GenericReport,
   type ModuleListenerDatabaseInterface,
   type Result,
-  type ModuleInterface,
+  type ModuleMetadata,
   logger,
 } from "@fabernovel/heart-common"
 import { MySQLClient } from "./client/Client.js"
@@ -11,8 +11,8 @@ import { MySQLClient } from "./client/Client.js"
 export class MySQLModule extends Module implements ModuleListenerDatabaseInterface {
   #client: MySQLClient
 
-  constructor(module: Pick<ModuleInterface, "name" | "service">) {
-    super(module)
+  constructor(moduleMetadata: ModuleMetadata) {
+    super(moduleMetadata)
     this.#client = new MySQLClient()
   }
 
