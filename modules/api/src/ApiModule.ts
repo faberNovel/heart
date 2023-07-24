@@ -7,6 +7,7 @@ import {
   type ModuleServerInterface,
   type Result,
   getAnalysisValidationSchema,
+  type ModuleMetadata,
 } from "@fabernovel/heart-common"
 import cors, { type FastifyCorsOptions } from "@fastify/cors"
 import Fastify, { type FastifyInstance } from "fastify"
@@ -25,14 +26,21 @@ declare module "fastify" {
 }
 
 export class ApiModule extends Module implements ModuleServerInterface {
-  #fastify = Fastify({
-    ajv: {
-      customOptions: {
-        allErrors: true,
+  #fastify: FastifyInstance
+
+  constructor(moduleMetadata: ModuleMetadata, verbose: boolean) {
+    super(moduleMetadata, verbose)
+
+    this.#fastify = Fastify({
+      logger: verbose,
+      ajv: {
+        customOptions: {
+          allErrors: true,
+        },
+        plugins: [AjvErrors],
       },
-      plugins: [AjvErrors],
-    },
-  })
+    })
+  }
 
   async createServer(
     analysisModules: ModuleAnalysisInterface<Config, GenericReport<Result>>[],
