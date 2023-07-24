@@ -1,6 +1,6 @@
-import type { ModuleMetadata } from "@fabernovel/heart-common"
+import type { ModuleIndex, ModuleMetadata } from "@fabernovel/heart-common"
 import { LighthouseModule } from "./LighthouseModule.js"
 
-export function initialize(moduleMetadata: ModuleMetadata) {
-  return new LighthouseModule(moduleMetadata)
+export const initialize: ModuleIndex["initialize"] = (moduleMetadata: ModuleMetadata, verbose: boolean) => {
+  return new LighthouseModule(moduleMetadata, verbose)
 }

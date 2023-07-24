@@ -1,12 +1,11 @@
-import type { GenericReport, ModuleMetadata } from "../../index.js"
+import type { GenericReport, Module } from "../../index.js"
 import type { Result } from "../../report/Result.js"
 import type { Config } from "../config/Config.js"
 
 /**
  * Define an Analysis module.
  */
-export interface ModuleAnalysisInterface<C extends Config, R extends GenericReport<Result>>
-  extends ModuleMetadata {
+export interface ModuleAnalysisInterface<C extends Config, R extends GenericReport<Result>> extends Module {
   startAnalysis: (conf: C, thresholds?: number) => Promise<R>
 }
 
@@ -24,7 +23,7 @@ export type ModuleAnalysis<
  * @see {@link https://www.typescriptlang.org/docs/handbook/2/narrowing.html#using-type-predicates | User-Defined Type Guards}
  */
 export function isModuleAnalysis<C extends Config, R extends GenericReport<Result>>(
-  module: ModuleMetadata
+  module: Module
 ): module is ModuleAnalysisInterface<C, R> {
   // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
   return (module as ModuleAnalysisInterface<C, R>).startAnalysis !== undefined

@@ -100,17 +100,17 @@ describe("Invalid listener options value", () => {
   const listenerModules: ModuleListenerInterface[] = [
     {
       id: "heart-test1",
-      type: "listener",
       name: "Heart Test1",
       service: { name: "Test1" },
       notifyAnalysisDone: notifyAnalysisDone,
+      verbose: false,
     },
     {
       id: "heart-test2",
-      type: "listener",
       name: "Heart Test2",
       service: { name: "Test2" },
       notifyAnalysisDone: notifyAnalysisDone,
+      verbose: false,
     },
   ]
   const listenerModulesIds = listenerModules.map((listenerModule) => listenerModule.id)

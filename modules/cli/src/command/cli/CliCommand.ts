@@ -37,8 +37,6 @@ function createCommand(cwd: string): Command {
 
   cmd.version(packageJson.version ?? "")
 
-  cmd.option("-v,--verbose", "Displays debug informations", false)
-
   return cmd
 }
 
@@ -60,6 +58,7 @@ export async function start(cwd: string): Promise<Command> {
      * @param listenerModulesMetadataMap Filtered map of listener modules metadata and their file path
      */
     const callback = async <C extends Config>(
+      verbose: boolean,
       config: C,
       threshold: number | undefined,
       listenerModulesMetadataMap: Map<string, PackageJsonModule>
@@ -72,9 +71,13 @@ export async function start(cwd: string): Promise<Command> {
 
       // initialize the modules
       const analysisModules = await initializeModules<ModuleAnalysisInterface<Config, GenericReport<Result>>>(
-        new Map([[modulePath, packageJsonModule]])
+        new Map([[modulePath, packageJsonModule]]),
+        verbose
       )
-      const listenerModules = await initializeModules<ModuleListenerInterface>(listenerModulesMetadataMap)
+      const listenerModules = await initializeModules<ModuleListenerInterface>(
+        listenerModulesMetadataMap,
+        verbose
+      )
 
       // run database migrations for listener database modules
       const listenerDatabaseModules = listenerModules.filter(
@@ -102,7 +105,7 @@ export async function start(cwd: string): Promise<Command> {
 
   // create and add 1 command for each server module
   serverModulesMetadataMap.forEach((packageJsonModule, modulePath: string) => {
-    const callback = async (port: number, cors: FastifyCorsOptions | undefined) => {
+    const callback = async (verbose: boolean, port: number, cors: FastifyCorsOptions | undefined) => {
       // load environment variables for the server module
       loadEnvironmentVariables(modulePath)
 
@@ -114,11 +117,16 @@ export async function start(cwd: string): Promise<Command> {
 
       // initialize the server, analysis and listeners modules
       const analysisModules = await initializeModules<ModuleAnalysisInterface<Config, GenericReport<Result>>>(
-        analysisModulesMetadataMap
+        analysisModulesMetadataMap,
+        verbose
       )
-      const listenerModules = await initializeModules<ModuleListenerInterface>(listenerModulesMetadataMap)
+      const listenerModules = await initializeModules<ModuleListenerInterface>(
+        listenerModulesMetadataMap,
+        verbose
+      )
       const serverModules = await initializeModules<ModuleServerInterface>(
-        new Map([[modulePath, packageJsonModule]])
+        new Map([[modulePath, packageJsonModule]]),
+        verbose
       )
 
       await startServer(serverModules[0], analysisModules, listenerModules, port, cors)

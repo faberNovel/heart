@@ -3,6 +3,7 @@ import type { ModuleMetadata, ValidatedAnalysisInput } from "../../../index.js"
 import { validateInput } from "../InputValidation.js"
 import configSchema from "./schema/config.json" assert { type: "json" }
 import thresholdSchema from "./schema/threshold.json" assert { type: "json" }
+import verboseSchema from "../schema/verbose.json" assert { type: "json" }
 
 export function getAnalysisValidationSchema(listenerModulesIds: ModuleMetadata["id"][]): SchemaObject {
   const listenerSchema = {
@@ -20,6 +21,7 @@ export function getAnalysisValidationSchema(listenerModulesIds: ModuleMetadata["
       threshold: thresholdSchema,
       except_listeners: listenerSchema,
       only_listeners: listenerSchema,
+      verbose: verboseSchema,
     },
     allOf: [
       // make the listener options mutually exclusive

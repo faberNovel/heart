@@ -1,6 +1,6 @@
-import type { ModuleMetadata } from "@fabernovel/heart-common"
+import type { ModuleIndex, ModuleMetadata } from "@fabernovel/heart-common"
 import { ApiModule } from "./ApiModule.js"
 
-export function initialize(moduleMetadata: ModuleMetadata) {
-  return new ApiModule(moduleMetadata)
+export const initialize: ModuleIndex["initialize"] = (moduleMetadata: ModuleMetadata, verbose: boolean) => {
+  return new ApiModule(moduleMetadata, verbose)
 }

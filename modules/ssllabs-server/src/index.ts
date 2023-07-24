@@ -1,6 +1,6 @@
-import type { ModuleMetadata } from "@fabernovel/heart-common"
+import type { ModuleIndex, ModuleMetadata } from "@fabernovel/heart-common"
 import { SsllabsServerModule } from "./SsllabsServerModule.js"
 
-export function initialize(moduleMetadata: ModuleMetadata) {
-  return new SsllabsServerModule(moduleMetadata)
+export const initialize: ModuleIndex["initialize"] = (moduleMetadata: ModuleMetadata, verbose: boolean) => {
+  return new SsllabsServerModule(moduleMetadata, verbose)
 }

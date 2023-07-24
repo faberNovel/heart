@@ -1,4 +1,4 @@
-import type { ModuleMetadata } from "../ModuleMetadata.js"
+import type { Module } from "../Module.js"
 import type { ModuleListenerInterface } from "./ModuleListenerInterface.js"
 
 /**
@@ -19,7 +19,7 @@ export type ModuleListenerDatabase = new () => ModuleListenerDatabaseInterface
  * Checks if a module is a Listener one.
  * @see {@link https://www.typescriptlang.org/docs/handbook/2/narrowing.html#using-type-predicates | User-Defined Type Guards}
  */
-export function isModuleListenerDatabase(module: ModuleMetadata): module is ModuleListenerDatabaseInterface {
+export function isModuleListenerDatabase(module: Module): module is ModuleListenerDatabaseInterface {
   return (
     // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
     (module as ModuleListenerDatabaseInterface).hasPendingMigrations !== undefined &&

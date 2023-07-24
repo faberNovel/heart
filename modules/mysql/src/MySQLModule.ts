@@ -11,8 +11,8 @@ import { MySQLClient } from "./client/Client.js"
 export class MySQLModule extends Module implements ModuleListenerDatabaseInterface {
   #client: MySQLClient
 
-  constructor(moduleMetadata: ModuleMetadata) {
-    super(moduleMetadata)
+  constructor(moduleMetadata: ModuleMetadata, verbose: boolean) {
+    super(moduleMetadata, verbose)
     this.#client = new MySQLClient()
   }
 

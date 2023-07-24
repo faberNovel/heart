@@ -1,6 +1,6 @@
-import type { ModuleMetadata } from "@fabernovel/heart-common"
+import type { ModuleIndex, ModuleMetadata } from "@fabernovel/heart-common"
 import { MySQLModule } from "./MySQLModule.js"
 
-export function initialize(moduleMetadata: ModuleMetadata) {
-  return new MySQLModule(moduleMetadata)
+export const initialize: ModuleIndex["initialize"] = (moduleMetadata: ModuleMetadata, verbose: boolean) => {
+  return new MySQLModule(moduleMetadata, verbose)
 }

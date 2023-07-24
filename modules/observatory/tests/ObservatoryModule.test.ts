@@ -21,14 +21,16 @@ await import("../src/api/Client.js")
 const { ObservatoryModule } = await import("../src/ObservatoryModule.js")
 
 describe("Starts an analysis", () => {
-  const module = new ObservatoryModule({
-    id: "observatory-test",
-    name: "Heart Observatory Test",
-    type: "analysis",
-    service: {
-      name: "Observatory Test",
+  const module = new ObservatoryModule(
+    {
+      id: "observatory-test",
+      name: "Heart Observatory Test",
+      service: {
+        name: "Observatory Test",
+      },
     },
-  })
+    false
+  )
 
   it("Should start an analysis with a valid configuration without a threshold", async () => {
     const report = await module.startAnalysis(CONF)

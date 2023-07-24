@@ -1,6 +1,6 @@
-import type { ModuleMetadata } from "@fabernovel/heart-common"
+import type { ModuleIndex, ModuleMetadata } from "@fabernovel/heart-common"
 import { BigQueryModule } from "./BigQueryModule.js"
 
-export function initialize(moduleMetadata: ModuleMetadata) {
-  return new BigQueryModule(moduleMetadata)
+export const initialize: ModuleIndex["initialize"] = (moduleMetadata: ModuleMetadata, verbose: boolean) => {
+  return new BigQueryModule(moduleMetadata, verbose)
 }

@@ -1,19 +1,20 @@
 import {
-  type Config,
   InputError,
+  validateAnalysisInput,
+  type Config,
   type ModuleMetadata,
   type ParsedAnalysisInput,
-  validateAnalysisInput,
 } from "@fabernovel/heart-common"
 import { Command, InvalidArgumentError } from "commander"
+import type { PackageJsonModule } from "../../module/PackageJson.js"
+import { createVerboseOption, type CommonOptions } from "../CommonOption.js"
 import {
-  type AnalysisOptions,
   createConfigOption,
   createExceptListenersOption,
   createOnlyListenersOption,
   createThresholdOption,
+  type AnalysisOptions,
 } from "./AnalysisOption.js"
-import type { PackageJsonModule } from "../../module/PackageJson.js"
 
 function prepareOptionsForValidation(options: AnalysisOptions): ParsedAnalysisInput {
   return {
@@ -21,6 +22,7 @@ function prepareOptionsForValidation(options: AnalysisOptions): ParsedAnalysisIn
     threshold: options.threshold,
     except_listeners: options.exceptListeners,
     only_listeners: options.onlyListeners,
+    verbose: options.verbose,
   }
 }
 
@@ -31,6 +33,7 @@ export const createAnalysisSubcommand = <C extends Config>(
   moduleMetadata: ModuleMetadata,
   listenerModulesMetadataMap: Map<string, PackageJsonModule>,
   callback: (
+    verbose: boolean,
     config: C,
     threshold: number | undefined,
     listenerModulesMetadataMapFiltered: Map<string, PackageJsonModule>
@@ -40,11 +43,12 @@ export const createAnalysisSubcommand = <C extends Config>(
 
   subcommand
     .description(`Analyzes a URL with ${moduleMetadata.service.name}`)
+    .addOption(createVerboseOption())
     .addOption(createConfigOption())
     .addOption(createThresholdOption())
     .addOption(createExceptListenersOption())
     .addOption(createOnlyListenersOption())
-    .action(async (options: AnalysisOptions) => {
+    .action(async (options: CommonOptions & AnalysisOptions) => {
       try {
         const listenerModulesIds = new Array<string>()
         listenerModulesMetadataMap.forEach((metadata) => {
@@ -70,7 +74,7 @@ export const createAnalysisSubcommand = <C extends Config>(
           })
         }
 
-        await callback(config as C, threshold, listenerModulesMetadataMap)
+        await callback(options.verbose, config as C, threshold, listenerModulesMetadataMap)
       } catch (error) {
         if (error instanceof InputError) {
           const e = new InvalidArgumentError(error.cause[0].message ?? error.message)

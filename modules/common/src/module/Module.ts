@@ -1,15 +1,15 @@
 import type { ModuleMetadata } from "./ModuleMetadata.js"
 
-export abstract class Module implements ModuleMetadata {
+export abstract class Module {
   readonly id: ModuleMetadata["id"]
   readonly name: ModuleMetadata["name"]
   readonly service: ModuleMetadata["service"]
-  readonly type: ModuleMetadata["type"]
+  readonly verbose: boolean
 
-  constructor(moduleMetadata: ModuleMetadata) {
+  constructor(moduleMetadata: ModuleMetadata, verbose: boolean) {
     this.id = moduleMetadata.id
     this.name = moduleMetadata.name
     this.service = moduleMetadata.service
-    this.type = moduleMetadata.type
+    this.verbose = verbose
   }
 }
