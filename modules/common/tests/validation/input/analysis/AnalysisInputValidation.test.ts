@@ -1,5 +1,5 @@
 import { InputError } from "../../../../src/error/InputError.js"
-import type { ModuleListenerInterface } from "../../../../src/module/listener/ModuleListenerInterface.js"
+import type { ModuleMetadata } from "../../../../src/index.js"
 import { validateAnalysisInput } from "../../../../src/validation/input/analysis/AnalysisInputValidation.js"
 
 describe("Invalid option combinations", () => {
@@ -94,26 +94,19 @@ describe("Invalid threshold value", () => {
 })
 
 describe("Invalid listener options value", () => {
-  // eslint-disable-next-line @typescript-eslint/no-empty-function
-  const notifyAnalysisDone = () => new Promise(() => {})
-
-  const listenerModules: ModuleListenerInterface[] = [
+  const modulesMetadata: ModuleMetadata[] = [
     {
       id: "heart-test1",
       name: "Heart Test1",
       service: { name: "Test1" },
-      notifyAnalysisDone: notifyAnalysisDone,
-      verbose: false,
     },
     {
       id: "heart-test2",
       name: "Heart Test2",
       service: { name: "Test2" },
-      notifyAnalysisDone: notifyAnalysisDone,
-      verbose: false,
     },
   ]
-  const listenerModulesIds = listenerModules.map((listenerModule) => listenerModule.id)
+  const modulesIds = modulesMetadata.map((moduleMetadata) => moduleMetadata.id)
 
   test("Exclude 1 module with an invalid id", () => {
     expect(() => {
@@ -122,7 +115,7 @@ describe("Invalid listener options value", () => {
           config: { inline: "configuration" },
           except_listeners: ["invalid-module-id"],
         },
-        listenerModulesIds
+        modulesIds
       )
     }).toThrow(InputError)
   })
@@ -134,7 +127,7 @@ describe("Invalid listener options value", () => {
           config: { inline: "configuration" },
           except_listeners: ["heart-test1", "invalid-module-id"],
         },
-        listenerModulesIds
+        modulesIds
       )
     }).toThrow(InputError)
   })
@@ -146,7 +139,7 @@ describe("Invalid listener options value", () => {
           config: { inline: "configuration" },
           only_listeners: ["invalid-module-id"],
         },
-        listenerModulesIds
+        modulesIds
       )
     }).toThrow(InputError)
   })
@@ -158,7 +151,7 @@ describe("Invalid listener options value", () => {
           config: { inline: "configuration" },
           only_listeners: ["heart-test1", "invalid-module-id"],
         },
-        listenerModulesIds
+        modulesIds
       )
     }).toThrow(InputError)
   })

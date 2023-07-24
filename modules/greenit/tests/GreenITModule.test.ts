@@ -22,7 +22,6 @@ describe("Run GreenIT analysis", () => {
 
     const moduleConfig: ModuleMetadata = {
       id: "1234",
-      type: "analysis",
       name: "Green IT",
       service: {
         name: "Green IT",
@@ -54,7 +53,6 @@ describe("Run GreenIT analysis", () => {
 
     const moduleConfig: ModuleMetadata = {
       id: "1234",
-      type: "analysis",
       name: "Green IT",
       service: {
         name: "Green IT",
@@ -82,7 +80,6 @@ describe("Run GreenIT analysis", () => {
 
     const moduleConfig: ModuleMetadata = {
       id: "1234",
-      type: "analysis",
       name: "Green IT",
       service: {
         name: "Green IT",
@@ -113,7 +110,6 @@ describe("Run GreenIT analysis", () => {
 
     const moduleConfig: ModuleMetadata = {
       id: "1234",
-      type: "analysis",
       name: "Green IT",
       service: {
         name: "Green IT",

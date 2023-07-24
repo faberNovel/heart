@@ -6,7 +6,7 @@ export abstract class Module {
   readonly service: ModuleMetadata["service"]
   readonly verbose: boolean
 
-  constructor(moduleMetadata: ModuleMetadata, verbose: boolean) {
+  constructor(moduleMetadata: ModuleMetadata, verbose = false) {
     this.id = moduleMetadata.id
     this.name = moduleMetadata.name
     this.service = moduleMetadata.service

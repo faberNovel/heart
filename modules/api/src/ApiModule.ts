@@ -28,7 +28,7 @@ declare module "fastify" {
 export class ApiModule extends Module implements ModuleServerInterface {
   #fastify: FastifyInstance
 
-  constructor(moduleMetadata: ModuleMetadata, verbose: boolean) {
+  constructor(moduleMetadata: ModuleMetadata, verbose = false) {
     super(moduleMetadata, verbose)
 
     this.#fastify = Fastify({
