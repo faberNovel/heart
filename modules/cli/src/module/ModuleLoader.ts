@@ -1,4 +1,4 @@
-import { type Module, type ModuleIndex, type ModuleMetadata } from "@fabernovel/heart-common"
+import { logger, type Module, type ModuleIndex, type ModuleMetadata } from "@fabernovel/heart-common"
 import dotenv from "dotenv"
 import { readFileSync } from "node:fs"
 import { env } from "node:process"
@@ -104,7 +104,15 @@ export async function initializeModules<M extends Module>(
 
   const promises = paths.map((path) => import(path) as Promise<ModuleIndex>)
 
+  if (verbose) {
+    logger.info(`Loading modules ${metadatas.map((metadata) => metadata.id).join(", ")}...`)
+  }
+
   const moduleIndexes = await Promise.all(promises)
+
+  if (verbose) {
+    logger.info(`Modules ${metadatas.map((metadata) => metadata.id).join(", ")} loaded.`)
+  }
 
   // as Promise.all() keeps the order, the arrays paths, metadatas, promises and modules have all the exact same indexation
   return moduleIndexes.map((moduleIndex, i) => moduleIndex.initialize(metadatas[i], verbose) as M)
