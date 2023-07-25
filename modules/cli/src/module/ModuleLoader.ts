@@ -105,13 +105,13 @@ export async function initializeModules<M extends Module>(
   const promises = paths.map((path) => import(path) as Promise<ModuleIndex>)
 
   if (verbose) {
-    logger.info(`Loading modules ${metadatas.map((metadata) => metadata.id).join(", ")}...`)
+    logger.info(`Importing modules ${metadatas.map((metadata) => metadata.id).join(", ")}...`)
   }
 
   const moduleIndexes = await Promise.all(promises)
 
   if (verbose) {
-    logger.info(`Modules ${metadatas.map((metadata) => metadata.id).join(", ")} loaded.`)
+    logger.info(`Modules ${metadatas.map((metadata) => metadata.id).join(", ")} imported.`)
   }
 
   // as Promise.all() keeps the order, the arrays paths, metadatas, promises and modules have all the exact same indexation

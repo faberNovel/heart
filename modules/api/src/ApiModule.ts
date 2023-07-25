@@ -1,19 +1,20 @@
 import {
+  Module,
+  getAnalysisValidationSchema,
+  logger,
   type Config,
   type GenericReport,
-  Module,
   type ModuleAnalysisInterface,
   type ModuleListenerInterface,
+  type ModuleMetadata,
   type ModuleServerInterface,
   type Result,
-  getAnalysisValidationSchema,
-  type ModuleMetadata,
 } from "@fabernovel/heart-common"
 import cors, { type FastifyCorsOptions } from "@fastify/cors"
+import _AjvErrors from "ajv-errors"
 import Fastify, { type FastifyInstance } from "fastify"
 import { createNotifyListenerModulesHandler } from "./notification/NotifyListenerModules.js"
 import { createRouteHandler } from "./router/RouteHandler.js"
-import _AjvErrors from "ajv-errors"
 // temp workaround for ESM: https://github.com/ajv-validator/ajv/issues/2132#issuecomment-1537224620
 const AjvErrors = _AjvErrors.default
 
@@ -40,6 +41,10 @@ export class ApiModule extends Module implements ModuleServerInterface {
         plugins: [AjvErrors],
       },
     })
+
+    if (verbose) {
+      logger.info(`${moduleMetadata.name} initialized.`)
+    }
   }
 
   async createServer(
