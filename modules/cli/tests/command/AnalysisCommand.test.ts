@@ -6,6 +6,7 @@ import type { PackageJsonModule } from "../../src/module/PackageJson.js"
 test("Create an analysis command", () => {
   const moduleMetadata: ModuleMetadata = {
     id: "test-analysis-tool",
+    type: "analysis",
     name: "Heart Test Analysis Tool",
     service: {
       name: "Test Analysis Tool",

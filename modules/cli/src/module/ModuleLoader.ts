@@ -1,4 +1,4 @@
-import type { Module, ModuleIndex, ModuleMetadata } from "@fabernovel/heart-common"
+import { type Module, type ModuleIndex, type ModuleMetadata } from "@fabernovel/heart-common"
 import dotenv from "dotenv"
 import { readFileSync } from "node:fs"
 import { env } from "node:process"
@@ -36,11 +36,11 @@ export async function loadModulesMetadata(cwd: string): Promise<ModulesMetadata>
     modulesPaths.forEach((modulePath, index) => {
       const moduleMetadata = modulesMetadata[index]
 
-      if (moduleMetadata.type === "analysis") {
+      if (moduleMetadata.heart.type === "analysis") {
         analysisModulesMap.set(modulePath, moduleMetadata)
-      } else if (moduleMetadata.type === "listener") {
+      } else if (moduleMetadata.heart.type === "listener") {
         listenerModulesMap.set(modulePath, moduleMetadata)
-      } else if (moduleMetadata.type === "server") {
+      } else if (moduleMetadata.heart.type === "server") {
         serverModulesMap.set(modulePath, moduleMetadata)
       }
     })
@@ -159,8 +159,10 @@ async function loadModulesMetadataFromPath(modulesPaths: string[]): Promise<Pack
     (modulePath) =>
       import(`${modulePath}package.json`, {
         assert: { type: "json" },
-      }) as Promise<PackageJsonModule>
+      }) as Promise<{ default: PackageJsonModule }>
   )
 
-  return Promise.all(promises)
+  const modules = await Promise.all(promises)
+
+  return modules.map((module) => module.default)
 }

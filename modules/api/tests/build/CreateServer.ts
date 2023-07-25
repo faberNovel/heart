@@ -14,6 +14,7 @@ export async function createServer(
 ): Promise<FastifyInstance> {
   const apiModule = new ApiModule({
     id: "api",
+    type: "server",
     name: "Heart API",
     service: {
       name: "Heart API",

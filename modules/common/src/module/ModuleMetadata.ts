@@ -12,4 +12,6 @@ export interface ModuleMetadata {
   name: string
 
   service: Service
+
+  type: "analysis" | "listener" | "listener:database" | "server"
 }

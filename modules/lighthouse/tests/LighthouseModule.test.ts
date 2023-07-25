@@ -25,6 +25,7 @@ const { LighthouseModule } = await import("../src/LighthouseModule.js")
 describe("Starts an analysis", () => {
   const module = new LighthouseModule({
     id: "lighthouse-test",
+    type: "analysis",
     name: "Heart Lighthouse Test",
     service: {
       name: "Lighthouse Test",

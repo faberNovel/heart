@@ -97,11 +97,13 @@ describe("Invalid listener options value", () => {
   const modulesMetadata: ModuleMetadata[] = [
     {
       id: "heart-test1",
+      type: "analysis",
       name: "Heart Test1",
       service: { name: "Test1" },
     },
     {
       id: "heart-test2",
+      type: "analysis",
       name: "Heart Test2",
       service: { name: "Test2" },
     },
