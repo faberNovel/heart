@@ -573,10 +573,6 @@ importers:
       '@fabernovel/heart-ssllabs-server':
         specifier: workspace:^4.0.0-alpha.6
         version: link:../modules/ssllabs-server
-    devDependencies:
-      '@fabernovel/heart-common':
-        specifier: workspace:^4.0.0-alpha.6
-        version: link:../modules/common
 
 packages:
 
