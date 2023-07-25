@@ -29,10 +29,10 @@ import { createServerSubcommand } from "../server/ServerCommand.js"
  * Set the command version to match the one defined in the package.json file.
  * Add a --debug option.
  */
-function createCommand(cwd: string): Command {
+function createCommand(): Command {
   const cmd = new Command()
 
-  const packageJsonUrl = new URL(`${cwd}/package.json`, import.meta.url)
+  const packageJsonUrl = new URL(`../../../package.json`, import.meta.url)
   const packageJson = JSON.parse(readFileSync(packageJsonUrl, "utf8")) as PackageJson
 
   cmd.version(packageJson.version ?? "")
@@ -45,7 +45,7 @@ function createCommand(cwd: string): Command {
  * 2. Create the CLI command: one CLI argument per analysis and server module.
  */
 export async function start(cwd: string): Promise<Command> {
-  const cmd = createCommand(cwd)
+  const cmd = createCommand()
   const [analysisModulesMetadataMap, listenerModulesMetadataMap, serverModulesMetadataMap] =
     await loadModulesMetadata(cwd)
 
