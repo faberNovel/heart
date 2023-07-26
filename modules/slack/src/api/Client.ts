@@ -15,7 +15,7 @@ export class Client {
   constructor(verbose: boolean) {
     this.#channel = env.HEART_SLACK_CHANNEL_ID ?? ""
     this.#client = new WebClient(env.HEART_SLACK_API_TOKEN, {
-      logLevel: verbose ? LogLevel.DEBUG : undefined,
+      logLevel: verbose ? LogLevel.INFO : undefined,
     })
   }
 
