@@ -1,5 +1,5 @@
 import type { Block, KnownBlock, WebAPICallResult } from "@slack/web-api"
-import { WebClient } from "@slack/web-api"
+import { LogLevel, WebClient } from "@slack/web-api"
 import { env } from "node:process"
 
 /**
@@ -12,9 +12,11 @@ export class Client {
   #channel: string
   #client: WebClient
 
-  constructor() {
+  constructor(verbose: boolean) {
     this.#channel = env.HEART_SLACK_CHANNEL_ID ?? ""
-    this.#client = new WebClient(env.HEART_SLACK_API_TOKEN)
+    this.#client = new WebClient(env.HEART_SLACK_API_TOKEN, {
+      logLevel: verbose ? LogLevel.DEBUG : undefined,
+    })
   }
 
   public async postMessage(options: {

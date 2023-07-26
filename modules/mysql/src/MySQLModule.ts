@@ -13,7 +13,8 @@ export class MySQLModule extends Module implements ModuleListenerDatabaseInterfa
 
   constructor(moduleMetadata: ModuleMetadata, verbose: boolean) {
     super(moduleMetadata, verbose)
-    this.#client = new MySQLClient()
+
+    this.#client = new MySQLClient(verbose)
 
     if (verbose) {
       logger.info(`${moduleMetadata.name} initialized.`)

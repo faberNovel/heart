@@ -17,10 +17,12 @@ export class ObservatoryModule
   extends Module
   implements ModuleAnalysisInterface<ObservatoryConfig, ObservatoryReport>
 {
-  #client = new Client()
+  #client: Client
 
   constructor(moduleMetadata: ModuleMetadata, verbose: boolean) {
     super(moduleMetadata, verbose)
+
+    this.#client = new Client()
 
     if (verbose) {
       logger.info(`${moduleMetadata.name} initialized.`)

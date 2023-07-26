@@ -11,10 +11,12 @@ import { formatBlocks } from "./formatter/BlocksFormatter.js"
 import { formatText } from "./formatter/TextFormatter.js"
 
 export class SlackModule extends Module implements ModuleListenerInterface {
-  #slackClient = new Client()
+  #slackClient: Client
 
   constructor(moduleMetadata: ModuleMetadata, verbose: boolean) {
     super(moduleMetadata, verbose)
+
+    this.#slackClient = new Client(verbose)
 
     if (verbose) {
       logger.info(`${moduleMetadata.name} initialized.`)

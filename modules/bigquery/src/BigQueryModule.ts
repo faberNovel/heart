@@ -11,10 +11,12 @@ import { BigQueryClient } from "./api/BigQuery/Client.js"
 import { RowReport } from "./api/BigQuery/model/RowReport.js"
 
 export class BigQueryModule extends Module implements ModuleListenerInterface {
-  #bigqueryClient = new BigQueryClient()
+  #bigqueryClient: BigQueryClient
 
   constructor(moduleMetadata: ModuleMetadata, verbose: boolean) {
     super(moduleMetadata, verbose)
+
+    this.#bigqueryClient = new BigQueryClient()
 
     if (verbose) {
       logger.info(`${moduleMetadata.name} initialized.`)
