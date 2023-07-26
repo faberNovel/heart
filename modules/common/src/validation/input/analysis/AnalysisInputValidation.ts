@@ -21,6 +21,7 @@ export function getAnalysisValidationSchema(listenerModulesIds: ModuleMetadata["
       threshold: thresholdSchema,
       except_listeners: listenerSchema,
       only_listeners: listenerSchema,
+      // @TODO do not expose this field in the API
       verbose: verboseSchema,
     },
     allOf: [
