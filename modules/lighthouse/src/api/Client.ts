@@ -5,7 +5,10 @@ import puppeteer from "puppeteer"
 /**
  * @see {@link https://github.com/GoogleChrome/lighthouse/blob/main/docs/puppeteer.md#option-2-launch-chrome-with-lighthousechrome-launcher-and-handoff-to-puppeteer}
  */
-export async function requestResult(conf: LighthouseConfig): Promise<LighthouseReport["result"]> {
+export async function requestResult(
+  conf: LighthouseConfig,
+  verbose: boolean
+): Promise<LighthouseReport["result"]> {
   const browser = await puppeteer.launch({
     // https://www.howtogeek.com/devops/how-to-run-puppeteer-and-headless-chrome-in-a-docker-container/#using-puppeteer-in-docker
     args: ["--disable-gpu", "--disable-dev-shm-usage", "--disable-setuid-sandbox", "--no-sandbox"],
@@ -15,7 +18,12 @@ export async function requestResult(conf: LighthouseConfig): Promise<LighthouseR
   })
   const page = await browser.newPage()
 
-  const runnerResult = await lighthouse(conf.url, { output: "json" }, conf.config, page)
+  const runnerResult = await lighthouse(
+    conf.url,
+    { output: "json", logLevel: verbose ? "info" : undefined },
+    conf.config,
+    page
+  )
   if (undefined === runnerResult) {
     return Promise.reject(
       "The analysis run, but Lighthouse did not return any result. Try to start your analysis again."

@@ -54,5 +54,14 @@
   },
   "engines": {
     "node": ">=18 <21"
+  },
+  "heart": {
+    "id": "bigquery",
+    "name": "Heart BigQuery",
+    "type": "listener",
+    "service": {
+      "name": "Google BigQuery",
+      "logoUrl": "https://raw.githubusercontent.com/faberNovel/heart/main/assets/images/logos/BigQuery.png?v=20221126"
+    }
   }
 }

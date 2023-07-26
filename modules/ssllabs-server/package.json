@@ -51,5 +51,14 @@
   },
   "engines": {
     "node": ">=18 <21"
+  },
+  "heart": {
+    "id": "ssllabs-server",
+    "name": "Heart SSL Labs Server",
+    "type": "analysis",
+    "service": {
+      "name": "Qualys SSL Labs Server",
+      "logoUrl": "https://raw.githubusercontent.com/faberNovel/heart/main/assets/images/logos/SSLLabs.png?v=20221126"
+    }
   }
 }

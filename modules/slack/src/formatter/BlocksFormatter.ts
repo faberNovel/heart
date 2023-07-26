@@ -47,7 +47,7 @@ const createBlocks = (
       type: "section",
       accessory: {
         type: "image",
-        image_url: report.service.logo ?? "",
+        image_url: report.service.logoUrl ?? "",
         alt_text: report.service.name,
       },
       fields: metricsBlocks,

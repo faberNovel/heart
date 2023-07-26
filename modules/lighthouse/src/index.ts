@@ -1,9 +1,6 @@
+import type { ModuleIndex, ModuleMetadata } from "@fabernovel/heart-common"
 import { LighthouseModule } from "./LighthouseModule.js"
 
-export default new LighthouseModule({
-  name: "Heart Lighthouse",
-  service: {
-    name: "Google Lighthouse",
-    logo: "https://raw.githubusercontent.com/faberNovel/heart/main/assets/images/logos/Lighthouse.png?v=20221126",
-  },
-})
+export const initialize: ModuleIndex["initialize"] = (moduleMetadata: ModuleMetadata, verbose: boolean) => {
+  return new LighthouseModule(moduleMetadata, verbose)
+}

@@ -1,11 +1,13 @@
 import {
   Helper,
   Module,
-  type ModuleAnalysisInterface,
   SsllabsServerReport,
   SsllabsServerStatus,
-  type SsllabsServerConfig,
+  logger,
   type Config,
+  type ModuleAnalysisInterface,
+  type ModuleMetadata,
+  type SsllabsServerConfig,
 } from "@fabernovel/heart-common"
 import { Client } from "./api/Client.js"
 import { SsllabsServerError } from "./error/SsllabsServerError.js"
@@ -17,8 +19,18 @@ export class SsllabsServerModule
   extends Module
   implements ModuleAnalysisInterface<SsllabsServerConfig, SsllabsServerReport>
 {
-  #apiClient = new Client()
+  #apiClient: Client
   #threshold?: number
+
+  constructor(moduleMetadata: ModuleMetadata, verbose: boolean) {
+    super(moduleMetadata, verbose)
+
+    this.#apiClient = new Client()
+
+    if (verbose) {
+      logger.info(`${moduleMetadata.name} initialized.`)
+    }
+  }
 
   public async startAnalysis(config: SsllabsServerConfig, threshold?: number): Promise<SsllabsServerReport> {
     this.#threshold = threshold

@@ -3,16 +3,22 @@ import {
   type GenericReport,
   type ModuleListenerDatabaseInterface,
   type Result,
-  type ModuleInterface,
+  type ModuleMetadata,
+  logger,
 } from "@fabernovel/heart-common"
 import { MySQLClient } from "./client/Client.js"
 
 export class MySQLModule extends Module implements ModuleListenerDatabaseInterface {
   #client: MySQLClient
 
-  constructor(module: Pick<ModuleInterface, "name" | "service">) {
-    super(module)
-    this.#client = new MySQLClient()
+  constructor(moduleMetadata: ModuleMetadata, verbose: boolean) {
+    super(moduleMetadata, verbose)
+
+    this.#client = new MySQLClient(verbose)
+
+    if (verbose) {
+      logger.info(`${moduleMetadata.name} initialized.`)
+    }
   }
 
   public async hasPendingMigrations(): Promise<boolean> {
@@ -33,7 +39,7 @@ export class MySQLModule extends Module implements ModuleListenerDatabaseInterfa
     try {
       await this.#client.save(report)
     } catch (error) {
-      console.error(error)
+      logger.error(error)
       return Promise.reject(error)
     }
   }

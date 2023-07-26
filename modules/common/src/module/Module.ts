@@ -1,13 +1,15 @@
-import type { Service } from "../service/Service.js"
-import type { ModuleInterface } from "./ModuleInterface.js"
+import type { ModuleMetadata } from "./ModuleMetadata.js"
 
-export abstract class Module implements ModuleInterface {
-  id = ""
-  readonly name: string
-  readonly service: Service
+export abstract class Module {
+  readonly id: ModuleMetadata["id"]
+  readonly name: ModuleMetadata["name"]
+  readonly service: ModuleMetadata["service"]
+  readonly verbose: boolean
 
-  constructor(module: Pick<ModuleInterface, "name" | "service">) {
-    this.name = module.name
-    this.service = module.service
+  constructor(moduleMetadata: ModuleMetadata, verbose: boolean) {
+    this.id = moduleMetadata.id
+    this.name = moduleMetadata.name
+    this.service = moduleMetadata.service
+    this.verbose = verbose
   }
 }

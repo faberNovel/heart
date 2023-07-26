@@ -1,8 +1,6 @@
+import type { ModuleIndex, ModuleMetadata } from "@fabernovel/heart-common"
 import { ApiModule } from "./ApiModule.js"
 
-export default new ApiModule({
-  name: "Heart API",
-  service: {
-    name: "Heart API",
-  },
-})
+export const initialize: ModuleIndex["initialize"] = (moduleMetadata: ModuleMetadata, verbose: boolean) => {
+  return new ApiModule(moduleMetadata, verbose)
+}

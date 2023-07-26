@@ -28,6 +28,7 @@ export const analysisModules: ModuleAnalysisInterface<Config, GenericReport<Resu
           },
         })
       ),
+    verbose: false,
   },
   {
     id: "observatory",
@@ -56,5 +57,6 @@ export const analysisModules: ModuleAnalysisInterface<Config, GenericReport<Resu
           },
         })
       ),
+    verbose: false,
   },
 ]

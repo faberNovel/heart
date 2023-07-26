@@ -7,10 +7,10 @@ export class ServiceEntity {
   name!: Service["name"]
 
   @Property()
-  logo?: Service["logo"]
+  logoUrl?: Service["logoUrl"]
 
   constructor(service: Service) {
     this.name = service.name
-    this.logo = service.logo
+    this.logoUrl = service.logoUrl
   }
 }

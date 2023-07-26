@@ -1,17 +1,19 @@
 import {
   InputError,
-  type ModuleServerInterface,
-  type ParsedServerInput,
   validateServerInput,
+  type ModuleMetadata,
+  type ParsedServerInput,
 } from "@fabernovel/heart-common"
 import type { FastifyCorsOptions } from "@fastify/cors"
 import { Command, InvalidArgumentError } from "commander"
-import { type ServerOptions, createCorsOption, createPortOption } from "./ServerOption.js"
+import { createVerboseOption } from "../CommonOption.js"
+import { createCorsOption, createPortOption, type ServerOptions } from "./ServerOption.js"
 
 function prepareOptionsForValidation(options: ServerOptions): ParsedServerInput {
   return {
-    port: options.port,
     cors: options.cors,
+    port: options.port,
+    verbose: options.verbose,
   }
 }
 
@@ -19,25 +21,28 @@ function prepareOptionsForValidation(options: ServerOptions): ParsedServerInput 
  * Create a command dedicated to the given server module
  */
 export const createServerSubcommand = (
-  module: ModuleServerInterface,
-  callback: (port: number, corsOptions: FastifyCorsOptions | undefined) => Promise<void>
+  moduleMetadata: ModuleMetadata,
+  callback: (verbose: boolean, port: number, corsOptions: FastifyCorsOptions | undefined) => Promise<void>
 ): Command => {
-  const subcommand = new Command(module.id)
+  const subcommand = new Command(moduleMetadata.id)
 
   subcommand
-    .description(`Starts the ${module.name} server`)
+    .description(`Starts the ${moduleMetadata.name} server`)
+    .addOption(createVerboseOption())
     .addOption(createPortOption())
     .addOption(createCorsOption())
     .action(async (options: ServerOptions) => {
       try {
         const unvalidatedInputs = prepareOptionsForValidation(options)
-        const { port, cors } = validateServerInput(unvalidatedInputs)
+        const { cors, port, verbose } = validateServerInput(unvalidatedInputs)
 
-        await callback(port, cors)
+        await callback(verbose, port, cors)
       } catch (error) {
         if (error instanceof InputError) {
           const e = new InvalidArgumentError(error.message)
           return Promise.reject(e)
+        } else {
+          return Promise.reject(error)
         }
       }
     })

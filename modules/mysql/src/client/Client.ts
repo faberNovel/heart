@@ -6,6 +6,11 @@ import databaseConfig from "../config/mikro-orm.config.js"
 export class MySQLClient {
   #em: SqlEntityManager | undefined
   #orm: MikroORM<MySqlDriver> | undefined
+  #verbose: boolean
+
+  constructor(verbose: boolean) {
+    this.#verbose = verbose
+  }
 
   public async getMigrator(): Promise<IMigrator> {
     const orm = await this.getOrCreateOrm()
@@ -42,7 +47,7 @@ export class MySQLClient {
    */
   private async getOrCreateOrm(): Promise<MikroORM<MySqlDriver>> {
     if (this.#orm === undefined) {
-      this.#orm = await MikroORM.init<MySqlDriver>(databaseConfig)
+      this.#orm = await MikroORM.init<MySqlDriver>({ verbose: this.#verbose, ...databaseConfig })
     }
 
     return this.#orm

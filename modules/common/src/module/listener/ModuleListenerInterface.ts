@@ -1,11 +1,11 @@
 import type { GenericReport } from "../../report/Report.js"
 import type { Result } from "../../report/Result.js"
-import type { ModuleInterface } from "../ModuleInterface.js"
+import type { Module } from "../Module.js"
 
 /**
  * Define an Listener module.
  */
-export interface ModuleListenerInterface extends ModuleInterface {
+export interface ModuleListenerInterface extends Module {
   notifyAnalysisDone(report: GenericReport<Result>): Promise<unknown>
 }
 
@@ -19,7 +19,7 @@ export type ModuleListener = new () => ModuleListenerInterface
  * Checks if a module is a Listener one.
  * @see {@link https://www.typescriptlang.org/docs/handbook/2/narrowing.html#using-type-predicates | User-Defined Type Guards}
  */
-export function isModuleListener(module: ModuleInterface): module is ModuleListenerInterface {
+export function isModuleListener(module: Module): module is ModuleListenerInterface {
   // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
   return (module as ModuleListenerInterface).notifyAnalysisDone !== undefined
 }

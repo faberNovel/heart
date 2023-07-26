@@ -1,7 +1,8 @@
 import { InvalidArgumentError, Option } from "commander"
 import type { JsonValue } from "type-fest"
+import type { CommonOptions } from "../CommonOption.js"
 
-export interface ServerOptions {
+export interface ServerOptions extends CommonOptions {
   port: number
   cors?: JsonValue
 }
@@ -9,7 +10,7 @@ export interface ServerOptions {
 // the keys are used to create the options names:
 // - options long names: keys names
 // - options short names: first letter of the keys names
-const SERVER_OPTIONS: { [key in keyof ServerOptions]-?: string } = {
+const SERVER_OPTIONS: { [key in keyof Omit<ServerOptions, keyof CommonOptions>]-?: string } = {
   port: "port",
   cors: "cors",
 }

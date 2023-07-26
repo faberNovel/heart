@@ -8,5 +8,6 @@ export const listenerModules: ModuleListenerInterface[] = [
       name: "Listener1",
     },
     notifyAnalysisDone: () => Promise.resolve(),
+    verbose: false,
   },
 ]

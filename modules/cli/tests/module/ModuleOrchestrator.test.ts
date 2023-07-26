@@ -28,6 +28,7 @@ test("Displays the results of an analysis", async () => {
       new Promise((resolve) => {
         resolve(report)
       }),
+    verbose: false,
   }
 
   const startAnalysisMock = jest.spyOn(module, "startAnalysis")

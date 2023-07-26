@@ -1,10 +1,12 @@
 import {
   Helper,
   Module,
-  type ModuleAnalysisInterface,
-  type ObservatoryConfig,
   ObservatoryReport,
   ObservatoryScanState,
+  logger,
+  type ModuleAnalysisInterface,
+  type ModuleMetadata,
+  type ObservatoryConfig,
 } from "@fabernovel/heart-common"
 import { Client } from "./api/Client.js"
 import { ObservatoryError } from "./error/ObservatoryError.js"
@@ -15,7 +17,17 @@ export class ObservatoryModule
   extends Module
   implements ModuleAnalysisInterface<ObservatoryConfig, ObservatoryReport>
 {
-  #client = new Client()
+  #client: Client
+
+  constructor(moduleMetadata: ModuleMetadata, verbose: boolean) {
+    super(moduleMetadata, verbose)
+
+    this.#client = new Client()
+
+    if (verbose) {
+      logger.info(`${moduleMetadata.name} initialized.`)
+    }
+  }
 
   public async startAnalysis(config: ObservatoryConfig, threshold?: number): Promise<ObservatoryReport> {
     const scan = await this.#client.triggerAnalysis(config)

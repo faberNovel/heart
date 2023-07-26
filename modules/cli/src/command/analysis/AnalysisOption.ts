@@ -3,17 +3,18 @@ import type { JsonValue } from "type-fest"
 import { isErrnoException } from "../../error/ErrnoException.js"
 import { readFile } from "../../filesystem/fs.js"
 import { snakeCaseToCamelCase } from "../../text/case.js"
+import type { CommonOptions } from "../CommonOption.js"
 
-export type AnalysisOptions = { config: JsonValue } & Partial<{
-  threshold: number
-  exceptListeners: string[] // array of strings because of the .argParser() on the Option
-  onlyListeners: string[] // array of strings because of the .argParser() on the Option
-}>
+export type AnalysisOptions = CommonOptions & { config: JsonValue } & Partial<{
+    threshold: number
+    exceptListeners: string[] // array of strings because of the .argParser() on the Option
+    onlyListeners: string[] // array of strings because of the .argParser() on the Option
+  }>
 
 // the keys are used to create the options names:
 // - options long names: keys names
 // - options short names: first letter of the keys names
-const ANALYSIS_OPTIONS: { [key in keyof AnalysisOptions]-?: string } = {
+const ANALYSIS_OPTIONS: { [key in keyof Omit<AnalysisOptions, keyof CommonOptions>]-?: string } = {
   config: "config",
   threshold: "threshold",
   exceptListeners: "except-listeners",

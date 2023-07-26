@@ -53,5 +53,14 @@
   },
   "engines": {
     "node": ">=18 <21"
+  },
+  "heart": {
+    "id": "slack",
+    "name": "Heart Slack",
+    "type": "listener",
+    "service": {
+      "name": "Slack",
+      "logoUrl": "https://raw.githubusercontent.com/faberNovel/heart/main/assets/images/logos/Slack.png?v=20221126"
+    }
   }
 }

@@ -27,7 +27,7 @@ describe("Run an analysis", () => {
     // mock chrome-launcher and lighthouse modules methods
     mockedLighthouse.mockResolvedValue(RUNNER_RESULT)
 
-    const results = await requestResult(Conf)
+    const results = await requestResult(Conf, false)
     expect(results).toStrictEqual(RUNNER_RESULT.lhr)
   })
 })

@@ -1,3 +1,4 @@
+import type { ModuleMetadata } from "@fabernovel/heart-common"
 import { jest } from "@jest/globals"
 import { Conf } from "./data/Conf.js"
 import SuccessResult from "./data/SuccessResult.json" assert { type: "json" }
@@ -19,16 +20,17 @@ describe("Run GreenIT analysis", () => {
       },
     ])
 
-    const moduleConfig = {
+    const moduleConfig: ModuleMetadata = {
       id: "1234",
+      type: "analysis",
       name: "Green IT",
       service: {
         name: "Green IT",
-        logo: "some-logo",
+        logoUrl: "some-logo",
       },
     }
 
-    const module = new GreenITModule(moduleConfig)
+    const module = new GreenITModule(moduleConfig, false)
     const analysisReport = await module.startAnalysis(Conf)
 
     const [date, time] = SuccessResult.date.split(" ")
@@ -50,17 +52,18 @@ describe("Run GreenIT analysis", () => {
       },
     ])
 
-    const moduleConfig = {
+    const moduleConfig: ModuleMetadata = {
       id: "1234",
+      type: "analysis",
       name: "Green IT",
       service: {
         name: "Green IT",
-        logo: "some-logo",
+        logoUrl: "some-logo",
       },
     }
 
     const errorMessage = "Error during GreenIT analysis. Increasing the timeout can be a solution"
-    const module = new GreenITModule(moduleConfig)
+    const module = new GreenITModule(moduleConfig, false)
 
     try {
       await module.startAnalysis(Conf)
@@ -77,18 +80,19 @@ describe("Run GreenIT analysis", () => {
       },
     ])
 
-    const moduleConfig = {
+    const moduleConfig: ModuleMetadata = {
       id: "1234",
+      type: "analysis",
       name: "Green IT",
       service: {
         name: "Green IT",
-        logo: "some-logo",
+        logoUrl: "some-logo",
       },
     }
 
     const THRESHOLD = 30
 
-    const module = new GreenITModule(moduleConfig)
+    const module = new GreenITModule(moduleConfig, false)
     const analysisReport = await module.startAnalysis(Conf, THRESHOLD)
 
     expect(analysisReport).toHaveProperty("analyzedUrl", SuccessResult.url)
@@ -107,18 +111,19 @@ describe("Run GreenIT analysis", () => {
       },
     ])
 
-    const moduleConfig = {
+    const moduleConfig: ModuleMetadata = {
       id: "1234",
+      type: "analysis",
       name: "Green IT",
       service: {
         name: "Green IT",
-        logo: "some-logo",
+        logoUrl: "some-logo",
       },
     }
 
     const THRESHOLD = 30
 
-    const module = new GreenITModule(moduleConfig)
+    const module = new GreenITModule(moduleConfig, false)
     const analysisReport = await module.startAnalysis(Conf, THRESHOLD)
 
     expect(analysisReport).toHaveProperty("analyzedUrl", SuccessResult.url)

@@ -1,20 +1,19 @@
 import {
-  type Config,
-  type GenericReport,
   InputError,
-  type ModuleAnalysisInterface,
-  type ModuleListenerInterface,
-  type ParsedAnalysisInput,
-  type Result,
   validateAnalysisInput,
+  type Config,
+  type ModuleMetadata,
+  type ParsedAnalysisInput,
 } from "@fabernovel/heart-common"
 import { Command, InvalidArgumentError } from "commander"
+import type { PackageJsonModule } from "../../module/PackageJson.js"
+import { createVerboseOption, type CommonOptions } from "../CommonOption.js"
 import {
-  type AnalysisOptions,
   createConfigOption,
   createExceptListenersOption,
   createOnlyListenersOption,
   createThresholdOption,
+  type AnalysisOptions,
 } from "./AnalysisOption.js"
 
 function prepareOptionsForValidation(options: AnalysisOptions): ParsedAnalysisInput {
@@ -23,32 +22,38 @@ function prepareOptionsForValidation(options: AnalysisOptions): ParsedAnalysisIn
     threshold: options.threshold,
     except_listeners: options.exceptListeners,
     only_listeners: options.onlyListeners,
+    verbose: options.verbose,
   }
 }
 
 /**
  * Create a command dedicated to the given analysis module
  */
-export const createAnalysisSubcommand = <C extends Config, R extends GenericReport<Result>>(
-  analysisModule: ModuleAnalysisInterface<C, R>,
-  listenerModules: ModuleListenerInterface[],
+export const createAnalysisSubcommand = <C extends Config>(
+  moduleMetadata: ModuleMetadata,
+  listenerModulesMetadataMap: Map<string, PackageJsonModule>,
   callback: (
+    verbose: boolean,
     config: C,
     threshold: number | undefined,
-    listenerModulesFiltered: ModuleListenerInterface[]
+    listenerModulesMetadataMapFiltered: Map<string, PackageJsonModule>
   ) => Promise<void>
 ): Command => {
-  const listenerModulesIds = listenerModules.map((listenerModule) => listenerModule.id)
-  const subcommand = new Command(analysisModule.id)
+  const subcommand = new Command(moduleMetadata.id)
 
   subcommand
-    .description(`Analyzes a URL with ${analysisModule.service.name}`)
+    .description(`Analyzes a URL with ${moduleMetadata.service.name}`)
+    .addOption(createVerboseOption())
     .addOption(createConfigOption())
     .addOption(createThresholdOption())
     .addOption(createExceptListenersOption())
     .addOption(createOnlyListenersOption())
-    .action(async (options: AnalysisOptions) => {
+    .action(async (options: CommonOptions & AnalysisOptions) => {
       try {
+        const listenerModulesIds = new Array<string>()
+        listenerModulesMetadataMap.forEach((metadata) => {
+          listenerModulesIds.push(metadata.heart.id)
+        })
         const unvalidatedInputs = prepareOptionsForValidation(options)
         const { config, threshold, except_listeners, only_listeners } = validateAnalysisInput(
           unvalidatedInputs,
@@ -56,20 +61,26 @@ export const createAnalysisSubcommand = <C extends Config, R extends GenericRepo
         )
 
         if (except_listeners !== undefined) {
-          listenerModules = listenerModules.filter(
-            (listenerModule) => !except_listeners.includes(listenerModule.id)
-          )
+          listenerModulesMetadataMap.forEach((metadata, modulePath, m) => {
+            if (except_listeners.includes(metadata.heart.id)) {
+              m.delete(modulePath)
+            }
+          })
         } else if (only_listeners !== undefined) {
-          listenerModules = listenerModules.filter((listenerModules) =>
-            only_listeners.includes(listenerModules.id)
-          )
+          listenerModulesMetadataMap.forEach((metadata, modulePath, m) => {
+            if (!only_listeners.includes(metadata.heart.id)) {
+              m.delete(modulePath)
+            }
+          })
         }
 
-        await callback(config as C, threshold, listenerModules)
+        await callback(options.verbose, config as C, threshold, listenerModulesMetadataMap)
       } catch (error) {
         if (error instanceof InputError) {
           const e = new InvalidArgumentError(error.cause[0].message ?? error.message)
           return Promise.reject(e)
+        } else {
+          return Promise.reject(error)
         }
       }
     })

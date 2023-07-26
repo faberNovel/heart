@@ -3,13 +3,15 @@ import type { ValidatedServerInput } from "../../../input/ServerInput.js"
 import { validateInput } from "../InputValidation.js"
 import corsSchema from "./schema/cors.json" assert { type: "json" }
 import portSchema from "./schema/port.json" assert { type: "json" }
+import verboseSchema from "../schema/verbose.json" assert { type: "json" }
 
 function getValidationSchema(): SchemaObject {
   return {
     type: "object",
     properties: {
-      port: portSchema,
       cors: corsSchema,
+      port: portSchema,
+      verbose: verboseSchema,
     },
     additionalProperties: false,
   }

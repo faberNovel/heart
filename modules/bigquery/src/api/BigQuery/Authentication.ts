@@ -16,12 +16,7 @@ const FILENAME = `${ENVIRONMENT_VARIABLE_NAME.toLocaleLowerCase()}.json`
  * @see {@link https://cloud.google.com/docs/authentication/getting-started}
  */
 export function prepareAuthentication(): void {
-  try {
-    writeFileSync(FILENAME, env[ENVIRONMENT_VARIABLE_NAME] ?? "")
+  writeFileSync(FILENAME, env[ENVIRONMENT_VARIABLE_NAME] ?? "")
 
-    env.GOOGLE_APPLICATION_CREDENTIALS = `${process.cwd()}/${FILENAME}`
-  } catch (error) {
-    console.error(error)
-    process.exit(1)
-  }
+  env.GOOGLE_APPLICATION_CREDENTIALS = `${process.cwd()}/${FILENAME}`
 }
