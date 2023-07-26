@@ -1,5 +1,5 @@
-<p style="text-align: center;">
-![Violet square with rounded corners, featuring a heart in the form of a cloud of dots. Some of the dots are interconnected.](./docs/images/heart.png)
+<p style="text-align:center;">
+    <img alt="Violet square with rounded corners, featuring a heart in the form of a cloud of dots. Some of the dots are interconnected" src="./docs/images/heart.png" width="128">
 </p>
 
 # Description
