@@ -12,14 +12,17 @@ export async function createServer(
   analysisModules: ModuleAnalysisInterface<Config, GenericReport<Result>>[],
   listenerModules: ModuleListenerInterface[]
 ): Promise<FastifyInstance> {
-  const apiModule = new ApiModule({
-    id: "api",
-    type: "server",
-    name: "Heart API",
-    service: {
+  const apiModule = new ApiModule(
+    {
+      id: "api",
+      type: "server",
       name: "Heart API",
+      service: {
+        name: "Heart API",
+      },
     },
-  })
+    false
+  )
 
   return apiModule.createServer(analysisModules, listenerModules)
 }
