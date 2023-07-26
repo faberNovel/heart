@@ -2,29 +2,29 @@
     <img alt="Violet square with rounded corners, featuring a heart in the form of a cloud of dots. Some of the dots are interconnected" src="./docs/images/heart.png" width="128">
 </p>
 
+<p style="text-align:center;">A command-line tool to industrialize web quality measurement.</p>
+
 # Description
 
-_Heart_ is command-line tool written in Node.js that centralize the analyse of webpages using different third-party services, like [_Google Lighthouse_](https://pagespeed.web.dev/), [_ecoIndex_](https://www.ecoindex.fr/) or [_Mozilla Observatory_](https://observatory.mozilla.org/).
+Heart is a tool that centralize the use of famous web quality measurement services ([_Google Lighthouse_](https://pagespeed.web.dev/), [_GreenIT Analysis_](https://www.ecoindex.fr/) or [_Mozilla Observatory_](https://observatory.mozilla.org/)) in a unique CLI, and makes them easy to integrate into a CI/CD chain.
 
-The results of these analysis can then be:
-- stored into a database to track metrics over time with tools like Grafana
-- send into collaborative platforms like Slack.
+With his modular approach, you can add additional modules that process the results of these analysis once they are over:
+- store them into a database to track metrics over time with tools like _Grafana_
+- send them into collaborative platforms like _Slack_
 
 # Usage
 
->>>
 I want to:
 - analyze https://heart.fabernovel.com/ using the _Google Lighthouse_ service.
 - be notified on the `#heart` Slack channel when the analysis is over.
 - check if the score reach a minimum of 85.
->>>
 
 ## Manual
 
 1. Install the packages
     
     ```bash
-    npm install @fabernovel/heart-cli @fabernovel/heart-lighthouse @fabernovel/heart-slack
+    npm install @fabernovel/heart-lighthouse @fabernovel/heart-slack
     ```
 
 2. Configure the Slack module
@@ -33,15 +33,15 @@ I want to:
     echo HEART_SLACK_API_TOKEN=My_Slack_Api_Token >> .env
     ```
 
-3. Start an analysis
+3. Start the analysis
 
     ```bash
-    npx heart lighthouse --inline '{"url":"https://heart.fabernovel.com/"}' --threshold 85
+    npx heart lighthouse --config '{"url":"https://heart.fabernovel.com/"}' --threshold 85
     ```
 
 Here is an extract of what the Slack notification looks like:
 
-![Analyzed URL, overall grade over 100, several metrics like Speed Index, First Contentful Paint and advices for improvments](./docs/images/heart-slack.png)
+![Analyzed URL, overall grade over 100, several metrics like Speed Index, First Contentful Paint and advices for improvements](./docs/images/heart-slack.png)
 
 ## Automated with Github Action
 
@@ -49,7 +49,7 @@ If you're using Github, you can simplify the integration of Heart in your CI scr
 
 # Design
 
-_Heart_ has been designed to be as light as possible, which explains its modular structure: you only install what you need.
+_Heart_ has been designed to be as light as possible, which explains its modular approach: you only install what you need.
 
 ## Modules types
 
@@ -58,7 +58,7 @@ To do so, _Heart_ is divided in 3 types of modules:
 | Type | Mission | Example |
 | ------ | ------ | ------ |
 | Runner | Starts an analysis | using a CLI or an API |
-| Analysis | Analyzes URLs using third-party services | using _Mozilla Observatory_ |
+| Analysis | Analyzes URLs using third-party services | using _GreenIT Analysis_ |
 | Listener | Do thing with the results of the analysis | send them into a _Slack_ channel |
 
 **The minimum setup you need to run _Heart_, is to have the _Heart CLI_ _runner_ module and a single _analysis_ module.**
