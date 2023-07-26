@@ -413,11 +413,6 @@
       "versionPolicyName": "nextMajor"
     },
     {
-      "packageName": "@fabernovel/heart-moduletpl",
-      "projectFolder": "modules/moduletpl",
-      "shouldPublish": false
-    },
-    {
       "packageName": "@fabernovel/heart-mysql",
       "projectFolder": "modules/mysql",
       "versionPolicyName": "nextMajor"
@@ -436,6 +431,11 @@
       "packageName": "@fabernovel/heart-ssllabs-server",
       "projectFolder": "modules/ssllabs-server",
       "versionPolicyName": "nextMajor"
+    },
+    {
+      "packageName": "@fabernovel/heart-tpl",
+      "projectFolder": "modules/tpl",
+      "shouldPublish": false
     }
   ]
 }
