@@ -1,8 +1,8 @@
-<p style="text-align:center;">
+<p align="center">
     <img alt="Violet square with rounded corners, featuring a heart in the form of a cloud of dots. Some of the dots are interconnected" src="./docs/images/heart.png" width="128">
 </p>
 
-<p style="text-align:center;">A command-line tool to industrialize web quality measurement.</p>
+<p align="center">A command-line tool to industrialize web quality measurement.</p>
 
 # Description
 
