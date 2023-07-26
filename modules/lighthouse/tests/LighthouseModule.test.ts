@@ -23,14 +23,17 @@ const mockedRequestResult = jest.mocked(requestResult)
 const { LighthouseModule } = await import("../src/LighthouseModule.js")
 
 describe("Starts an analysis", () => {
-  const module = new LighthouseModule({
-    id: "lighthouse-test",
-    type: "analysis",
-    name: "Heart Lighthouse Test",
-    service: {
-      name: "Lighthouse Test",
+  const module = new LighthouseModule(
+    {
+      id: "lighthouse-test",
+      type: "analysis",
+      name: "Heart Lighthouse Test",
+      service: {
+        name: "Lighthouse Test",
+      },
     },
-  })
+    false
+  )
 
   it("should starts an analysis with a valid configuration", async () => {
     // mock the analysis stuff

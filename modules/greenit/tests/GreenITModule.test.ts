@@ -30,7 +30,7 @@ describe("Run GreenIT analysis", () => {
       },
     }
 
-    const module = new GreenITModule(moduleConfig)
+    const module = new GreenITModule(moduleConfig, false)
     const analysisReport = await module.startAnalysis(Conf)
 
     const [date, time] = SuccessResult.date.split(" ")
@@ -63,7 +63,7 @@ describe("Run GreenIT analysis", () => {
     }
 
     const errorMessage = "Error during GreenIT analysis. Increasing the timeout can be a solution"
-    const module = new GreenITModule(moduleConfig)
+    const module = new GreenITModule(moduleConfig, false)
 
     try {
       await module.startAnalysis(Conf)
@@ -92,7 +92,7 @@ describe("Run GreenIT analysis", () => {
 
     const THRESHOLD = 30
 
-    const module = new GreenITModule(moduleConfig)
+    const module = new GreenITModule(moduleConfig, false)
     const analysisReport = await module.startAnalysis(Conf, THRESHOLD)
 
     expect(analysisReport).toHaveProperty("analyzedUrl", SuccessResult.url)
@@ -123,7 +123,7 @@ describe("Run GreenIT analysis", () => {
 
     const THRESHOLD = 30
 
-    const module = new GreenITModule(moduleConfig)
+    const module = new GreenITModule(moduleConfig, false)
     const analysisReport = await module.startAnalysis(Conf, THRESHOLD)
 
     expect(analysisReport).toHaveProperty("analyzedUrl", SuccessResult.url)
