@@ -63,7 +63,8 @@
     "name": "Heart MySQL",
     "type": "listener:database",
     "service": {
-      "name": "MySQL"
+      "name": "MySQL",
+      "logoUrl": "https://raw.githubusercontent.com/faberNovel/heart/main/assets/images/logos/MySQL.png?v=20230726"
     }
   },
   "mikro-orm": {

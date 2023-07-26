@@ -23,19 +23,21 @@ export const formatLighthouseBlocks = (report: LighthouseReport): [MrkdwnElement
         .filter((auditRef) => !["metrics", "hidden"].includes(auditRef.group ?? ""))
         .map((auditRef) => auditRef.id)
 
-      const a = audits.filter(
+      const advices = audits.filter(
         (audit) => auditsIds.includes(audit.id) && audit.score !== null && audit.score < 1
       )
 
       const sections: SectionBlock[] = []
 
       // display the category only if it contains advices
-      if (a.length > 0) {
+      if (advices.length > 0) {
         sections.push({
           type: "section",
           text: {
             type: "mrkdwn",
-            text: `*${category.title} (${category.score === null ? "" : `${category.score * 100}/100)`}*`,
+            text: `*${category.title} (${
+              category.score === null ? "" : `${Math.round(category.score * 100)}/100)`
+            }*`,
           },
         })
 
@@ -43,7 +45,7 @@ export const formatLighthouseBlocks = (report: LighthouseReport): [MrkdwnElement
           type: "section",
           text: {
             type: "mrkdwn",
-            text: "- " + a.map((audit) => audit.title).join("\n- "),
+            text: "- " + advices.map((advice) => advice.title).join("\n- "),
           },
         })
       }
