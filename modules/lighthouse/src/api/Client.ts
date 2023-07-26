@@ -20,7 +20,7 @@ export async function requestResult(
 
   const runnerResult = await lighthouse(
     conf.url,
-    { output: "json", logLevel: verbose ? "verbose" : undefined },
+    { output: "json", logLevel: verbose ? "info" : undefined },
     conf.config,
     page
   )

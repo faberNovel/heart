@@ -19,11 +19,13 @@ export class SsllabsServerModule
   extends Module
   implements ModuleAnalysisInterface<SsllabsServerConfig, SsllabsServerReport>
 {
-  #apiClient = new Client()
+  #apiClient: Client
   #threshold?: number
 
   constructor(moduleMetadata: ModuleMetadata, verbose: boolean) {
     super(moduleMetadata, verbose)
+
+    this.#apiClient = new Client()
 
     if (verbose) {
       logger.info(`${moduleMetadata.name} initialized.`)
