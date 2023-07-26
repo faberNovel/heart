@@ -1,8 +1,14 @@
+<p style="text-align: center;">
+![Violet square with rounded corners, featuring a heart in the form of a cloud of dots. Some of the dots are interconnected.](./docs/images/heart.png)
+</p>
+
 # Description
 
-_Heart_ is a modular command-line tool written in Node.js that centralize the analyse of webpages using different third-party services, like [_Google Lighthouse_](https://pagespeed.web.dev/), [_ecoIndex_](https://www.ecoindex.fr/) or [_Mozilla Observatory_](https://observatory.mozilla.org/).
+_Heart_ is command-line tool written in Node.js that centralize the analyse of webpages using different third-party services, like [_Google Lighthouse_](https://pagespeed.web.dev/), [_ecoIndex_](https://www.ecoindex.fr/) or [_Mozilla Observatory_](https://observatory.mozilla.org/).
 
-Moreover, it can also store the results of these analysis and notify you when they are over.
+The results of these analysis can then be:
+- stored into a database to track metrics over time with tools like Grafana
+- send into collaborative platforms like Slack.
 
 # Usage
 
@@ -13,7 +19,7 @@ I want to:
 - check if the score reach a minimum of 85.
 >>>
 
-## Standalone
+## Manual
 
 1. Install the packages
     
@@ -33,7 +39,11 @@ I want to:
     npx heart lighthouse --inline '{"url":"https://heart.fabernovel.com/"}' --threshold 85
     ```
 
-## Github Action
+Here is an extract of what the Slack notification looks like:
+
+![Analyzed URL, overall grade over 100, several metrics like Speed Index, First Contentful Paint and advices for improvments](./docs/images/heart-slack.png)
+
+## Automated with Github Action
 
 If you're using Github, you can simplify the integration of Heart in your CI scripts by using the [Github Action](https://github.com/marketplace/actions/heart-webpages-evaluation).
 
