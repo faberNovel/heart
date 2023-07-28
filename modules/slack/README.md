@@ -24,9 +24,9 @@ Read more about [the description and design of _Heart_](https://github.com/faber
 
 3. [Optional] Customize the Slack channel
 
-    By default the `#heart` channel is used, but you can customize it by adding the `HEART_SLACK_CHANNEL_ID` variable to your .env file:
+    By default the `heart` channel is used, but you can customize it by adding the `HEART_SLACK_CHANNEL_ID` variable to your .env file:
     ```dotenv
-    HEART_SLACK_CHANNEL_ID=#my-custom-channel
+    HEART_SLACK_CHANNEL_ID=my-custom-channel
     ```
 
     Note that the channel identifier must follows the format and rules indicated in [the Slack API documentation](https://api.slack.com/methods/chat.postMessage#channels).
