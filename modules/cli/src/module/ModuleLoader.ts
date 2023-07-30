@@ -38,9 +38,13 @@ export async function loadModulesMetadata(cwd: string): Promise<ModulesMetadata>
 
       if (moduleMetadata.heart.type === "analysis") {
         analysisModulesMap.set(modulePath, moduleMetadata)
-      } else if (moduleMetadata.heart.type === "listener") {
+      } else if (
+        moduleMetadata.heart.type === "listener" ||
+        moduleMetadata.heart.type === "listener:database"
+      ) {
         listenerModulesMap.set(modulePath, moduleMetadata)
-      } else if (moduleMetadata.heart.type === "server") {
+      } else {
+        // moduleMetadata.heart.type === "server
         serverModulesMap.set(modulePath, moduleMetadata)
       }
     })
