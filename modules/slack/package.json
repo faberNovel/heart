@@ -1,6 +1,6 @@
 {
   "name": "@fabernovel/heart-slack",
-  "version": "4.0.0-alpha.6",
+  "version": "4.0.0-alpha.7",
   "description": "Send the analysis results of Heart into a Slack channel",
   "homepage": "https://heart.fabernovel.com",
   "bugs": {
@@ -33,7 +33,7 @@
     "test": "NODE_OPTIONS='--experimental-vm-modules' jest --passWithNoTests"
   },
   "dependencies": {
-    "@fabernovel/heart-common": "workspace:^4.0.0-alpha.6",
+    "@fabernovel/heart-common": "workspace:^4.0.0-alpha.7",
     "@slack/web-api": "^6.8.1"
   },
   "devDependencies": {
@@ -49,7 +49,7 @@
     "typescript": "^5.1.6"
   },
   "peerDependencies": {
-    "@fabernovel/heart-cli": "^4.0.0-alpha.6"
+    "@fabernovel/heart-cli": "^4.0.0-alpha.7"
   },
   "engines": {
     "node": ">=18 <21"

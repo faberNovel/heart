@@ -1,6 +1,6 @@
 {
   "name": "@fabernovel/heart-mysql",
-  "version": "4.0.0-alpha.6",
+  "version": "4.0.0-alpha.7",
   "description": "Store the results of analysis into a MySQL database",
   "homepage": "https://heart.fabernovel.com",
   "bugs": {
@@ -33,7 +33,7 @@
     "test": "NODE_OPTIONS='--experimental-vm-modules' jest --passWithNoTests"
   },
   "dependencies": {
-    "@fabernovel/heart-common": "workspace:^4.0.0-alpha.6",
+    "@fabernovel/heart-common": "workspace:^4.0.0-alpha.7",
     "@mikro-orm/core": "^5.7.13",
     "@mikro-orm/migrations": "^5.7.13",
     "@mikro-orm/mysql": "^5.7.13"
@@ -53,7 +53,7 @@
     "typescript": "^5.1.6"
   },
   "peerDependencies": {
-    "@fabernovel/heart-cli": "^4.0.0-alpha.6"
+    "@fabernovel/heart-cli": "^4.0.0-alpha.7"
   },
   "engines": {
     "node": ">=18 <21"
