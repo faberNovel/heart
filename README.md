@@ -6,18 +6,18 @@
 
 # Description
 
-Heart is a tool that centralize the use of famous web quality measurement services ([_Google Lighthouse_](https://pagespeed.web.dev/), [_GreenIT Analysis_](https://www.ecoindex.fr/) or [_Mozilla Observatory_](https://observatory.mozilla.org/)) in a unique CLI, and makes them easy to integrate into a CI/CD chain.
+Heart is a tool that centralize the use of famous web quality measurement services ([_Google Lighthouse_](https://pagespeed.web.dev/), [_GreenIT Analysis_](https://www.ecoindex.fr/) or [_Mozilla Observatory_](https://observatory.mozilla.org/)) in a unique CLI
 
-With his modular approach, you can add additional modules that process the results of these analysis once they are over:
-- store them into a database to track metrics over time with tools like _Grafana_
-- send them into collaborative platforms like _Slack_
+With his modular approach, it makes easy to process the analysis results into a database to track metrics over time, or send them into a communication tool like Slack.
+
+Moreover, the command-line interface allows a smooth integration into a CI/CD chain, particularly on GitHub where you can make use of [the dedicated GitHub Action](https://github.com/marketplace/actions/heart-webpages-evaluation).
 
 # Usage
 
 I want to:
 - analyze https://heart.fabernovel.com/ using the _Google Lighthouse_ service.
-- be notified on the `#heart` Slack channel when the analysis is over.
-- check if the score reach a minimum of 85.
+- get the main metrics and advices on a `heart` Slack channel when the analysis is over.
+- check that the page grade reaches a minimum of 85 over 100.
 
 ## Manual
 
@@ -43,21 +43,21 @@ Here is an extract of what the Slack notification looks like:
 
 ![Analyzed URL, overall grade over 100, several metrics like Speed Index, First Contentful Paint and advices for improvements](./docs/images/heart-slack.png)
 
-## Automated with Github Action
+## Automated with GitHub Action
 
-If you're using Github, you can simplify the integration of Heart in your CI scripts by using the [Github Action](https://github.com/marketplace/actions/heart-webpages-evaluation).
+If you're using GitHub, you can simplify the integration of Heart in your CI scripts by using the [GitHub Action](https://github.com/marketplace/actions/heart-webpages-evaluation).
 
 # Design
 
 _Heart_ has been designed to be as light as possible, which explains its modular approach: you only install what you need.
 
-## Modules types
+To do so, _Heart_ is divided in 3 types of modules.
 
-To do so, _Heart_ is divided in 3 types of modules:
+## Modules types
 
 | Type | Mission | Example |
 | ------ | ------ | ------ |
-| Runner | Starts an analysis | using a CLI or an API |
+| Runner | Starts an analysis | using the CLI or the HTTP API |
 | Analysis | Analyzes URLs using third-party services | using _GreenIT Analysis_ |
 | Listener | Do thing with the results of the analysis | send them into a _Slack_ channel |
 
