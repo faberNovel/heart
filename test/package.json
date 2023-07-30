@@ -9,14 +9,14 @@
     "test": ""
   },
   "dependencies": {
-    "@fabernovel/heart-api": "workspace:^4.0.0-alpha.7",
-    "@fabernovel/heart-bigquery": "workspace:^4.0.0-alpha.7",
-    "@fabernovel/heart-cli": "workspace:^4.0.0-alpha.7",
-    "@fabernovel/heart-greenit": "workspace:^4.0.0-alpha.7",
-    "@fabernovel/heart-lighthouse": "workspace:^4.0.0-alpha.7",
-    "@fabernovel/heart-mysql": "workspace:^4.0.0-alpha.7",
-    "@fabernovel/heart-observatory": "workspace:^4.0.0-alpha.7",
-    "@fabernovel/heart-slack": "workspace:^4.0.0-alpha.7",
-    "@fabernovel/heart-ssllabs-server": "workspace:^4.0.0-alpha.7"
+    "@fabernovel/heart-api": "workspace:^4.0.0-alpha.8",
+    "@fabernovel/heart-bigquery": "workspace:^4.0.0-alpha.8",
+    "@fabernovel/heart-cli": "workspace:^4.0.0-alpha.8",
+    "@fabernovel/heart-greenit": "workspace:^4.0.0-alpha.8",
+    "@fabernovel/heart-lighthouse": "workspace:^4.0.0-alpha.8",
+    "@fabernovel/heart-mysql": "workspace:^4.0.0-alpha.8",
+    "@fabernovel/heart-observatory": "workspace:^4.0.0-alpha.8",
+    "@fabernovel/heart-slack": "workspace:^4.0.0-alpha.8",
+    "@fabernovel/heart-ssllabs-server": "workspace:^4.0.0-alpha.8"
   }
 }
