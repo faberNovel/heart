@@ -50,7 +50,7 @@ export function createConfigOption(): Option {
         }
       } else if (error instanceof SyntaxError) {
         throw new InvalidArgumentError(
-          "The content of the configuration file cannot parse as JSON. Please check the syntax."
+          "The content of the configuration file cannot be parsed as JSON. Please check the syntax."
         )
       }
 
