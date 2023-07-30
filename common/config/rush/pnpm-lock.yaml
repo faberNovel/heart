@@ -11,10 +11,10 @@ importers:
   ../../modules/api:
     dependencies:
       '@fabernovel/heart-cli':
-        specifier: ^4.0.0-alpha.7
-        version: 4.0.0-alpha.7(@mikro-orm/migrations@5.7.13)(@mikro-orm/mysql@5.7.13)
+        specifier: ^4.0.0-alpha.8
+        version: 4.0.0-alpha.8(@mikro-orm/migrations@5.7.13)(@mikro-orm/mysql@5.7.13)
       '@fabernovel/heart-common':
-        specifier: workspace:^4.0.0-alpha.7
+        specifier: workspace:^4.0.0-alpha.8
         version: link:../common
       '@fastify/cors':
         specifier: ^8.3.0
@@ -66,10 +66,10 @@ importers:
   ../../modules/bigquery:
     dependencies:
       '@fabernovel/heart-cli':
-        specifier: ^4.0.0-alpha.7
-        version: 4.0.0-alpha.7(@mikro-orm/migrations@5.7.13)(@mikro-orm/mysql@5.7.13)
+        specifier: ^4.0.0-alpha.8
+        version: 4.0.0-alpha.8(@mikro-orm/migrations@5.7.13)(@mikro-orm/mysql@5.7.13)
       '@fabernovel/heart-common':
-        specifier: workspace:^4.0.0-alpha.7
+        specifier: workspace:^4.0.0-alpha.8
         version: link:../common
       '@google-cloud/bigquery':
         specifier: ^6.1.0
@@ -112,7 +112,7 @@ importers:
   ../../modules/cli:
     dependencies:
       '@fabernovel/heart-common':
-        specifier: workspace:^4.0.0-alpha.7
+        specifier: workspace:^4.0.0-alpha.8
         version: link:../common
       commander:
         specifier: ^11.0.0
@@ -237,10 +237,10 @@ importers:
   ../../modules/greenit:
     dependencies:
       '@fabernovel/heart-cli':
-        specifier: ^4.0.0-alpha.7
-        version: 4.0.0-alpha.7(@mikro-orm/migrations@5.7.13)(@mikro-orm/mysql@5.7.13)
+        specifier: ^4.0.0-alpha.8
+        version: 4.0.0-alpha.8(@mikro-orm/migrations@5.7.13)(@mikro-orm/mysql@5.7.13)
       '@fabernovel/heart-common':
-        specifier: workspace:^4.0.0-alpha.7
+        specifier: workspace:^4.0.0-alpha.8
         version: link:../common
       greenit-cli:
         specifier: github:cnumr/GreenIT-Analysis-cli#a4363a9bcf7630e4a5a4cd264a7da9ec6f34b571
@@ -283,10 +283,10 @@ importers:
   ../../modules/lighthouse:
     dependencies:
       '@fabernovel/heart-cli':
-        specifier: ^4.0.0-alpha.7
-        version: 4.0.0-alpha.7(@mikro-orm/migrations@5.7.13)(@mikro-orm/mysql@5.7.13)
+        specifier: ^4.0.0-alpha.8
+        version: 4.0.0-alpha.8(@mikro-orm/migrations@5.7.13)(@mikro-orm/mysql@5.7.13)
       '@fabernovel/heart-common':
-        specifier: workspace:^4.0.0-alpha.7
+        specifier: workspace:^4.0.0-alpha.8
         version: link:../common
       lighthouse:
         specifier: ^10.4.0
@@ -329,10 +329,10 @@ importers:
   ../../modules/mysql:
     dependencies:
       '@fabernovel/heart-cli':
-        specifier: ^4.0.0-alpha.7
-        version: 4.0.0-alpha.7(@mikro-orm/migrations@5.7.13)(@mikro-orm/mysql@5.7.13)
+        specifier: ^4.0.0-alpha.8
+        version: 4.0.0-alpha.8(@mikro-orm/migrations@5.7.13)(@mikro-orm/mysql@5.7.13)
       '@fabernovel/heart-common':
-        specifier: workspace:^4.0.0-alpha.7
+        specifier: workspace:^4.0.0-alpha.8
         version: link:../common
       '@mikro-orm/core':
         specifier: ^5.7.13
@@ -384,10 +384,10 @@ importers:
   ../../modules/observatory:
     dependencies:
       '@fabernovel/heart-cli':
-        specifier: ^4.0.0-alpha.7
-        version: 4.0.0-alpha.7(@mikro-orm/migrations@5.7.13)(@mikro-orm/mysql@5.7.13)
+        specifier: ^4.0.0-alpha.8
+        version: 4.0.0-alpha.8(@mikro-orm/migrations@5.7.13)(@mikro-orm/mysql@5.7.13)
       '@fabernovel/heart-common':
-        specifier: workspace:^4.0.0-alpha.7
+        specifier: workspace:^4.0.0-alpha.8
         version: link:../common
     devDependencies:
       '@jest/globals':
@@ -424,10 +424,10 @@ importers:
   ../../modules/slack:
     dependencies:
       '@fabernovel/heart-cli':
-        specifier: ^4.0.0-alpha.7
-        version: 4.0.0-alpha.7(@mikro-orm/migrations@5.7.13)(@mikro-orm/mysql@5.7.13)
+        specifier: ^4.0.0-alpha.8
+        version: 4.0.0-alpha.8(@mikro-orm/migrations@5.7.13)(@mikro-orm/mysql@5.7.13)
       '@fabernovel/heart-common':
-        specifier: workspace:^4.0.0-alpha.7
+        specifier: workspace:^4.0.0-alpha.8
         version: link:../common
       '@slack/web-api':
         specifier: ^6.8.1
@@ -467,10 +467,10 @@ importers:
   ../../modules/ssllabs-server:
     dependencies:
       '@fabernovel/heart-cli':
-        specifier: ^4.0.0-alpha.7
-        version: 4.0.0-alpha.7(@mikro-orm/migrations@5.7.13)(@mikro-orm/mysql@5.7.13)
+        specifier: ^4.0.0-alpha.8
+        version: 4.0.0-alpha.8(@mikro-orm/migrations@5.7.13)(@mikro-orm/mysql@5.7.13)
       '@fabernovel/heart-common':
-        specifier: workspace:^4.0.0-alpha.7
+        specifier: workspace:^4.0.0-alpha.8
         version: link:../common
     devDependencies:
       '@jest/globals':
@@ -507,10 +507,10 @@ importers:
   ../../modules/tpl:
     dependencies:
       '@fabernovel/heart-cli':
-        specifier: ^4.0.0-alpha.7
-        version: 4.0.0-alpha.7(@mikro-orm/migrations@5.7.13)(@mikro-orm/mysql@5.7.13)
+        specifier: ^4.0.0-alpha.8
+        version: 4.0.0-alpha.8(@mikro-orm/migrations@5.7.13)(@mikro-orm/mysql@5.7.13)
       '@fabernovel/heart-common':
-        specifier: workspace:^4.0.0-alpha.7
+        specifier: workspace:^4.0.0-alpha.8
         version: link:../common
     devDependencies:
       '@jest/globals':
@@ -547,31 +547,31 @@ importers:
   ../../test:
     dependencies:
       '@fabernovel/heart-api':
-        specifier: workspace:^4.0.0-alpha.7
+        specifier: workspace:^4.0.0-alpha.8
         version: link:../modules/api
       '@fabernovel/heart-bigquery':
-        specifier: workspace:^4.0.0-alpha.7
+        specifier: workspace:^4.0.0-alpha.8
         version: link:../modules/bigquery
       '@fabernovel/heart-cli':
-        specifier: workspace:^4.0.0-alpha.7
+        specifier: workspace:^4.0.0-alpha.8
         version: link:../modules/cli
       '@fabernovel/heart-greenit':
-        specifier: workspace:^4.0.0-alpha.7
+        specifier: workspace:^4.0.0-alpha.8
         version: link:../modules/greenit
       '@fabernovel/heart-lighthouse':
-        specifier: workspace:^4.0.0-alpha.7
+        specifier: workspace:^4.0.0-alpha.8
         version: link:../modules/lighthouse
       '@fabernovel/heart-mysql':
-        specifier: workspace:^4.0.0-alpha.7
+        specifier: workspace:^4.0.0-alpha.8
         version: link:../modules/mysql
       '@fabernovel/heart-observatory':
-        specifier: workspace:^4.0.0-alpha.7
+        specifier: workspace:^4.0.0-alpha.8
         version: link:../modules/observatory
       '@fabernovel/heart-slack':
-        specifier: workspace:^4.0.0-alpha.7
+        specifier: workspace:^4.0.0-alpha.8
         version: link:../modules/slack
       '@fabernovel/heart-ssllabs-server':
-        specifier: workspace:^4.0.0-alpha.7
+        specifier: workspace:^4.0.0-alpha.8
         version: link:../modules/ssllabs-server
 
 packages:
@@ -966,12 +966,12 @@ packages:
     engines: {node: ^12.22.0 || ^14.17.0 || >=16.0.0}
     dev: true
 
-  /@fabernovel/heart-cli@4.0.0-alpha.7(@mikro-orm/migrations@5.7.13)(@mikro-orm/mysql@5.7.13):
-    resolution: {integrity: sha512-yj9xG/GI5+dzMygh135uP4n1bENeVhA1FzruVhibmJFU4g9mBCgr4Jb+aeWf3OnTRzY8CQtKRCLNDvp5zWNEaA==}
+  /@fabernovel/heart-cli@4.0.0-alpha.8(@mikro-orm/migrations@5.7.13)(@mikro-orm/mysql@5.7.13):
+    resolution: {integrity: sha512-C/PRRruHTsLu05+WPXY+O3t/1aS09lwc3zpQH7uicrAqWSaavIyvBMRmZqQI/SHIfv8IillO2rAdBFmOoCfCsg==}
     engines: {node: '>=18 <21'}
     hasBin: true
     dependencies:
-      '@fabernovel/heart-common': 4.0.0-alpha.7(@mikro-orm/migrations@5.7.13)(@mikro-orm/mysql@5.7.13)
+      '@fabernovel/heart-common': 4.0.0-alpha.8(@mikro-orm/migrations@5.7.13)(@mikro-orm/mysql@5.7.13)
       commander: 11.0.0
       dotenv: 16.3.1
       ora: 6.3.1
@@ -988,8 +988,8 @@ packages:
       - '@mikro-orm/sqlite'
     dev: false
 
-  /@fabernovel/heart-common@4.0.0-alpha.7(@mikro-orm/migrations@5.7.13)(@mikro-orm/mysql@5.7.13):
-    resolution: {integrity: sha512-Ird9y5V+/GVKUQMoIrujz/pi8wLP7t1a84WEnHefAJ/FEsadZtnfA7pk1mtub1gwVTOSCKqx3XATOqu/W4YVHw==}
+  /@fabernovel/heart-common@4.0.0-alpha.8(@mikro-orm/migrations@5.7.13)(@mikro-orm/mysql@5.7.13):
+    resolution: {integrity: sha512-uzyzsHdugJGeQRGpBzZNdPfDuu4ZqTuDfRPFKXhjpjoddn41s3iJAb3CeE80Vyau92TO3YeuofuEeqDMZEPNRA==}
     engines: {node: '>=18 <21'}
     dependencies:
       '@mikro-orm/core': 5.7.13(@mikro-orm/migrations@5.7.13)(@mikro-orm/mysql@5.7.13)
