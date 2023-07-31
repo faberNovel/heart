@@ -20,6 +20,42 @@ describe("Invalid option combinations", () => {
   })
 })
 
+describe("Valid configuration value", () => {
+  test("JSON object with 1 property", () => {
+    const { config } = validateAnalysisInput({ config: { url: "" } })
+
+    expect(config).toStrictEqual({ url: "" })
+  })
+
+  test("JSON object with several properties", () => {
+    const { config } = validateAnalysisInput({
+      config: {
+        url: "https://heart.fabernovel.com/",
+        config: {
+          extends: "lighthouse:default",
+          settings: {
+            maxWaitForFcp: 15000,
+            maxWaitForLoad: 35000,
+            skipAudits: ["uses-http2", "bf-cache"],
+          },
+        },
+      },
+    })
+
+    expect(config).toStrictEqual({
+      url: "https://heart.fabernovel.com/",
+      config: {
+        extends: "lighthouse:default",
+        settings: {
+          maxWaitForFcp: 15000,
+          maxWaitForLoad: 35000,
+          skipAudits: ["uses-http2", "bf-cache"],
+        },
+      },
+    })
+  })
+})
+
 describe("Invalid configuration value", () => {
   test("Array", () => {
     expect(() => {
