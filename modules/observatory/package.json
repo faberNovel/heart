@@ -1,6 +1,6 @@
 {
   "name": "@fabernovel/heart-observatory",
-  "version": "4.0.0-alpha.8",
+  "version": "4.0.0-alpha.9",
   "description": "Analysis module of Heart, which analyses URLs with Mozilla Observatory",
   "homepage": "https://heart.fabernovel.com",
   "bugs": {
@@ -33,7 +33,7 @@
     "test": "NODE_OPTIONS='--experimental-vm-modules' jest --no-cache"
   },
   "dependencies": {
-    "@fabernovel/heart-common": "workspace:^4.0.0-alpha.8"
+    "@fabernovel/heart-common": "workspace:^4.0.0-alpha.9"
   },
   "devDependencies": {
     "@jest/globals": "^29.6.1",
@@ -48,7 +48,7 @@
     "typescript": "^5.1.6"
   },
   "peerDependencies": {
-    "@fabernovel/heart-cli": "^4.0.0-alpha.8"
+    "@fabernovel/heart-cli": "^4.0.0-alpha.9"
   },
   "engines": {
     "node": ">=18 <21"
