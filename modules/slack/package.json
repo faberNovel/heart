@@ -34,7 +34,7 @@
   },
   "dependencies": {
     "@fabernovel/heart-common": "workspace:^4.0.0-alpha.9",
-    "@slack/web-api": "^6.8.1"
+    "@slack/web-api": "^6.9.0"
   },
   "devDependencies": {
     "@jest/globals": "^29.6.2",
