@@ -219,8 +219,8 @@ importers:
         specifier: ^29.6.2
         version: 29.6.2(@types/node@18.16.19)(ts-node@10.9.1)
       lighthouse:
-        specifier: ^10.4.0
-        version: 10.4.0(typescript@5.1.6)
+        specifier: ^11.0.0
+        version: 11.0.0
       rimraf:
         specifier: ^5.0.1
         version: 5.0.1
@@ -289,8 +289,8 @@ importers:
         specifier: workspace:^4.0.0-alpha.9
         version: link:../common
       lighthouse:
-        specifier: ^10.4.0
-        version: 10.4.0(typescript@5.1.6)
+        specifier: ^11.0.0
+        version: 11.0.0
       puppeteer:
         specifier: ^21.0.1
         version: 21.0.1
@@ -1676,27 +1676,6 @@ packages:
     requiresBuild: true
     optional: true
 
-  /@puppeteer/browsers@1.4.6(typescript@5.1.6):
-    resolution: {integrity: sha512-x4BEjr2SjOPowNeiguzjozQbsc6h437ovD/wu+JpaenxVLm3jkgzHY2xOslMTp50HoTvQreMjiexiGQw1sqZlQ==}
-    engines: {node: '>=16.3.0'}
-    hasBin: true
-    peerDependencies:
-      typescript: '>= 4.7.4'
-    peerDependenciesMeta:
-      typescript:
-        optional: true
-    dependencies:
-      debug: 4.3.4
-      extract-zip: 2.0.1
-      progress: 2.0.3
-      proxy-agent: 6.3.0
-      tar-fs: 3.0.4
-      typescript: 5.1.6
-      unbzip2-stream: 1.4.3
-      yargs: 17.7.1
-    transitivePeerDependencies:
-      - supports-color
-
   /@puppeteer/browsers@1.5.0:
     resolution: {integrity: sha512-za318PweGINh5LnHSph7C4xhs0tmRjCD8EPpzcKlw4nzSPhnULj+LTG3+TGefZvW1ti5gjw2JkdQvQsivBeZlg==}
     engines: {node: '>=16.3.0'}
@@ -1711,7 +1690,6 @@ packages:
       yargs: 17.7.1
     transitivePeerDependencies:
       - supports-color
-    dev: false
 
   /@rushstack/ts-command-line@4.15.1:
     resolution: {integrity: sha512-EL4jxZe5fhb1uVL/P/wQO+Z8Rc8FMiWJ1G7VgnPDvdIt5GVjRfK7vwzder1CZQiX3x0PY6uxENYLNGTFd1InRQ==}
@@ -2766,23 +2744,15 @@ packages:
       uuid: 8.0.0
     dev: false
 
-  /chrome-launcher@0.15.2:
-    resolution: {integrity: sha512-zdLEwNo3aUVzIhKhTtXfxhdvZhUghrnmkvcAq2NoDd+LeOHKf03H5jwZ8T/STsAlzyALkBVK552iaG1fGf1xVQ==}
+  /chrome-launcher@1.0.0:
+    resolution: {integrity: sha512-74IMFVfgni/bQ4GotUNJpH2vDR+Sh9cXNPVhPXiedeiB0+5j7/8i8LAqS7WlyNSKqtxJ/CgbOpBDPLkzqDVhlw==}
     engines: {node: '>=12.13.0'}
     hasBin: true
     dependencies:
       '@types/node': 18.16.19
       escape-string-regexp: 4.0.0
       is-wsl: 2.2.0
-      lighthouse-logger: 1.4.2
-
-  /chromium-bidi@0.4.16(devtools-protocol@0.0.1147663):
-    resolution: {integrity: sha512-7ZbXdWERxRxSwo3txsBjjmc/NLxqb1Bk30mRb0BMS4YIaiV6zvKZqL/UAH+DdqcDYayDWk2n/y8klkBDODrPvA==}
-    peerDependencies:
-      devtools-protocol: '*'
-    dependencies:
-      devtools-protocol: 0.0.1147663
-      mitt: 3.0.0
+      lighthouse-logger: 2.0.1
 
   /chromium-bidi@0.4.20(devtools-protocol@0.0.1147663):
     resolution: {integrity: sha512-ruHgVZFEv00mAQMz1tQjfjdG63jiPWrQPF6HLlX2ucqLqVTJoWngeBEKHaJ6n1swV/HSvgnBNbtTRIlcVyW3Fw==}
@@ -2791,7 +2761,6 @@ packages:
     dependencies:
       devtools-protocol: 0.0.1147663
       mitt: 3.0.1
-    dev: false
 
   /ci-info@3.8.0:
     resolution: {integrity: sha512-eXTggHWSooYhq49F2opQhuHWgzucfF2YgODK4e1566GQs5BIfP30B0oenwBJHfWxAs2fyPB1s7Mg949zLf61Yw==}
@@ -4757,8 +4726,8 @@ packages:
   /jpeg-js@0.4.4:
     resolution: {integrity: sha512-WZzeDOEtTOBK4Mdsar0IqEU5sMr3vSV2RqkAIzUEV2BHnUfKGyswWFPFwK5EeDo93K3FohSHbLAjj0s1Wzd+dg==}
 
-  /js-library-detector@6.6.0:
-    resolution: {integrity: sha512-z8OkDmXALZ22bIzBtIW8cpJ39MV93/Zu1rWrFdhsNw+sity2rOLaGT2kfWWQ6mnRTWs4ddONY5kiroA8e98Gvg==}
+  /js-library-detector@6.7.0:
+    resolution: {integrity: sha512-c80Qupofp43y4cJ7+8TTDN/AsDwLi5oOm/plBrWI+iQt485vKXCco+yVmOwEgdo9VOdsYTuV0UlTeetVPTriXA==}
     engines: {node: '>=12'}
 
   /js-tokens@4.0.0:
@@ -4982,23 +4951,23 @@ packages:
       process-warning: 2.2.0
       set-cookie-parser: 2.6.0
 
-  /lighthouse-logger@1.4.2:
-    resolution: {integrity: sha512-gPWxznF6TKmUHrOQjlVo2UbaL2EJ71mb2CCeRs/2qBpi4L/g4LUVc9+3lKQ6DTUZwJswfM7ainGrLO1+fOqa2g==}
+  /lighthouse-logger@2.0.1:
+    resolution: {integrity: sha512-ioBrW3s2i97noEmnXxmUq7cjIcVRjT5HBpAYy8zE11CxU9HqlWHHeRxfeN1tn8F7OEMVPIC9x1f8t3Z7US9ehQ==}
     dependencies:
       debug: 2.6.9
       marky: 1.2.5
 
-  /lighthouse-stack-packs@1.11.0:
-    resolution: {integrity: sha512-sRr0z1S/I26VffRLq9KJsKtLk856YrJlNGmcJmbLX8dFn3MuzVPUbstuChEhqnSxZb8TZmVfthuXuwhG9vRoSw==}
+  /lighthouse-stack-packs@1.12.0:
+    resolution: {integrity: sha512-tWNKyZg2NbEEKeGM1iqGLWuEEDKwtE6xFAtN4NDXyoXirHQFBcEaMEp4lKK8RjmS3Lw+l3hVONj3SaMzY6FB6w==}
 
-  /lighthouse@10.4.0(typescript@5.1.6):
-    resolution: {integrity: sha512-XQWHEWkJ8YxSPsxttBJORy5+hQrzbvGkYfeP3fJjyYKioWkF2MXfFqNK4ZuV4jL8pBu7Z91qnQP6In0bq1yXww==}
-    engines: {node: '>=16.16'}
+  /lighthouse@11.0.0:
+    resolution: {integrity: sha512-sH4VIsK6JNcXpZ1as1+70jdk9d4Hbl6eQbgOkCKszonHawO6uT11TKGdNgIbiTbrMzs4TQ3fiCjKxUVFixS6dg==}
+    engines: {node: '>=18.16'}
     hasBin: true
     dependencies:
       '@sentry/node': 6.19.7
       axe-core: 4.7.2
-      chrome-launcher: 0.15.2
+      chrome-launcher: 1.0.0
       configstore: 5.0.1
       csp_evaluator: 1.1.1
       devtools-protocol: 0.0.1155343
@@ -5006,16 +4975,16 @@ packages:
       http-link-header: 1.1.1
       intl-messageformat: 4.4.0
       jpeg-js: 0.4.4
-      js-library-detector: 6.6.0
-      lighthouse-logger: 1.4.2
-      lighthouse-stack-packs: 1.11.0
+      js-library-detector: 6.7.0
+      lighthouse-logger: 2.0.1
+      lighthouse-stack-packs: 1.12.0
       lodash: 4.17.21
       lookup-closest-locale: 6.2.0
       metaviewport-parser: 0.3.0
       open: 8.4.2
       parse-cache-control: 1.0.1
       ps-list: 8.1.1
-      puppeteer-core: 20.9.0(typescript@5.1.6)
+      puppeteer-core: 21.0.1
       robots-parser: 3.0.1
       semver: 5.7.2
       speedline-core: 1.4.3
@@ -5027,7 +4996,6 @@ packages:
       - bufferutil
       - encoding
       - supports-color
-      - typescript
       - utf-8-validate
 
   /lines-and-columns@1.2.4:
@@ -5257,12 +5225,8 @@ packages:
     resolution: {integrity: sha512-eL79dXrE1q9dBbDCLg7xfn/vl7MS4F1gvJAgjJrQli/jbQWdUttuVawphqpffoIYfRdq78LHx6GP4bU/EQ2ATA==}
     engines: {node: '>=16 || 14 >=14.17'}
 
-  /mitt@3.0.0:
-    resolution: {integrity: sha512-7dX2/10ITVyqh4aOSVI9gdape+t9l2/8QxHrFmUXu4EEUpdlxl6RudZUPZoc+zuY2hk1j7XxVroIVIan/pD/SQ==}
-
   /mitt@3.0.1:
     resolution: {integrity: sha512-vKivATfr97l2/QBCYAkXYDbrIWPM2IIKEl7YPhjCvKlG3kE2gm+uBo6nEXK3M5/Ffh/FLpKExzOQ3JJoJGFKBw==}
-    dev: false
 
   /mkdirp-classic@0.5.3:
     resolution: {integrity: sha512-gKLcREMhtuZRwRAfqP3RFW+TK4JqApVBtOIftVgjuABpAtpxhPGaDcfvbhNvD0B8iD1oUr/txX35NjcaY6Ns/A==}
@@ -5752,28 +5716,6 @@ packages:
     resolution: {integrity: sha512-rRV+zQD8tVFys26lAGR9WUuS4iUAngJScM+ZRSKtvl5tKeZ2t5bvdNFdNHBW9FWR4guGHlgmsZ1G7BSm2wTbuA==}
     engines: {node: '>=6'}
 
-  /puppeteer-core@20.9.0(typescript@5.1.6):
-    resolution: {integrity: sha512-H9fYZQzMTRrkboEfPmf7m3CLDN6JvbxXA3qTtS+dFt27tR+CsFHzPsT6pzp6lYL6bJbAPaR0HaPO6uSi+F94Pg==}
-    engines: {node: '>=16.3.0'}
-    peerDependencies:
-      typescript: '>= 4.7.4'
-    peerDependenciesMeta:
-      typescript:
-        optional: true
-    dependencies:
-      '@puppeteer/browsers': 1.4.6(typescript@5.1.6)
-      chromium-bidi: 0.4.16(devtools-protocol@0.0.1147663)
-      cross-fetch: 4.0.0
-      debug: 4.3.4
-      devtools-protocol: 0.0.1147663
-      typescript: 5.1.6
-      ws: 8.13.0
-    transitivePeerDependencies:
-      - bufferutil
-      - encoding
-      - supports-color
-      - utf-8-validate
-
   /puppeteer-core@21.0.1:
     resolution: {integrity: sha512-E8eWLGhaZZpa7dYe/58qGX7SLb4mTg42NP5M7B+ibPrncgNjTOQa9x1sFIlTn1chF/BmoZqOcMIvwuxcb/9XzQ==}
     engines: {node: '>=16.3.0'}
@@ -5789,7 +5731,6 @@ packages:
       - encoding
       - supports-color
       - utf-8-validate
-    dev: false
 
   /puppeteer-har@1.1.2(puppeteer@5.5.0):
     resolution: {integrity: sha512-Z5zfoj8RkhUT9UbrrR8JjOHNnCr7sNINoeR346F40sLo/4zn+KX/sw/eoKNrtsISc1s/2YCZaqaSEVx6cZ8NQg==}
@@ -6606,6 +6547,7 @@ packages:
     resolution: {integrity: sha512-zaWCozRZ6DLEWAWFrVDz1H6FVXzUSfTy5FUMWsQlU8Ym5JP9eO4xkTIROFCQvhQf61z6O/G6ugw3SgAnvvm+HA==}
     engines: {node: '>=14.17'}
     hasBin: true
+    dev: true
 
   /umzug@3.2.1:
     resolution: {integrity: sha512-XyWQowvP9CKZycKc/Zg9SYWrAWX/gJCE799AUTFqk8yC3tp44K1xWr3LoFF0MNEjClKOo1suCr5ASnoy+KltdA==}

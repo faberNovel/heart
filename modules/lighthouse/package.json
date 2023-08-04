@@ -34,7 +34,7 @@
   },
   "dependencies": {
     "@fabernovel/heart-common": "workspace:^4.0.0-alpha.9",
-    "lighthouse": "^10.4.0",
+    "lighthouse": "^11.0.0",
     "puppeteer": "^21.0.1"
   },
   "devDependencies": {
