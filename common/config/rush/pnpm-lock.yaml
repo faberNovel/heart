@@ -72,8 +72,8 @@ importers:
         specifier: workspace:^4.0.0-alpha.9
         version: link:../common
       '@google-cloud/bigquery':
-        specifier: ^6.1.0
-        version: 6.1.0
+        specifier: ^7.1.1
+        version: 7.1.1
       '@google-cloud/common':
         specifier: 4.0.3
         version: 4.0.3
@@ -1064,20 +1064,19 @@ packages:
     dependencies:
       fast-json-stringify: 5.7.0
 
-  /@google-cloud/bigquery@6.1.0:
-    resolution: {integrity: sha512-YhkrZnJjB1bcLqB/IFOA4OQm/tMxsI3ldtLP57RnU+qPQsm3otEuVgbfG9Q/gXUfv6Lx03XLa0EVUS9NrpwqOA==}
-    engines: {node: '>=12.0.0'}
+  /@google-cloud/bigquery@7.1.1:
+    resolution: {integrity: sha512-dxyF/GuTUNJSuEwtvQO4zPjoAg7SEF5E5XWiCLGrdDaldqAUduzxCAmCyoLozPuxXHK00AsxUIlbR0+k9ZdNXA==}
+    engines: {node: '>=14.0.0'}
     dependencies:
       '@google-cloud/common': 4.0.3
       '@google-cloud/paginator': 4.0.1
+      '@google-cloud/precise-date': 3.0.1
       '@google-cloud/promisify': 3.0.1
       arrify: 2.0.1
       big.js: 6.2.1
       duplexify: 4.1.2
       extend: 3.0.2
       is: 3.3.0
-      p-event: 4.2.0
-      readable-stream: 4.4.2
       stream-events: 1.0.5
       uuid: 9.0.0
     transitivePeerDependencies:
@@ -1109,6 +1108,11 @@ packages:
     dependencies:
       arrify: 2.0.1
       extend: 3.0.2
+    dev: false
+
+  /@google-cloud/precise-date@3.0.1:
+    resolution: {integrity: sha512-crK2rgNFfvLoSgcKJY7ZBOLW91IimVNmPfi1CL+kMTf78pTJYd29XqEVedAeBu4DwCJc0EDIp1MpctLgoPq+Uw==}
+    engines: {node: '>=12.0.0'}
     dev: false
 
   /@google-cloud/projectify@3.0.0:
@@ -5403,13 +5407,6 @@ packages:
   /p-cancelable@2.1.1:
     resolution: {integrity: sha512-BZOr3nRQHOntUjTrH8+Lh54smKHoHyur8We1V8DSMVrl5A2malOOwuJRnKRDjSnkoeBh4at6BwEnb5I7Jl31wg==}
     engines: {node: '>=8'}
-    dev: false
-
-  /p-event@4.2.0:
-    resolution: {integrity: sha512-KXatOjCRXXkSePPb1Nbi0p0m+gQAwdlbhi4wQKJPI1HsMQS9g+Sqp2o+QHziPr7eYJyOZet836KoHEVM1mwOrQ==}
-    engines: {node: '>=8'}
-    dependencies:
-      p-timeout: 3.2.0
     dev: false
 
   /p-finally@1.0.0:

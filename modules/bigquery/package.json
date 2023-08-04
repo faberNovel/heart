@@ -34,7 +34,7 @@
   },
   "dependencies": {
     "@fabernovel/heart-common": "workspace:^4.0.0-alpha.9",
-    "@google-cloud/bigquery": "^6.1.0",
+    "@google-cloud/bigquery": "^7.1.1",
     "@google-cloud/common": "4.0.3"
   },
   "devDependencies": {
