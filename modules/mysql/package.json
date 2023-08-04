@@ -34,13 +34,13 @@
   },
   "dependencies": {
     "@fabernovel/heart-common": "workspace:^4.0.0-alpha.9",
-    "@mikro-orm/core": "^5.7.13",
-    "@mikro-orm/migrations": "^5.7.13",
-    "@mikro-orm/mysql": "^5.7.13"
+    "@mikro-orm/core": "^5.7.14",
+    "@mikro-orm/migrations": "^5.7.14",
+    "@mikro-orm/mysql": "^5.7.14"
   },
   "devDependencies": {
     "@jest/globals": "^29.6.2",
-    "@mikro-orm/cli": "^5.7.13",
+    "@mikro-orm/cli": "^5.7.14",
     "@types/jest": "^29.5.3",
     "@types/node": "^18.16.19",
     "@typescript-eslint/eslint-plugin": "^6.1.0",
