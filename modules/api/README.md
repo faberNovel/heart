@@ -8,10 +8,16 @@ Read more about [the description and design of _Heart_](https://github.com/faber
 
 # Usage
 
-1. Install the package, _[Heart CLI](https://www.npmjs.com/package/@fabernovel/heart-cli)_ and an _analysis_ module, for example _[Heart GreenIT](https://www.npmjs.com/package/@fabernovel/heart-greenit)_
+1. Install the package and an _analysis_ module, for example _[Heart GreenIT](https://www.npmjs.com/package/@fabernovel/heart-greenit)_
 
     ```bash
-    npm install @fabernovel/heart-cli @fabernovel/heart-api @fabernovel/heart-greenit
+    npm install @fabernovel/heart-api @fabernovel/heart-greenit
+    ```
+
+    If you are using Yarn, npm < 7 or PNPM < 8 as package manager, you also have to install _[Heart CLI](https://www.npmjs.com/package/@fabernovel/heart-cli)_ (which is automatically installed if you have more recent versions):
+
+    ```bash
+    npm install @fabernovel/heart-cli
     ```
 
 2. Start the server

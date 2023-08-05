@@ -8,10 +8,16 @@ Read more about [the purpose, design and general installation of _Heart_](https:
 
 ## Standalone
 
-1. Install the package and _[Heart CLI](https://www.npmjs.com/package/@fabernovel/heart-cli)_
+1. Install the package
 
     ```bash
-    npm install @fabernovel/heart-cli @fabernovel/heart-ssllabs-server
+    npm install @fabernovel/heart-ssllabs-server
+    ```
+
+    If you are using Yarn, npm < 7 or PNPM < 8 as package manager, you also have to install _[Heart CLI](https://www.npmjs.com/package/@fabernovel/heart-cli)_ (which is automatically installed if you have more recent versions):
+
+    ```bash
+    npm install @fabernovel/heart-cli
     ```
 
 2. Start an analysis
