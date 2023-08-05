@@ -39,7 +39,7 @@ Read more about [the description and design of _Heart_](https://github.com/faber
     OR 
 
     ```bash
-    npx heart observatory --file configuration.json
+    npx heart observatory --config config.json
     ```
 
     The analysis configuration follows the JSON format and  the [Invoke assessment API Documentation](https://github.com/mozilla/http-observatory/blob/master/httpobs/docs/api.md#invoke-assessment).

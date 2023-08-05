@@ -29,7 +29,7 @@ Read more about [the description and design of _Heart_](https://github.com/faber
     OR 
 
     ```bash
-    npx heart lighthouse --config desktop.json
+    npx heart lighthouse --config config.json
     ```
 
     The analysis configuration follows the JSON format and has the following keys:

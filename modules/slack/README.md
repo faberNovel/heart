@@ -46,7 +46,7 @@ Read more about [the description and design of _Heart_](https://github.com/faber
     OR 
 
     ```bash
-    npx heart greenit --file configuration.json
+    npx heart greenit --config config.json
     ```
 
     Once the analysis is done, a notification is sent to your _Slack_ channel.

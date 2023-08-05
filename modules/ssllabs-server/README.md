@@ -29,7 +29,7 @@ Read more about [the purpose, design and general installation of _Heart_](https:
     OR 
 
     ```bash
-    npx heart ssllabs-server --file configuration.json
+    npx heart ssllabs-server --config config.json
     ```
 
     The analysis configuration follows the JSON format and  the [Invoke assessment and check progress API documentation](https://github.com/ssllabs/ssllabs-scan/blob/master/ssllabs-api-docs-v3.md#invoke-assessment-and-check-progress).
