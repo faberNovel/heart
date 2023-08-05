@@ -1,3 +1,5 @@
+# ⚠️ This package is deprecated since Heart 4.0 and the introduction of database modules.
+
 # Description
 
 _Heart BigQuery_ is a _listener_ module of _Heart_, which reacts at the end of an analysis by storing the results into a table of a _[Google BigQuery](https://cloud.google.com/bigquery/)_ instance.
