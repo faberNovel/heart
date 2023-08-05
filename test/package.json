@@ -10,7 +10,6 @@
   },
   "dependencies": {
     "@fabernovel/heart-api": "workspace:^4.0.0-alpha.9",
-    "@fabernovel/heart-bigquery": "workspace:^4.0.0-alpha.9",
     "@fabernovel/heart-cli": "workspace:^4.0.0-alpha.9",
     "@fabernovel/heart-greenit": "workspace:^4.0.0-alpha.9",
     "@fabernovel/heart-lighthouse": "workspace:^4.0.0-alpha.9",
