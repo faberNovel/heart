@@ -388,11 +388,6 @@
       "versionPolicyName": "nextMajor"
     },
     {
-      "packageName": "@fabernovel/heart-bigquery",
-      "projectFolder": "modules/bigquery",
-      "versionPolicyName": "nextMajor"
-    },
-    {
       "packageName": "@fabernovel/heart-cli",
       "projectFolder": "modules/cli",
       "versionPolicyName": "nextMajor"
