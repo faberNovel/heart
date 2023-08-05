@@ -8,10 +8,16 @@ Read more about [the description and design of _Heart_](https://github.com/faber
 
 ## Standalone
 
-1. Install the package and _[Heart CLI](https://www.npmjs.com/package/@fabernovel/heart-cli)_
+1. Install the package
 
     ```bash
-    npm install @fabernovel/heart-cli @fabernovel/heart-observatory
+    npm install @fabernovel/heart-observatory
+    ```
+
+    If you are using Yarn, npm < 7 or PNPM < 8 as package manager, you also have to install _[Heart CLI](https://www.npmjs.com/package/@fabernovel/heart-cli)_ (which is automatically installed if you have more recent versions):
+
+    ```bash
+    npm install @fabernovel/heart-cli
     ```
 
 2. [Optional] Customize the _Mozilla Observatory_ scanner
@@ -33,7 +39,7 @@ Read more about [the description and design of _Heart_](https://github.com/faber
     OR 
 
     ```bash
-    npx heart observatory --file configuration.json
+    npx heart observatory --config config.json
     ```
 
     The analysis configuration follows the JSON format and  the [Invoke assessment API Documentation](https://github.com/mozilla/http-observatory/blob/master/httpobs/docs/api.md#invoke-assessment).

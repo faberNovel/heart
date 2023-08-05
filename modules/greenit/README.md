@@ -8,10 +8,16 @@ Read more about [the description and design of _Heart_](https://github.com/faber
 
 ## Standalone
 
-1. Install the package and _[Heart CLI](https://www.npmjs.com/package/@fabernovel/heart-cli)_
+1. Install the package
 
     ```bash
-    npm install @fabernovel/heart-cli @fabernovel/heart-greenit
+    npm install @fabernovel/heart-greenit
+    ```
+
+    If you are using Yarn, npm < 7 or PNPM < 8 as package manager, you also have to install _[Heart CLI](https://www.npmjs.com/package/@fabernovel/heart-cli)_ (which is automatically installed if you have more recent versions):
+
+    ```bash
+    npm install @fabernovel/heart-cli
     ```
 
 2. Start an analysis
@@ -23,7 +29,7 @@ Read more about [the description and design of _Heart_](https://github.com/faber
     OR 
 
     ```bash
-    npx heart greenit --config configuration.json
+    npx heart greenit --config config.json
     ```
 
     The analysis configuration follows the JSON format and has the following keys:
