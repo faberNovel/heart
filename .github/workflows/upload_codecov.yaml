@@ -1,0 +1,19 @@
+# https://docs.github.com/en/actions/using-workflows/reusing-workflows
+on:
+  workflow_call:
+  inputs:
+    module_name:
+      required: true
+      type: string
+
+jobs:
+  upload_codecov:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: ⤒ Upload ${{ inputs.module_name }} coverage report to Codecov
+        uses: codecov/codecov-action@v3
+        with:
+          fail_ci_if_error: true
+          files: ./modules/${{ inputs.module_name }}/coverage/clover.xml
+          flags: ${{ inputs.module_name }}
