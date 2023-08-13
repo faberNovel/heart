@@ -19,12 +19,11 @@ jobs:
         uses: actions/download-artifact@v3
         with:
           name: code-coverage-reports
-
-      - run: head -n15 ./${{ inputs.module_name }}/coverage/clover.xml
+          path: modules/
 
       - name: ⤒ Upload coverage report for ${{ inputs.module_name }} module
         uses: codecov/codecov-action@v3
         with:
           fail_ci_if_error: true
-          files: ./${{ inputs.module_name }}/coverage/clover.xml
+          files: ./modules/${{ inputs.module_name }}/coverage/clover.xml
           flags: ${{ inputs.module_name }}
