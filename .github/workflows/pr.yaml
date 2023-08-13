@@ -54,3 +54,12 @@ jobs:
 
       - name: 🐛 Test
         run: node common/scripts/install-run-rush.js test
+
+      - name: ⤒ Upload coverage reports to Codecov
+        uses: codecov/codecov-action@v3
+        with:
+          dry_run: true
+          token: ${{ secrets.CODECOV_TOKEN }}
+          files: ./modules/heart-common/coverage/clover.xml
+          flags: heart-common
+          verbose: true
