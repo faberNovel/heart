@@ -4,6 +4,10 @@
 
 <p align="center">A command-line tool to industrialize web quality measurement.</p>
 
+![npm](https://img.shields.io/npm/v/%40fabernovel%2Fheart-cli?logo=npm)
+[![license badge](https://img.shields.io/github/license/faberNovel/heart)](./LICENSE)
+[![codecov](https://codecov.io/gh/faberNovel/heart/branch/main/graph/badge.svg?token=GN6PJTCDH9)](https://codecov.io/gh/faberNovel/heart)
+
 # Description
 
 Heart is a tool that centralize the use of famous web quality measurement services ([_Google Lighthouse_](https://pagespeed.web.dev/), [_GreenIT Analysis_](https://www.ecoindex.fr/) or [_Mozilla Observatory_](https://observatory.mozilla.org/)) in a unique CLI
