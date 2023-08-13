@@ -8,6 +8,7 @@ on:
 
 jobs:
   upload_coverage_report:
+    name: Upload the coverage report to Codecov
     runs-on: ubuntu-latest
     defaults:
       run:
@@ -19,7 +20,9 @@ jobs:
         with:
           name: code-coverage-reports
 
-      - name: ⤒ Upload ${{ inputs.module_name }} coverage report to Codecov
+      - run: head -n15 ./${{ inputs.module_name }}/coverage/clover.xml
+
+      - name: ⤒ Upload coverage report for ${{ inputs.module_name }} module
         uses: codecov/codecov-action@v3
         with:
           fail_ci_if_error: true
