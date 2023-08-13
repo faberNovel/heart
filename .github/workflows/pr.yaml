@@ -64,6 +64,9 @@ jobs:
         run: node common/scripts/install-run-rush.js test --coverage
 
       - name: Archive code coverage reports
+        # coverage results are the same whatever the Node.js version used.
+        # so in order to reduce the machine-time consumption (memory, CPU...), we execute the 2 following steps once.
+        if: ${{ matrix.node_version == 18 }}
         uses: actions/upload-artifact@v3
         with:
           name: code-coverage-reports
@@ -71,6 +74,7 @@ jobs:
           retention-days: 1
 
       - name: List module names for which a coverage report has been generated
+        if: ${{ matrix.node_version == 18 }}
         id: list_directories
         # the module names are provided as an array in a stringified JSON, as it seems to be the only way to pass arrays with outputs.
         # the stringified JSON is constructed manually.
@@ -90,6 +94,7 @@ jobs:
           echo "module_names=$module_names_json" >> "$GITHUB_OUTPUT"
 
   upload_coverage_reports:
+    name: Upload coverage reports
     needs: test
     strategy:
       matrix:
