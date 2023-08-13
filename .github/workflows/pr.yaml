@@ -37,11 +37,11 @@ jobs:
     strategy:
       matrix:
         node_version: [18, 19, 20]
+    outputs:
+      module_names: ${{ steps.list_directories.outputs.module_names }}
 
     steps:
       - uses: actions/checkout@v3
-        with:
-          fetch-depth: 2
 
       - uses: actions/setup-node@v3
         with:
@@ -54,12 +54,28 @@ jobs:
         run: node common/scripts/install-run-rush.js rebuild
 
       - name: 🐛 Test
-        # --coverage generate coverage reports for their upload in the next step
+        # use --coverage option to generate coverage reports for their upload in the next job
         run: node common/scripts/install-run-rush.js test --coverage
 
-      - name: ⤒ Upload coverage reports to Codecov
-        uses: codecov/codecov-action@v3
+      - name: Archive code coverage reports
+        uses: actions/upload-artifact@v3
         with:
-          fail_ci_if_error: true
-          files: ./modules/common/coverage/clover.xml
-          flags: node${{ matrix.node_version }},common
+          name: code-coverage-reports
+          path: ./modules/*/coverage/*.xml
+          retention-days: 1
+
+      - name: List module names for which a coverage report has been generated
+        id: list_directories
+        run: >
+          directories_names=$(find ./modules -name coverage)
+          module_names=()
+          for directory_name in $directories_names; do module_names+=$(cut -d / -f 3 <<< $directory_name); done
+          echo "module_names=$module_names" >> "$GITHUB_OUTPUT"
+
+  upload_coverage_reports:
+    strategy:
+      matrix:
+        module_name: ${{ needs.test.outputs.module_names }}
+    uses: ./.github/workflows/upload_coverage_report.yaml
+    with:
+      module_name: ${{ matrix.module_name }}

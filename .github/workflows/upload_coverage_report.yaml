@@ -1,16 +1,21 @@
 # https://docs.github.com/en/actions/using-workflows/reusing-workflows
 on:
   workflow_call:
-  inputs:
-    module_name:
-      required: true
-      type: string
+    inputs:
+      module_name:
+        required: true
+        type: string
 
 jobs:
-  upload_codecov:
+  upload_coverage_report:
     runs-on: ubuntu-latest
 
     steps:
+      - name: Download code coverage reports
+        uses: actions/download-artifact@v3
+        with:
+          name: code-coverage-reports
+
       - name: ⤒ Upload ${{ inputs.module_name }} coverage report to Codecov
         uses: codecov/codecov-action@v3
         with:
