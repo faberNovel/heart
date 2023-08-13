@@ -28,7 +28,8 @@ jobs:
         run: node common/scripts/install-run-rush.js change --target-branch origin/$GITHUB_BASE_REF --verify -v
 
       - name: 💅 Lint
-        run: node common/scripts/install-run-rush.js lint --verbose # --verbose allows to display warnings from ESLint
+        # --verbose allows to display warnings from ESLint
+        run: node common/scripts/install-run-rush.js lint --verbose
 
   test:
     name: Test
@@ -53,6 +54,7 @@ jobs:
         run: node common/scripts/install-run-rush.js rebuild
 
       - name: 🐛 Test
+        # --coverage generate coverage reports for their upload in the next step
         run: node common/scripts/install-run-rush.js test --coverage
 
       - name: ⤒ Upload coverage reports to Codecov
@@ -60,6 +62,6 @@ jobs:
         with:
           dry_run: true
           token: ${{ secrets.CODECOV_TOKEN }}
-          files: ./modules/heart-common/coverage/clover.xml
-          flags: heart-common
+          files: ./modules/common/coverage/clover.xml
+          flags: heart-common@${{ matrix.node_version }}
           verbose: true
