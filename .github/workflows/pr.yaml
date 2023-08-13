@@ -63,5 +63,5 @@ jobs:
           dry_run: true
           token: ${{ secrets.CODECOV_TOKEN }}
           files: ./modules/common/coverage/clover.xml
-          flags: heart-common@${{ matrix.node_version }}
+          flags: node${{ matrix.node_version }},common
           verbose: true
