@@ -8,6 +8,9 @@ jobs:
   syntax_changelog:
     name: Syntax & changelog
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        shell: bash
 
     steps:
       - uses: actions/checkout@v3
@@ -34,6 +37,9 @@ jobs:
   test:
     name: Test
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        shell: bash
     strategy:
       matrix:
         node_version: [18, 19, 20]
@@ -66,16 +72,28 @@ jobs:
 
       - name: List module names for which a coverage report has been generated
         id: list_directories
-        run: >
+        # the module names are provided as an array in a stringified JSON, as it seems to be the only way to pass arrays with outputs.
+        # the stringified JSON is constructed manually.
+        # directories_names is an array of strings formatted like that: ./modules/common/coverage.
+        # the cut command splits the strings according to the / cahracter and takes the 3rd element.
+        # syntax checked with https://www.shellcheck.net/
+        # https://yaml-multiline.info/
+        run: |
           directories_names=$(find ./modules -name coverage)
           module_names=()
-          for directory_name in $directories_names; do module_names+=$(cut -d / -f 3 <<< $directory_name); done
-          echo "module_names=$module_names" >> "$GITHUB_OUTPUT"
+          for directory_name in $directories_names;
+          do
+              module_name="$(cut -d / -f 3 <<< "$directory_name")"
+              module_names+=("\"$module_name\"")
+          done
+          module_names_json=$( IFS=$','; echo "[${module_names[*]}]" )
+          echo "module_names=$module_names_json" >> "$GITHUB_OUTPUT"
 
   upload_coverage_reports:
+    needs: test
     strategy:
       matrix:
-        module_name: ${{ needs.test.outputs.module_names }}
+        module_name: ${{ fromJSON(needs.test.outputs.module_names) }}
     uses: ./.github/workflows/upload_coverage_report.yaml
     with:
       module_name: ${{ matrix.module_name }}
