@@ -8,6 +8,9 @@ jobs:
   syntax_changelog:
     name: Syntax & changelog
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        shell: bash
 
     steps:
       - uses: actions/checkout@v3
@@ -28,19 +31,21 @@ jobs:
         run: node common/scripts/install-run-rush.js change --target-branch origin/$GITHUB_BASE_REF --verify -v
 
       - name: 💅 Lint
-        run: node common/scripts/install-run-rush.js lint --verbose # --verbose allows to display warnings from ESLint
+        # --verbose allows to display warnings from ESLint
+        run: node common/scripts/install-run-rush.js lint --verbose
 
   test:
     name: Test
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        shell: bash
     strategy:
       matrix:
         node_version: [18, 19, 20]
 
     steps:
       - uses: actions/checkout@v3
-        with:
-          fetch-depth: 2
 
       - uses: actions/setup-node@v3
         with:

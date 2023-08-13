@@ -45,6 +45,9 @@ jobs:
     if: inputs.PUBLICATION_MODE == 'simulate'
     name: Simulate a publication to npmjs.org with the version policy ${{ inputs.VERSION_POLICY }}
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        shell: bash
     permissions:
       contents: write
 
@@ -74,6 +77,9 @@ jobs:
     if: inputs.PUBLICATION_MODE == 'publish'
     name: Publish to npmjs.org with the version policy ${{ inputs.VERSION_POLICY }}
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        shell: bash
     permissions:
       contents: write
       pull-requests: write
