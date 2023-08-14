@@ -10,11 +10,11 @@
 
 # Description
 
-Heart is a tool that centralize the use of famous web quality measurement services ([_Google Lighthouse_](https://pagespeed.web.dev/), [_GreenIT Analysis_](https://www.ecoindex.fr/) or [_Mozilla Observatory_](https://observatory.mozilla.org/)) in a unique CLI
+Heart is a tool that centralize the use of famous web quality measurement services ([_Google Lighthouse_](https://pagespeed.web.dev/), [_GreenIT Analysis_](https://www.ecoindex.fr/) or [_Mozilla Observatory_](https://observatory.mozilla.org/)) in a unique CLI.
 
-With his modular approach, it makes easy to process the analysis results into a database to track metrics over time, or send them into a communication tool like Slack.
+With his modular approach, it makes easy to process the analysis results into a database to track metrics over time, or send them into a communication tool like _Slack_.
 
-Moreover, the command-line interface allows a smooth integration into a CI/CD chain, particularly on GitHub where you can make use of [the dedicated GitHub Action](https://github.com/marketplace/actions/heart-webpages-evaluation).
+Moreover the command-line interface allows a smooth integration into a CI/CD chain: try the [Docker image](https://hub.docker.com/r/fabernovel/heart) or the [GitHub Action](https://github.com/marketplace/actions/heart-webpages-evaluation).
 
 # Usage
 
