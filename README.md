@@ -54,6 +54,8 @@ And the results will be stored in a `report` table, which you can exploit with t
 
 ![Analyzed URL, overall grade over 100, several metrics like Speed Index, First Contentful Paint and advices for improvements](./docs/images/heart-mysql.png)
 
+For more options, have a look at the help by using `npx heart -h`
+
 ## Packaged, with the Docker image
 
 Heart is also available as a [Docker image](https://hub.docker.com/r/fabernovel/heart).
@@ -65,7 +67,7 @@ docker run --rm\
     --env HEART_SLACK_API_TOKEN=xoxb-rest-of-token\
     --env HEART_MYSQL_DATABASE_URL=mysql://root@127.0.0.1:3306\
     fabernovel/heart:latest\
-    lighthouse --config '{"url":"https://heart.fabernovel.com"}' --threshold=85 --only-listeners=mysql,slack
+    lighthouse --config '{"url":"https://heart.fabernovel.com"}' --only-listeners=mysql,slack
 ```
 
 ## Automated, with the GitHub Action
@@ -79,7 +81,6 @@ With the example scenario given previously, the GitHub Action is used as follow:
   with:
     analysis_service: lighthouse
     listener_services_only: mysql,slack
-    threshold: 85
     mysql_database_url: mysql://root@127.0.0.1:3306
     slack_api_token: ${{ secrets.SLACK_API_TOKEN }}
 ```
