@@ -10,46 +10,80 @@
 
 # Description
 
-Heart is a tool that centralize the use of famous web quality measurement services ([_Google Lighthouse_](https://pagespeed.web.dev/), [_GreenIT Analysis_](https://www.ecoindex.fr/) or [_Mozilla Observatory_](https://observatory.mozilla.org/)) in a unique CLI
+Heart is a tool that centralize the use of famous web quality measurement services ([_Google Lighthouse_](https://pagespeed.web.dev/), [_GreenIT Analysis_](https://www.ecoindex.fr/) or [_Mozilla Observatory_](https://observatory.mozilla.org/)) in a unique CLI.
 
-With his modular approach, it makes easy to process the analysis results into a database to track metrics over time, or send them into a communication tool like Slack.
+With his modular approach, it makes easy to process the analysis results into a database to track metrics over time, or send them into a communication tool like _Slack_.
 
-Moreover, the command-line interface allows a smooth integration into a CI/CD chain, particularly on GitHub where you can make use of [the dedicated GitHub Action](https://github.com/marketplace/actions/heart-webpages-evaluation).
+Moreover the command-line interface allows a smooth integration into a CI/CD chain.
 
-# Usage
+# Example of use
 
-I want to:
-- analyze https://heart.fabernovel.com/ using the _Google Lighthouse_ service.
-- get the main metrics and advices on a `heart` Slack channel when the analysis is over.
-- check that the page grade reaches a minimum of 85 over 100.
+Exemple scenario:
+- analyze <https://heart.fabernovel.com/> using the _Google Lighthouse_ service.
+- receive the main metrics and advices on a `heart` Slack channel when the analysis is over.
+- store the results in a _MySQL_ database.
 
-## Manual
+## Manual, with NPM packages
 
 1. Install the packages
     
     ```bash
-    npm install @fabernovel/heart-lighthouse @fabernovel/heart-slack
+    npm install @fabernovel/heart-lighthouse @fabernovel/heart-slack @fabernovel/heart-mysql
     ```
 
-2. Configure the Slack module
+2. Set the credentials for Slack (API key) and MySQL (database URL)
     
     ```bash
-    echo HEART_SLACK_API_TOKEN=My_Slack_Api_Token >> .env
+    echo HEART_SLACK_API_TOKEN=xoxb-rest-of-token >> .env
+    echo HEART_MYSQL_DATABASE_URL=mysql://root@127.0.0.1:3306 >> .env
     ```
 
-3. Start the analysis
+3. Create a Slack channel named `heart` and a database with the same name.
+
+4. Start the analysis
 
     ```bash
-    npx heart lighthouse --config '{"url":"https://heart.fabernovel.com/"}' --threshold 85
+    npx heart lighthouse --config '{"url":"https://heart.fabernovel.com/"}'
     ```
 
-Here is an extract of what the Slack notification looks like:
+Once the analysis is over, you will receive a Slack notification to quickly identify what can be improved:
 
 ![Analyzed URL, overall grade over 100, several metrics like Speed Index, First Contentful Paint and advices for improvements](./docs/images/heart-slack.png)
 
-## Automated with GitHub Action
+And the results will be stored in a `report` table, which you can exploit with tools like _Grafana_:
+
+![Analyzed URL, overall grade over 100, several metrics like Speed Index, First Contentful Paint and advices for improvements](./docs/images/heart-mysql.png)
+
+For more options, have a look at the help by using `npx heart -h`
+
+## Packaged, with the Docker image
+
+Heart is also available as a [Docker image](https://hub.docker.com/r/fabernovel/heart).
+
+With the example scenario given previously, the Docker image is used as follow:
+
+```shell
+docker run --rm\
+    --env HEART_SLACK_API_TOKEN=xoxb-rest-of-token\
+    --env HEART_MYSQL_DATABASE_URL=mysql://root@127.0.0.1:3306\
+    fabernovel/heart:latest\
+    lighthouse --config '{"url":"https://heart.fabernovel.com"}' --only-listeners=mysql,slack
+```
+
+## Automated, with the GitHub Action
 
 If you're using GitHub, you can simplify the integration of Heart in your CI scripts by using the [GitHub Action](https://github.com/marketplace/actions/heart-webpages-evaluation).
+
+With the example scenario given previously, the GitHub Action is used as follow:
+
+```yaml
+- uses: faberNovel/heart-action@v4
+  with:
+    analysis_service: lighthouse
+    listener_services_only: mysql,slack
+    mysql_database_url: mysql://root@127.0.0.1:3306
+    slack_api_token: ${{ secrets.SLACK_API_TOKEN }}
+```
 
 # Design
 
