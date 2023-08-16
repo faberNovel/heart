@@ -35,7 +35,7 @@ Exemple scenario:
     
     ```bash
     echo HEART_SLACK_API_TOKEN=xoxb-rest-of-token >> .env
-    echo HEART_MYSQL_DATABASE_URL=mysql://root@127.0.0.1:3306 >> .env
+    echo HEART_MYSQL_DATABASE_URL=login:password@127.0.0.1:3306 >> .env
     ```
 
 3. Create a Slack channel named `heart` and a database with the same name.
@@ -65,7 +65,7 @@ With the example scenario given previously, the Docker image is used as follow:
 ```shell
 docker run --rm\
     --env HEART_SLACK_API_TOKEN=xoxb-rest-of-token\
-    --env HEART_MYSQL_DATABASE_URL=mysql://root@127.0.0.1:3306\
+    --env HEART_MYSQL_DATABASE_URL=login:password@127.0.0.1:3306\
     fabernovel/heart:latest\
     lighthouse --config '{"url":"https://heart.fabernovel.com"}' --only-listeners=mysql,slack
 ```
