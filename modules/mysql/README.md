@@ -25,7 +25,7 @@ Read more about [the description and design of _Heart_](https://github.com/faber
 2. In the project root folder, create a `.env` file with the database connection information set as a URL
 
     ```dotenv
-    HEART_MYSQL_DATABASE_URL=mysql://root@127.0.0.1:3306
+    HEART_MYSQL_DATABASE_URL=login:password@127.0.0.1:3306
     ```
 
 3. Start an analysis
