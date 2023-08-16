@@ -1,0 +1,10 @@
+{
+  "changes": [
+    {
+      "packageName": "@fabernovel/heart-mysql",
+      "comment": "",
+      "type": "none"
+    }
+  ],
+  "packageName": "@fabernovel/heart-mysql"
+}
