@@ -29,7 +29,7 @@
     "lib/**/*"
   ],
   "scripts": {
-    "build": "rimraf lib && tsc --project tsconfig.build.json",
+    "build": "rimraf lib && npx swc src --out-dir lib --copy-files",
     "build:watch": "npm run build --watch",
     "lint": "eslint .",
     "prepublishOnly": "npm run build",
