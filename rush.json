@@ -380,57 +380,68 @@
     {
       "packageName": "@fabernovel/heart-test",
       "projectFolder": "test",
-      "shouldPublish": false
+      "shouldPublish": false,
+      "tags": ["test"]
     },
     {
       "packageName": "@fabernovel/heart-api",
       "projectFolder": "modules/api",
-      "versionPolicyName": "nextMajor"
+      "versionPolicyName": "nextMajor",
+      "tags": ["server", "api"]
     },
     {
       "packageName": "@fabernovel/heart-cli",
       "projectFolder": "modules/cli",
-      "versionPolicyName": "nextMajor"
+      "versionPolicyName": "nextMajor",
+      "tags": ["cli"]
     },
     {
       "packageName": "@fabernovel/heart-common",
       "projectFolder": "modules/common",
-      "versionPolicyName": "nextMajor"
+      "versionPolicyName": "nextMajor",
+      "tags": ["common"]
     },
     {
       "packageName": "@fabernovel/heart-greenit",
       "projectFolder": "modules/greenit",
-      "versionPolicyName": "nextMajor"
+      "versionPolicyName": "nextMajor",
+      "tags": ["analysis", "greenit"]
     },
     {
       "packageName": "@fabernovel/heart-lighthouse",
       "projectFolder": "modules/lighthouse",
-      "versionPolicyName": "nextMajor"
+      "versionPolicyName": "nextMajor",
+      "tags": ["analysis", "lighthouse"]
     },
     {
       "packageName": "@fabernovel/heart-mysql",
       "projectFolder": "modules/mysql",
-      "versionPolicyName": "nextMajor"
+      "versionPolicyName": "nextMajor",
+      "tags": ["listener", "mysql"]
     },
     {
       "packageName": "@fabernovel/heart-observatory",
       "projectFolder": "modules/observatory",
-      "versionPolicyName": "nextMajor"
+      "versionPolicyName": "nextMajor",
+      "tags": ["analysis", "observatory"]
     },
     {
       "packageName": "@fabernovel/heart-slack",
       "projectFolder": "modules/slack",
-      "versionPolicyName": "nextMajor"
+      "versionPolicyName": "nextMajor",
+      "tags": ["listener", "slack"]
     },
     {
       "packageName": "@fabernovel/heart-ssllabs-server",
       "projectFolder": "modules/ssllabs-server",
-      "versionPolicyName": "nextMajor"
+      "versionPolicyName": "nextMajor",
+      "tags": ["analysis", "ssllabs-server"]
     },
     {
       "packageName": "@fabernovel/heart-tpl",
       "projectFolder": "modules/tpl",
-      "shouldPublish": false
+      "shouldPublish": false,
+      "tags": ["tpl"]
     }
   ]
 }
