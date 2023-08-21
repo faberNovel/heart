@@ -45,10 +45,10 @@ You can test a close-to-end-user installation in the `test` directory.
 
 To do so, you have to:
 
-1. Go to the directory and create a `.env` file in this directory by copying it from `.env.template`:
+1. Go to the directory and create a `.env` file in this directory by copying it from `.env.tpl`:
 
     ```shell
-    cd test && cp .env.template .env
+    cd test && cp .env.tpl .env
     ````
 
 2. Populate the `.env` file with the environment variables needed by all the modules.
@@ -68,7 +68,7 @@ To do so, you have to:
     Example of a CLI command using the _Heart Lighthouse_ module:
 
     ```shell
-    rush-pnpm exec heart lighthouse -i '{"url": "https://heart.fabernovel.com/"}'
+    rush-pnpm exec heart lighthouse --config '{"url": "https://heart.fabernovel.com/"}'
     ```
 
 ### [Provide a changelog](docs/PROVIDE_CHANGELOG.md)
@@ -78,9 +78,8 @@ To do so, you have to:
 Now that your enhancements work perfectly and that you provide a changelog, it is time to submit for review:
 
 1. Push your local changes to the remote
-2. Using the GitHub interface, check that every check
-3. If so, you can remove the _WIP:_ prefix from the title.
+2. Using the GitHub interface, check that every check are sucessful
     
-    If not, you have to open the pipeline and see what is failing, update your code and start the submitting process again.
+    If not, you have to open the pipeline and see the details of the actionbs taht failed, update your code and start the submitting process again.
 
 The merging operation will then be done by a core team member.
