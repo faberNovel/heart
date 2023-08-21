@@ -5,8 +5,7 @@
 
   "compilerOptions": {
     "esModuleInterop": false,
-    "outDir": "lib",
-    "removeComments": true
+    "outDir": "lib"
   },
 
   "include": ["src/**/*.ts"]

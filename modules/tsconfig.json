@@ -17,15 +17,11 @@
     "verbatimModuleSyntax": true,
 
     "declaration": true,
+    "removeComments": true,
 
     "module": "ESNext",
     "moduleResolution": "nodenext",
-    "target": "ESNext",
-
-    /**
-     * Disabled because of puppeteer-core bug in TypeScript file definition with ESM
-     */
-    "skipLibCheck": true
+    "target": "ESNext"
   },
 
   "exclude": ["node_modules", "lib"]

@@ -4,8 +4,7 @@
   "extends": "./tsconfig.json",
 
   "compilerOptions": {
-    "outDir": "lib",
-    "removeComments": true
+    "outDir": "lib"
   },
 
   "include": ["src/**/*.ts"]
