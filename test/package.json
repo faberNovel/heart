@@ -17,5 +17,9 @@
     "@fabernovel/heart-observatory": "workspace:^4.0.0-alpha.9",
     "@fabernovel/heart-slack": "workspace:^4.0.0-alpha.9",
     "@fabernovel/heart-ssllabs-server": "workspace:^4.0.0-alpha.9"
+  },
+  "devDependencies": {
+    "@swc/cli": "^0.1.62",
+    "@swc/core": "^1.3.78"
   }
 }
