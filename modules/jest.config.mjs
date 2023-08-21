@@ -1,7 +1,6 @@
 /*
  * For a detailed explanation regarding each configuration property, visit:
  * https://jestjs.io/docs/configuration
- * https://kulshekhar.github.io/ts-jest/docs/guides/esm-support
  */
 
 export default {
@@ -100,7 +99,7 @@ export default {
   // notifyMode: "failure-change",
 
   // A preset that is used as a base for Jest's configuration
-  preset: "ts-jest/presets/default-esm",
+  // preset: "ts-jest/presets/default-esm",
 
   // Run tests from one or more projects
   // projects: undefined,
@@ -174,14 +173,7 @@ export default {
 
   // A map from regular expressions to paths to transformers
   transform: {
-    // '^.+\\.[tj]sx?$' to process js/ts with `ts-jest`
-    // '^.+\\.m?[tj]sx?$' to process js/ts/mjs/mts with `ts-jest`
-    "^.+\\.tsx?$": [
-      "ts-jest",
-      {
-        useESM: true,
-      },
-    ],
+    "^.+\\.(t|j)sx?$": "@swc/jest",
   },
 
   // An array of regexp pattern strings that are matched against all source file paths, matched files will skip transformation
