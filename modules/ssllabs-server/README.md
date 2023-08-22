@@ -14,7 +14,7 @@ Read more about [the purpose, design and general installation of _Heart_](https:
     npm install @fabernovel/heart-ssllabs-server
     ```
 
-    If you are using Yarn, npm < 7 or PNPM < 8 as package manager, you also have to install _[Heart CLI](https://www.npmjs.com/package/@fabernovel/heart-cli)_ (which is automatically installed if you have more recent versions):
+    If you are using Yarn, npm < 7 or PNPM < 8, you also have to install _[Heart CLI](https://www.npmjs.com/package/@fabernovel/heart-cli)_ (which is automatically installed in more recent versions of these packages managers):
 
     ```bash
     npm install @fabernovel/heart-cli

@@ -80,6 +80,6 @@ Now that your enhancements work perfectly and that you provide a changelog, it i
 1. Push your local changes to the remote
 2. Using the GitHub interface, check that every check are sucessful
     
-    If not, you have to open the pipeline and see the details of the actionbs taht failed, update your code and start the submitting process again.
+    If not, you have to open the pipeline and see the details of the actions that failed, update your code and start the submitting process again.
 
 The merging operation will then be done by a core team member.
