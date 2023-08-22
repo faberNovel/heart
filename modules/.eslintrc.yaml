@@ -1,0 +1,2 @@
+root: true
+ignorePatterns: ["coverage", "lib", "jest.config.mjs"]

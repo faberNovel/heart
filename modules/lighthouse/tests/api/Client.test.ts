@@ -2,6 +2,8 @@ import { jest } from "@jest/globals"
 import type { RunnerResult } from "lighthouse"
 import { Conf } from "../data/Conf.js"
 
+jest.useFakeTimers()
+
 jest.unstable_mockModule("lighthouse", () => ({
   default: jest.fn(),
 }))
