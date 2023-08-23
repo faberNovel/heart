@@ -36,13 +36,15 @@
     "@fabernovel/heart-common": "workspace:^4.0.0-alpha.9",
     "@mikro-orm/core": "^5.7.14",
     "@mikro-orm/migrations": "^5.7.14",
-    "@mikro-orm/mysql": "^5.7.14"
+    "@mikro-orm/mysql": "^5.7.14",
+    "ssh2": "^1.14.0"
   },
   "devDependencies": {
     "@jest/globals": "^29.6.2",
     "@mikro-orm/cli": "^5.7.14",
     "@types/jest": "^29.5.3",
     "@types/node": "^18.16.19",
+    "@types/ssh2": "^1.11.13",
     "@typescript-eslint/eslint-plugin": "^6.2.1",
     "@typescript-eslint/parser": "^6.2.1",
     "eslint": "^8.46.0",
