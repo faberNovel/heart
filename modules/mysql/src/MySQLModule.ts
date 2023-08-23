@@ -6,7 +6,7 @@ import {
   type ModuleMetadata,
   logger,
 } from "@fabernovel/heart-common"
-import { MySQLClient } from "./client/Client.js"
+import { MySQLClient } from "./client/MySQLClient.js"
 
 export class MySQLModule extends Module implements ModuleListenerDatabaseInterface {
   #client: MySQLClient
