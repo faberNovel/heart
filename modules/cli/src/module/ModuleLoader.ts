@@ -1,9 +1,10 @@
 import { logger, type Module, type ModuleIndex, type ModuleMetadata } from "@fabernovel/heart-common"
-import dotenv from "dotenv"
-import { readFileSync } from "node:fs"
+import Ajv, { type AnySchema, type ErrorObject } from "ajv"
+import AjvErrors from "ajv-errors"
+import addFormats from "ajv-formats"
+import { existsSync } from "node:fs"
 import { env } from "node:process"
 import type { PackageJson } from "type-fest"
-import { MissingEnvironmentVariables } from "../error/MissingEnvironmentVariables.js"
 import type { PackageJsonModule } from "./PackageJson.js"
 
 type ModulesMetadata = [
@@ -12,9 +13,7 @@ type ModulesMetadata = [
   Map<string, PackageJsonModule>
 ]
 
-// file that contains the list of required environment variables
 const PACKAGE_PREFIX = "@fabernovel/heart-"
-const ENVIRONMENT_VARIABLE_TEMPLATE = ".env.tpl"
 
 /**
  * Load the installed modules metadata:
@@ -25,7 +24,7 @@ export async function loadModulesMetadata(cwd: string): Promise<ModulesMetadata>
   try {
     const modulesPaths = await getPaths(cwd)
 
-    const modulesMetadata = await loadModulesMetadataFromPath(modulesPaths)
+    const modulesMetadata = await loadJSON<PackageJsonModule>(modulesPaths, "package.json")
 
     const analysisModulesMap = new Map<string, PackageJsonModule>()
     const listenerModulesMap = new Map<string, PackageJsonModule>()
@@ -36,16 +35,18 @@ export async function loadModulesMetadata(cwd: string): Promise<ModulesMetadata>
     modulesPaths.forEach((modulePath, index) => {
       const moduleMetadata = modulesMetadata[index]
 
-      if (moduleMetadata.heart.type === "analysis") {
-        analysisModulesMap.set(modulePath, moduleMetadata)
-      } else if (
-        moduleMetadata.heart.type === "listener" ||
-        moduleMetadata.heart.type === "listener:database"
-      ) {
-        listenerModulesMap.set(modulePath, moduleMetadata)
-      } else {
-        // moduleMetadata.heart.type === "server
-        serverModulesMap.set(modulePath, moduleMetadata)
+      if (moduleMetadata !== undefined) {
+        if (moduleMetadata.heart.type === "analysis") {
+          analysisModulesMap.set(modulePath, moduleMetadata)
+        } else if (
+          moduleMetadata.heart.type === "listener" ||
+          moduleMetadata.heart.type === "listener:database"
+        ) {
+          listenerModulesMap.set(modulePath, moduleMetadata)
+        } else {
+          // moduleMetadata.heart.type === "server
+          serverModulesMap.set(modulePath, moduleMetadata)
+        }
       }
     })
 
@@ -56,41 +57,53 @@ export async function loadModulesMetadata(cwd: string): Promise<ModulesMetadata>
 }
 
 /**
- * Load environment variables
+ * Load a batch of JSON files that share the same filename but are located at different path.
+ * Preserve the order in the returned array.
+ * If the file does not exists, returns undefined.
+ */
+export async function loadJSON<T>(paths: string[], filename: string): Promise<(undefined | T)[]> {
+  const promises = paths.map((path) => {
+    if (existsSync(path + filename)) {
+      return import(path + filename, {
+        assert: { type: "json" },
+      }) as Promise<{ default: T }>
+    } else {
+      return undefined
+    }
+  })
+
+  const modules = await Promise.all(promises)
+
+  return modules.map((module) => (module ? module.default : undefined))
+}
+
+/**
+ * Check the environment variables:
+ * 1. set default values
+ * 2. validate the variables
  *
  * @returns The environment variables names that are missing
- * @throws MissingEnvironmentVariables
  */
-export function loadEnvironmentVariables(modulePath: string): void {
-  const missingEnvironmentVariables: string[] = []
+export async function checkEnvironmentVariables(modulesPaths: string[]): Promise<void> {
+  const errors = new Array<ErrorObject>()
+  const ajv = new Ajv.default({ allErrors: true })
+  addFormats.default(ajv)
+  AjvErrors.default(ajv /*, {singleError: true} */)
 
-  try {
-    // load the .env.tpl file from the module
-    const requiredModuleDotenvVariables = Object.entries(
-      dotenv.parse(readFileSync(modulePath + ENVIRONMENT_VARIABLE_TEMPLATE, "utf8"))
-    )
+  const schemas = await loadJSON<AnySchema>(modulesPaths, ".env.schema.json")
 
-    // set variables if
-    // not yet registered in process.env
-    // and having a default value in .env.tpl file,
-    requiredModuleDotenvVariables.forEach(([variableName, defaultValue]) => {
-      if (!env[variableName] && defaultValue.length !== 0) {
-        env[variableName] = defaultValue
+  schemas
+    .filter((schema): schema is AnySchema => schema !== undefined)
+    .map((schema) => {
+      const validate = ajv.compile(schema)
+
+      if (!validate(env)) {
+        errors.push(...(validate.errors ?? []))
       }
     })
 
-    // get the environment variables names that are not registered in process.env
-    const missingModuleEnvironmentVariables = requiredModuleDotenvVariables
-      .filter(([variableName]) => !env[variableName])
-      .map(([variableName]) => variableName)
-
-    // add the missing module dotenv variables to the missing list
-    missingEnvironmentVariables.push(...missingModuleEnvironmentVariables)
-    // eslint-disable-next-line no-empty
-  } catch (error) {}
-
-  if (missingEnvironmentVariables.length > 0) {
-    throw new MissingEnvironmentVariables(missingEnvironmentVariables)
+  if (errors.length > 0) {
+    console.error(errors)
   }
 }
 
@@ -160,21 +173,4 @@ async function getPaths(cwd: string): Promise<string[]> {
   const paths = modulesNames.map((moduleName: string) => `${cwd}/node_modules/${moduleName}/`)
 
   return paths
-}
-
-/**
- * Load the modules metadata (the ones inside the package.json's heart key).
- * Preserve the order in the returned array.
- */
-async function loadModulesMetadataFromPath(modulesPaths: string[]): Promise<PackageJsonModule[]> {
-  const promises = modulesPaths.map(
-    (modulePath) =>
-      import(`${modulePath}package.json`, {
-        assert: { type: "json" },
-      }) as Promise<{ default: PackageJsonModule }>
-  )
-
-  const modules = await Promise.all(promises)
-
-  return modules.map((module) => module.default)
 }
