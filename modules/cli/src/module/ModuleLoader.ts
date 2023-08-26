@@ -2,7 +2,9 @@ import { logger, type Module, type ModuleIndex, type ModuleMetadata } from "@fab
 import Ajv, { type AnySchema, type ErrorObject } from "ajv"
 import AjvErrors from "ajv-errors"
 import addFormats from "ajv-formats"
+import dotenv from "dotenv"
 import { existsSync } from "node:fs"
+import { readFile } from "node:fs/promises"
 import { env } from "node:process"
 import type { PackageJson } from "type-fest"
 import type { PackageJsonModule } from "./PackageJson.js"
@@ -12,6 +14,11 @@ type ModulesMetadata = [
   Map<string, PackageJsonModule>,
   Map<string, PackageJsonModule>
 ]
+
+const errors = new Array<ErrorObject>()
+const ajv = new Ajv.default({ allErrors: true })
+addFormats.default(ajv)
+AjvErrors.default(ajv /*, {singleError: true} */)
 
 const PACKAGE_PREFIX = "@fabernovel/heart-"
 
@@ -24,7 +31,9 @@ export async function loadModulesMetadata(cwd: string): Promise<ModulesMetadata>
   try {
     const modulesPaths = await getPaths(cwd)
 
-    const modulesMetadata = await loadJSON<PackageJsonModule>(modulesPaths, "package.json")
+    const modulesMetadata = (await loadFiles(modulesPaths, "package.json")).map(
+      (content) => JSON.parse(content) as PackageJsonModule
+    )
 
     const analysisModulesMap = new Map<string, PackageJsonModule>()
     const listenerModulesMap = new Map<string, PackageJsonModule>()
@@ -35,18 +44,16 @@ export async function loadModulesMetadata(cwd: string): Promise<ModulesMetadata>
     modulesPaths.forEach((modulePath, index) => {
       const moduleMetadata = modulesMetadata[index]
 
-      if (moduleMetadata !== undefined) {
-        if (moduleMetadata.heart.type === "analysis") {
-          analysisModulesMap.set(modulePath, moduleMetadata)
-        } else if (
-          moduleMetadata.heart.type === "listener" ||
-          moduleMetadata.heart.type === "listener:database"
-        ) {
-          listenerModulesMap.set(modulePath, moduleMetadata)
-        } else {
-          // moduleMetadata.heart.type === "server
-          serverModulesMap.set(modulePath, moduleMetadata)
-        }
+      if (moduleMetadata.heart.type === "analysis") {
+        analysisModulesMap.set(modulePath, moduleMetadata)
+      } else if (
+        moduleMetadata.heart.type === "listener" ||
+        moduleMetadata.heart.type === "listener:database"
+      ) {
+        listenerModulesMap.set(modulePath, moduleMetadata)
+      } else {
+        // moduleMetadata.heart.type === "server
+        serverModulesMap.set(modulePath, moduleMetadata)
       }
     })
 
@@ -57,24 +64,25 @@ export async function loadModulesMetadata(cwd: string): Promise<ModulesMetadata>
 }
 
 /**
- * Load a batch of JSON files that share the same filename but are located at different path.
- * Preserve the order in the returned array.
- * If the file does not exists, returns undefined.
+ * Load a batch of files that share the same filename but are located at different path.
+ * Unexisting path does not throw errors.
  */
-export async function loadJSON<T>(paths: string[], filename: string): Promise<(undefined | T)[]> {
-  const promises = paths.map((path) => {
-    if (existsSync(path + filename)) {
-      return import(path + filename, {
-        assert: { type: "json" },
-      }) as Promise<{ default: T }>
-    } else {
-      return undefined
-    }
+export async function loadFiles(paths: string[], filename: string): Promise<string[]> {
+  const promises = paths
+    .filter((path) => existsSync(path + filename))
+    .map((path) => readFile(path + filename, { encoding: "utf-8" }))
+
+  return Promise.all(promises)
+}
+
+function setDefaultEnv(envsDefault: dotenv.DotenvParseOutput[]): void {
+  envsDefault.forEach((envs) => {
+    Object.keys(envs)
+      .filter((envName) => env[envName] === undefined)
+      .forEach((envName) => {
+        env[envName] = envs[envName]
+      })
   })
-
-  const modules = await Promise.all(promises)
-
-  return modules.map((module) => (module ? module.default : undefined))
 }
 
 /**
@@ -84,23 +92,24 @@ export async function loadJSON<T>(paths: string[], filename: string): Promise<(u
  *
  * @returns The environment variables names that are missing
  */
-export async function checkEnvironmentVariables(modulesPaths: string[]): Promise<void> {
-  const errors = new Array<ErrorObject>()
-  const ajv = new Ajv.default({ allErrors: true })
-  addFormats.default(ajv)
-  AjvErrors.default(ajv /*, {singleError: true} */)
+export async function checkEnv(modulesPaths: string[]): Promise<void> {
+  const defaultsPromises = loadFiles(modulesPaths, ".env.default")
+  const schemasPromises = loadFiles(modulesPaths, ".env.schema.json")
 
-  const schemas = await loadJSON<AnySchema>(modulesPaths, ".env.schema.json")
+  const [defaultsContent, schemasContent] = await Promise.all([defaultsPromises, schemasPromises])
 
-  schemas
-    .filter((schema): schema is AnySchema => schema !== undefined)
-    .map((schema) => {
-      const validate = ajv.compile(schema)
+  const envsDefault = defaultsContent.map((content) => dotenv.parse(content))
+  setDefaultEnv(envsDefault)
 
-      if (!validate(env)) {
-        errors.push(...(validate.errors ?? []))
-      }
-    })
+  const schemas = schemasContent.map((content) => JSON.parse(content) as AnySchema)
+
+  schemas.forEach((schema) => {
+    const validate = ajv.compile(schema)
+
+    if (!validate(env)) {
+      errors.push(...(validate.errors ?? []))
+    }
+  })
 
   if (errors.length > 0) {
     console.error(errors)

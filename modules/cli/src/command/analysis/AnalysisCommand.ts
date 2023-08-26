@@ -21,7 +21,7 @@ import {
   createThresholdOption,
   type AnalysisOptions,
 } from "./AnalysisOption.js"
-import { checkEnvironmentVariables, initializeModules } from "../../module/ModuleLoader.js"
+import { checkEnv, initializeModules } from "../../module/ModuleLoader.js"
 import { migrateListenerDatabase } from "../../module/ModuleMigration.js"
 import { startAnalysis, notifyListenerModules } from "../../module/ModuleOrchestrator.js"
 
@@ -115,11 +115,7 @@ export function createAnalysisSubcommandCallback(
     threshold: number | undefined,
     listenerModulesMetadataMap: Map<string, PackageJsonModule>
   ) => {
-    // TODO:
-    // 1- load default env
-    // 2- validate
-    // load and validate environment variables for the analysis and listeners modules
-    checkEnvironmentVariables([modulePath, ...listenerModulesMetadataMap.keys()])
+    checkEnv([modulePath, ...listenerModulesMetadataMap.keys()])
 
     // initialize the modules
     const analysisModules = await initializeModules<ModuleAnalysisInterface<Config, GenericReport<Result>>>(

@@ -15,7 +15,7 @@ import { Command, InvalidArgumentError } from "commander"
 import { createVerboseOption } from "../CommonOption.js"
 import { createCorsOption, createPortOption, type ServerOptions } from "./ServerOption.js"
 import type { PackageJsonModule } from "../../module/PackageJson.js"
-import { checkEnvironmentVariables, initializeModules } from "../../module/ModuleLoader.js"
+import { checkEnv, initializeModules } from "../../module/ModuleLoader.js"
 import { startServer } from "../../module/ModuleOrchestrator.js"
 
 type ServerSubcommandCallback = (
@@ -81,7 +81,7 @@ export function createServerSubcommandCallback(
     // load environment variables for the server module
     // load environment variables for the analysis modules:
     // do it once at startup instead at each route call
-    checkEnvironmentVariables([modulePath, ...analysisModulesMetadataMap.keys()])
+    checkEnv([modulePath, ...analysisModulesMetadataMap.keys()])
 
     // initialize the server, analysis and listeners modules
     const analysisModules = await initializeModules<ModuleAnalysisInterface<Config, GenericReport<Result>>>(
