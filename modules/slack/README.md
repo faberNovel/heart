@@ -22,10 +22,10 @@ Read more about [the description and design of _Heart_](https://github.com/faber
     npm install @fabernovel/heart-cli
     ```
 
-2. In the project root folder, create a `.env` file with the Slack API token
+2. In the project root folder, create a `.env` file with the Slack Access token
 
     ```dotenv
-    HEART_SLACK_API_TOKEN=My_Slack_Api_Token
+    HEART_SLACK_ACCESS_TOKEN=My_Slack_Access_Token
     ```
 
 3. [Optional] Customize the Slack channel
