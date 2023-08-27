@@ -7,8 +7,8 @@ import { existsSync } from "node:fs"
 import { readFile } from "node:fs/promises"
 import { env } from "node:process"
 import type { PackageJson } from "type-fest"
-import type { PackageJsonModule } from "./PackageJson.js"
 import { EnvironmentError } from "../error/EnvironmentError.js"
+import type { PackageJsonModule } from "./PackageJson.js"
 
 type ModulesMetadata = [
   Map<string, PackageJsonModule>,
@@ -22,6 +22,8 @@ addFormats.default(ajv)
 AjvErrors.default(ajv /*, {singleError: true} */)
 
 const PACKAGE_PREFIX = "@fabernovel/heart-"
+const DOTENV_DEFAULT_VALUES_NAME = ".env.default"
+const ENV_VALIDATION_SCHEMA_NAME = ".env.schema.json"
 
 /**
  * Load the installed modules metadata:
@@ -76,32 +78,17 @@ export async function loadFiles(paths: string[], filename: string): Promise<stri
   return Promise.all(promises)
 }
 
-function setDefaultEnv(envsDefault: dotenv.DotenvParseOutput[]): void {
-  envsDefault.forEach((envs) => {
-    Object.keys(envs)
-      .filter((envName) => env[envName] === undefined)
-      .forEach((envName) => {
-        env[envName] = envs[envName]
-      })
-  })
-}
-
 /**
  * Check the environment variables:
  * 1. set default values
  * 2. validate the variables
- *
- * @returns The environment variables names that are missing
  */
 export async function checkEnv(modulesPaths: string[]): Promise<void> {
-  const defaultsPromises = loadFiles(modulesPaths, ".env.default")
-  const schemasPromises = loadFiles(modulesPaths, ".env.schema.json")
+  modulesPaths.forEach((modulePath) => {
+    dotenv.config({ path: modulePath + DOTENV_DEFAULT_VALUES_NAME, override: false })
+  })
 
-  const [defaultsContent, schemasContent] = await Promise.all([defaultsPromises, schemasPromises])
-
-  const envsDefault = defaultsContent.map((content) => dotenv.parse(content))
-  setDefaultEnv(envsDefault)
-
+  const schemasContent = await loadFiles(modulesPaths, ENV_VALIDATION_SCHEMA_NAME)
   const schemas = schemasContent.map((content) => JSON.parse(content) as AnySchema)
 
   schemas.forEach((schema) => {
