@@ -8,6 +8,7 @@ import { readFile } from "node:fs/promises"
 import { env } from "node:process"
 import type { PackageJson } from "type-fest"
 import type { PackageJsonModule } from "./PackageJson.js"
+import { EnvironmentError } from "../error/EnvironmentError.js"
 
 type ModulesMetadata = [
   Map<string, PackageJsonModule>,
@@ -112,7 +113,7 @@ export async function checkEnv(modulesPaths: string[]): Promise<void> {
   })
 
   if (errors.length > 0) {
-    console.error(errors)
+    throw new EnvironmentError(errors)
   }
 }
 
