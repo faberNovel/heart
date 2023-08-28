@@ -81,7 +81,7 @@ export function createServerSubcommandCallback(
     // load environment variables for the server module
     // load environment variables for the analysis modules:
     // do it once at startup instead at each route call
-    checkEnv([modulePath, ...analysisModulesMetadataMap.keys()])
+    await checkEnv([modulePath, ...analysisModulesMetadataMap.keys()])
 
     // initialize the server, analysis and listeners modules
     const analysisModules = await initializeModules<ModuleAnalysisInterface<Config, GenericReport<Result>>>(

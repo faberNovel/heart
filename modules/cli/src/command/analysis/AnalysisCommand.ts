@@ -115,7 +115,7 @@ export function createAnalysisSubcommandCallback(
     threshold: number | undefined,
     listenerModulesMetadataMap: Map<string, PackageJsonModule>
   ) => {
-    checkEnv([modulePath, ...listenerModulesMetadataMap.keys()])
+    await checkEnv([modulePath, ...listenerModulesMetadataMap.keys()])
 
     // initialize the modules
     const analysisModules = await initializeModules<ModuleAnalysisInterface<Config, GenericReport<Result>>>(
