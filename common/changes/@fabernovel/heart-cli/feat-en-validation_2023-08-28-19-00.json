@@ -1,0 +1,10 @@
+{
+  "changes": [
+    {
+      "packageName": "@fabernovel/heart-cli",
+      "comment": "Improve validation of environment variables using JSON Schema specifications",
+      "type": "none"
+    }
+  ],
+  "packageName": "@fabernovel/heart-cli"
+}
