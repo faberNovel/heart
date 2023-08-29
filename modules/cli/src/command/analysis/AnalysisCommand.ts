@@ -60,17 +60,21 @@ export const createAnalysisSubcommand = <C extends Config>(
     .addOption(createExceptListenersOption())
     .addOption(createOnlyListenersOption())
     .action(async (options: CommonOptions & AnalysisOptions) => {
+      const listenerModulesIds = new Array<string>()
+      listenerModulesMetadataMap.forEach((metadata) => {
+        listenerModulesIds.push(metadata.heart.id)
+      })
+
       try {
-        const listenerModulesIds = new Array<string>()
-        listenerModulesMetadataMap.forEach((metadata) => {
-          listenerModulesIds.push(metadata.heart.id)
-        })
         const unvalidatedInputs = prepareOptionsForValidation(options)
         const { config, threshold, except_listeners, only_listeners } = validateAnalysisInput(
           unvalidatedInputs,
           listenerModulesIds
         )
 
+        // reduce the listener modules that will be triggered at the end of the analysis
+        // if the --except-listeners or --only-listeners options are used.
+        // the options are mutually exclusive (see the validation above), that why there is an if/else.
         if (except_listeners !== undefined) {
           listenerModulesMetadataMap.forEach((metadata, modulePath, m) => {
             if (except_listeners.includes(metadata.heart.id)) {
