@@ -1,9 +1,13 @@
 import { logger, type Module, type ModuleIndex, type ModuleMetadata } from "@fabernovel/heart-common"
+import Ajv, { type AnySchema, type ErrorObject } from "ajv"
+import AjvErrors from "ajv-errors"
+import addFormats from "ajv-formats"
 import dotenv from "dotenv"
-import { readFileSync } from "node:fs"
+import { existsSync } from "node:fs"
+import { readFile } from "node:fs/promises"
 import { env } from "node:process"
 import type { PackageJson } from "type-fest"
-import { MissingEnvironmentVariables } from "../error/MissingEnvironmentVariables.js"
+import { EnvironmentError } from "../error/EnvironmentError.js"
 import type { PackageJsonModule } from "./PackageJson.js"
 
 type ModulesMetadata = [
@@ -12,9 +16,14 @@ type ModulesMetadata = [
   Map<string, PackageJsonModule>
 ]
 
-// file that contains the list of required environment variables
+const errors = new Array<ErrorObject>()
+const ajv = new Ajv.default({ allErrors: true })
+addFormats.default(ajv)
+AjvErrors.default(ajv /*, {singleError: true} */)
+
 const PACKAGE_PREFIX = "@fabernovel/heart-"
-const ENVIRONMENT_VARIABLE_TEMPLATE = ".env.tpl"
+const DOTENV_DEFAULT_VALUES_NAME = ".env.default"
+const ENV_VALIDATION_SCHEMA_NAME = ".env.schema.json"
 
 /**
  * Load the installed modules metadata:
@@ -25,7 +34,9 @@ export async function loadModulesMetadata(cwd: string): Promise<ModulesMetadata>
   try {
     const modulesPaths = await getPaths(cwd)
 
-    const modulesMetadata = await loadModulesMetadataFromPath(modulesPaths)
+    const modulesMetadata = (await loadFiles(modulesPaths, "package.json")).map(
+      (content) => JSON.parse(content) as PackageJsonModule
+    )
 
     const analysisModulesMap = new Map<string, PackageJsonModule>()
     const listenerModulesMap = new Map<string, PackageJsonModule>()
@@ -56,41 +67,40 @@ export async function loadModulesMetadata(cwd: string): Promise<ModulesMetadata>
 }
 
 /**
- * Load environment variables
- *
- * @returns The environment variables names that are missing
- * @throws MissingEnvironmentVariables
+ * Load a batch of files that share the same filename but are located at different path.
+ * Unexisting path does not throw errors.
  */
-export function loadEnvironmentVariables(modulePath: string): void {
-  const missingEnvironmentVariables: string[] = []
+export async function loadFiles(paths: string[], filename: string): Promise<string[]> {
+  const promises = paths
+    .filter((path) => existsSync(path + filename))
+    .map((path) => readFile(path + filename, { encoding: "utf-8" }))
 
-  try {
-    // load the .env.tpl file from the module
-    const requiredModuleDotenvVariables = Object.entries(
-      dotenv.parse(readFileSync(modulePath + ENVIRONMENT_VARIABLE_TEMPLATE, "utf8"))
-    )
+  return Promise.all(promises)
+}
 
-    // set variables if
-    // not yet registered in process.env
-    // and having a default value in .env.tpl file,
-    requiredModuleDotenvVariables.forEach(([variableName, defaultValue]) => {
-      if (!env[variableName] && defaultValue.length !== 0) {
-        env[variableName] = defaultValue
-      }
-    })
+/**
+ * Check the environment variables:
+ * 1. set default values
+ * 2. validate the variables
+ */
+export async function checkEnv(modulesPaths: string[]): Promise<void> {
+  modulesPaths.forEach((modulePath) => {
+    dotenv.config({ path: modulePath + DOTENV_DEFAULT_VALUES_NAME, override: false })
+  })
 
-    // get the environment variables names that are not registered in process.env
-    const missingModuleEnvironmentVariables = requiredModuleDotenvVariables
-      .filter(([variableName]) => !env[variableName])
-      .map(([variableName]) => variableName)
+  const schemasContent = await loadFiles(modulesPaths, ENV_VALIDATION_SCHEMA_NAME)
+  const schemas = schemasContent.map((content) => JSON.parse(content) as AnySchema)
 
-    // add the missing module dotenv variables to the missing list
-    missingEnvironmentVariables.push(...missingModuleEnvironmentVariables)
-    // eslint-disable-next-line no-empty
-  } catch (error) {}
+  schemas.forEach((schema) => {
+    const validate = ajv.compile(schema)
 
-  if (missingEnvironmentVariables.length > 0) {
-    throw new MissingEnvironmentVariables(missingEnvironmentVariables)
+    if (!validate(env)) {
+      errors.push(...(validate.errors ?? []))
+    }
+  })
+
+  if (errors.length > 0) {
+    throw new EnvironmentError(errors)
   }
 }
 
@@ -160,21 +170,4 @@ async function getPaths(cwd: string): Promise<string[]> {
   const paths = modulesNames.map((moduleName: string) => `${cwd}/node_modules/${moduleName}/`)
 
   return paths
-}
-
-/**
- * Load the modules metadata (the ones inside the package.json's heart key).
- * Preserve the order in the returned array.
- */
-async function loadModulesMetadataFromPath(modulesPaths: string[]): Promise<PackageJsonModule[]> {
-  const promises = modulesPaths.map(
-    (modulePath) =>
-      import(`${modulePath}package.json`, {
-        assert: { type: "json" },
-      }) as Promise<{ default: PackageJsonModule }>
-  )
-
-  const modules = await Promise.all(promises)
-
-  return modules.map((module) => module.default)
 }

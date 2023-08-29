@@ -11,12 +11,10 @@ import {
   type Result,
 } from "@fabernovel/heart-common"
 import cors, { type FastifyCorsOptions } from "@fastify/cors"
-import _AjvErrors from "ajv-errors"
+import AjvErrors from "ajv-errors"
 import Fastify, { type FastifyInstance } from "fastify"
 import { createNotifyListenerModulesHandler } from "./notification/NotifyListenerModules.js"
 import { createRouteHandler } from "./router/RouteHandler.js"
-// temp workaround for ESM: https://github.com/ajv-validator/ajv/issues/2132#issuecomment-1537224620
-const AjvErrors = _AjvErrors.default
 
 // using declaration merging, add your plugin props to the appropriate fastify interfaces
 // if prop type is defined here, the value will be typechecked when you call decorate{,Request,Reply}
@@ -38,7 +36,7 @@ export class ApiModule extends Module implements ModuleServerInterface {
         customOptions: {
           allErrors: true,
         },
-        plugins: [AjvErrors],
+        plugins: [AjvErrors.default],
       },
     })
 

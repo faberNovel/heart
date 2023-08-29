@@ -1,28 +1,10 @@
-import {
-  isModuleListenerDatabase,
-  type Config,
-  type GenericReport,
-  type ModuleAnalysisInterface,
-  type ModuleListenerDatabaseInterface,
-  type ModuleListenerInterface,
-  type Result,
-  type ModuleServerInterface,
-} from "@fabernovel/heart-common"
-import type { FastifyCorsOptions } from "@fastify/cors"
 import { Command } from "commander"
 import { readFileSync } from "node:fs"
 import { argv } from "node:process"
 import type { PackageJson } from "type-fest"
-import {
-  initializeModules,
-  loadEnvironmentVariables,
-  loadModulesMetadata,
-} from "../../module/ModuleLoader.js"
-import { migrateListenerDatabase } from "../../module/ModuleMigration.js"
-import { notifyListenerModules, startAnalysis, startServer } from "../../module/ModuleOrchestrator.js"
-import type { PackageJsonModule } from "../../module/PackageJson.js"
-import { createAnalysisSubcommand } from "../analysis/AnalysisCommand.js"
-import { createServerSubcommand } from "../server/ServerCommand.js"
+import { loadModulesMetadata } from "../../module/ModuleLoader.js"
+import { createAnalysisSubcommand, createAnalysisSubcommandCallback } from "../analysis/AnalysisCommand.js"
+import { createServerSubcommand, createServerSubcommandCallback } from "../server/ServerCommand.js"
 
 /**
  * Create the Commander Command object.
@@ -51,48 +33,7 @@ export async function start(cwd: string): Promise<Command> {
 
   // create and add 1 command for each analysis module
   analysisModulesMetadataMap.forEach((packageJsonModule, modulePath) => {
-    /**
-     * Callback function called once the CLI command has been executed (the user hit "enter").
-     * @param config
-     * @param threshold
-     * @param listenerModulesMetadataMap Filtered map of listener modules metadata and their file path
-     */
-    const callback = async <C extends Config>(
-      verbose: boolean,
-      config: C,
-      threshold: number | undefined,
-      listenerModulesMetadataMap: Map<string, PackageJsonModule>
-    ) => {
-      // load and validate environment variables for the analysis and listeners modules
-      loadEnvironmentVariables(modulePath)
-      listenerModulesMetadataMap.forEach((_, listenerModulePath) => {
-        loadEnvironmentVariables(listenerModulePath)
-      })
-
-      // initialize the modules
-      const analysisModules = await initializeModules<ModuleAnalysisInterface<Config, GenericReport<Result>>>(
-        new Map([[modulePath, packageJsonModule]]),
-        verbose
-      )
-      const listenerModules = await initializeModules<ModuleListenerInterface>(
-        listenerModulesMetadataMap,
-        verbose
-      )
-
-      // run database migrations for listener database modules
-      const listenerDatabaseModules = listenerModules.filter(
-        (listenerModule): listenerModule is ModuleListenerDatabaseInterface =>
-          isModuleListenerDatabase(listenerModule)
-      )
-      if (listenerDatabaseModules.length > 0) {
-        await migrateListenerDatabase(listenerDatabaseModules)
-      }
-
-      const report = await startAnalysis(analysisModules[0], config, threshold)
-
-      // notify the listener modules
-      await notifyListenerModules(listenerModules, report)
-    }
+    const callback = createAnalysisSubcommandCallback(packageJsonModule, modulePath)
 
     const analysisCommand = createAnalysisSubcommand(
       packageJsonModule.heart,
@@ -105,32 +46,12 @@ export async function start(cwd: string): Promise<Command> {
 
   // create and add 1 command for each server module
   serverModulesMetadataMap.forEach((packageJsonModule, modulePath: string) => {
-    const callback = async (verbose: boolean, port: number, cors: FastifyCorsOptions | undefined) => {
-      // load environment variables for the server module
-      loadEnvironmentVariables(modulePath)
-
-      // load environment variables for the analysis modules:
-      // do it once at startup instead at each route call
-      analysisModulesMetadataMap.forEach((_module, modulePath) => {
-        loadEnvironmentVariables(modulePath)
-      })
-
-      // initialize the server, analysis and listeners modules
-      const analysisModules = await initializeModules<ModuleAnalysisInterface<Config, GenericReport<Result>>>(
-        analysisModulesMetadataMap,
-        verbose
-      )
-      const listenerModules = await initializeModules<ModuleListenerInterface>(
-        listenerModulesMetadataMap,
-        verbose
-      )
-      const serverModules = await initializeModules<ModuleServerInterface>(
-        new Map([[modulePath, packageJsonModule]]),
-        verbose
-      )
-
-      await startServer(serverModules[0], analysisModules, listenerModules, port, cors)
-    }
+    const callback = createServerSubcommandCallback(
+      packageJsonModule,
+      modulePath,
+      analysisModulesMetadataMap,
+      listenerModulesMetadataMap
+    )
 
     const serverCommand = createServerSubcommand(packageJsonModule.heart, callback)
 

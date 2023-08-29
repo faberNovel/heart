@@ -24,10 +24,7 @@ test("Displays the results of an analysis", async () => {
     service: {
       name: "Test Analysis Tool",
     },
-    startAnalysis: () =>
-      new Promise((resolve) => {
-        resolve(report)
-      }),
+    startAnalysis: () => Promise.resolve(report),
     verbose: false,
   }
 

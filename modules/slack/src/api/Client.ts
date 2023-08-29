@@ -5,7 +5,7 @@ import { env } from "node:process"
 /**
  * Simple Slack client:
  * Initialize a Slack client using:
- * - the HEART_SLACK_API_TOKEN process.env property
+ * - the HEART_SLACK_ACCESS_TOKEN process.env property
  * - the HEART_SLACK_CHANNEL_ID process.env property
  */
 export class Client {
@@ -14,7 +14,7 @@ export class Client {
 
   constructor(verbose: boolean) {
     this.#channel = env.HEART_SLACK_CHANNEL_ID ?? ""
-    this.#client = new WebClient(env.HEART_SLACK_API_TOKEN, {
+    this.#client = new WebClient(env.HEART_SLACK_ACCESS_TOKEN, {
       logLevel: verbose ? LogLevel.INFO : undefined,
     })
   }
