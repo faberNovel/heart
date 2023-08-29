@@ -53,7 +53,7 @@ beforeEach(() => {
   program.addCommand(analysisCommand)
 })
 
-test("Create an analysis command with all the listener modules", () => {
+test("Create an analysis command", () => {
   program.parse(["analysis", "--config", optionConfigInline], { from: "user" })
 
   expect(program.commands).toHaveLength(1)
@@ -65,6 +65,23 @@ test("Create an analysis command with all the listener modules", () => {
   expect(Object.keys(options)).toHaveLength(2)
   expect(options).toHaveProperty("config", JSON.parse(optionConfigInline))
   expect(options).toHaveProperty("verbose", false)
+})
+
+test("Create an analysis command with the listener option", () => {
+  program.parse(["analysis", "--config", optionConfigInline, "--threshold", "83"], {
+    from: "user",
+  })
+
+  expect(program.commands).toHaveLength(1)
+
+  const command = program.commands[0]
+  const options = command.opts()
+
+  expect(command.name()).toBe("analysis")
+  expect(Object.keys(options)).toHaveLength(3)
+  expect(options).toHaveProperty("config", JSON.parse(optionConfigInline))
+  expect(options).toHaveProperty("verbose", false)
+  expect(options).toHaveProperty("threshold", 83)
 })
 
 test("Create an analysis command with only 1 listener modules using the --except-listeners option", () => {
