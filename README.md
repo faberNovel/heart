@@ -31,10 +31,10 @@ Exemple scenario:
     npm install @fabernovel/heart-lighthouse @fabernovel/heart-slack @fabernovel/heart-mysql
     ```
 
-2. Set the credentials for Slack (API key) and MySQL (database URL)
+2. Set the credentials for Slack (Access token) and MySQL (database URL)
     
     ```bash
-    echo HEART_SLACK_API_TOKEN=xoxb-rest-of-token >> .env
+    echo HEART_SLACK_ACCESS_TOKEN=xoxb-rest-of-token >> .env
     echo HEART_MYSQL_DATABASE_URL=login:password@127.0.0.1:3306 >> .env
     ```
 
@@ -64,7 +64,7 @@ With the example scenario given previously, the Docker image is used as follow:
 
 ```shell
 docker run --rm\
-    --env HEART_SLACK_API_TOKEN=xoxb-rest-of-token\
+    --env HEART_SLACK_ACCESS_TOKEN=xoxb-rest-of-token\
     --env HEART_MYSQL_DATABASE_URL=login:password@127.0.0.1:3306\
     fabernovel/heart:latest\
     lighthouse --config '{"url":"https://heart.fabernovel.com"}' --only-listeners=mysql,slack
@@ -81,8 +81,8 @@ With the example scenario given previously, the GitHub Action is used as follow:
   with:
     analysis_service: lighthouse
     listener_services_only: mysql,slack
-    mysql_database_url: login:password@127.0.0.1:3306
-    slack_api_token: ${{ secrets.SLACK_API_TOKEN }}
+    mysql_database_url: ${{ secrets.HEART_MYSQL_DATABASE_URL }}
+    slack_access_token: ${{ secrets.HEART_SLACK_ACCESS_TOKEN }}
 ```
 
 # Design
