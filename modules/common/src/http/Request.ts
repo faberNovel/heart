@@ -1,4 +1,3 @@
-import fetch from "node-fetch"
 import type { ParsedUrlQueryInput } from "querystring"
 
 const BASE_HEADER: Record<"Content-Type", string> = {
