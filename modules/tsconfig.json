@@ -19,7 +19,7 @@
     "declaration": true,
     "removeComments": true,
 
-    "module": "ESNext",
+    "module": "NodeNext",
     "moduleResolution": "nodenext",
     "target": "ESNext"
   },

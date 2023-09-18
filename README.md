@@ -81,7 +81,7 @@ With the example scenario given previously, the GitHub Action is used as follow:
   with:
     analysis_service: lighthouse
     listener_services_only: mysql,slack
-    mysql_database_url: login:password@127.0.0.1:3306
+    mysql_database_url: ${{ secrets.MYSQL_DATABASE_URL }}
     slack_api_token: ${{ secrets.SLACK_API_TOKEN }}
 ```
 
