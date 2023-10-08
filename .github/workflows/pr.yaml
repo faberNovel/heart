@@ -8,6 +8,7 @@ jobs:
   syntax_changelog:
     name: Syntax & changelog
     runs-on: ubuntu-latest
+    timeout-minutes: 5
     defaults:
       run:
         shell: bash
@@ -37,6 +38,7 @@ jobs:
   test:
     name: Test
     runs-on: ubuntu-latest
+    timeout-minutes: 5
     defaults:
       run:
         shell: bash
