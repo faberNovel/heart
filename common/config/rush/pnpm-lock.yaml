@@ -495,13 +495,13 @@ importers:
         specifier: workspace:^4.0.0
         version: link:../modules/lighthouse
       '@fabernovel/heart-mysql':
-        specifier: workspace:^4.0.0
+        specifier: workspace:^4.0.1
         version: link:../modules/mysql
       '@fabernovel/heart-observatory':
-        specifier: workspace:^4.0.0
+        specifier: workspace:^4.0.1
         version: link:../modules/observatory
       '@fabernovel/heart-slack':
-        specifier: workspace:^4.0.0
+        specifier: workspace:^4.0.1
         version: link:../modules/slack
       '@fabernovel/heart-ssllabs-server':
         specifier: workspace:^4.0.0
