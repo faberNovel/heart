@@ -22,7 +22,9 @@
     "lib": "lib"
   },
   "files": [
-    "lib/**/*"
+    "lib/**/*",
+    ".env.default",
+    ".env.schema.json"
   ],
   "scripts": {
     "build": "rimraf lib && tsc --project tsconfig.build.json",
