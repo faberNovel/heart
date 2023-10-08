@@ -1,6 +1,13 @@
 # Change Log - @fabernovel/heart-observatory
 
-This log was last generated on Sun, 08 Oct 2023 13:58:00 GMT and should not be manually modified.
+This log was last generated on Sun, 08 Oct 2023 17:37:29 GMT and should not be manually modified.
+
+## 4.0.1
+Sun, 08 Oct 2023 17:37:29 GMT
+
+### Patches
+
+- Fix an issue where environment variables where not loaded.
 
 ## 4.0.0
 Sun, 08 Oct 2023 13:58:00 GMT
@@ -13,20 +20,12 @@ Sun, 08 Oct 2023 13:58:00 GMT
 - The module now send back detailed results instead of the summary only
 - Move to ES modules mechanism
 
-### Updates
-
-- Update issues and repository URLs
-
 ## 3.4.0
 Wed, 23 Nov 2022 19:51:43 GMT
 
 ### Minor changes
 
 - Make the module compatible with the threshold feature introduced with @fabernovel/heart-cli 3.3.0
-
-### Updates
-
-- Updated the homepage field to redirect to the heart website and not to the gitlab repository. Changed the link "Read more about" of the README to redirect to the README of the repository. The old link redirected to an article that do not exist anymore.
 
 ## 3.3.0
 Wed, 27 Jul 2022 13:43:15 GMT
