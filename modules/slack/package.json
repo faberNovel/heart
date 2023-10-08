@@ -1,6 +1,6 @@
 {
   "name": "@fabernovel/heart-slack",
-  "version": "4.0.0",
+  "version": "4.0.1",
   "description": "Send the analysis results of Heart into a Slack channel",
   "homepage": "https://heart.fabernovel.com",
   "bugs": {

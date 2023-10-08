@@ -2,6 +2,18 @@
   "name": "@fabernovel/heart-observatory",
   "entries": [
     {
+      "version": "4.0.1",
+      "tag": "@fabernovel/heart-observatory_v4.0.1",
+      "date": "Sun, 08 Oct 2023 17:37:29 GMT",
+      "comments": {
+        "patch": [
+          {
+            "comment": "Fix an issue where environment variables where not loaded."
+          }
+        ]
+      }
+    },
+    {
       "version": "4.0.0",
       "tag": "@fabernovel/heart-observatory_v4.0.0",
       "date": "Sun, 08 Oct 2023 13:58:00 GMT",
