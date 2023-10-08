@@ -81,12 +81,12 @@
   {
     "definitionName": "lockStepVersion",
     "policyName": "nextMajor",
-    "nextBump": "prerelease",
+    "nextBump": "major",
     "version": "4.0.0-alpha.9"
   },
   {
     "definitionName": "individualVersion",
     "policyName": "individualVersion",
-    "lockedMajor": 3
+    "lockedMajor": 4
   }
 ]
