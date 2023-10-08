@@ -386,55 +386,55 @@
     {
       "packageName": "@fabernovel/heart-api",
       "projectFolder": "modules/api",
-      "versionPolicyName": "nextMajor",
+      "shouldPublish": true,
       "tags": ["server", "api"]
     },
     {
       "packageName": "@fabernovel/heart-cli",
       "projectFolder": "modules/cli",
-      "versionPolicyName": "nextMajor",
+      "shouldPublish": true,
       "tags": ["cli"]
     },
     {
       "packageName": "@fabernovel/heart-common",
       "projectFolder": "modules/common",
-      "versionPolicyName": "nextMajor",
+      "shouldPublish": true,
       "tags": ["common"]
     },
     {
       "packageName": "@fabernovel/heart-greenit",
       "projectFolder": "modules/greenit",
-      "versionPolicyName": "nextMajor",
+      "shouldPublish": true,
       "tags": ["analysis", "greenit"]
     },
     {
       "packageName": "@fabernovel/heart-lighthouse",
       "projectFolder": "modules/lighthouse",
-      "versionPolicyName": "nextMajor",
+      "shouldPublish": true,
       "tags": ["analysis", "lighthouse"]
     },
     {
       "packageName": "@fabernovel/heart-mysql",
       "projectFolder": "modules/mysql",
-      "versionPolicyName": "nextMajor",
+      "shouldPublish": true,
       "tags": ["listener", "mysql"]
     },
     {
       "packageName": "@fabernovel/heart-observatory",
       "projectFolder": "modules/observatory",
-      "versionPolicyName": "nextMajor",
+      "shouldPublish": true,
       "tags": ["analysis", "observatory"]
     },
     {
       "packageName": "@fabernovel/heart-slack",
       "projectFolder": "modules/slack",
-      "versionPolicyName": "nextMajor",
+      "shouldPublish": true,
       "tags": ["listener", "slack"]
     },
     {
       "packageName": "@fabernovel/heart-ssllabs-server",
       "projectFolder": "modules/ssllabs-server",
-      "versionPolicyName": "nextMajor",
+      "shouldPublish": true,
       "tags": ["analysis", "ssllabs-server"]
     },
     {
