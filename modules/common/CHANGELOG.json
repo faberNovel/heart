@@ -1,6 +1,37 @@
 {
-  "name": "@fabernovel/heart-core",
+  "name": "@fabernovel/heart-common",
   "entries": [
+    {
+      "version": "4.0.0",
+      "tag": "@fabernovel/heart-common_v4.0.0",
+      "date": "Sun, 08 Oct 2023 13:58:00 GMT",
+      "comments": {
+        "major": [
+          {
+            "comment": "Add compatibility with Node.js versions 18, 19 and 20"
+          },
+          {
+            "comment": "Node.js 18 LTS is now required: the previous Node.js version used (14) reached end-of-life"
+          },
+          {
+            "comment": "Move to ES modules mechanism"
+          }
+        ],
+        "none": [
+          {
+            "comment": "Update issues and repository URLs"
+          },
+          {
+            "comment": "Add the new database listener module definition and database entities"
+          }
+        ],
+        "minor": [
+          {
+            "comment": "The report can now store the raw results of the analysis modules"
+          }
+        ]
+      }
+    },
     {
       "version": "3.3.0",
       "tag": "@fabernovel/heart-core_v3.3.0",

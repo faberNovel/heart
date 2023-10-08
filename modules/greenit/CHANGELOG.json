@@ -2,6 +2,35 @@
   "name": "@fabernovel/heart-greenit",
   "entries": [
     {
+      "version": "4.0.0",
+      "tag": "@fabernovel/heart-greenit_v4.0.0",
+      "date": "Sun, 08 Oct 2023 13:58:00 GMT",
+      "comments": {
+        "major": [
+          {
+            "comment": "Add compatibility with Node.js versions 18, 19 and 20"
+          },
+          {
+            "comment": "Node.js 18 LTS is now required: the previous Node.js version used (14) reached end-of-life"
+          },
+          {
+            "comment": "Use the grade for the main note, and set the normalized note as the number over 100"
+          },
+          {
+            "comment": "Move to ES modules mechanism"
+          }
+        ],
+        "patch": [
+          {
+            "comment": "Add a suggestion when the GreenIT Analysis dependency fails with a vague error"
+          },
+          {
+            "comment": "The date and time of the report is now correct"
+          }
+        ]
+      }
+    },
+    {
       "version": "3.1.1",
       "tag": "@fabernovel/heart-greenit_v3.1.1",
       "date": "Wed, 14 Dec 2022 16:41:26 GMT",

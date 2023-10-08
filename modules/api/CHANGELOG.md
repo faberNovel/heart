@@ -1,6 +1,27 @@
 # Change Log - @fabernovel/heart-api
 
-This log was last generated on Wed, 23 Nov 2022 19:51:43 GMT and should not be manually modified.
+This log was last generated on Sun, 08 Oct 2023 13:58:00 GMT and should not be manually modified.
+
+## 4.0.0
+Sun, 08 Oct 2023 13:58:00 GMT
+
+### Breaking changes
+
+- Add compatibility with Node.js versions 18, 19 and 20
+- Node.js 18 LTS is now required: the previous Node.js version used (14) reached end-of-life
+- Improve the API specifications: they are more scalable and consistent with the CLI options
+- Add the service logo URL to the JSON response
+- Fix the JSON response to always show every properties (make the undefined properties null)
+- Move to ES modules mechanism
+
+### Minor changes
+
+- Improve performances and extensibility by replacing the Express framework by fastify
+- Add the except_listeners and only_listeners keys to the body, to reduce the list of listeners modules triggered after an analysis. Both keys accept an array of module IDs (e.g. greenit)
+
+### Updates
+
+- Update issues and repository URLs
 
 ## 3.2.0
 Wed, 23 Nov 2022 19:51:43 GMT
@@ -14,6 +35,11 @@ Wed, 23 Nov 2022 19:51:43 GMT
 ### Patches
 
 - Remove a useless dependency
+
+### Updates
+
+- Updated the homepage field to redirect to the heart website and not to the gitlab repository. Changed the link "Read more about" of the README to redirect to the README of the repository. The old link redirected to an article that do not exist anymore.
+- Updating dependency \"@fabernovel/heart-core\" from `^3.1.1` to `^3.2.0`
 
 ## 3.1.1
 Wed, 27 Jul 2022 13:43:15 GMT

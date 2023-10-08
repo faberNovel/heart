@@ -2,6 +2,29 @@
   "name": "@fabernovel/heart-ssllabs-server",
   "entries": [
     {
+      "version": "4.0.0",
+      "tag": "@fabernovel/heart-ssllabs-server_v4.0.0",
+      "date": "Sun, 08 Oct 2023 13:58:00 GMT",
+      "comments": {
+        "major": [
+          {
+            "comment": "Add compatibility with Node.js versions 18, 19 and 20"
+          },
+          {
+            "comment": "Node.js 18 LTS is now required: the previous Node.js version used (14) reached end-of-life"
+          },
+          {
+            "comment": "Move to ES modules mechanism"
+          }
+        ],
+        "none": [
+          {
+            "comment": "Update issues and repository URLs"
+          }
+        ]
+      }
+    },
+    {
       "version": "3.3.0",
       "tag": "@fabernovel/heart-ssllabs-server_v3.3.0",
       "date": "Wed, 23 Nov 2022 19:51:43 GMT",

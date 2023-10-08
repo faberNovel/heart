@@ -1,6 +1,34 @@
 # Change Log - @fabernovel/heart-cli
 
-This log was last generated on Wed, 23 Nov 2022 19:51:43 GMT and should not be manually modified.
+This log was last generated on Sun, 08 Oct 2023 13:58:00 GMT and should not be manually modified.
+
+## 4.0.0
+Sun, 08 Oct 2023 13:58:00 GMT
+
+### Breaking changes
+
+- Add compatibility with Node.js versions 18, 19 and 20
+- Node.js 18 LTS is now required: the previous Node.js version used (14) reached end-of-life
+- Improve the environment variables verification for the analysis module: only the ones of the analysis module used are now verified
+- Improve the configurations options: a unique --config option replaces both the --inline and --file ones
+- Move to ES modules mechanism
+
+### Minor changes
+
+- Add the except-listeners and only-listeners options, to reduce the list of listeners modules triggered after an analysis. Both options accept a comma-separated list of module IDs (e.g. greenit)
+- Improve the summary of the analysis: the grade is now displayed too if provided by the analysis service
+
+### Patches
+
+- The version of the CLI (heart -V) now matches the module version set in package.json
+- Add the reason of the error if the analysis fails
+
+### Updates
+
+- Update issues and repository URLs
+- Improve validation of environment variables using JSON Schema specifications
+- Initial release of the verbose mode, which displays debug information for every module
+- Add the ability to migrate databases from the new database listener modules
 
 ## 3.3.0
 Wed, 23 Nov 2022 19:51:43 GMT
@@ -11,6 +39,10 @@ Wed, 23 Nov 2022 19:51:43 GMT
 - Add a spinner during the analysis to show that Heart is working
 - Add a threshold mecanism available with the --threshold option. You can now validate that the `normalizedNote` of an analysis meet yourt requirements.
 - Move the input validation to @fabernovel/heart-core
+
+### Updates
+
+- Updated the homepage field to redirect to the heart website and not to the gitlab repository. Changed the link "Read more about" of the README to redirect to the README of the repository. The old link redirected to an article that do not exist anymore.
 
 ## 3.2.0
 Wed, 27 Jul 2022 13:43:15 GMT

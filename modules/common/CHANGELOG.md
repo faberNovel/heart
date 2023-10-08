@@ -1,6 +1,24 @@
-# Change Log - @fabernovel/heart-core
+# Change Log - @fabernovel/heart-common
 
-This log was last generated on Wed, 23 Nov 2022 19:51:43 GMT and should not be manually modified.
+This log was last generated on Sun, 08 Oct 2023 13:58:00 GMT and should not be manually modified.
+
+## 4.0.0
+Sun, 08 Oct 2023 13:58:00 GMT
+
+### Breaking changes
+
+- Add compatibility with Node.js versions 18, 19 and 20
+- Node.js 18 LTS is now required: the previous Node.js version used (14) reached end-of-life
+- Move to ES modules mechanism
+
+### Minor changes
+
+- The report can now store the raw results of the analysis modules
+
+### Updates
+
+- Update issues and repository URLs
+- Add the new database listener module definition and database entities
 
 ## 3.3.0
 Wed, 23 Nov 2022 19:51:43 GMT
@@ -10,6 +28,10 @@ Wed, 23 Nov 2022 19:51:43 GMT
 - Add the optional cors parameter to the startServer method of the ModuleServerInterface, and make the port parameter mandatory
 - Add the threshold feature
 - Add the input validation (previously located in @fabernovel/heart-cli)
+
+### Updates
+
+- Updated the homepage field to redirect to the heart website and not to the gitlab repository. Changed the link "Read more about" of the README to redirect to the README of the repository. The old link redirected to an article that do not exist anymore.
 
 ## 3.1.2
 Wed, 27 Jul 2022 13:43:15 GMT

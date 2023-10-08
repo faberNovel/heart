@@ -2,6 +2,35 @@
   "name": "@fabernovel/heart-observatory",
   "entries": [
     {
+      "version": "4.0.0",
+      "tag": "@fabernovel/heart-observatory_v4.0.0",
+      "date": "Sun, 08 Oct 2023 13:58:00 GMT",
+      "comments": {
+        "major": [
+          {
+            "comment": "Add compatibility with Node.js versions 18, 19 and 20"
+          },
+          {
+            "comment": "Node.js 18 LTS is now required: the previous Node.js version used (14) reached end-of-life"
+          },
+          {
+            "comment": "Add a HEART_ prefix to the environment variables names to avoid collisions"
+          },
+          {
+            "comment": "The module now send back detailed results instead of the summary only"
+          },
+          {
+            "comment": "Move to ES modules mechanism"
+          }
+        ],
+        "none": [
+          {
+            "comment": "Update issues and repository URLs"
+          }
+        ]
+      }
+    },
+    {
       "version": "3.4.0",
       "tag": "@fabernovel/heart-observatory_v3.4.0",
       "date": "Wed, 23 Nov 2022 19:51:43 GMT",
