@@ -1,0 +1,17 @@
+{
+  "name": "@fabernovel/heart-mysql",
+  "entries": [
+    {
+      "version": "4.0.0",
+      "tag": "@fabernovel/heart-mysql_v4.0.0",
+      "date": "Sun, 08 Oct 2023 13:58:00 GMT",
+      "comments": {
+        "major": [
+          {
+            "comment": "Initial release of the module"
+          }
+        ]
+      }
+    }
+  ]
+}

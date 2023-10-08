@@ -11,7 +11,7 @@ importers:
   ../../modules/api:
     dependencies:
       '@fabernovel/heart-common':
-        specifier: workspace:^4.0.0-alpha.9
+        specifier: workspace:^4.0.0
         version: link:../common
       '@fastify/cors':
         specifier: ^8.4.0
@@ -63,7 +63,7 @@ importers:
   ../../modules/cli:
     dependencies:
       '@fabernovel/heart-common':
-        specifier: workspace:^4.0.0-alpha.9
+        specifier: workspace:^4.0.0
         version: link:../common
       ajv:
         specifier: ^8.12.0
@@ -194,7 +194,7 @@ importers:
   ../../modules/greenit:
     dependencies:
       '@fabernovel/heart-common':
-        specifier: workspace:^4.0.0-alpha.9
+        specifier: workspace:^4.0.0
         version: link:../common
       greenit-cli:
         specifier: github:cnumr/GreenIT-Analysis-cli#a4363a9bcf7630e4a5a4cd264a7da9ec6f34b571
@@ -237,7 +237,7 @@ importers:
   ../../modules/lighthouse:
     dependencies:
       '@fabernovel/heart-common':
-        specifier: workspace:^4.0.0-alpha.9
+        specifier: workspace:^4.0.0
         version: link:../common
       lighthouse:
         specifier: ^11.1.0
@@ -280,7 +280,7 @@ importers:
   ../../modules/mysql:
     dependencies:
       '@fabernovel/heart-common':
-        specifier: workspace:^4.0.0-alpha.9
+        specifier: workspace:^4.0.0
         version: link:../common
       '@mikro-orm/core':
         specifier: ^5.8.7
@@ -332,7 +332,7 @@ importers:
   ../../modules/observatory:
     dependencies:
       '@fabernovel/heart-common':
-        specifier: workspace:^4.0.0-alpha.9
+        specifier: workspace:^4.0.0
         version: link:../common
     devDependencies:
       '@jest/globals':
@@ -369,7 +369,7 @@ importers:
   ../../modules/slack:
     dependencies:
       '@fabernovel/heart-common':
-        specifier: workspace:^4.0.0-alpha.9
+        specifier: workspace:^4.0.0
         version: link:../common
       '@slack/web-api':
         specifier: ^6.9.0
@@ -409,7 +409,7 @@ importers:
   ../../modules/ssllabs-server:
     dependencies:
       '@fabernovel/heart-common':
-        specifier: workspace:^4.0.0-alpha.9
+        specifier: workspace:^4.0.0
         version: link:../common
     devDependencies:
       '@jest/globals':
@@ -446,7 +446,7 @@ importers:
   ../../modules/tpl:
     dependencies:
       '@fabernovel/heart-common':
-        specifier: workspace:^4.0.0-alpha.9
+        specifier: workspace:^4.0.0
         version: link:../common
     devDependencies:
       '@jest/globals':
@@ -483,28 +483,28 @@ importers:
   ../../test:
     dependencies:
       '@fabernovel/heart-api':
-        specifier: workspace:^4.0.0-alpha.9
+        specifier: workspace:^4.0.0
         version: link:../modules/api
       '@fabernovel/heart-cli':
-        specifier: workspace:^4.0.0-alpha.9
+        specifier: workspace:^4.0.0
         version: link:../modules/cli
       '@fabernovel/heart-greenit':
-        specifier: workspace:^4.0.0-alpha.9
+        specifier: workspace:^4.0.0
         version: link:../modules/greenit
       '@fabernovel/heart-lighthouse':
-        specifier: workspace:^4.0.0-alpha.9
+        specifier: workspace:^4.0.0
         version: link:../modules/lighthouse
       '@fabernovel/heart-mysql':
-        specifier: workspace:^4.0.0-alpha.9
+        specifier: workspace:^4.0.0
         version: link:../modules/mysql
       '@fabernovel/heart-observatory':
-        specifier: workspace:^4.0.0-alpha.9
+        specifier: workspace:^4.0.0
         version: link:../modules/observatory
       '@fabernovel/heart-slack':
-        specifier: workspace:^4.0.0-alpha.9
+        specifier: workspace:^4.0.0
         version: link:../modules/slack
       '@fabernovel/heart-ssllabs-server':
-        specifier: workspace:^4.0.0-alpha.9
+        specifier: workspace:^4.0.0
         version: link:../modules/ssllabs-server
 
 packages:

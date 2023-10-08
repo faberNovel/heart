@@ -2,6 +2,60 @@
   "name": "@fabernovel/heart-cli",
   "entries": [
     {
+      "version": "4.0.0",
+      "tag": "@fabernovel/heart-cli_v4.0.0",
+      "date": "Sun, 08 Oct 2023 13:58:00 GMT",
+      "comments": {
+        "major": [
+          {
+            "comment": "Add compatibility with Node.js versions 18, 19 and 20"
+          },
+          {
+            "comment": "Node.js 18 LTS is now required: the previous Node.js version used (14) reached end-of-life"
+          },
+          {
+            "comment": "Improve the environment variables verification for the analysis module: only the ones of the analysis module used are now verified"
+          },
+          {
+            "comment": "Improve the configurations options: a unique --config option replaces both the --inline and --file ones"
+          },
+          {
+            "comment": "Move to ES modules mechanism"
+          }
+        ],
+        "none": [
+          {
+            "comment": "Update issues and repository URLs"
+          },
+          {
+            "comment": "Improve validation of environment variables using JSON Schema specifications"
+          },
+          {
+            "comment": "Initial release of the verbose mode, which displays debug information for every module"
+          },
+          {
+            "comment": "Add the ability to migrate databases from the new database listener modules"
+          }
+        ],
+        "patch": [
+          {
+            "comment": "The version of the CLI (heart -V) now matches the module version set in package.json"
+          },
+          {
+            "comment": "Add the reason of the error if the analysis fails"
+          }
+        ],
+        "minor": [
+          {
+            "comment": "Add the except-listeners and only-listeners options, to reduce the list of listeners modules triggered after an analysis. Both options accept a comma-separated list of module IDs (e.g. greenit)"
+          },
+          {
+            "comment": "Improve the summary of the analysis: the grade is now displayed too if provided by the analysis service"
+          }
+        ]
+      }
+    },
+    {
       "version": "3.3.0",
       "tag": "@fabernovel/heart-cli_v3.3.0",
       "date": "Wed, 23 Nov 2022 19:51:43 GMT",

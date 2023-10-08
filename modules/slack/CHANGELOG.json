@@ -2,6 +2,44 @@
   "name": "@fabernovel/heart-slack",
   "entries": [
     {
+      "version": "4.0.0",
+      "tag": "@fabernovel/heart-slack_v4.0.0",
+      "date": "Sun, 08 Oct 2023 13:58:00 GMT",
+      "comments": {
+        "major": [
+          {
+            "comment": "Add compatibility with Node.js versions 18, 19 and 20"
+          },
+          {
+            "comment": "Node.js 18 LTS is now required: the previous Node.js version used (14) reached end-of-life"
+          },
+          {
+            "comment": "Update the name of the environment variable used to define the access token in favor of HEART_SLACK_ACCESS_TOKEN (instead of HEART_SLACK_API_TOKEN)"
+          },
+          {
+            "comment": "Add a HEART_ prefix to the environment variables names to avoid collisions"
+          },
+          {
+            "comment": "Add the main numbers and some advices send back by the analysis modules"
+          },
+          {
+            "comment": "Move to ES modules mechanism"
+          }
+        ],
+        "none": [
+          {
+            "comment": "Fix an issue where the default value for the channel name was not taken into account"
+          },
+          {
+            "comment": "Update issues and repository URLs"
+          },
+          {
+            "comment": "Update the module description"
+          }
+        ]
+      }
+    },
+    {
       "version": "3.4.0",
       "tag": "@fabernovel/heart-slack_v3.4.0",
       "date": "Wed, 23 Nov 2022 19:51:43 GMT",

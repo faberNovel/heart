@@ -2,6 +2,46 @@
   "name": "@fabernovel/heart-api",
   "entries": [
     {
+      "version": "4.0.0",
+      "tag": "@fabernovel/heart-api_v4.0.0",
+      "date": "Sun, 08 Oct 2023 13:58:00 GMT",
+      "comments": {
+        "major": [
+          {
+            "comment": "Add compatibility with Node.js versions 18, 19 and 20"
+          },
+          {
+            "comment": "Node.js 18 LTS is now required: the previous Node.js version used (14) reached end-of-life"
+          },
+          {
+            "comment": "Improve the API specifications: they are more scalable and consistent with the CLI options"
+          },
+          {
+            "comment": "Add the service logo URL to the JSON response"
+          },
+          {
+            "comment": "Fix the JSON response to always show every properties (make the undefined properties null)"
+          },
+          {
+            "comment": "Move to ES modules mechanism"
+          }
+        ],
+        "none": [
+          {
+            "comment": "Update issues and repository URLs"
+          }
+        ],
+        "minor": [
+          {
+            "comment": "Improve performances and extensibility by replacing the Express framework by fastify"
+          },
+          {
+            "comment": "Add the except_listeners and only_listeners keys to the body, to reduce the list of listeners modules triggered after an analysis. Both keys accept an array of module IDs (e.g. greenit)"
+          }
+        ]
+      }
+    },
+    {
       "version": "3.2.0",
       "tag": "@fabernovel/heart-api_v3.2.0",
       "date": "Wed, 23 Nov 2022 19:51:43 GMT",
