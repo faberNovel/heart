@@ -26,7 +26,6 @@ describe("Run an analysis", () => {
   } as unknown as RunnerResult // avoid the declaration of a huuuuuge object
 
   it("should runs an analysis with a valid configuration", async () => {
-    // mock chrome-launcher and lighthouse modules methods
     mockedLighthouse.mockResolvedValue(RUNNER_RESULT)
 
     const results = await requestResult(Conf, false)
