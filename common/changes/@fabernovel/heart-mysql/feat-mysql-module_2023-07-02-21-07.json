@@ -3,7 +3,7 @@
     {
       "packageName": "@fabernovel/heart-mysql",
       "comment": "Initial release of the module",
-      "type": "none"
+      "type": "major"
     }
   ],
   "packageName": "@fabernovel/heart-mysql"

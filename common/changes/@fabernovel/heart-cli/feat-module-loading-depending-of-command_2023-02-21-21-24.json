@@ -2,7 +2,7 @@
   "changes": [
     {
       "packageName": "@fabernovel/heart-cli",
-      "comment": "Improve the environment variables verification for the analysis module: only the ones of the analysis module used when a command is used are now verified",
+      "comment": "Improve the environment variables verification for the analysis module: only the ones of the analysis module used are now verified",
       "type": "major"
     }
   ],

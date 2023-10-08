@@ -2,7 +2,7 @@
   "changes": [
     {
       "packageName": "@fabernovel/heart-greenit",
-      "comment": "The date on which the results were aggregated is now correct",
+      "comment": "The date and time of the report is now correct",
       "type": "patch"
     }
   ],
