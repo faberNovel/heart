@@ -386,55 +386,55 @@
     {
       "packageName": "@fabernovel/heart-api",
       "projectFolder": "modules/api",
-      "shouldPublish": true,
+      "versionPolicyName": "individualVersion",
       "tags": ["server", "api"]
     },
     {
       "packageName": "@fabernovel/heart-cli",
       "projectFolder": "modules/cli",
-      "shouldPublish": true,
+      "versionPolicyName": "individualVersion",
       "tags": ["cli"]
     },
     {
       "packageName": "@fabernovel/heart-common",
       "projectFolder": "modules/common",
-      "shouldPublish": true,
+      "versionPolicyName": "individualVersion",
       "tags": ["common"]
     },
     {
       "packageName": "@fabernovel/heart-greenit",
       "projectFolder": "modules/greenit",
-      "shouldPublish": true,
+      "versionPolicyName": "individualVersion",
       "tags": ["analysis", "greenit"]
     },
     {
       "packageName": "@fabernovel/heart-lighthouse",
       "projectFolder": "modules/lighthouse",
-      "shouldPublish": true,
+      "versionPolicyName": "individualVersion",
       "tags": ["analysis", "lighthouse"]
     },
     {
       "packageName": "@fabernovel/heart-mysql",
       "projectFolder": "modules/mysql",
-      "shouldPublish": true,
+      "versionPolicyName": "individualVersion",
       "tags": ["listener", "mysql"]
     },
     {
       "packageName": "@fabernovel/heart-observatory",
       "projectFolder": "modules/observatory",
-      "shouldPublish": true,
+      "versionPolicyName": "individualVersion",
       "tags": ["analysis", "observatory"]
     },
     {
       "packageName": "@fabernovel/heart-slack",
       "projectFolder": "modules/slack",
-      "shouldPublish": true,
+      "versionPolicyName": "individualVersion",
       "tags": ["listener", "slack"]
     },
     {
       "packageName": "@fabernovel/heart-ssllabs-server",
       "projectFolder": "modules/ssllabs-server",
-      "shouldPublish": true,
+      "versionPolicyName": "individualVersion",
       "tags": ["analysis", "ssllabs-server"]
     },
     {
