@@ -1,0 +1,10 @@
+{
+  "changes": [
+    {
+      "packageName": "@fabernovel/heart-slack",
+      "comment": "Fix an issue where environment variables where not loaded.",
+      "type": "minor"
+    }
+  ],
+  "packageName": "@fabernovel/heart-slack"
+}

@@ -1,0 +1,10 @@
+{
+  "changes": [
+    {
+      "packageName": "@fabernovel/heart-mysql",
+      "comment": "Fix an issue where environment variables where not loaded.",
+      "type": "minor"
+    }
+  ],
+  "packageName": "@fabernovel/heart-mysql"
+}
