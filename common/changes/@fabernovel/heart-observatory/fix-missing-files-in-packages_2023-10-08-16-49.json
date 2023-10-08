@@ -3,7 +3,7 @@
     {
       "packageName": "@fabernovel/heart-observatory",
       "comment": "Fix an issue where environment variables where not loaded.",
-      "type": "minor"
+      "type": "patch"
     }
   ],
   "packageName": "@fabernovel/heart-observatory"
