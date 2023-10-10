@@ -4,9 +4,9 @@
 
 <p align="center">A command-line tool to industrialize web quality measurement.</p>
 
-![npm](https://img.shields.io/npm/v/%40fabernovel%2Fheart-cli?logo=npm)
-[![license badge](https://img.shields.io/github/license/faberNovel/heart)](./LICENSE.md)
-[![codecov](https://codecov.io/gh/faberNovel/heart/branch/main/graph/badge.svg?token=GN6PJTCDH9)](https://codecov.io/gh/faberNovel/heart)
+[![npm](https://img.shields.io/npm/v/%40fabernovel%2Fheart-cli?logo=npm "View every Heart packages on nmpjs.com")](https://www.npmjs.com/search?q=%40fabernovel%2Fheart)
+[![license badge](https://img.shields.io/github/license/faberNovel/heart)](./LICENSE.md "Read the licence")
+[![codecov](https://codecov.io/gh/faberNovel/heart/branch/main/graph/badge.svg?token=GN6PJTCDH9)](https://codecov.io/gh/faberNovel/heart "View the coverage details")
 
 # Description
 
