@@ -27,7 +27,7 @@ importers:
         version: 4.23.2
     devDependencies:
       '@ecocode/eslint-plugin':
-        specifier: ~0.2.0
+        specifier: ^0.2.0
         version: 0.2.0(eslint@8.51.0)
       '@jest/globals':
         specifier: ^29.7.0
@@ -88,7 +88,7 @@ importers:
         version: 7.0.1
     devDependencies:
       '@ecocode/eslint-plugin':
-        specifier: ~0.2.0
+        specifier: ^0.2.0
         version: 0.2.0(eslint@8.51.0)
       '@fastify/cors':
         specifier: ^8.4.0
@@ -152,7 +152,7 @@ importers:
         version: 10.2.3
     devDependencies:
       '@ecocode/eslint-plugin':
-        specifier: ~0.2.0
+        specifier: ^0.2.0
         version: 0.2.0(eslint@8.51.0)
       '@fastify/cors':
         specifier: ^8.4.0
@@ -216,7 +216,7 @@ importers:
         version: 5.0.5
     devDependencies:
       '@ecocode/eslint-plugin':
-        specifier: ~0.2.0
+        specifier: ^0.2.0
         version: 0.2.0(eslint@8.51.0)
       '@jest/globals':
         specifier: ^29.7.0
@@ -259,7 +259,7 @@ importers:
         version: 21.2.1(typescript@5.2.2)
     devDependencies:
       '@ecocode/eslint-plugin':
-        specifier: ~0.2.0
+        specifier: ^0.2.0
         version: 0.2.0(eslint@8.51.0)
       '@jest/globals':
         specifier: ^29.7.0
@@ -308,7 +308,7 @@ importers:
         version: 5.8.7(@mikro-orm/core@5.8.7)(@mikro-orm/migrations@5.8.7)
     devDependencies:
       '@ecocode/eslint-plugin':
-        specifier: ~0.2.0
+        specifier: ^0.2.0
         version: 0.2.0(eslint@8.51.0)
       '@jest/globals':
         specifier: ^29.7.0
@@ -354,7 +354,7 @@ importers:
         version: link:../common
     devDependencies:
       '@ecocode/eslint-plugin':
-        specifier: ~0.2.0
+        specifier: ^0.2.0
         version: 0.2.0(eslint@8.51.0)
       '@jest/globals':
         specifier: ^29.7.0
@@ -397,7 +397,7 @@ importers:
         version: 6.9.0
     devDependencies:
       '@ecocode/eslint-plugin':
-        specifier: ~0.2.0
+        specifier: ^0.2.0
         version: 0.2.0(eslint@8.51.0)
       '@jest/globals':
         specifier: ^29.7.0
@@ -437,7 +437,7 @@ importers:
         version: link:../common
     devDependencies:
       '@ecocode/eslint-plugin':
-        specifier: ~0.2.0
+        specifier: ^0.2.0
         version: 0.2.0(eslint@8.51.0)
       '@jest/globals':
         specifier: ^29.7.0
@@ -477,7 +477,7 @@ importers:
         version: link:../common
     devDependencies:
       '@ecocode/eslint-plugin':
-        specifier: ~0.2.0
+        specifier: ^0.2.0
         version: 0.2.0(eslint@8.51.0)
       '@jest/globals':
         specifier: ^29.7.0

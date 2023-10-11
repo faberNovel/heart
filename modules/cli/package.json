@@ -45,7 +45,7 @@
     "ora": "^7.0.1"
   },
   "devDependencies": {
-    "@ecocode/eslint-plugin": "~0.2.0",
+    "@ecocode/eslint-plugin": "^0.2.0",
     "@fastify/cors": "^8.4.0",
     "@jest/globals": "^29.7.0",
     "@types/jest": "^29.5.5",

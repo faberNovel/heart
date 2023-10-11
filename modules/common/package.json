@@ -40,7 +40,7 @@
     "pino-pretty": "^10.2.3"
   },
   "devDependencies": {
-    "@ecocode/eslint-plugin": "~0.2.0",
+    "@ecocode/eslint-plugin": "^0.2.0",
     "@fastify/cors": "^8.4.0",
     "@jest/globals": "^29.7.0",
     "@types/har-format": "^1.2.13",
