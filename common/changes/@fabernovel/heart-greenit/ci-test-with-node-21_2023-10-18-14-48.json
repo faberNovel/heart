@@ -1,0 +1,10 @@
+{
+  "changes": [
+    {
+      "packageName": "@fabernovel/heart-greenit",
+      "comment": "Add compatibility with Node.js 21",
+      "type": "minor"
+    }
+  ],
+  "packageName": "@fabernovel/heart-greenit"
+}
