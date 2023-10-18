@@ -44,7 +44,7 @@ jobs:
         shell: bash
     strategy:
       matrix:
-        node_version: [18, 19, 20]
+        node_version: [18, 19, 20, 21]
 
     steps:
       - uses: actions/checkout@v3
