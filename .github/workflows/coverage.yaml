@@ -19,7 +19,7 @@ jobs:
       reports_path: ${{ steps.list_reports_path.outputs.reports_path }}
 
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
 
       - uses: actions/setup-node@v3
         with:
