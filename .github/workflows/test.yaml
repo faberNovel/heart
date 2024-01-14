@@ -32,15 +32,15 @@ jobs:
         run: node common/scripts/install-run-rush.js rebuild
 
       - name: Test
-        if: ${{ matrix.node != "18" }}
+        if: ${{ matrix.node != '18' }}
         run: node common/scripts/install-run-rush.js test
 
       - name: Test and generate coverage reports
-        if: ${{ matrix.node == "18" }}
+        if: ${{ matrix.node == '18' }}
         run: node common/scripts/install-run-rush.js test --coverage
 
       - name: Archive code coverage reports
-        if: ${{ matrix.node == "18" }}
+        if: ${{ matrix.node == '18' }}
         uses: actions/upload-artifact@v4
         with:
           name: code-coverage-reports
