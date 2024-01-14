@@ -9,7 +9,7 @@
 #                then merged it in the main branch once the publication has been done.
 #
 
-name: 🚀 Publish packages
+name: Publish packages
 
 on:
   workflow_dispatch:
@@ -43,7 +43,7 @@ env:
 jobs:
   simulate:
     if: inputs.PUBLICATION_MODE == 'simulate'
-    name: Simulate a publication to npmjs.org with the version policy ${{ inputs.VERSION_POLICY }}
+    name: 🚀 Simulate a publication to npmjs.org with the version policy ${{ inputs.VERSION_POLICY }}
     runs-on: ubuntu-latest
     defaults:
       run:
@@ -77,7 +77,7 @@ jobs:
 
   publish:
     if: inputs.PUBLICATION_MODE == 'publish'
-    name: Publish to npmjs.org with the version policy ${{ inputs.VERSION_POLICY }}
+    name: 🚀 Publish to npmjs.org with the version policy ${{ inputs.VERSION_POLICY }}
     runs-on: ubuntu-latest
     defaults:
       run:

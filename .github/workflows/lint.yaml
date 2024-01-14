@@ -1,4 +1,4 @@
-name: 🧹 Lint & changelog
+name: Lint & changelog
 
 on:
   pull_request:
@@ -6,7 +6,7 @@ on:
 
 jobs:
   lint:
-    name: Lint code
+    name: 🧹 Lint code
     runs-on: ubuntu-latest
     timeout-minutes: 5
     defaults:
@@ -33,7 +33,7 @@ jobs:
         run: node common/scripts/install-run-rush.js lint --verbose
 
   changelog:
-    name: Checks for changelogs
+    name: 📝 Checks for changelogs
     runs-on: ubuntu-latest
     timeout-minutes: 5
     defaults:

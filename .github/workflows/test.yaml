@@ -1,4 +1,4 @@
-name: 🐛 Test
+name: Tests
 
 on:
   pull_request:
@@ -6,7 +6,7 @@ on:
 
 jobs:
   test:
-    name: Test
+    name: 🐛 Run tests
     runs-on: ubuntu-latest
     timeout-minutes: 5
     defaults:
@@ -31,11 +31,11 @@ jobs:
       - name: Build projects
         run: node common/scripts/install-run-rush.js rebuild
 
-      - name: Test
+      - name: Run tests
         if: ${{ matrix.node_version != '18' }}
         run: node common/scripts/install-run-rush.js test
 
-      - name: Test and generate coverage reports
+      - name: Run tests and generate coverage reports
         if: ${{ matrix.node_version == '18' }}
         run: node common/scripts/install-run-rush.js test --coverage
 
@@ -48,9 +48,10 @@ jobs:
           retention-days: 1
 
   coverage:
-    name: Upload code coverage reports to Codecov
-    runs-on: ubuntu-latest
     needs: test
+    name: ⬆️ Upload code coverage reports to Codecov
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
     defaults:
       run:
         shell: bash
