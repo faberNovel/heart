@@ -1,0 +1,10 @@
+{
+  "changes": [
+    {
+      "packageName": "@fabernovel/heart-common",
+      "comment": "Add compatibility with Node.js 21",
+      "type": "minor"
+    }
+  ],
+  "packageName": "@fabernovel/heart-common"
+}
