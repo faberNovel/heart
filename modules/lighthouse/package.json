@@ -36,21 +36,21 @@
   },
   "dependencies": {
     "@fabernovel/heart-common": "workspace:^4.0.0",
-    "lighthouse": "^11.1.0",
-    "puppeteer": "^21.2.1"
+    "lighthouse": "^11.4.0",
+    "puppeteer": "^21.7.0"
   },
   "devDependencies": {
-    "@ecocode/eslint-plugin": "^0.2.0",
+    "@ecocode/eslint-plugin": "^1.4.0",
     "@jest/globals": "^29.7.0",
-    "@types/jest": "^29.5.5",
-    "@types/node": "^18.18.4",
-    "@typescript-eslint/eslint-plugin": "^6.7.4",
-    "@typescript-eslint/parser": "^6.7.4",
-    "eslint": "^8.51.0",
+    "@types/jest": "^29.5.11",
+    "@types/node": "^18.19.6",
+    "@typescript-eslint/eslint-plugin": "^6.18.1",
+    "@typescript-eslint/parser": "^6.18.1",
+    "eslint": "^8.56.0",
     "jest": "^29.7.0",
     "rimraf": "^5.0.5",
     "ts-jest": "^29.1.1",
-    "typescript": "^5.2.2"
+    "typescript": "^5.3.3"
   },
   "peerDependencies": {
     "@fabernovel/heart-cli": "^4.0.0"
