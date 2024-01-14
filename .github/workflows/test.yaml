@@ -1,0 +1,68 @@
+name: Tests
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+
+jobs:
+  test:
+    name: 🐛 Run tests
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    defaults:
+      run:
+        shell: bash
+    strategy:
+      matrix:
+        node_version: [18, 19, 20, 21]
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node_version }}
+
+      - name: Install dependencies
+        run: node common/scripts/install-run-rush.js install
+
+      - name: Build projects
+        run: node common/scripts/install-run-rush.js rebuild
+
+      - name: Run tests
+        if: ${{ matrix.node_version != '18' }}
+        run: node common/scripts/install-run-rush.js test
+
+      - name: Run tests and generate coverage reports
+        if: ${{ matrix.node_version == '18' }}
+        run: node common/scripts/install-run-rush.js test --coverage
+
+      - name: Archive code coverage reports
+        if: ${{ matrix.node_version == '18' }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: code-coverage-reports
+          path: modules/**/clover.xml
+          retention-days: 1
+
+  coverage:
+    needs: test
+    name: ⬆️ Upload code coverage reports to Codecov
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    defaults:
+      run:
+        shell: bash
+
+    steps:
+      - name: Download reports from previous job
+        uses: actions/download-artifact@v4
+        with:
+          name: code-coverage-reports
+
+      - name: Upload reports to Codecov
+        uses: codecov/codecov-action@v3
+        with:
+          fail_ci_if_error: true

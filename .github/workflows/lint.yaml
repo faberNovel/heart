@@ -1,0 +1,58 @@
+name: Lint & changelog
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+
+jobs:
+  lint:
+    name: 🧹 Lint code
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    defaults:
+      run:
+        shell: bash
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version-file: .nvmrc
+
+      - name: Install dependencies
+        run: node common/scripts/install-run-rush.js install
+
+      - name: Build projects
+        run: node common/scripts/install-run-rush.js rebuild
+
+      - name: Lint code
+        # --verbose allows to display warnings from ESLint
+        run: node common/scripts/install-run-rush.js lint --verbose
+
+  changelog:
+    name: 📝 Checks for changelogs
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    defaults:
+      run:
+        shell: bash
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 2
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version-file: .nvmrc
+
+      - name: Install dependencies
+        run: node common/scripts/install-run-rush.js install
+
+      - name: Checks for changelogs
+        run: node common/scripts/install-run-rush.js change --target-branch origin/$GITHUB_BASE_REF --verify -v
