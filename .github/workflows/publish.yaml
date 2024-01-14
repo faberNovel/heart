@@ -52,12 +52,14 @@ jobs:
       contents: write
 
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout code
+        uses: actions/checkout@v4
         with:
           fetch-depth: 2
           ref: ${{ env.SOURCE_BRANCH }}
 
-      - uses: actions/setup-node@v3
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
         with:
           node-version-file: .nvmrc
 
@@ -85,12 +87,14 @@ jobs:
       pull-requests: write
 
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout code
+        uses: actions/checkout@v4
         with:
           fetch-depth: 2
           ref: ${{ env.SOURCE_BRANCH }}
 
-      - uses: actions/setup-node@v3
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
         with:
           node-version-file: .nvmrc
 
@@ -100,10 +104,10 @@ jobs:
           name: Heart
           email: heart@fabernovel.com
 
-      - name: Install
+      - name: Install dependencies
         run: node common/scripts/install-run-rush.js install
 
-      - name: 🏗 Build
+      - name: Build projects
         run: node common/scripts/install-run-rush.js rebuild
 
       - name: Create origin/${{ env.TARGET_BRANCH }} branch
